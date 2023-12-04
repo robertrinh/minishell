@@ -6,7 +6,7 @@
 #    By: quentinbeukelman <quentinbeukelman@stud      +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2023/12/03 13:21:51 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2023/12/04 15:34:04 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME_EXECUTABLE = minishell
 
 
 # ===== Compile =====
-CC = gcc
+CC = cc
 CFlags = -Wall -Wextra -Werror
 
 
