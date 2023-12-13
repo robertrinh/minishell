@@ -25,3 +25,5 @@ Start up with some tokenizing.
 [42 Docs: Minishell](https://harm-smits.github.io/42docs/projects/minishell)
 
 [Markdown: Basic Syntax](https://www.markdownguide.org/basic-syntax/)
+
+[readline(3) - Linux manual page](https://man7.org/linux/man-pages/man3/readline.3.html)

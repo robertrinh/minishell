@@ -1,0 +1,11 @@
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# vscode folder
+.vscode/
+
+# Kernel Module Compile Results
+.DS_Store
