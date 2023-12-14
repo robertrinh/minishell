@@ -6,20 +6,19 @@
 #    By: quentinbeukelman <quentinbeukelman@stud      +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2023/12/08 18:13:48 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2023/12/14 17:21:57 by qtrinh        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 # ===== Names =====
-NAME 				= minishell.a
 NAME_EXECUTABLE 	= minishell
 LIBFT				= includes/libft
 
 
 # ===== Compile =====
 CC 					= cc
-CFlags 				= -Wall -Wextra -Werror
-HEADERS				= -I include -I ~/.brew/opt/readline/include
+CFLAGS 				= -Wall -Wextra -Werror
+HEADERS				= -I include -I ~/.brew/opt/readline/include -lreadline
 
 
 # ===== Colors =====
@@ -32,9 +31,11 @@ RESET				:= \033[0m
 
 
 # ===== Sources =====
-SOURCES 			= minishell.c
+SOURCES 			= minishell.c \
+						shell_init.c
 
-SOURCES_LEXER 		= lexer.c
+SOURCES_LEXER 		= lexer.c 
+
 
 
 # ===== Manage Directories =====
@@ -54,18 +55,18 @@ OBJ = $(addprefix $(DIR_OBJ)/, $(SOURCES:.c=.o)) \
 all: $(NAME_EXECUTABLE)
 
 $(NAME_EXECUTABLE): $(OBJ)
-	@$(MAKE) -C $(LIBFT)
-	@$(CC) $(CFLAGS) $(HEADERS) -lreadline $(LIBFT)/libft.a -o $@ $^
+	$(MAKE) -C $(LIBFT)
+	$(CC) $(CFLAGS) $(HEADERS) $^ $(LIBFT)/libft.a -o $(NAME_EXECUTABLE) 
 	@echo "$(GREEN)Successfully compiled $(NAME_EXECUTABLE)$(RESET)"
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES)/%.c | $(DIR_OBJ)
-	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES_LEXER)/%.c | $(DIR_OBJ)
-	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ):
-	@mkdir -p $@
+	mkdir -p $@
 
 
 # ===== Clean =====
@@ -75,7 +76,6 @@ clean:
 	@$(RM) -rf $(DIR_OBJ)
 	@$(RM) -rf $(EXTRA_O)
 	@$(RM) -rf $(OBJS)
-	@$(RM) $(DIR_OBJ)/$(NAME)
 	@echo "$(GREEN)$(BOLD)\nAll clean!\n$(RESET)"
 
 fclean: clean
