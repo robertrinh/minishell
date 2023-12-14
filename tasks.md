@@ -2,8 +2,7 @@
 
 ## Schedules:
 Availability Robert:
-week 49: unavailable
-Normal times @ codam = wednesday to friday;
+Normal times @ codam = wednesday to friday
 
 ---
 
@@ -12,10 +11,14 @@ Normal times @ codam = wednesday to friday;
 Christmas week: unavailable (23 dec to 2nd jan)
 Normal times @ codam = thursday + friday
 
-Let's review our stuff and have our general meeting @ friday, unless something else pops up
-First meeting: 14 Dec :) be there!
-Let's try to read in the subject.
-Start up with some tokenizing.
+---
+
+## Current TASKS
+
+> Next meeting: Thursday + Friday
+
+For each special character, formulate a bash command.
+Add to test_commands file.
 
 ---
 

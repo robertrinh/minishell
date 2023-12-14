@@ -6,32 +6,66 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2023/12/08 17:59:33 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2023/12/14 18:04:52 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*read_command(void)
+
+char	*retrieve_command(void)
 {
 	char *input;
 
 	input = readline("[minishell]: ");
 	if (input == NULL)
 	{
-		// Free
+		// Free + exit
 	}
+	//lexer
 	return (input);
+}
+
+void	print_token(t_token *tokens)
+{
+	printf("\n\n========print tokens========\n");
+	while (tokens)
+	{
+		printf("%s \n", tokens->value);
+		tokens = tokens->next;
+	}
+}
+
+bool	run(t_shell *shell)
+{
+	char	*input;
+	t_token	*tokens_head;
+
+	// print uncsured param
+	// printf("test: %p\n", shell);
+	tokens_head = NULL;
+	while (1) 
+	{
+		input = retrieve_command();
+		tokens_head = tokenize_command(input, tokens_head);
+		shell->tokens = tokens_head;
+		print_token(shell->tokens);
+	}
+	
+	return (true);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*input;
+	t_shell	*shell;
 
-	while (1)
-	{
-		input = read_command();
-		ft_printf("%s\n", input);
-	}
+	shell = shell_init();
+	run(shell);
+
+	// print uncsured param
+	printf("argc: %d, %p, %p", argc, argv, envp);
+	// init data
+	// Store params
+	// run
 	return (0);
 }
