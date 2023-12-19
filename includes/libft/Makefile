@@ -6,7 +6,7 @@
 #    By: qtrinh <qtrinh@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/04 17:09:25 by qtrinh        #+#    #+#                  #
-#    Updated: 2023/10/26 17:19:41 by qtrinh        ########   odam.nl          #
+#    Updated: 2023/12/19 19:30:17 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,12 +46,6 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@$(AR) $(NAME) $(OBJ)
-	@echo "    __    ________  ____________                       __      __"
-	@echo "   / /   /  _/ __ )/ ____/_  __/  ________  ____ _____/ /_  __/ /"
-	@echo "  / /    / // __  / /_    / /    / ___/ _ \/ __  / __  / / / / / "
-	@echo " / /____/ // /_/ / __/   / /    / /  /  __/ /_/ / /_/ / /_/ /_/  "
-	@echo "/_____/___/_____/_/     /_/    /_/   \___/\__,_/\__,_/\__, (_)   "
-	@echo "                                                     /____/      "
 
 $(OBJDIR):
 	@mkdir -p $(OBJDIR)
@@ -62,10 +56,8 @@ $(OBJDIR)/%.o: %.c
 
 clean:
 	@rm -rf $(OBJDIR)
-	@echo "${BOLD_RED}THANOS SNAPPED! ${GRAY}Spider senses tingling...$(END_COLOUR)"
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "${RED}Mister stark, I don't feel so good.. $(INTENSE_CYAN)LIBFT DISSOLVED 🥺 $(END_COLOUR)"
 
 re: fclean all
