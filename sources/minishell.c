@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2023/12/14 18:04:52 by qtrinh        ########   odam.nl         */
+/*   Updated: 2023/12/19 19:37:29 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,14 @@
 
 char	*retrieve_command(void)
 {
-	char *input;
+	char *command;
 
-	input = readline("[minishell]: ");
-	if (input == NULL)
+	command = readline("[minishell]: ");
+	if (command == NULL)
 	{
 		// Free + exit
 	}
-	//lexer
-	return (input);
+	return (command);
 }
 
 void	print_token(t_token *tokens)
@@ -38,20 +37,17 @@ void	print_token(t_token *tokens)
 
 bool	run(t_shell *shell)
 {
-	char	*input;
+	char	*command;
 	t_token	*tokens_head;
 
-	// print uncsured param
-	// printf("test: %p\n", shell);
 	tokens_head = NULL;
 	while (1) 
 	{
-		input = retrieve_command();
-		tokens_head = tokenize_command(input, tokens_head);
+		command = retrieve_command();
+		tokens_head = tokenize_command(command, tokens_head);
 		shell->tokens = tokens_head;
 		print_token(shell->tokens);
 	}
-	
 	return (true);
 }
 

@@ -6,7 +6,7 @@
 #    By: quentinbeukelman <quentinbeukelman@stud      +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2023/12/14 17:21:57 by qtrinh        ########   odam.nl          #
+#    Updated: 2023/12/19 19:31:57 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,18 +55,20 @@ OBJ = $(addprefix $(DIR_OBJ)/, $(SOURCES:.c=.o)) \
 all: $(NAME_EXECUTABLE)
 
 $(NAME_EXECUTABLE): $(OBJ)
-	$(MAKE) -C $(LIBFT)
-	$(CC) $(CFLAGS) $(HEADERS) $^ $(LIBFT)/libft.a -o $(NAME_EXECUTABLE) 
-	@echo "$(GREEN)Successfully compiled $(NAME_EXECUTABLE)$(RESET)"
+	@echo "$(BLUE)\nMaking LIBFT ...\n$(RESET)"
+	@$(MAKE) -C $(LIBFT)
+	@echo "$(BLUE)\nMaking MINISHELL ...\n$(RESET)"
+	@$(CC) $(CFLAGS) $(HEADERS) $^ $(LIBFT)/libft.a -o $(NAME_EXECUTABLE) 
+	@echo "$(GREEN)Compiled all!\n$(RESET)"
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES)/%.c | $(DIR_OBJ)
-	$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES_LEXER)/%.c | $(DIR_OBJ)
-	$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ):
-	mkdir -p $@
+	@mkdir -p $@
 
 
 # ===== Clean =====
