@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2023/12/14 16:35:37 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2023/12/21 17:46:37 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,19 @@ typedef struct s_shell
 } t_shell;
 
 
-//====================================================================: Minishell
-char	*read_command(void);
+// minishell.c
+void	print_token(t_token *tokens);
+
+// shell_init.c
 t_shell	*shell_init();
 
-
 //====================================================================: Lexer
-t_token	*init_tokens(void);
-t_token	*tokenize_command(char *input, t_token *tokens_root);
-t_token	*token_builder(char *split_input);
+// lexer.c
+t_token	*token_constructor(char *split_input);
+t_token	*tokens_builder_manager(char *command, t_shell *shell);
+
+// quotes.c
+t_token *quote_manager(t_token *tokens_head);
+
 
 #endif

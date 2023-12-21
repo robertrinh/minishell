@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   libft.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/19 18:08:23 by qtrinh        #+#    #+#                 */
-/*   Updated: 2023/10/26 17:24:35 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/19 18:08:23 by qtrinh            #+#    #+#             */
+/*   Updated: 2023/12/21 17:29:30 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stddef.h>
 # include <fcntl.h>
 # include <stdarg.h>
+// # include "../../minishell.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1000

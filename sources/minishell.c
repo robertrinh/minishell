@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2023/12/19 19:37:29 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 13:13:49 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2023/12/21 17:46:04 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 
-char	*retrieve_command(void)
+static char	*retrieve_command(void)
 {
 	char *command;
 
 	command = readline("[minishell]: ");
 	if (command == NULL)
 	{
-		// Free + exit
+		// TODO Free
 	}
 	return (command);
 }
@@ -35,7 +35,7 @@ void	print_token(t_token *tokens)
 	}
 }
 
-bool	run(t_shell *shell)
+static bool	run(t_shell *shell)
 {
 	char	*command;
 	t_token	*tokens_head;
@@ -44,8 +44,9 @@ bool	run(t_shell *shell)
 	while (1) 
 	{
 		command = retrieve_command();
-		tokens_head = tokenize_command(command, tokens_head);
-		shell->tokens = tokens_head;
+		tokens_head = tokens_builder_manager(command, shell);
+
+		
 		print_token(shell->tokens);
 	}
 	return (true);

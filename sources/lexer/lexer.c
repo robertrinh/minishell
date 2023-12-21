@@ -1,25 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   lexer.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2023/12/14 18:01:37 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 13:13:52 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2023/12/21 18:12:22 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	is_node(t_token *tokens_head)
+static bool	is_token(t_token *tokens_head)
 {
 	if (tokens_head == NULL)
 		return(false);
 	return (true);
 }
 
-t_token	*tokenize_command(char *input, t_token *tokens_head)
+t_token	*token_constructor(char *split_input)
+{
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
+	if (token == NULL)
+		// TODO Free
+	token->len = ft_strlen(split_input);
+	token->value = split_input;
+	token->next = NULL;
+
+	printf("token_builder: %s\n", token->value);
+	
+	return (token);
+}
+
+static t_token	*tokenize_command(char *input, t_token *tokens_head)
 {
 	int	i;
 	char **split_input;
@@ -32,8 +48,8 @@ t_token	*tokenize_command(char *input, t_token *tokens_head)
 	current = NULL;
 	while (split_input[i])
 	{
-		new = token_builder(split_input[i]);
-		if (is_node(current) == false)
+		new = token_constructor(split_input[i]);
+		if (is_token(current) == false)
 		{
 			current = new;
 			tokens_head = current;
@@ -48,19 +64,14 @@ t_token	*tokenize_command(char *input, t_token *tokens_head)
 	return (tokens_head);
 }
 
-t_token	*token_builder(char *split_input)
+t_token	*tokens_builder_manager(char *command, t_shell *shell)
 {
-	t_token	*token;
+	t_token *tokens_head;
 
-	token = malloc(sizeof(t_token));
-	if (token == NULL)
-		//exit
-	token->len = ft_strlen(split_input);
-	token->value = split_input;
-	token->next = NULL;
-
-	printf("token_builder: %s\n", token->value);
-	
-	return (token);
+	tokens_head = NULL;
+	tokens_head = tokenize_command(command, tokens_head);
+	tokens_head = quote_manager(tokens_head);
+	shell->tokens = tokens_head;
+	return (tokens_head);
 }
 
