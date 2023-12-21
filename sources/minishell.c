@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 13:13:49 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2023/12/21 17:46:04 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2023/12/21 20:33:25 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static bool	run(t_shell *shell)
 	{
 		command = retrieve_command();
 		tokens_head = tokens_builder_manager(command, shell);
-
+		printf("tokens_head: %p", tokens_head);
 		
 		print_token(shell->tokens);
 	}
