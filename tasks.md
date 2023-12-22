@@ -15,10 +15,13 @@ Normal times @ codam = thursday + friday
 
 ## Current TASKS
 
-> Next meeting: Thursday + Friday
+> Next meeting: Friday 5
 
-For each special character, formulate a bash command.
-Add to test_commands file.
+### Join quote into one token
+
+### Based on outer quote, expand
+
+### Tokenizing based on operators
 
 ---
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2023/12/21 20:33:25 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 13:13:49 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2023/12/22 17:46:25 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ void	print_token(t_token *tokens)
 	}
 }
 
+static void	finish_command(t_shell *shell)
+{
+	shell->cmd->single_quote = 0;
+	shell->cmd->double_quote = 0;
+}
+
 static bool	run(t_shell *shell)
 {
 	char	*command;
@@ -45,9 +51,10 @@ static bool	run(t_shell *shell)
 	{
 		command = retrieve_command();
 		tokens_head = tokens_builder_manager(command, shell);
-		printf("tokens_head: %p", tokens_head);
-		
+		finish_command(shell);
 		print_token(shell->tokens);
+
+		printf("\n--------------------End--------------------\n\n");
 	}
 	return (true);
 }

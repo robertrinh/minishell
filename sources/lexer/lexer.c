@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 13:13:52 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2023/12/21 18:12:22 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:46:35 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ t_token	*token_constructor(char *split_input)
 	token->len = ft_strlen(split_input);
 	token->value = split_input;
 	token->next = NULL;
-
-	printf("token_builder: %s\n", token->value);
-	
 	return (token);
 }
 
@@ -70,8 +67,8 @@ t_token	*tokens_builder_manager(char *command, t_shell *shell)
 
 	tokens_head = NULL;
 	tokens_head = tokenize_command(command, tokens_head);
-	tokens_head = quote_manager(tokens_head);
 	shell->tokens = tokens_head;
+	tokens_head = quote_manager(shell);
 	return (tokens_head);
 }
 
