@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   quote.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/21 15:27:42 by qbeukelm          #+#    #+#             */
-/*   Updated: 2023/12/21 18:12:21 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   quote.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/21 15:27:42 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2023/12/21 22:26:41 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,29 +58,35 @@ static t_token	*build_split_tokens(char *buffer, char quote)
 }
 
 
-t_token	*split_quote_token(char *token_value)
+t_token	*split_quote_token(t_token *token_current)
 {
-	int 		i;
+	size_t 		i;
 	int 		i_buff;
-	char 		*buffer = NULL;
+	char 		*buffer;
 	t_token		*split_tokens;
 	
 	i = 0;
 	i_buff = 0;
-	while (token_value[i])
+	buffer = 0;
+	buffer = (char *)malloc((ft_strlen(token_current->value) + 1) * sizeof(char));
+
+	printf("\n\n========split_quote_token========\n");
+	printf("value length: %s\n", token_current->value);
+	
+	while (token_current->value[i])
 	{
-		printf("split_quote_token i: %d", i);
-		if (token_value[i] == 34 || token_value[i] == 39)
+		printf("token_value[i]: %c\n", token_current->value[i]);
+		if (token_current->value[i] == 34 || token_current->value[i] == 39)
 		{
 			// Buffer make token
 			// Quote make token
-			split_tokens = build_split_tokens(buffer, token_value[i]);
-			print_token(split_tokens);
+			split_tokens = build_split_tokens(buffer, token_current->value[i]);
+			// print_token(split_tokens);
 			i_buff = 0;
 		} 
 		else
 		{
-			buffer[i_buff] = token_value[i];
+			buffer[i_buff] = token_current->value[i];
 			i_buff++;
 		}
 		i++;
@@ -88,36 +94,34 @@ t_token	*split_quote_token(char *token_value)
 	return (split_tokens);
 }
 
-t_token *unpack_quotes(t_token *tokens_head)
+t_token *tokenize_quotes(t_token *tokens_head)
 {
 	t_token *tokens_current;
 	t_token	*split_tokens;
+	t_token	*split_tokens_last;
 
 	tokens_current = tokens_head;
 	while(tokens_current)
 	{
 		if (tokens_current->next->next)
 		{
-			printf("(Quote found: %p)\n", ft_strchr(tokens_current->next->value, 34));
+			printf("(is quote: %s)\n", ft_strchr(tokens_current->next->value, 34));
 			if (ft_strchr(tokens_current->next->value, 34))
 			{
-				split_tokens = split_quote_token(tokens_current->value);
+				split_tokens = split_quote_token(tokens_current->next);
+				// split tokens last->next is next->next
+				split_tokens_last = lstlast(split_tokens);
+				split_tokens_last->next = tokens_current->next->next;
 				// Incert split tokens
 				tokens_current->next = split_tokens;
-				// split tokens last->next is next->next
-				split_tokens = lstlast(split_tokens);
-				split_tokens->next = tokens_current->next->next;
-				// Free quotes token
-				free(tokens_current->next);
 			}
 		}
 		else
 		{
 			// TODO handle last two token
+			break;
 		}
-		printf("before next\n");
 		tokens_current = tokens_current->next;
-		printf("next\n");
 	}
 	return (tokens_head);
 }
@@ -129,7 +133,7 @@ t_token *quote_manager(t_token *tokens_head)
 	{
 		// TODO exit
 	}
-	tokens_head = unpack_quotes(tokens_head);
+	tokens_head = tokenize_quotes(tokens_head);
 
 	return (tokens_head);
 }

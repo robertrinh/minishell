@@ -6,83 +6,106 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/05 13:39:27 by qtrinh        #+#    #+#                 */
-/*   Updated: 2023/08/24 21:54:40 by robertrinh    ########   odam.nl         */
+/*   Updated: 2023/12/21 20:59:38 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	word_count(char const *str, char c)
-{
-	size_t	i;
-	size_t	count;
+int		count_substrings(char const *s, char c, int len, int count);
+char	**allocate_strings_buff(char const *s, char c, int len, char **strings);
+int		check_beginning(char const *s, char c, int i, int len);
+char	**allocate_strings(char **strings, char *buffer, int j, int *str_index);
 
-	i = 0;
+char	**ft_split(char const *s, char c)
+{
+	int		len;
+	int		count;
+	char	**strings;
+
 	count = 0;
-	while (str[i])
+	len = ft_strlen(s);
+	count = count_substrings(s, c, len, count);
+	strings = malloc(sizeof(char *) * (count + 1));
+	if (strings == NULL)
 	{
-		if (str[i] == c)
-			i++;
-		else
+		free (strings);
+		return (NULL);
+	}
+	strings = allocate_strings_buff(s, c, len, strings);
+	return (strings);
+}
+
+int	count_substrings(char const *s, char c, int len, int count)
+{
+	int		i_check;
+	int		i;
+
+	i_check = 0;
+	i = 0;
+	while (i < len)
+	{
+		i = check_beginning(s, c, i, len);
+		i_check = i;
+		while (i < len)
 		{
-			count++;
-			while (str[i] && str[i] != c)
-				i++;
+			if (s[i] == c)
+				break ;
+			i++;
 		}
+		if (i > i_check)
+			count++;
 	}
 	return (count);
 }
 
-static char	**split_word(char const *s, char c, char **str)
+char	**allocate_strings_buff(char const *s, char c, int len, char **strings)
 {
-	const char	*newword;
-	size_t		i;
+	int		i;
+	int		j;
+	int		str_index;
+	char	buffer[1000];
 
+	j = 0;
 	i = 0;
-	while (*s)
+	str_index = 0;
+	while (i < len)
 	{
-		if (*s != c)
+		i = check_beginning(s, c, i, len);
+		j = 0;
+		while (i < len)
 		{
-			newword = s;
-			while (*s && *s != c)
-				s++;
-			str[i] = ft_substr(newword, 0, s - newword);
-			if (str[i] == NULL)
-				return (ft_free_2d(str));
+			if (s[i] == c)
+				break ;
+			buffer[j] = s[i];
 			i++;
+			j++;
 		}
-		else
-			s++;
+		strings = allocate_strings(strings, buffer, j, &str_index);
 	}
-	str[i] = NULL;
-	return (str);
+	strings[str_index] = 0;
+	return (strings);
 }
 
-char	**ft_split(char const *s, char c)
+char	**allocate_strings(char **strings, char *buffer, int j, int *str_index)
 {
-	char		**str;
-
-	if (!s)
-		return (NULL);
-	str = malloc(sizeof(char *) * (word_count(s, c) + 1));
-	if (!str)
-		return (NULL);
-	split_word(s, c, str);
-	return (str);
-}
-
-/* #include <stdio.h>
-int	main(void)
-{
-	char test[] = "...split...being....a....lil....biiii..";
-	char **array;
-	int i; 
-	
-	i = 0;
-	array = ft_split(test, '.');
-	while (array[i])
+	if (j > 0)
 	{
-		printf("%s\n", array[i]);
+		buffer[j] = '\0';
+		strings[*str_index] = malloc(sizeof(char) * (ft_strlen(buffer) + 1));
+		ft_strlcpy(strings[*str_index], buffer, (ft_strlen(buffer) + 1));
+		*str_index = *str_index + 1;
+	}
+	return (strings);
+}
+
+int	check_beginning(char const *s, char c, int i, int len)
+{
+	while (i < len)
+	{
+		if (s[i] != c)
+			break ;
 		i++;
 	}
-} */
+	return (i);
+}
