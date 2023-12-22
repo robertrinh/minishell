@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2023/12/21 17:46:37 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:39:16 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,14 @@ typedef struct s_cmd
 	int		fd_in;
 	int		fd_out;
 	char	*arg;
+	int		single_quote;
+	int		double_quote;
 } t_cmd;
-
 
 typedef struct s_shell 
 {
 	t_token		*tokens;
-	t_cmd		*cmds;
+	t_cmd		*cmd;
 	int			exit_code;
 } t_shell;
 
@@ -78,13 +79,20 @@ void	print_token(t_token *tokens);
 // shell_init.c
 t_shell	*shell_init();
 
+// list.c
+t_token	*lstlast(t_token *token);
+t_token *lst_rev(t_token *tokens_head);
+t_token	*lst_copy(t_token *tokens_head);
+
 //====================================================================: Lexer
 // lexer.c
 t_token	*token_constructor(char *split_input);
 t_token	*tokens_builder_manager(char *command, t_shell *shell);
 
 // quotes.c
-t_token *quote_manager(t_token *tokens_head);
+t_token *quote_manager(t_shell *shell);
 
+// quote_matcher.c
+bool	is_outer_quote_match(t_shell *shell);
 
 #endif
