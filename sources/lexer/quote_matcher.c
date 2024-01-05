@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 15:00:03 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/01/05 14:05:21 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/01/05 15:45:54 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static bool is_last_quote_single(t_shell *shell)
 			return (true);
 		tokens_current = tokens_current->next;
 	}
-	printf("doesnt hit the function strrchr\n");
 	return (true);
 }
 
@@ -62,8 +61,6 @@ static bool	is_first_quote_single(t_shell *shell)
 
 bool	is_outer_quote_match(t_shell *shell)
 {
-	printf("first quote single: %d\n", is_first_quote_single(shell));
-	printf("last quote single: %d\n", is_last_quote_single(shell));
 	if (is_first_quote_single(shell) == is_last_quote_single(shell))
 		return (true);
 	return (false);

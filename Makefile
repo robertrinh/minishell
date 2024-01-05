@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk       #+#    #+#              #
-#    Updated: 2023/12/22 15:13:01 by qbeukelm         ###   ########.fr        #
+#    Updated: 2024/01/05 14:38:59 by qbeukelm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ SOURCES 			= minishell.c \
 
 SOURCES_LEXER 		= lexer.c \
 						quote.c \
-						quote_matcher.c 
+						quote_matcher.c \
+						split.c
 
 
 # ===== Manage Directories =====
