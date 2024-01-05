@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 13:13:52 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2023/12/22 16:46:35 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/01/05 14:39:04 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static t_token	*tokenize_command(char *input, t_token *tokens_head)
 	printf("\n\n========tokenizer========\n");
 	i = 0;
 	split_input = ft_split(input, ' ');
+	split(input);
 	current = NULL;
 	while (split_input[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 15:27:42 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/01/05 14:05:16 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/01/05 15:46:08 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ t_token *quote_manager(t_shell *shell)
 	printf("\n\n========quote manager========\n");
 	
 	printf("is matched %d \n", is_quote_matched(shell));
-	printf("Double: %d, \nSingle %d \n", shell->cmd->double_quote, shell->cmd->single_quote);
 	return (shell->tokens);
 }
 

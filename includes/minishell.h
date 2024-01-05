@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2023/12/22 17:39:16 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/01/05 14:42:51 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-// typedef enum redirect
-// {
-// 	input = "<"
-// 	output = ">"
-// 	append_output = ">>"
-// 	delimiter = "<<"
-// }
-
-// typedef char Delimiter = ' '
-// dont forget about this!
 
 //====================================================================: Enum
 typedef enum e_token_types
@@ -94,5 +84,8 @@ t_token *quote_manager(t_shell *shell);
 
 // quote_matcher.c
 bool	is_outer_quote_match(t_shell *shell);
+
+// split.c
+void	split(char const *s);
 
 #endif
