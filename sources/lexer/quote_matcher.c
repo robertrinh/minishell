@@ -6,26 +6,41 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 15:00:03 by qbeukelm          #+#    #+#             */
-/*   Updated: 2023/12/22 17:37:37 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/01/05 14:05:21 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static char	last_quote(t_token *current)
+{
+	int	len;
+
+	len = ft_strlen(current->value);
+	while (len >= 0)
+	{
+		if (current->value[len] == 34 || current->value[len] == 39)
+			return (current->value[len]);
+		len--;
+	}
+	return (0);
+}
 
 static bool is_last_quote_single(t_shell *shell)
 {
 	t_token	*tokens_current;
 
 	tokens_current = lst_rev(lst_copy(shell->tokens));
-	// print_token(tokens_current);
+
 	while (tokens_current)
 	{
-		if (ft_strrchr(tokens_current->value, 34))
+		if (last_quote(tokens_current) == 34)
 			return (false);
-		if (ft_strrchr(tokens_current->value, 39))
+		if (last_quote(tokens_current) == 39)
 			return (true);
 		tokens_current = tokens_current->next;
 	}
+	printf("doesnt hit the function strrchr\n");
 	return (true);
 }
 
@@ -47,8 +62,8 @@ static bool	is_first_quote_single(t_shell *shell)
 
 bool	is_outer_quote_match(t_shell *shell)
 {
-	printf("first quote: %d\n", is_first_quote_single(shell));
-	printf("last quote: %d\n", is_last_quote_single(shell));
+	printf("first quote single: %d\n", is_first_quote_single(shell));
+	printf("last quote single: %d\n", is_last_quote_single(shell));
 	if (is_first_quote_single(shell) == is_last_quote_single(shell))
 		return (true);
 	return (false);

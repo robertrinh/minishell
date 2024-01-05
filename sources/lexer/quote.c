@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 15:27:42 by qbeukelm          #+#    #+#             */
-/*   Updated: 2023/12/22 17:39:17 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/01/05 14:05:16 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,23 @@ static void	count_quotes(t_shell *shell)
 	}
 }
 
+static bool is_even_int(int i)
+{
+	if (i % 2)
+		return (false);
+	return (true);
+}
+
 static bool is_quote_matched(t_shell *shell)
 {
 	count_quotes(shell);
-	if (shell->cmd->double_quote % 2 || shell->cmd->single_quote % 2)
+	if (is_even_int(shell->cmd->double_quote) == false
+		|| is_even_int(shell->cmd->single_quote) == false)
 		return (false);
 	if (is_outer_quote_match(shell))
 		return (true);
 	return (false);
 }
-
 
 
 t_token *quote_manager(t_shell *shell)
