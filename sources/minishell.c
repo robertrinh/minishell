@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 13:13:49 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2023/12/22 17:46:25 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/01/06 12:06:12 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static bool	run(t_shell *shell)
 	while (1) 
 	{
 		command = retrieve_command();
-		tokens_head = tokens_builder_manager(command, shell);
+		input_init(command, shell);
+		tokens_head = tokens_builder_manager(shell);
 		finish_command(shell);
 		print_token(shell->tokens);
 

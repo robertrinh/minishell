@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 13:13:52 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/01/05 14:39:04 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/01/06 14:14:19 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ t_token	*token_constructor(char *split_input)
 	return (token);
 }
 
-static t_token	*tokenize_command(char *input, t_token *tokens_head)
+
+static t_token	*tokenize_command(t_shell *shell, t_token *tokens_head)
 {
 	int	i;
 	char **split_input;
@@ -41,8 +42,7 @@ static t_token	*tokenize_command(char *input, t_token *tokens_head)
 
 	printf("\n\n========tokenizer========\n");
 	i = 0;
-	split_input = ft_split(input, ' ');
-	split(input);
+	split_input = split(shell);
 	current = NULL;
 	while (split_input[i])
 	{
@@ -62,14 +62,13 @@ static t_token	*tokenize_command(char *input, t_token *tokens_head)
 	return (tokens_head);
 }
 
-t_token	*tokens_builder_manager(char *command, t_shell *shell)
+t_token	*tokens_builder_manager(t_shell *shell)
 {
 	t_token *tokens_head;
 
 	tokens_head = NULL;
-	tokens_head = tokenize_command(command, tokens_head);
+	tokens_head = tokenize_command(shell, tokens_head);
 	shell->tokens = tokens_head;
 	tokens_head = quote_manager(shell);
 	return (tokens_head);
 }
-
