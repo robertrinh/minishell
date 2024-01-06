@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 15:00:03 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/01/05 15:45:54 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/01/06 15:16:07 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static bool is_last_quote_single(t_shell *shell)
 	t_token	*tokens_current;
 
 	tokens_current = lst_rev(lst_copy(shell->tokens));
-
 	while (tokens_current)
 	{
 		if (last_quote(tokens_current) == 34)
