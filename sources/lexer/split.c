@@ -6,21 +6,21 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 14:17:27 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/01/05 17:38:06 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/01/06 14:54:58 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	skip_leading_whitespace(char const *input, int len, int i)
+static int	skip_whitespace(t_split *sp)
 {
-	while (i < len)
+	while (sp->i < sp->len)
 	{
-		if (input[i] != 32)
+		if (sp->input[sp->i] != 32)
 			break ;
-		i++;
+		sp->i++;
 	}
-	return (i);
+	return (sp->i);
 }
 
 static bool is_double_operator(char c1, char c2)
@@ -37,7 +37,7 @@ static bool is_double_operator(char c1, char c2)
 
 static int	check_operator(char c1, char c2)
 {
-	char	operators[6] = "<>|";
+	char	operators[4] = "<>|";
 
 	if (ft_strchr(operators, c1) == 0)
 		return (0);
@@ -48,68 +48,115 @@ static int	check_operator(char c1, char c2)
 	return (0);
 }
 
-char	**allocate_substrings(char const *input, int len, char **strings)
+static	int	count_substrings(t_split *sp)
 {
-	//! next time
-}
-
-static int count_substrings(char const *input)
-{
-	int		len;
-	int		i;
-	int		i_check;
-	int		count;
-
-	len = ft_strlen(input);
-	i = 0;
-	i_check = 0;
-	count = 0;
-	while (i < len)
+	while (sp->i < sp->len)
 	{
-		i = skip_leading_whitespace(input, len, i);
-		i_check = i;
-		while (i < len)
+		sp->i = skip_whitespace(sp);
+		sp->i_check = sp->i;
+		while (sp->i < sp->len)
 		{
-			if (input[i] == 32)
+			if (sp->input[sp->i] == 32)
 				break ;
-			//printf("operators: c1 %c and c2 %c \t result = %d\n", input[i], input[i + 1], check_operator(input[i], input[i + 1]));
-			if (check_operator(input[i], input[i + 1]))
+			if (check_operator(sp->input[sp->i], sp->input[sp->i + 1]))
 			{
-				if (check_operator(input[i], input[i + 1]) == 2)
-					i += check_operator(input[i], input[i + 1]);
-				count++;
+				if (check_operator(sp->input[sp->i], sp->input[sp->i + 1]) == 2)
+				{
+					sp->i += check_operator(sp->input[sp->i], sp->input[sp->i + 1]);
+					sp->count++;
+					break ;
+				}
+				sp->count++;
 			}
-
-			i++;
+			sp->i++;
 		}
-		if (i > i_check)
-			count++;
+		if (sp->i > sp->i_check)
+			sp->count++;
 	}
-	return (count);
+	return (sp->count);
 }
 
-void	split(char const *input)
+static char **allocate_substrings(t_split *sp)
 {
-	int	count;
-	char	**strings;
-	// 1. Count substrings
-	count = count_substrings(input);
-	printf("count is: %d\n", count_substrings(input));
-
-	// 2. Allocate memory substrings
-	strings = ft_calloc(sizeof(char *), (count + 1));
-	if (strings == NULL)
+	if (sp->i_buff > 0)
 	{
-		//TODO clean/exit function
+		sp->strings[sp->i_str] = ft_calloc(sizeof(char), (ft_strlen(sp->buffer) + 1));
+		ft_strlcpy(sp->strings[sp->i_str], sp->buffer, (ft_strlen(sp->buffer) + 1));
+		sp->i_str++;
 	}
-	//strings = allocate_substrings
-
-	// 3. Write to substrings
-
-	//TODO rest of split
-	//TODO might hardcode -n?
-	
-	printf("%s\n", input);
+	return (sp->strings);
 }
 
-// first>last
+static char	**allocate_strings(t_split *sp)
+{
+	sp->i = 0;
+	while (sp->i < sp->len)
+	{
+		sp->i = skip_whitespace(sp);
+		sp->i_buff = 0;
+		while (sp->i < sp->len)
+		{
+			if (sp->input[sp->i] == 32)
+				break ;
+			
+			if (check_operator(sp->input[sp->i], sp->input[sp->i + 1]) == 2)
+			{
+				if(sp->i_buff)
+					break ;
+				sp->buffer[sp->i_buff] = sp->input[sp->i];
+				sp->buffer[sp->i_buff + 1] = sp->input[sp->i + 1];
+				sp->i += check_operator(sp->input[sp->i], sp->input[sp->i + 1]);
+				sp->i_buff += 2;
+				break ;
+			} 
+			else if (check_operator(sp->input[sp->i], sp->input[sp->i + 1]) == 1)
+			{
+				if(sp->i_buff)
+					break ;
+				sp->buffer[sp->i_buff] = sp->input[sp->i];
+				sp->i += check_operator(sp->input[sp->i], sp->input[sp->i + 1]);
+				sp->i_buff++;
+				break ;
+			}
+			sp->buffer[sp->i_buff] = sp->input[sp->i];
+			sp->i++;
+			sp->i_buff++;
+		}
+		// Fill sub string
+		sp->buffer[sp->i_buff] = 0;
+		sp->strings = allocate_substrings(sp);
+	}
+	sp->strings[sp->i_str] = 0;
+	return (sp->strings);
+}
+
+char	**split(t_shell *shell)
+{
+	t_split		*split;
+
+	split = malloc(sizeof(t_split));
+	if (split == NULL)
+	{
+		// TODO clean_exit()
+	}
+	split = init_split(shell, split);
+
+	// 1. Count substrings
+	split->count = count_substrings(split);
+	printf("Substring count: %d\n", split->count);
+
+	// 2. Malloc substring for count
+	split->strings = ft_calloc(sizeof(char *), (split->count + 1));
+	if (split->strings == NULL)
+	{
+		// TODO clean_exit()
+	}
+
+	// 3. Assign strings
+	split->strings = allocate_strings(split);
+
+	// 4. Free split struct
+
+
+	return (split->strings);
+}
