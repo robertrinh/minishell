@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 14:17:27 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/01/06 14:54:58 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/01/06 15:43:52 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,11 @@ static char	**allocate_strings(t_split *sp)
 		while (sp->i < sp->len)
 		{
 			if (sp->input[sp->i] == 32)
+			{
+				sp->buffer[sp->i_buff] = 32;
+				sp->i_buff++;
 				break ;
+			}
 			
 			if (check_operator(sp->input[sp->i], sp->input[sp->i + 1]) == 2)
 			{

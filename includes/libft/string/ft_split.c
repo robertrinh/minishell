@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 13:39:27 by qtrinh            #+#    #+#             */
-/*   Updated: 2024/01/06 13:09:08 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/01/06 15:27:56 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,3 +109,6 @@ int	check_beginning(char const *s, char c, int i, int len)
 	}
 	return (i);
 }
+
+
+// Hello >test

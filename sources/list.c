@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 15:12:33 by qbeukelm          #+#    #+#             */
-/*   Updated: 2023/12/22 17:27:59 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/01/06 16:59:50 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,18 @@ t_token	*lst_copy(t_token *tokens_input)
 	t_token	*tokens_copy;
 	t_token *tokens_head;
 	t_token *new_token;
-	
-	tokens_current = tokens_input;
+	int	i;
 
-	tokens_copy = token_constructor(tokens_current->value);
+	i = 0;
+	tokens_current = tokens_input;
+	tokens_copy = token_constructor(tokens_current->value, i);
+	i++;
 	tokens_head = tokens_copy;
 	tokens_current = tokens_current->next;
 	while (tokens_current)
 	{
-		new_token = token_constructor(tokens_current->value);
+		new_token = token_constructor(tokens_current->value, i);
+		i++;
 		tokens_copy->next = new_token;
 		tokens_copy = tokens_copy->next;
 		tokens_current = tokens_current->next;

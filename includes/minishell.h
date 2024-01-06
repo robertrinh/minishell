@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/01/06 13:33:53 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/01/06 16:05:46 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_token
 {
 	t_token_type	type;
 	int				len;
+	int				i;
 	char			*value;
 	struct s_token	*next;
 } t_token;
@@ -92,7 +93,7 @@ t_token	*lst_copy(t_token *tokens_head);
 
 //====================================================================: Lexer
 // lexer.c
-t_token	*token_constructor(char *split_input);
+t_token	*token_constructor(char *split_input, int i);
 t_token	*tokens_builder_manager(t_shell *shell);
 
 // quotes.c
@@ -103,5 +104,8 @@ bool	is_outer_quote_match(t_shell *shell);
 
 // split.c
 char	**split(t_shell *shell);
+
+// tokenize_quotes.c
+void	tokenize_quotes(t_shell *shell);
 
 #endif
