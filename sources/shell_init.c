@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   shell_init.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/14 14:04:02 by qtrinh            #+#    #+#             */
-/*   Updated: 2024/01/06 12:51:25 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   shell_init.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/14 14:04:02 by qtrinh        #+#    #+#                 */
+/*   Updated: 2024/01/07 13:08:33 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
 
 static t_cmd *cmd_init(void)
 {
@@ -20,7 +19,7 @@ static t_cmd *cmd_init(void)
 	cmd = malloc(sizeof(t_cmd));
 	if (cmd == NULL)
 	{
-		// TODO exit
+		// TODO clean_exit()
 	}
 	cmd->single_quote = 0;
 	cmd->double_quote = 0;
@@ -34,20 +33,22 @@ t_shell	*shell_init()
 	shell = malloc(sizeof(t_shell));
 	if (shell == NULL)
 	{
-		// TODO exit
+		// TODO clean_exit()
 	}
 	shell->cmd = cmd_init();
 	return (shell);
 }
 
-void	input_init(char *input, t_shell *shell)
+bool	save_command(char *input, t_shell *shell)
 {
 	shell->input = ft_calloc(sizeof(char), ft_strlen(input) + 1);
 	if (shell->input == NULL)
 	{	
-		// TODO exit
+		// TODO clean_exit()
+		return (FAILURE);
 	}
 	shell->input = input;
+	return (SUCCESS);
 }
 
 t_split	*init_split(t_shell *shell, t_split *split)
