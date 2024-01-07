@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 13:13:52 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/01/06 16:05:35 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   lexer.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/01/07 13:06:48 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ t_token	*token_constructor(char *split_input, int i)
 
 	token = malloc(sizeof(t_token));
 	if (token == NULL)
-		// TODO Free
+	{
+		// TODO clean_exit()
+	}
 	token->len = ft_strlen(split_input);
 	token->value = split_input;
 	token->next = NULL;

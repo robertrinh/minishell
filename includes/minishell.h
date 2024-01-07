@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/01/06 16:05:46 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/01/07 13:14:16 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,21 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+//====================================================================: Define
+# define OPERATORS "<>|"
+# define REDIRECTS "<>"
+
+#define CYELLOW "\033[0;33m"
+#define RESET_COLOR "\033[0m"
 
 //====================================================================: Enum
+typedef enum e_exit
+{
+	SUCCESS,
+	FAILURE
+}	t_exit;
+
+
 typedef enum e_token_types
 {
 	INFILE,
@@ -78,18 +91,17 @@ typedef struct s_shell
 } t_shell;
 
 
-// minishell.c
-void	print_token(t_token *tokens);
-
+//====================================================================: Main
 // shell_init.c
 t_shell	*shell_init();
-void	input_init(char *input, t_shell *shell);
+bool	save_command(char *input, t_shell *shell);
 t_split	*init_split(t_shell *shell, t_split *split);
 
 // list.c
 t_token	*lstlast(t_token *token);
 t_token *lst_rev(t_token *tokens_head);
 t_token	*lst_copy(t_token *tokens_head);
+
 
 //====================================================================: Lexer
 // lexer.c
@@ -104,8 +116,19 @@ bool	is_outer_quote_match(t_shell *shell);
 
 // split.c
 char	**split(t_shell *shell);
+int		skip_whitespace(t_split *sp);
+int		check_operator(char c1, char c2);
+
+// allocate_strings.c
+char	**allocate_strings(t_split *sp);
 
 // tokenize_quotes.c
 void	tokenize_quotes(t_shell *shell);
+
+
+//====================================================================: Utils
+// utils.c
+void	print_token(t_token *tokens);
+void	finish_command(t_shell *shell);
 
 #endif
