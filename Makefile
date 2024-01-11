@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/01/10 17:56:18 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2024/01/11 15:13:57 by qtrinh        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ LIBFT				= includes/libft
 
 # ===== Compile =====
 CC 					= cc
-CFLAGS 				= -Wall -Wextra -Werror
+CFLAGS 				= 
 HEADERS				= -I include -I ~/.brew/opt/readline/include -lreadline
 
 
@@ -41,7 +41,8 @@ SOURCES_LEXER_SPLIT	 	= split.c \
 
 SOURCES_LEXER_QUOTE		= quote.c \
 							quote_matcher.c \
-							tokenize_quotes.c
+							tokenize_quotes.c \
+							insert_quote.c
 
 SOURCES_UTILS			= clean_exit.c \
 							list.c

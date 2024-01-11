@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/22 15:12:33 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/01/07 13:08:45 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/11 14:36:14 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ t_token	*lst_copy(t_token *tokens_input)
 {
 	t_token	*tokens_current;
 	t_token	*tokens_copy;
-	t_token *tokens_head;
-	t_token *new_token;
-	int	i;
+	t_token	*tokens_head;
+	t_token	*new_token;
+	int		i;
 
 	i = 0;
 	tokens_current = tokens_input;
@@ -46,14 +46,14 @@ t_token	*lst_copy(t_token *tokens_input)
 	return (tokens_head);
 }
 
-t_token *lst_rev(t_token *tokens_head)
+t_token	*lst_rev(t_token *tokens_head)
 {
 	t_token	*tokens_current;
-	t_token *tokens_temp_1;
+	t_token	*tokens_temp_1;
 	t_token	*tokens_temp_2;
 
 	if (tokens_head == NULL || tokens_head->next == NULL)
-		return (NULL);
+		return (tokens_head);
 	// init
 	tokens_current = tokens_head;
 	tokens_temp_1 = tokens_head->next;

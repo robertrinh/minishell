@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/07 13:06:48 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/11 16:36:53 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static t_token	*tokenize_command(t_shell *shell, t_token *tokens_head)
 	t_token	*current;
 	t_token	*new;
 
-	printf("\n\n========tokenizer========\n");
 	i = 0;
 	split_input = split(shell);
 	current = NULL;
