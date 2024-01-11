@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/06 15:05:26 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/01/10 20:43:07 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/11 16:35:14 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,11 @@ static char *collect_quote(char *s, int len, int i_q, t_pos position)
 		// clean_exit()
 	}
 	if (position == AFTER)
+	{
+		if (i_q == len)
+			return (NULL);
 		i_q++;
+	}
 	while (i <= len)
 	{
 		if (position == BEFORE)
@@ -91,6 +95,7 @@ static char *buffer_quote(t_token *token, t_pos position)
 	int		len;
 	char	*buffer;
 
+	buffer = NULL;
 	len = ft_strlen(token->value);
 	i_quote = locate_quote_strr(len, token->value);
 	buffer = collect_quote(token->value, len, i_quote, position);
@@ -120,7 +125,7 @@ static char *buffer_quotes(t_token *first, t_token *last, t_pos position)
 	return (buffer);
 }
 
-void	tokenize_quotes(t_shell *shell)
+bool	tokenize_quotes(t_shell *shell)
 {
 	t_token	*first_quote;
 	t_token	*last_quote;
@@ -132,22 +137,23 @@ void	tokenize_quotes(t_shell *shell)
 	if (first_quote == NULL && last_quote == NULL)
 	{
 		// No quotes, continue
-		return ;
+		return (FAILURE);
 	}
-
-	// 1. Buffer values between outer quotes
-	buff_before = buffer_quotes(first_quote, last_quote, BEFORE);
-	buff_after = buffer_quotes(first_quote, last_quote, AFTER);
-	printf("Buff BEFORE last quote: \t %s\n", buff_before);
-	printf("Buff AFTER last quote:  \t %s\n", buff_after);
-	if (buff_before)
+	if (first_quote->i == last_quote->i)
 	{
-		// 1.1 Remove quote characters
-
-		// 2. Romove middle tokens
-
-		// 3. Incert new token
+		buff_before = buffer_quote(first_quote, BEFORE); 
+		buff_after = buffer_quote(last_quote, AFTER);
 	}
+	else
+	{	
+		buff_before = buffer_quotes(first_quote, last_quote, BEFORE);
+		buff_after = buffer_quotes(first_quote, last_quote, AFTER);
+	}	
+	insert_quote(first_quote, last_quote, buff_before, buff_after);
+	return (SUCCESS);
 }
 
-// test "this long"and"complicated"quote
+// test "this long"and"complicated"quote token
+//TODO edge single token, multiple quotes -> "test"asda"asd"
+// test "this long and comp"some
+// test

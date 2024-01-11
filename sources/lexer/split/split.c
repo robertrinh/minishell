@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/05 14:17:27 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/01/07 13:14:24 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/11 16:37:08 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	skip_whitespace(t_split *sp)
 	return (sp->i);
 }
 
-static bool is_double_operator(char c1, char c2)
+static bool	is_double_operator(char c1, char c2)
 {
 	if (ft_strchr(REDIRECTS, c1) && ft_strchr(REDIRECTS, c2))
 	{
@@ -85,7 +85,6 @@ char	**split(t_shell *shell)
 
 	// 1. Count substrings
 	split->count = count_substrings(split);
-	printf("Substring count: %d\n", split->count);
 
 	// 2. Malloc substring for count
 	split->strings = ft_calloc(sizeof(char *), (split->count + 1));
@@ -98,7 +97,6 @@ char	**split(t_shell *shell)
 	split->strings = allocate_strings(split);
 
 	// 4. Free split struct
-
 
 	return (split->strings);
 }

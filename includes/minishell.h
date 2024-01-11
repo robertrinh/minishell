@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/10 19:13:25 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/11 15:13:44 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,10 @@ int		check_operator(char c1, char c2);
 char	**allocate_strings(t_split *sp);
 
 // tokenize_quotes.c
-void	tokenize_quotes(t_shell *shell);
+bool	tokenize_quotes(t_shell *shell);
+
+//insert_quote.c
+void	insert_quote(t_token *first, t_token *last, char *before, char *after);
 
 
 //====================================================================: Utils
