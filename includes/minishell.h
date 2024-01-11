@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/07 13:14:16 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/10 19:13:25 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ typedef enum e_exit
 	SUCCESS,
 	FAILURE
 }	t_exit;
+
+typedef enum e_pos
+{
+	BEFORE,
+	AFTER
+}	t_pos;
 
 
 typedef enum e_token_types

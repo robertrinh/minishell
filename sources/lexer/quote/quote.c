@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   quote.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/21 15:27:42 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/01/06 16:23:45 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   quote.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/21 15:27:42 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/01/10 17:56:36 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 static int	quotes_per_string(t_token *tokens_current, char c)
 {
