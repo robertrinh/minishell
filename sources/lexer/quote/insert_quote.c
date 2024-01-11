@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 14:56:48 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/01/11 16:37:57 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/01/11 16:56:27 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static bool	trim_list(t_token *first, t_token *last)
 		current = current->next;
 		while (current)
 		{
-			printf("current index is %d\n", current->i);
 			if (current->next->i == last->i)
 			{
 				free(current->value);

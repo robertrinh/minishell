@@ -25,6 +25,15 @@ Normal times @ codam = thursday + friday
 
 ---
 
+## Tests
+
+### echo "test" -> segfaults
+### token ">> more" -> no space after heredoc
+### test "another |more" -> works?
+### token "   more tokens" -> skips first spaces
+### token "token   >>   more" -> skips spaces
+### to consider: retraverse the token; add spaces back?
+
 
 ## Documentation and Links: 
 
