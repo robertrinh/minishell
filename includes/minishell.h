@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/11 20:39:14 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/12 13:22:48 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define OPERATORS "<>|"
 # define REDIRECTS "<>"
 
-#define CYELLOW "\033[0;33m"
-#define RESET_COLOR "\033[0m"
+# define CYELLOW "\033[0;33m"
+# define RESET_COLOR "\033[0m"
 
 //====================================================================: Enum
 typedef enum e_exit
@@ -42,7 +42,6 @@ typedef enum e_pos
 	AFTER
 }	t_pos;
 
-
 typedef enum e_token_types
 {
 	INFILE,
@@ -53,8 +52,7 @@ typedef enum e_token_types
 	HEREDOC,
 	ARGUMENT,
 	PROGRAM,
-} t_token_type;
-
+}	t_token_type;
 
 //====================================================================: Struct
 // Abstract Syntaxr Tree
@@ -62,9 +60,9 @@ typedef struct s_ast_node
 {
 	t_token_type		type;
 	char				*value;
-	struct	s_ast_node	**children;
+	struct s_ast_node	**children;
 	int					num_children;
-} t_ast_node;
+}	t_ast_node;
 
 typedef struct s_split
 {
@@ -77,7 +75,7 @@ typedef struct s_split
 	char		buffer[1000];
 	char const	*input;
 	char		**strings;
-} t_split;
+}	t_split;
 
 typedef struct s_token
 {
@@ -86,8 +84,7 @@ typedef struct s_token
 	int				i;
 	char			*value;
 	struct s_token	*next;
-} t_token;
-
+}	t_token;
 
 typedef struct s_cmd
 {
@@ -96,28 +93,26 @@ typedef struct s_cmd
 	char	*arg;
 	int		single_quote;
 	int		double_quote;
-} t_cmd;
+}	t_cmd;
 
-typedef struct s_shell 
+typedef struct s_shell
 {
 	t_token		*tokens;
 	t_cmd		*cmd;
 	char const	*input;
 	int			exit_code;
-} t_shell;
-
+}	t_shell;
 
 //====================================================================: Main
 // shell_init.c
-t_shell	*shell_init();
+t_shell	*shell_init(void);
 bool	save_command(char *input, t_shell *shell);
 t_split	*init_split(t_shell *shell, t_split *split);
 
 // list.c
 t_token	*lstlast(t_token *token);
-t_token *lst_rev(t_token *tokens_head);
+t_token	*lst_rev(t_token *tokens_head);
 t_token	*lst_copy(t_token *tokens_head);
-
 
 //====================================================================: Lexer
 // lexer.c
@@ -125,7 +120,7 @@ t_token	*token_constructor(char *split_input, int i);
 t_token	*tokens_builder_manager(t_shell *shell);
 
 // quotes.c
-t_token *quote_manager(t_shell *shell);
+t_token	*quote_manager(t_shell *shell);
 
 // quote_matcher.c
 bool	is_outer_quote_match(t_shell *shell);
@@ -144,11 +139,9 @@ bool	tokenize_quotes(t_shell *shell);
 //insert_quote.c
 void	insert_quote(t_token *first, t_token *last, char *before, char *after);
 
-
 //====================================================================: Parser
 // parser.c
 void	parse(void);
-
 
 //====================================================================: Utils
 // utils.c
