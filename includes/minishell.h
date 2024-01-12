@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/11 15:13:44 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/01/11 20:39:14 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef enum e_token_types
 	INFILE,
 	OUTFILE,
 	COMMAND,
+	OPERATOR,
 	PIPE,
 	HEREDOC,
 	ARGUMENT,
@@ -56,6 +57,15 @@ typedef enum e_token_types
 
 
 //====================================================================: Struct
+// Abstract Syntaxr Tree
+typedef struct s_ast_node
+{
+	t_token_type		type;
+	char				*value;
+	struct	s_ast_node	**children;
+	int					num_children;
+} t_ast_node;
+
 typedef struct s_split
 {
 	int			len;
@@ -133,6 +143,11 @@ bool	tokenize_quotes(t_shell *shell);
 
 //insert_quote.c
 void	insert_quote(t_token *first, t_token *last, char *before, char *after);
+
+
+//====================================================================: Parser
+// parser.c
+void	parse(void);
 
 
 //====================================================================: Utils

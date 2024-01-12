@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/01/11 15:13:57 by qtrinh        ########   odam.nl          #
+#    Updated: 2024/01/11 20:34:12 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,8 @@ SOURCES_LEXER_QUOTE		= quote.c \
 							tokenize_quotes.c \
 							insert_quote.c
 
+SOURCES_PARSER			= parser.c
+
 SOURCES_UTILS			= clean_exit.c \
 							list.c
 
@@ -56,6 +58,7 @@ DIR_SOURCES 			= sources
 DIR_SOURCES_LEXER		= sources/lexer
 DIR_SOURCES_LEXER_SPLIT = sources/lexer/split
 DIR_SOURCES_LEXER_QUOTE = sources/lexer/quote
+DIR_SOURCES_PARSER		= sources/parser
 DIR_SOURCES_UTILS		= sources/utils
 
 
@@ -64,6 +67,7 @@ OBJ = $(addprefix $(DIR_OBJ)/, $(SOURCES:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_LEXER:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_LEXER_SPLIT:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_LEXER_QUOTE:.c=.o)) \
+	$(addprefix $(DIR_OBJ)/, $(SOURCES_PARSER:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_UTILS:.c=.o))
 
 
@@ -87,6 +91,9 @@ $(DIR_OBJ)/%.o: $(DIR_SOURCES_LEXER_SPLIT)/%.c | $(DIR_OBJ)
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES_LEXER_QUOTE)/%.c | $(DIR_OBJ)
+	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
+
+$(DIR_OBJ)/%.o: $(DIR_SOURCES_PARSER)/%.c | $(DIR_OBJ)
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES_UTILS)/%.c | $(DIR_OBJ)
