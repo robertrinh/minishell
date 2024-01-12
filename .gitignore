@@ -4,6 +4,12 @@
 *.obj
 *.elf
 
+# program
+minishell
+
+# static library
+*.a
+
 # vscode folder
 .vscode/
 

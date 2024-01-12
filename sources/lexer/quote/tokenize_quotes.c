@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   tokenize_quotes.c                                  :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/01/06 15:05:26 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/01/11 16:35:14 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   tokenize_quotes.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/06 15:05:26 by qbeukelm          #+#    #+#             */
+/*   Updated: 2024/01/12 17:48:24 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ bool	tokenize_quotes(t_shell *shell)
 	{	
 		buff_before = buffer_quotes(first_quote, last_quote, BEFORE);
 		buff_after = buffer_quotes(first_quote, last_quote, AFTER);
-	}	
+	}
 	insert_quote(first_quote, last_quote, buff_before, buff_after);
 	return (SUCCESS);
 }

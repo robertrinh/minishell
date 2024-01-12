@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/11 20:41:52 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/11 19:53:12 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/01/12 14:23:35 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 /* 
+				 1 1     2 2
+cat << EOF > file | wc -c | tr -d " " > file2
+
+
                           __ PIPELINE__
                      ___/              \____
                     /                       \
@@ -87,3 +91,7 @@ void parse(void) {
 
     traverse_ast(&root, 0);
 }
+
+//quotes are seen -> give it a type
+//same for >>, >, |
+//

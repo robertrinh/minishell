@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/11 20:32:41 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 13:13:49 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/01/12 14:23:59 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ static bool	run(t_shell *shell)
 		tokens_builder_manager(shell);
 		finish_command(shell);
 		print_token(shell->tokens);
-		parse();
-
+		
 		printf("\n--------------------End--------------------\n\n");
 	}
 	return (SUCCESS); // <- Return status to main

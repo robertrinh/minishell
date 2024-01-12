@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/12 13:22:48 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/01/12 16:31:12 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ typedef enum e_pos
 
 typedef enum e_token_types
 {
-	INFILE,
-	OUTFILE,
+	REDIRECT,
 	COMMAND,
 	OPERATOR,
 	PIPE,
 	HEREDOC,
 	ARGUMENT,
-	PROGRAM,
+	QUOTE,
+	NONE,
 }	t_token_type;
 
 //====================================================================: Struct
@@ -113,9 +113,12 @@ t_split	*init_split(t_shell *shell, t_split *split);
 t_token	*lstlast(t_token *token);
 t_token	*lst_rev(t_token *tokens_head);
 t_token	*lst_copy(t_token *tokens_head);
+void	print_token(t_token *tokens);
+
 
 //====================================================================: Lexer
 // lexer.c
+char 	*type_to_string(t_token_type type);
 t_token	*token_constructor(char *split_input, int i);
 t_token	*tokens_builder_manager(t_shell *shell);
 
@@ -139,9 +142,17 @@ bool	tokenize_quotes(t_shell *shell);
 //insert_quote.c
 void	insert_quote(t_token *first, t_token *last, char *before, char *after);
 
+//assign_type.c
+t_token_type	assign_type(char *value);
+
+// post_lexer.c
+bool	post_lexer(t_shell *shell);
+
+
 //====================================================================: Parser
 // parser.c
 void	parse(void);
+
 
 //====================================================================: Utils
 // utils.c

@@ -8,29 +8,38 @@ Normal times @ codam = wednesday to friday
 
 
 ## Availablilty Quinten:
-Christmas week: unavailable (23 dec to 2nd jan)
 Normal times @ codam = thursday + friday
 
 ---
 
-## Current TASKS
+## Notes
+Join quote into one token
 
-> Next meeting: Friday 5
+Based on outer quote, expand
 
-### Join quote into one token
+Tokenizing based on operators
 
-### Based on outer quote, expand
+if first occurance from input is a command -> afterwards arguments, tokens until you encounter a specific symbol 
+example: cat sources/minishell.c | grep "include" --> gives include line
 
-### Tokenizing based on operators
+---
 
 ## Tests
 
-### echo "test" -> segfaults
-### token ">> more" -> no space after heredoc
-### test "another |more" -> works?
-### token "   more tokens" -> skips first spaces
-### token "token   >>   more" -> skips spaces
-### to consider: retraverse the token; add spaces back?
+`echo "test"` -> segfaults when quotes are 1 token
+
+`token ">> more"` -> no space after heredoc
+
+`test "another |more"` -> works?
+
+`token "   more tokens"` -> skips first spaces
+
+`token "token   >>   more"` -> skips spaces
+
+to consider: retraverse the token; add spaces back?
+
+so "lets try" --> extra token at the end. check
+
 ---
 
 

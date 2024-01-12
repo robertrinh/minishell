@@ -1,16 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   list.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/22 15:12:33 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/01/11 14:36:14 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   list.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/22 15:12:33 by qbeukelm          #+#    #+#             */
+/*   Updated: 2024/01/12 14:49:43 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+
+void	print_token(t_token *tokens)
+{
+	printf("\n\n========print tokens========\n");
+	while (tokens)
+	{
+		printf("%s - \t %s \n", type_to_string(tokens->type), tokens->value);
+		tokens = tokens->next;
+	}
+}
 
 t_token	*lstlast(t_token *token)
 {
