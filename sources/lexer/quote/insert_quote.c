@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   insert_quote.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/01/11 14:56:48 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/01/11 16:37:57 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   insert_quote.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/11 14:56:48 by qtrinh            #+#    #+#             */
+/*   Updated: 2024/01/12 14:23:35 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	insert_quote(t_token *first, t_token *last, char *before, char *after)
 	if (first && last)
 	{
 		first->value = before;
+		first->type = QUOTE;
 		if (trim_list(first, last) == SUCCESS)
 		{
 			original_last = locate_last(first, last);

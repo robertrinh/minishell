@@ -1,17 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   lexer.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/11 16:36:53 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 13:13:52 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/01/12 16:32:02 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
+char *type_to_string(t_token_type type)
+{
+	switch (type)
+	{
+		case REDIRECT:
+			return ("redirect");
+		case COMMAND:
+			return ("command");
+		case OPERATOR:
+			return ("operator");
+		case PIPE:
+			return ("pipe");
+		case HEREDOC:
+			return ("heredoc");
+		case ARGUMENT:
+			return ("argument");
+		case QUOTE:
+			return ("quote");
+		default:
+			return ("none");
+	}
+}
 static bool	is_token(t_token *tokens_head)
 {
 	if (tokens_head == NULL)
@@ -30,6 +51,7 @@ t_token	*token_constructor(char *split_input, int i)
 	}
 	token->len = ft_strlen(split_input);
 	token->value = split_input;
+	token->type = assign_type(token->value);
 	token->next = NULL;
 	token->i = i;
 	return (token);
@@ -72,5 +94,6 @@ t_token	*tokens_builder_manager(t_shell *shell)
 	tokens_head = tokenize_command(shell, tokens_head);
 	shell->tokens = tokens_head;
 	tokens_head = quote_manager(shell);
+	post_lexer(shell);
 	return (tokens_head);
 }

@@ -1,19 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_exit.c                                       :+:      :+:    :+:   */
+/*   assign_type.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/07 12:29:05 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/01/12 14:23:32 by qbeukelm         ###   ########.fr       */
+/*   Created: 2024/01/12 14:27:34 by qbeukelm          #+#    #+#             */
+/*   Updated: 2024/01/12 15:34:12 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	finish_command(t_shell *shell)
+static bool		contains_redirect(char *value)
 {
-	shell->cmd->single_quote = 0;
-	shell->cmd->double_quote = 0;
+	int	i = 0;
+	
+	while (REDIRECTS[i])
+	{
+		if (ft_strchr(value, REDIRECTS[i]))
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
+t_token_type	assign_type(char *value)
+{
+	if (contains_redirect(value))
+		return (REDIRECT);
+	else if (ft_strchr(value, '|'))
+		return (PIPE);
+	return (NONE);
 }

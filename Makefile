@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
-#                                                    +#+                       #
-#    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/01/11 20:34:12 by quentinbeuk   ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/12/03 13:06:57 by quentinbeuk       #+#    #+#              #
+#    Updated: 2024/01/12 16:31:31 by qbeukelm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,9 @@ RESET				:= \033[0m
 SOURCES 				= minishell.c \
 							shell_init.c 
 
-SOURCES_LEXER 			= lexer.c
+SOURCES_LEXER 			= lexer.c \
+							assign_type.c \
+							post_lexer.c
 
 SOURCES_LEXER_SPLIT	 	= split.c \
 							allocate_strings.c
