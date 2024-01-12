@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/05 13:39:27 by qtrinh            #+#    #+#             */
-/*   Updated: 2024/01/06 15:27:56 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_split.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/11/05 13:39:27 by qtrinh        #+#    #+#                 */
+/*   Updated: 2024/01/12 13:23:21 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	count_substrings(char const *s, char c, int len, int count)
 		i_check = i;
 		while (i < len)
 		{
-			if (s[i] == c) 
+			if (s[i] == c)
 				break ;
 			i++;
 		}
@@ -109,6 +109,5 @@ int	check_beginning(char const *s, char c, int i, int len)
 	}
 	return (i);
 }
-
 
 // Hello >test
