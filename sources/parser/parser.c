@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/11 19:53:12 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/01/12 14:23:35 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parser.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/01/15 19:13:21 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,21 +77,25 @@ static void	traverse_ast(t_ast_node *ast, int depth)
 void parse(void) {
     printf("\n\n========parser========\n");
 
-    t_ast_node node1 = {COMMAND, "ls", NULL, 0};
-    t_ast_node node2 = {OPERATOR, "|", NULL, 0};
-    t_ast_node node3 = {COMMAND, "grep", NULL, 0};
-    t_ast_node node4 = {ARGUMENT, "file.txt", NULL, 0};
+	// cat "file.txt" | grep "a" | wc
+    t_ast_node node1 = {COMMAND, "cat", NULL, 0};
+    t_ast_node node2 = {ARGUMENT, "file.txt", NULL, 0};
+    t_ast_node node3 = {OPERATOR, "|", NULL, 0};
+    t_ast_node node4 = {COMMAND, "grep", NULL, 0};
+    t_ast_node node5 = {ARGUMENT, "a", NULL, 0};
+    t_ast_node node6 = {OPERATOR, "|", NULL, 0};
+    t_ast_node node7 = {COMMAND, "wc", NULL, 0};
 
-    t_ast_node child1 = {COMMAND, "echo", NULL, 0};
-    t_ast_node child2 = {ARGUMENT, "hello", NULL, 0};
+    t_ast_node* catChildren[] = {&node2};
+    node1.children = catChildren;
+    node1.num_children = 1;
 
-    t_ast_node root = {OPERATOR, "root", (t_ast_node*[]){&node1, &node2, &node3, &node4}, 4};
-    node1.children = (t_ast_node*[]){&child1, &child2};
-    node1.num_children = 2;
+    t_ast_node* grepChildren[] = {&node5};
+    node4.children = grepChildren;
+    node4.num_children = 1;
+
+    t_ast_node* rootChildren[] = {&node1, &node3, &node4, &node6, &node7};
+    t_ast_node root = {OPERATOR, "root", rootChildren, 5};
 
     traverse_ast(&root, 0);
 }
-
-//quotes are seen -> give it a type
-//same for >>, >, |
-//
