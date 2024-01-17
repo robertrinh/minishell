@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/17 17:16:51 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/01/17 17:33:53 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ typedef enum e_exit
 
 typedef enum e_token_types
 {
-	REDIRECT,
 	COMMAND,
-	OPERATOR,
-	PIPE,
-	HEREDOC,
 	ARGUMENT,
+	PIPE,
+	REDIRECT,
+	HEREDOC,
 	QUOTE,
 	NONE,
 }	t_token_type;
+
 
 //====================================================================: Struct
 // Abstract Syntaxr Tree
@@ -144,6 +144,7 @@ char	**allocate_strings(t_split *sp);
 //====================================================================: Parser
 // parser.c
 void	parse(void);
+
 
 //====================================================================: Utils
 // utils.c
