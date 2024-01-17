@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/12/03 13:06:57 by quentinbeuk       #+#    #+#              #
-#    Updated: 2024/01/12 16:31:31 by qbeukelm         ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
+#                                                    +#+                       #
+#    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
+#    Updated: 2024/01/15 23:28:13 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,14 +42,13 @@ SOURCES_LEXER_SPLIT	 	= split.c \
 							allocate_strings.c
 
 SOURCES_LEXER_QUOTE		= quote.c \
-							quote_matcher.c \
-							tokenize_quotes.c \
-							insert_quote.c
+							buffer_quote.c \
 
 SOURCES_PARSER			= parser.c
 
 SOURCES_UTILS			= clean_exit.c \
-							list.c
+							list.c \
+							error_messages.c
 
 
 # ===== Manage Directories =====

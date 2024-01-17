@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/01/12 16:31:12 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/01/15 23:51:53 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 // ===== [ includes ] =====
 # include "libft/include/libft.h"
+# include "error_messages.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
@@ -35,12 +36,6 @@ typedef enum e_exit
 	SUCCESS,
 	FAILURE
 }	t_exit;
-
-typedef enum e_pos
-{
-	BEFORE,
-	AFTER
-}	t_pos;
 
 typedef enum e_token_types
 {
@@ -120,33 +115,33 @@ void	print_token(t_token *tokens);
 // lexer.c
 char 	*type_to_string(t_token_type type);
 t_token	*token_constructor(char *split_input, int i);
-t_token	*tokens_builder_manager(t_shell *shell);
+int		tokens_builder_manager(t_shell *shell);
+int		lexer_manager(t_shell *shell);
 
+// assign_type.c
+t_token_type	assign_type(char *value);
+
+// post_lexer.c
+bool	post_lexer(t_shell *shell);
+
+//-------------: Lexer/ Quote
 // quotes.c
-t_token	*quote_manager(t_shell *shell);
+int		is_quote(char c);
+int		quote_manager(t_shell *shell);
 
-// quote_matcher.c
-bool	is_outer_quote_match(t_shell *shell);
+// buffer_quote.c
+void	buffer_quote(t_split *sp, int quote_type);
 
+
+//-------------: Lexer/ Split
 // split.c
 char	**split(t_shell *shell);
+bool 	is_white_space(char c);
 int		skip_whitespace(t_split *sp);
 int		check_operator(char c1, char c2);
 
 // allocate_strings.c
 char	**allocate_strings(t_split *sp);
-
-// tokenize_quotes.c
-bool	tokenize_quotes(t_shell *shell);
-
-//insert_quote.c
-void	insert_quote(t_token *first, t_token *last, char *before, char *after);
-
-//assign_type.c
-t_token_type	assign_type(char *value);
-
-// post_lexer.c
-bool	post_lexer(t_shell *shell);
 
 
 //====================================================================: Parser
@@ -157,6 +152,10 @@ void	parse(void);
 //====================================================================: Utils
 // utils.c
 void	print_token(t_token *tokens);
+
+// clean_exit.c
 void	finish_command(t_shell *shell);
+int		exit_with_message(e_error_messages error_code, e_message_colors color);
+
 
 #endif

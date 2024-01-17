@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/14 14:04:02 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/01/07 13:08:33 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/15 21:00:18 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ static t_cmd *cmd_init(void)
 	{
 		// TODO clean_exit()
 	}
-	cmd->single_quote = 0;
-	cmd->double_quote = 0;
 	return (cmd);
 }
 

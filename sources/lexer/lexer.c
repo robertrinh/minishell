@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 13:13:52 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/01/12 16:32:02 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   lexer.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/01/15 23:51:29 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,24 @@ static t_token	*tokenize_command(t_shell *shell, t_token *tokens_head)
 	return (tokens_head);
 }
 
-t_token	*tokens_builder_manager(t_shell *shell)
+int	tokens_builder_manager(t_shell *shell)
 {
 	t_token *tokens_head;
 
 	tokens_head = NULL;
 	tokens_head = tokenize_command(shell, tokens_head);
 	shell->tokens = tokens_head;
-	tokens_head = quote_manager(shell);
 	post_lexer(shell);
-	return (tokens_head);
+	return (SUCCESS);
+}
+
+int	lexer_manager(t_shell *shell)
+{
+	if (quote_manager(shell) == FAILURE)
+		return (exit_with_message(ERROR_UNMATCHED_QUOTE, RED));
+	
+	if (tokens_builder_manager(shell) == SUCCESS)
+		return (SUCCESS);
+
+	return (FAILURE);
 }

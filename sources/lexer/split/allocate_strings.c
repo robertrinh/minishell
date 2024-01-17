@@ -6,11 +6,23 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/07 13:01:10 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/07 13:12:46 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/15 23:25:26 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+static void	clear_buffer(t_split *sp)
+{
+	int i;
+
+	i = 0;
+	while (i <= sp->len)
+	{
+		sp->buffer[i] = 0;
+		i++;
+	}
+}
 
 static char **allocate_substrings(t_split *sp)
 {
@@ -20,6 +32,7 @@ static char **allocate_substrings(t_split *sp)
 		ft_strlcpy(sp->strings[sp->i_str], sp->buffer, (ft_strlen(sp->buffer) + 1));
 		sp->i_str++;
 	}
+	clear_buffer(sp);
 	return (sp->strings);
 }
 
@@ -32,12 +45,15 @@ char	**allocate_strings(t_split *sp)
 		sp->i_buff = 0;
 		while (sp->i < sp->len)
 		{
-			if (sp->input[sp->i] == 32)
+			if (is_quote(sp->input[sp->i]) != 0)
 			{
-				sp->buffer[sp->i_buff] = 32;
-				sp->i_buff++;
+				buffer_quote(sp, is_quote(sp->input[sp->i]));
 				break ;
 			}
+
+			if (is_white_space(sp->input[sp->i]))
+				break ;
+			
 			if (check_operator(sp->input[sp->i], sp->input[sp->i + 1]) == 2)
 			{
 				if(sp->i_buff)
@@ -47,7 +63,7 @@ char	**allocate_strings(t_split *sp)
 				sp->i += check_operator(sp->input[sp->i], sp->input[sp->i + 1]);
 				sp->i_buff += 2;
 				break ;
-			} 
+			}
 			else if (check_operator(sp->input[sp->i], sp->input[sp->i + 1]) == 1)
 			{
 				if(sp->i_buff)
