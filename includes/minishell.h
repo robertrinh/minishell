@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/15 23:51:53 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/17 17:16:51 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,9 @@ t_token	*lst_rev(t_token *tokens_head);
 t_token	*lst_copy(t_token *tokens_head);
 void	print_token(t_token *tokens);
 
-
 //====================================================================: Lexer
 // lexer.c
-char 	*type_to_string(t_token_type type);
+char	*type_to_string(t_token_type type);
 t_token	*token_constructor(char *split_input, int i);
 int		tokens_builder_manager(t_shell *shell);
 int		lexer_manager(t_shell *shell);
@@ -132,22 +131,19 @@ int		quote_manager(t_shell *shell);
 // buffer_quote.c
 void	buffer_quote(t_split *sp, int quote_type);
 
-
 //-------------: Lexer/ Split
 // split.c
 char	**split(t_shell *shell);
-bool 	is_white_space(char c);
+bool	is_white_space(char c);
 int		skip_whitespace(t_split *sp);
 int		check_operator(char c1, char c2);
 
 // allocate_strings.c
 char	**allocate_strings(t_split *sp);
 
-
 //====================================================================: Parser
 // parser.c
 void	parse(void);
-
 
 //====================================================================: Utils
 // utils.c
@@ -156,6 +152,5 @@ void	print_token(t_token *tokens);
 // clean_exit.c
 void	finish_command(t_shell *shell);
 int		exit_with_message(e_error_messages error_code, e_message_colors color);
-
 
 #endif

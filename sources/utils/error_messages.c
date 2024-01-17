@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:36:44 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/16 00:08:00 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/17 16:17:37 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,3 +25,5 @@ const char* color_codes[] = {
 };
 
 const char* RESET_COLOR = "\x1B[0m";
+
+//!global variables not allowed! should change this
