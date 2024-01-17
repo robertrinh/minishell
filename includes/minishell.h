@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/17 17:33:53 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/17 17:54:00 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ typedef struct s_ast_node
 	char				*value;
 	struct s_ast_node	**children;
 	int					num_children;
+	struct s_ast_node	*parent;
+	struct s_ast_node	*left;
+	struct s_ast_node	*right;
 }	t_ast_node;
 
 typedef struct s_split
@@ -143,6 +146,8 @@ char	**allocate_strings(t_split *sp);
 
 //====================================================================: Parser
 // parser.c
+typedef void (*HANDLE_FUNCTIONS)(t_ast_node*);
+extern HANDLE_FUNCTIONS handle_functions[];
 void	parse(void);
 
 
@@ -152,6 +157,6 @@ void	print_token(t_token *tokens);
 
 // clean_exit.c
 void	finish_command(t_shell *shell);
-int		exit_with_message(e_error_messages error_code, e_message_colors color);
+int		exit_with_message(t_error_messages error_code, t_message_colors color);
 
 #endif
