@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/01/15 23:28:13 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2024/01/17 16:12:29 by qtrinh        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,9 @@ SOURCES_LEXER 			= lexer.c \
 							post_lexer.c
 
 SOURCES_LEXER_SPLIT	 	= split.c \
-							allocate_strings.c
+							split_utils.c \
+							allocate_strings.c \
+							
 
 SOURCES_LEXER_QUOTE		= quote.c \
 							buffer_quote.c \

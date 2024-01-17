@@ -6,15 +6,15 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/15 23:52:44 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/17 15:47:39 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static bool retrieve_command(t_shell *shell)
+static bool	retrieve_command(t_shell *shell)
 {
-	char *command;
+	char	*command;
 
 	command = readline(CYELLOW "[minishell]: " RESET_COLOR);
 	if (command == NULL)
@@ -28,7 +28,7 @@ static bool retrieve_command(t_shell *shell)
 
 static bool	run(t_shell *shell)
 {
-	while (1) 
+	while (1)
 	{
 		retrieve_command(shell);
 		if (lexer_manager(shell) == SUCCESS)
@@ -47,8 +47,6 @@ int	main(int argc, char **argv, char **envp)
 
 	shell = shell_init();
 	run(shell);
-	
 	printf("argc: %d, %p, %p", argc, argv, envp);
-	
 	return (0);
 }

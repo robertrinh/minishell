@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   assign_type.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 14:27:34 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/01/12 15:34:12 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   assign_type.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/12 14:27:34 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/01/17 15:50:14 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static bool		contains_redirect(char *value)
+static bool	contains_redirect(char *value)
 {
-	int	i = 0;
-	
+	int	i;
+
+	i = 0;
 	while (REDIRECTS[i])
 	{
 		if (ft_strchr(value, REDIRECTS[i]))

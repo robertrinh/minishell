@@ -6,12 +6,11 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/22 15:12:33 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/01/16 00:00:19 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/17 16:15:57 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 void	print_token(t_token *tokens)
 {

@@ -6,50 +6,11 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/05 14:17:27 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/01/15 23:04:54 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/17 16:07:07 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
-
-bool is_white_space(char c)
-{
-	if (c >= 9 && c <= 13 || c == 32)
-		return (true);
-	return (false);
-}
-
-int	skip_whitespace(t_split *sp)
-{
-	while (sp->i < sp->len)
-	{
-		if (is_white_space(sp->input[sp->i]) == false)
-			break ;
-		sp->i++;
-	}
-	return (sp->i);
-}
-
-static bool	is_double_operator(char c1, char c2)
-{
-	if (ft_strchr(REDIRECTS, c1) && ft_strchr(REDIRECTS, c2))
-	{
-		if (c1 == c2)
-			return (true);
-	}
-	return (false);
-}
-
-int	check_operator(char c1, char c2)
-{
-	if (ft_strchr(OPERATORS, c1) == 0)
-		return (0);
-	if (is_double_operator(c1, c2))
-		return (2);
-	if (ft_strchr(OPERATORS, c1))
-		return (1);
-	return (0);
-}
 
 static int	index_next_quote(t_split *sp, int quote_type)
 {
@@ -83,9 +44,8 @@ static void	process_substring(t_split *sp)
 		sp->i++;
 	}
 }
-// test this "one two"
 
-static	int	count_substrings(t_split *sp)
+static int	count_substrings(t_split *sp)
 {
 	while (sp->i < sp->len)
 	{

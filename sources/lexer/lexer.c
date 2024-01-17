@@ -6,12 +6,13 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/15 23:51:29 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/17 16:13:45 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-char *type_to_string(t_token_type type)
+
+char	*type_to_string(t_token_type type)
 {
 	switch (type)
 	{
@@ -33,10 +34,11 @@ char *type_to_string(t_token_type type)
 			return ("none");
 	}
 }
+
 static bool	is_token(t_token *tokens_head)
 {
 	if (tokens_head == NULL)
-		return(false);
+		return (false);
 	return (true);
 }
 
@@ -57,11 +59,10 @@ t_token	*token_constructor(char *split_input, int i)
 	return (token);
 }
 
-
 static t_token	*tokenize_command(t_shell *shell, t_token *tokens_head)
 {
-	int	i;
-	char **split_input;
+	int		i;
+	char	**split_input;
 	t_token	*current;
 	t_token	*new;
 
@@ -88,7 +89,7 @@ static t_token	*tokenize_command(t_shell *shell, t_token *tokens_head)
 
 int	tokens_builder_manager(t_shell *shell)
 {
-	t_token *tokens_head;
+	t_token	*tokens_head;
 
 	tokens_head = NULL;
 	tokens_head = tokenize_command(shell, tokens_head);
@@ -101,9 +102,7 @@ int	lexer_manager(t_shell *shell)
 {
 	if (quote_manager(shell) == FAILURE)
 		return (exit_with_message(ERROR_UNMATCHED_QUOTE, RED));
-	
 	if (tokens_builder_manager(shell) == SUCCESS)
 		return (SUCCESS);
-
 	return (FAILURE);
 }

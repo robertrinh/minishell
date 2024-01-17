@@ -22,6 +22,8 @@ Tokenizing based on operators
 if first occurance from input is a command -> afterwards arguments, tokens until you encounter a specific symbol 
 example: cat sources/minishell.c | grep "include" --> gives include line
 
+Need to splite allocate_strings into 2 functions for the norm
+
 ---
 
 ## Tests
@@ -39,6 +41,7 @@ example: cat sources/minishell.c | grep "include" --> gives include line
 to consider: retraverse the token; add spaces back?
 
 so "lets try" --> extra token at the end. check
+
 
 ---
 

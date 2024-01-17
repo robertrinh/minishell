@@ -6,11 +6,20 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 21:58:11 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/16 00:00:41 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/17 15:56:45 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+int	is_quote(char c)
+{
+	if (c == 34)
+		return (34);
+	else if (c == 39)
+		return (39);
+	return (0);
+}
 
 // TODO remove quote char
 void	add_char_to_buff(t_split *sp)

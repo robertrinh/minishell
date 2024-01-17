@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/07 13:01:10 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/15 23:25:26 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/17 17:17:28 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	clear_buffer(t_split *sp)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i <= sp->len)
@@ -24,7 +24,7 @@ static void	clear_buffer(t_split *sp)
 	}
 }
 
-static char **allocate_substrings(t_split *sp)
+static char	**allocate_substrings(t_split *sp)
 {
 	if (sp->i_buff > 0)
 	{
@@ -50,13 +50,11 @@ char	**allocate_strings(t_split *sp)
 				buffer_quote(sp, is_quote(sp->input[sp->i]));
 				break ;
 			}
-
 			if (is_white_space(sp->input[sp->i]))
 				break ;
-			
 			if (check_operator(sp->input[sp->i], sp->input[sp->i + 1]) == 2)
 			{
-				if(sp->i_buff)
+				if (sp->i_buff)
 					break ;
 				sp->buffer[sp->i_buff] = sp->input[sp->i];
 				sp->buffer[sp->i_buff + 1] = sp->input[sp->i + 1];
@@ -66,7 +64,7 @@ char	**allocate_strings(t_split *sp)
 			}
 			else if (check_operator(sp->input[sp->i], sp->input[sp->i + 1]) == 1)
 			{
-				if(sp->i_buff)
+				if (sp->i_buff)
 					break ;
 				sp->buffer[sp->i_buff] = sp->input[sp->i];
 				sp->i += check_operator(sp->input[sp->i], sp->input[sp->i + 1]);

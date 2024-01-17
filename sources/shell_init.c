@@ -6,15 +6,15 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/14 14:04:02 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/01/15 21:00:18 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/17 15:49:34 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static t_cmd *cmd_init(void)
+static t_cmd	*cmd_init(void)
 {
-	t_cmd *cmd;
+	t_cmd	*cmd;
 
 	cmd = malloc(sizeof(t_cmd));
 	if (cmd == NULL)
@@ -24,9 +24,9 @@ static t_cmd *cmd_init(void)
 	return (cmd);
 }
 
-t_shell	*shell_init()
+t_shell	*shell_init(void)
 {
-	t_shell *shell;
+	t_shell	*shell;
 
 	shell = malloc(sizeof(t_shell));
 	if (shell == NULL)
@@ -41,7 +41,7 @@ bool	save_command(char *input, t_shell *shell)
 {
 	shell->input = ft_calloc(sizeof(char), ft_strlen(input) + 1);
 	if (shell->input == NULL)
-	{	
+	{
 		// TODO clean_exit()
 		return (FAILURE);
 	}
