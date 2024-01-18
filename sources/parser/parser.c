@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/15 19:13:21 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/17 18:46:03 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,26 @@ cat << EOF > file | wc -c | tr -d " " > file2
 
  */
 
+
+t_ast_node *node_constructor(char *value, t_token_type type, t_ast_node *parent)
+{
+	t_ast_node *ast = malloc(sizeof(t_ast_node));
+	ast->type = type;
+	ast->value = value;
+	ast->children = NULL;
+	ast->num_children = 0;
+	ast->parent = parent;
+	ast->left = NULL;
+	ast->right = NULL;
+	return (ast);
+}
+
 static void	print_depth(int	depth)
 {
 	int	i = 0;
 	while (i < depth)
 	{
-		printf("\t");
+		printf("    ");
 		i++;
 	}
 }
@@ -50,22 +64,21 @@ static void	traverse_ast(t_ast_node *ast, int depth)
 		return ;
 
 	print_depth(depth);
-
-	switch (ast->type)
+	
+	if (ast->parent != NULL)
 	{
-		case COMMAND:
-			printf("command: %s\n", ast->value);
-			break ;
-		case OPERATOR:
-			printf("command: %s\n", ast->value);
-			break ;
-		case ARGUMENT:
-			printf("argument: %s\n", ast-> value);
-			break ;
-		default:
-			printf("unknown type\n");
-			break ;		
+		if (ast == ast->parent->left)
+			printf("/-- ");
+		else if (ast->type == ARGUMENT)
+			printf("-- ");
+		else
+			printf("\\-- ");
 	}
+
+	handle_functions[ast->type](ast);
+
+	traverse_ast(ast->left, depth + 1);
+	traverse_ast(ast->right, depth + 1);
 
 	while (i < ast->num_children)
 	{
@@ -74,28 +87,41 @@ static void	traverse_ast(t_ast_node *ast, int depth)
 	}
 }
 
-void parse(void) {
+void parse(void)
+{
     printf("\n\n========parser========\n");
 
-	// cat "file.txt" | grep "a" | wc
-    t_ast_node node1 = {COMMAND, "cat", NULL, 0};
-    t_ast_node node2 = {ARGUMENT, "file.txt", NULL, 0};
-    t_ast_node node3 = {OPERATOR, "|", NULL, 0};
-    t_ast_node node4 = {COMMAND, "grep", NULL, 0};
-    t_ast_node node5 = {ARGUMENT, "a", NULL, 0};
-    t_ast_node node6 = {OPERATOR, "|", NULL, 0};
-    t_ast_node node7 = {COMMAND, "wc", NULL, 0};
+	// cat "" "" | grep "a" | wc -w
 
-    t_ast_node* catChildren[] = {&node2};
-    node1.children = catChildren;
-    node1.num_children = 1;
+	// root
+	t_ast_node *ast = node_constructor("|", PIPE, NULL);
+	
+	// cat
+	ast->left = node_constructor("cat", COMMAND, ast);
+	t_ast_node *cat_arg_1 = node_constructor("file_1.txt", ARGUMENT, ast->left);
+	t_ast_node *cat_arg_2 = node_constructor("file_2.txt", ARGUMENT, ast->left);
+	t_ast_node *cat_children[] = {cat_arg_1, cat_arg_2};
+	ast->left->children = cat_children;
+	ast->left->num_children = 2;
 
-    t_ast_node* grepChildren[] = {&node5};
-    node4.children = grepChildren;
-    node4.num_children = 1;
+	// pipe
+	ast->right = node_constructor("|", PIPE, ast);
 
-    t_ast_node* rootChildren[] = {&node1, &node3, &node4, &node6, &node7};
-    t_ast_node root = {OPERATOR, "root", rootChildren, 5};
+	// grep
+	t_ast_node *grep = node_constructor("grep", COMMAND, ast->right);
+	t_ast_node *grep_args = node_constructor("a", ARGUMENT, ast->right);
+	t_ast_node *grep_children[] = {grep_args};
+	grep->children = grep_children;
+	grep->num_children = 1;
+	ast->right->left = grep;
+	
+	// wc
+	t_ast_node *wc = node_constructor("wc", COMMAND, ast->right);
+	t_ast_node *wc_args = node_constructor("-w", ARGUMENT, ast->right);
+	t_ast_node *wc_children[] = {wc_args};
+	wc->children = wc_children;
+	wc->num_children = 1;
+	ast->right->right = wc;
 
-    traverse_ast(&root, 0);
+	traverse_ast(ast, 0);
 }

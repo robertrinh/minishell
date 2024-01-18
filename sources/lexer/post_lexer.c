@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   post_lexer.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 16:19:25 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/01/12 17:47:44 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   post_lexer.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/12 16:19:25 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/01/17 16:14:45 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool	is_special_type(t_token_type type)
 {
-	if (type == OPERATOR || type == PIPE || type == REDIRECT || type == QUOTE)
+	if (type == PIPE || type == REDIRECT || type == QUOTE)
 		return (true);
 	return (false);
 }

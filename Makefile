@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/01/17 16:12:29 by qtrinh        ########   odam.nl          #
+#    Updated: 2024/01/17 17:32:37 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,8 @@ SOURCES_LEXER_SPLIT	 	= split.c \
 SOURCES_LEXER_QUOTE		= quote.c \
 							buffer_quote.c \
 
-SOURCES_PARSER			= parser.c
+SOURCES_PARSER			= parser.c \
+							parse_operations.c
 
 SOURCES_UTILS			= clean_exit.c \
 							list.c \
