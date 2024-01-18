@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/01/18 15:21:04 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/01/18 21:29:22 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,13 +147,16 @@ char	**allocate_strings(t_split *sp);
 
 //====================================================================: Parser
 // parser.c
-typedef void (*HANDLE_FUNCTIONS)(t_ast_node*);
-extern HANDLE_FUNCTIONS handle_functions[];
-void	parse(void);
+typedef void 	(*HANDLE_FUNCTIONS)(t_ast_node*);
+extern 			HANDLE_FUNCTIONS handle_functions[];
+int				parse_lexer(t_token *tokens_root);
 
 //lexer_to_tree.c
-void	tokens_to_tree(t_token *tokens_root);
-void	traverse_ast(t_ast_node *ast, int depth);
+t_ast_node	*tokens_to_tree(t_token *tokens_root, t_ast_node *ast_root);
+bool		contains_pipe(t_token *current);
+
+// parser_checks.c
+int			check_pipes(t_token *tokens);
 
 
 //====================================================================: Utils

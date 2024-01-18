@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   error_messages.c                                   :+:    :+:            */
+/*   parser_checks.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/01/15 20:36:44 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/18 21:26:30 by quentinbeuk   ########   odam.nl         */
+/*   Created: 2024/01/18 21:07:32 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/01/18 21:34:18 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/error_messages.h"
+#include "../../includes/minishell.h"
 
-// Definitions of variables
-const char* error_messages[] = {
-    "ERROR unmatched quote",
-	"ERROR unmatched pipe"
-};
+int		check_pipes(t_token *tokens)
+{
+	t_token		*current;
 
-const char* color_codes[] = {
-    "\x1B[31m",  // RED
-    "\x1B[32m",  // GREEN
-    "\x1B[33m",  // YELLOW
-    "\x1B[34m"   // BLUE
-};
-
-const char* RESET_COLOR = "\x1B[0m";
-
-//!global variables not allowed! should change this
+	current = tokens;
+	while (current)
+	{
+		if (contains_pipe(current))
+		{
+			// next is nothing
+			if (current->next == NULL)
+				return (FAILURE);
+			
+			// next is pipe
+			else if (contains_pipe(current->next))
+				return (FAILURE);
+		}
+		current = current->next;
+	}
+	return (SUCCESS);
+}
