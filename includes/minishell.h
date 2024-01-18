@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/17 17:54:00 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/01/18 15:21:04 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_ast_node
 	struct s_ast_node	*left;
 	struct s_ast_node	*right;
 }	t_ast_node;
+
 
 typedef struct s_split
 {
@@ -149,6 +150,10 @@ char	**allocate_strings(t_split *sp);
 typedef void (*HANDLE_FUNCTIONS)(t_ast_node*);
 extern HANDLE_FUNCTIONS handle_functions[];
 void	parse(void);
+
+//lexer_to_tree.c
+void	tokens_to_tree(t_token *tokens_root);
+void	traverse_ast(t_ast_node *ast, int depth);
 
 
 //====================================================================: Utils

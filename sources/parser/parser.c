@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/17 18:46:03 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/11 19:53:12 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/01/18 17:04:40 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	print_depth(int	depth)
 	}
 }
 
-static void	traverse_ast(t_ast_node *ast, int depth)
+void	traverse_ast(t_ast_node *ast, int depth)
 {
 	int		i = 0;
 
@@ -68,17 +68,19 @@ static void	traverse_ast(t_ast_node *ast, int depth)
 	if (ast->parent != NULL)
 	{
 		if (ast == ast->parent->left)
-			printf("/-- ");
+			printf("/L-- ");
 		else if (ast->type == ARGUMENT)
 			printf("-- ");
-		else
-			printf("\\-- ");
+		else if (ast == ast->parent->right)
+			printf("\\R-- ");
 	}
 
 	handle_functions[ast->type](ast);
 
-	traverse_ast(ast->left, depth + 1);
-	traverse_ast(ast->right, depth + 1);
+	if (ast->left)
+		traverse_ast(ast->left, depth + 1);
+	if (ast->right)
+		traverse_ast(ast->right, depth + 1);
 
 	while (i < ast->num_children)
 	{
