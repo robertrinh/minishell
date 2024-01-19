@@ -6,23 +6,13 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:57:36 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/01/18 17:20:40 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/01/19 17:42:58 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// 0. traverse tokens
-
-// 1. Identify PIPE
-
-// 2. Identify COMMAND
-
-// 3. Set ARGUMENTs as children
-
-// 4. Set REDIRECTs as left/right
-
-static bool	contains_pipe(t_token *current)
+bool	contains_pipe(t_token *current)
 {
 	if (current->type == PIPE)
 		return (true);
@@ -47,7 +37,7 @@ static t_token	*locate_pipe_n(t_token *current, int count)
 	return (NULL);
 }
 
-static t_token	*locate_pipe(t_token *current)
+t_token	*locate_pipe(t_token *current)
 {
 	while (current)
 	{
@@ -58,6 +48,7 @@ static t_token	*locate_pipe(t_token *current)
 	return (NULL);
 }
 
+
 static t_ast_node	*ast_constructor(t_token *current, t_ast_node *parent)
 {
 	t_ast_node *ast;
@@ -65,17 +56,41 @@ static t_ast_node	*ast_constructor(t_token *current, t_ast_node *parent)
 	ast = malloc(sizeof(t_ast_node));
 	if (ast == NULL)
 	{
-		//TODO clean_exit
+		// TODO clean_exit()
 	}
 	ast->type = current->type;
 	ast->value = current->value;
-	ast->children = NULL; //list of children
+	ast->children = NULL;
 	ast->num_children = 0;
 	ast->parent = parent;
 	ast->left = NULL;
 	ast->right = NULL;
 	return (ast);
 }
+
+
+static int count_children(t_token *current_cmd)
+{
+	int			count;
+	t_token		*current;
+
+	count = 0;
+	current = current_cmd;
+
+	if (current->type != ARGUMENT)
+		return (0);
+	
+	while (current)
+	{
+		if (current->type == ARGUMENT)
+			count++;
+		if (current->type != ARGUMENT)
+			return (count);
+		current = current->next;
+	}
+	return (count);
+}
+
 
 static t_token	*fill_right(t_token *tokens_root, t_ast_node *ast, int count)
 {
@@ -86,21 +101,15 @@ static t_token	*fill_right(t_token *tokens_root, t_ast_node *ast, int count)
 	if (count == 0)
 		current = tokens_root;
 	else
-	{
 		current = locate_pipe_n(tokens_root, count);
-		printf("current count: %s %d\n", current->value, current->i);
-	}
 	while (current)
 	{
 		if (current->type == COMMAND)
-		{
 			ast->right = ast_constructor(current, ast);
-		}
 		if (current->type == ARGUMENT)
 		{
 			if (ast->right->children == NULL)
-				ast->right->children = malloc(sizeof(t_ast_node)); //TODO malloc check
-			printf("Making child right; %s\n", current->value);
+				ast->right->children = malloc(sizeof(t_ast_node) * count_children(current)); // TODO protect
 			ast->right->children[i] = ast_constructor(current, ast);
 			ast->right->num_children = i + 1;
 			i++;
@@ -109,6 +118,7 @@ static t_token	*fill_right(t_token *tokens_root, t_ast_node *ast, int count)
 	}
 	return (current);
 }
+
 
 static t_token	*fill_left(t_token *tokens_root, t_ast_node *ast, int count)
 {
@@ -119,23 +129,16 @@ static t_token	*fill_left(t_token *tokens_root, t_ast_node *ast, int count)
 	if (count == 0)
 		current = tokens_root;
 	else
-	{
 		current = locate_pipe_n(tokens_root, count);
-		printf("current count: %s %d\n", current->value, current->i);
-	}
 	while (current)
 	{
 		if (current->type == COMMAND)
-		{
 			ast->left = ast_constructor(current, ast);
-			printf("ast left value: %s\n", ast->left->value);
-		}
-		if (current->type == ARGUMENT)
+		else if (current->type == ARGUMENT)
 		{
 			if (ast->left->children == NULL)
-				ast->left->children = malloc(sizeof(t_ast_node)); // TODO Malloc for arg count
+				ast->left->children = malloc(sizeof(t_ast_node) * count_children(current)); // TODO protect
 			ast->left->children[i] = ast_constructor(current, ast);
-			printf("ast left value: %s\n", ast->left->children[i]->value);
 			i++;
 		}
 		if (contains_pipe(current))
@@ -147,17 +150,14 @@ static t_token	*fill_left(t_token *tokens_root, t_ast_node *ast, int count)
 	}
 	return (current);
 }
-// cat "" hi | grep "a" | wc -w
-void	tokens_to_tree(t_token *tokens_root)
-{
-	printf("\n\n========tokens to tree========\n");
 
+
+t_ast_node	*tokens_to_tree(t_token *tokens_root, t_ast_node *ast_root)
+{
 	t_token		*current;
 	t_ast_node	*ast;
-	t_ast_node	*ast_root;
 	int 		pipe_count;
 	
-	ast_root = NULL;
 	ast = NULL;
 	current = tokens_root;
 	pipe_count = 0;
@@ -166,22 +166,17 @@ void	tokens_to_tree(t_token *tokens_root)
 		if (locate_pipe(current))
 		{
 			current = locate_pipe(current);
-			printf("current is: %s , pc: %d\n", current->value, pipe_count);
-			printf("pointer ast is %p\n", ast);
-			if (ast != NULL)
+			if (ast)
 			{
 				ast->right = ast_constructor(current, NULL);
-				printf("ast right value: %s\n", ast->right->value);
 				ast = ast->right;
 			}
 			else
 			{
 				ast = ast_constructor(current, NULL);
 				ast_root = ast;
-				printf("ast value: %s\n", ast->value);
 			}
 			current = fill_left(tokens_root, ast, pipe_count);
-			printf("current fill left: %s\n", current->value);
 			pipe_count++;
 		}
 		else
@@ -189,18 +184,124 @@ void	tokens_to_tree(t_token *tokens_root)
 		if (current)
 			current = current->next;
 	}
-	printf("\n\n");
-	traverse_ast(ast_root, 0);
+	return (ast_root);
 }
 
-// ? what if | there are | pipes | that dont end 
-// -> command with no children (no pipes) segfaults
+static t_token		*append_children(t_token *tokens, t_ast_node *ast, t_ast_node *parent)
+{
+	int		i;
+	t_token	*current;
 
-// what if | there are | pipes that |
-// -> segfault when there is a pipe at the end = (PRE-FILTER)
+	i = 0;
+	current = tokens;
+	if (current->type == COMMAND && current->next != NULL)
+	{
+		printf("appending children to: %s\n", current->value);
+		current = current->next;
+	}
 
-// cmd arg arg arg arg arg arg arg | cmd arg
-// -> at 7 args??
+	while (current)
+	{
+		if (ast->children == NULL)
+			ast->children = malloc(sizeof(t_ast_node) *count_children(current)); // TODO protect
+		if (current->type != ARGUMENT)
+		{
+			ast->num_children = i + 1;
+			printf("Arg found returning; %s\n", current->value);
+			return (current);
+		}
+		ast->children[i] = ast_constructor(current, ast);
+		i++;
+		current = current->next;
+	}
+	ast->num_children = i + 1;
+	return (current);
+}
 
-// cmg arg || cmd arg
-// -> double pipe = (PRE-FILTER)
+static t_token	*append_children_parent(t_token *tokens, t_ast_node *parent)
+{
+	t_token *current;
+	int	i;
+
+	i = 0;
+	current = tokens;
+	while (current)
+	{
+		if (current->type == ARGUMENT)
+		{
+			if (parent->num_children == 0)
+				parent->children = malloc(sizeof(t_ast_node)); //check size
+			parent->children[(parent->num_children - 1) + i] = ast_constructor(current, parent);
+			printf("parent->children[%d] is %s\n", (parent->num_children - 1) + i, current->value);
+			parent->num_children = parent->num_children + i;
+			i++;
+		}
+		if (is_special_type(current->type))
+			return (current);
+		if (current)
+			current = current->next;
+	}
+	return (current);
+}
+
+// cat << EOF > file
+// cat file.txt < input_1.txt input_2.txt
+// cat file.txt >> cat file2.txt >> "file3.txt"
+
+t_ast_node  *tokens_to_tree_simple(t_token *tokens_root, t_ast_node *ast_root)
+{
+	t_token		*current;
+	t_ast_node	*ast;
+
+	current = tokens_root;
+	ast = NULL;
+	
+	while (current)
+	{
+		if (current->type == COMMAND && ast == NULL)
+		{
+			printf("ast null, val: %s\n", current->value);
+			ast = ast_constructor(current, NULL);
+			ast_root = ast;
+			current = append_children(current, ast, ast);
+		}
+		if (current->type == REDIRECT)
+		{
+			if (ast == NULL)
+			{
+				ast = ast_constructor(current, NULL);
+				ast_root = ast;
+			}
+			if (ast)
+			{
+				ast->right = ast_constructor(current, ast);
+				ast = ast->right;
+				printf("ast->right val is %s\n", ast->value);
+				if (current->next)
+				{
+					current = current->next;
+					if (current->type == ARGFILE)
+					{
+						printf("making argfile: %s\n", current->value);
+						printf("ast->right val (inside argf): %s\n", ast->value);
+						ast->children = malloc(sizeof(t_ast_node));
+						ast->children[0] = ast_constructor(current, ast);
+						ast->num_children = 1;
+					}
+				}
+				if (current->next)
+				{
+					current = current->next;
+					printf("making children at: %s\n", current->value);
+					current = append_children_parent(current, ast->parent);
+				}
+			}
+		}
+		// ast != NULL
+		if (current)
+			current = current->next;
+	}
+	return (ast_root);
+}
+
+// redirects regarding pipes @ ast

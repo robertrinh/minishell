@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 15:12:33 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/01/18 13:59:22 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:29:08 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_token(t_token *tokens)
 {
-	printf("\n\n========print tokens========\n");
+	printf("\n\n========lexer========\n");
 	while (tokens)
 	{
 		printf("%s - \t %s \n", type_to_string(tokens->type), tokens->value);

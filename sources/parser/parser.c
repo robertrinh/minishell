@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 19:53:12 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/01/18 17:04:40 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/01/19 17:43:43 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,6 @@ cat << EOF > file | wc -c | tr -d " " > file2
  */
 
 
-t_ast_node *node_constructor(char *value, t_token_type type, t_ast_node *parent)
-{
-	t_ast_node *ast = malloc(sizeof(t_ast_node));
-	ast->type = type;
-	ast->value = value;
-	ast->children = NULL;
-	ast->num_children = 0;
-	ast->parent = parent;
-	ast->left = NULL;
-	ast->right = NULL;
-	return (ast);
-}
-
 static void	print_depth(int	depth)
 {
 	int	i = 0;
@@ -56,7 +43,7 @@ static void	print_depth(int	depth)
 	}
 }
 
-void	traverse_ast(t_ast_node *ast, int depth)
+static void	traverse_ast(t_ast_node *ast, int depth)
 {
 	int		i = 0;
 
@@ -77,53 +64,83 @@ void	traverse_ast(t_ast_node *ast, int depth)
 
 	handle_functions[ast->type](ast);
 
+	while (i < ast->num_children)
+	{
+		if (ast->children)
+            traverse_ast(ast->children[i], depth + 1);
+		i++;
+	}
+
 	if (ast->left)
 		traverse_ast(ast->left, depth + 1);
 	if (ast->right)
 		traverse_ast(ast->right, depth + 1);
-
-	while (i < ast->num_children)
-	{
-		traverse_ast(ast->children[i], depth + 1);
-		i++;
-	}
 }
 
-void parse(void)
+int		parse_lexer(t_token *tokens_root)
 {
-    printf("\n\n========parser========\n");
+	t_ast_node *ast_root;
 
-	// cat "" "" | grep "a" | wc -w
 
-	// root
-	t_ast_node *ast = node_constructor("|", PIPE, NULL);
+	printf("\n\n========parser========\n");
+
 	
-	// cat
-	ast->left = node_constructor("cat", COMMAND, ast);
-	t_ast_node *cat_arg_1 = node_constructor("file_1.txt", ARGUMENT, ast->left);
-	t_ast_node *cat_arg_2 = node_constructor("file_2.txt", ARGUMENT, ast->left);
-	t_ast_node *cat_children[] = {cat_arg_1, cat_arg_2};
-	ast->left->children = cat_children;
-	ast->left->num_children = 2;
+	if (check_pipes(tokens_root) == FAILURE)
+		return (exit_with_message(ERROR_UNMATCHED_PIPE, RED));
 
-	// pipe
-	ast->right = node_constructor("|", PIPE, ast);
+	if (locate_pipe(tokens_root) == NULL)
+	{
+		ast_root = tokens_to_tree_simple(tokens_root, ast_root);
+		
+		// cat file.txt < input.txt
+		// cat file.txt >> cat file2.txt >> "file3.txt"
+		// cmd > output.txt handle here
+	}
+	else
+	{
+		ast_root = tokens_to_tree(tokens_root, ast_root);
+	}
 
-	// grep
-	t_ast_node *grep = node_constructor("grep", COMMAND, ast->right);
-	t_ast_node *grep_args = node_constructor("a", ARGUMENT, ast->right);
-	t_ast_node *grep_children[] = {grep_args};
-	grep->children = grep_children;
-	grep->num_children = 1;
-	ast->right->left = grep;
-	
-	// wc
-	t_ast_node *wc = node_constructor("wc", COMMAND, ast->right);
-	t_ast_node *wc_args = node_constructor("-w", ARGUMENT, ast->right);
-	t_ast_node *wc_children[] = {wc_args};
-	wc->children = wc_children;
-	wc->num_children = 1;
-	ast->right->right = wc;
-
-	traverse_ast(ast, 0);
+	printf("\n--print tree--\n");
+	traverse_ast(ast_root, 0);
+	return (SUCCESS);
 }
+
+// TODO add to unit tests
+// Happy case
+// cmd1 arg1 | cmd2 arg2 arg2 | cmd3 arg3
+
+// * Fixed
+// what if | there are | pipes | that dont end 
+// -> command with no children
+
+// * Fixed
+// what if | there are | pipes that |
+// -> segfault when there is a pipe at the end = (PRE-FILTER)
+
+// TODO
+// cmg arg || cmd arg
+// -> behaves as one pipe
+
+// * Fixed
+// cmd arg arg arg arg arg arg arg arg arg arg arg arg arg arg | cmd arg
+// -> memory problem
+
+// TODO handle no pipes
+// cat "file1" "file2" "file3"
+// -> a command without a pipe
+
+// TODO handle redirects
+// cmd < input.txt
+// cmd > output.txt
+// cmd >> output.txt | grep "a"
+// >> output.txt (created txt with nothing in it)
+// echo >> (give error)
+// cat tasks.md > grep "a". "a" is arg of cat. grep is argfile. (out of scope)?
+// same goes for >>
+
+// TODO in << heredoc
+// Handle 'EOF' / "..."
+// These are shorthand used in heredoc
+// cat << END > output.txt
+
