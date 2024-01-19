@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/18 21:37:35 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/11 19:53:12 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/01/19 17:43:43 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	traverse_ast(t_ast_node *ast, int depth)
 			printf("/L-- ");
 		else if (ast->type == ARGUMENT)
 			printf("-- ");
-		else
+		else if (ast == ast->parent->right)
 			printf("\\R-- ");
 	}
 
@@ -70,7 +70,7 @@ static void	traverse_ast(t_ast_node *ast, int depth)
             traverse_ast(ast->children[i], depth + 1);
 		i++;
 	}
-	
+
 	if (ast->left)
 		traverse_ast(ast->left, depth + 1);
 	if (ast->right)
@@ -81,30 +81,66 @@ int		parse_lexer(t_token *tokens_root)
 {
 	t_ast_node *ast_root;
 
+
+	printf("\n\n========parser========\n");
+
+	
 	if (check_pipes(tokens_root) == FAILURE)
 		return (exit_with_message(ERROR_UNMATCHED_PIPE, RED));
-	
-	ast_root = tokens_to_tree(tokens_root, ast_root);
-	traverse_ast(ast_root, 0);
 
+	if (locate_pipe(tokens_root) == NULL)
+	{
+		ast_root = tokens_to_tree_simple(tokens_root, ast_root);
+		
+		// cat file.txt < input.txt
+		// cat file.txt >> cat file2.txt >> "file3.txt"
+		// cmd > output.txt handle here
+	}
+	else
+	{
+		ast_root = tokens_to_tree(tokens_root, ast_root);
+	}
+
+	printf("\n--print tree--\n");
+	traverse_ast(ast_root, 0);
 	return (SUCCESS);
 }
 
+// TODO add to unit tests
 // Happy case
-// cmd1 arg1 | cmd2 | cmd3 arg3
+// cmd1 arg1 | cmd2 arg2 arg2 | cmd3 arg3
 
-// ! Fixed
+// * Fixed
 // what if | there are | pipes | that dont end 
 // -> command with no children
 
-// ! Fixed
+// * Fixed
 // what if | there are | pipes that |
 // -> segfault when there is a pipe at the end = (PRE-FILTER)
 
-// ! Fixed
-// cmg arg || cmd arg
-// -> double pipe = (PRE-FILTER)
-
 // TODO
-// cmd arg arg arg arg arg arg arg | cmd arg
+// cmg arg || cmd arg
+// -> behaves as one pipe
+
+// * Fixed
+// cmd arg arg arg arg arg arg arg arg arg arg arg arg arg arg | cmd arg
 // -> memory problem
+
+// TODO handle no pipes
+// cat "file1" "file2" "file3"
+// -> a command without a pipe
+
+// TODO handle redirects
+// cmd < input.txt
+// cmd > output.txt
+// cmd >> output.txt | grep "a"
+// >> output.txt (created txt with nothing in it)
+// echo >> (give error)
+// cat tasks.md > grep "a". "a" is arg of cat. grep is argfile. (out of scope)?
+// same goes for >>
+
+// TODO in << heredoc
+// Handle 'EOF' / "..."
+// These are shorthand used in heredoc
+// cat << END > output.txt
+

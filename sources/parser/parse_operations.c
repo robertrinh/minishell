@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parse_operations.c                                 :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/01/17 15:54:28 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/17 17:19:47 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parse_operations.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/17 15:54:28 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/01/19 16:59:16 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ void	handle_heredoc(t_ast_node *ast)
 	printf("heredoc: %s\n", ast->value);
 }
 
+void	handle_argfile(t_ast_node *ast)
+{
+	printf("argfile: %s\n", ast->value);
+}
+
 void	handle_quote(t_ast_node *ast)
 {
 	printf("quote: %s\n", ast->value);
@@ -54,5 +59,6 @@ HANDLE_FUNCTIONS handle_functions[] = {
 	handle_redirect,
 	handle_heredoc,
 	handle_quote,
+	handle_argfile,
 	handle_unknown,
 };

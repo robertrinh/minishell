@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/18 21:29:22 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/01/19 16:54:49 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef enum e_token_types
 	REDIRECT,
 	HEREDOC,
 	QUOTE,
+	ARGFILE,
 	NONE,
 }	t_token_type;
 
@@ -126,6 +127,7 @@ t_token_type	assign_type(char *value);
 
 // post_lexer.c
 bool	post_lexer(t_shell *shell);
+bool	is_special_type(t_token_type type);
 
 //-------------: Lexer/ Quote
 // quotes.c
@@ -153,7 +155,9 @@ int				parse_lexer(t_token *tokens_root);
 
 //lexer_to_tree.c
 t_ast_node	*tokens_to_tree(t_token *tokens_root, t_ast_node *ast_root);
+t_ast_node  *tokens_to_tree_simple(t_token *tokens_root, t_ast_node *ast_root);
 bool		contains_pipe(t_token *current);
+t_token		*locate_pipe(t_token *current);
 
 // parser_checks.c
 int			check_pipes(t_token *tokens);
