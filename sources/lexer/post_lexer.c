@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   post_lexer.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 16:19:25 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/01/19 16:54:38 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   post_lexer.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/12 16:19:25 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/01/20 11:55:36 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ bool	post_lexer(t_shell *shell)
 	current = shell->tokens;
 	while (current)
 	{
-		if (current->type == NONE)
+		if (current->type == NONE && is_special_type(current->type) == false)
 			current = assign_cmd_arg(current);
 		if (current->type == PIPE)
 		{
@@ -93,6 +93,7 @@ bool	post_lexer(t_shell *shell)
 			{
 				current = skip_operators(current);
 				current = assign_argfile_args(current);
+				continue ;
 			}
 		}
 		current = current->next;

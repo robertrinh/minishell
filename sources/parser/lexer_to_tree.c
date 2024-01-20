@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer_to_tree.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/18 13:57:36 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/01/19 17:42:58 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   lexer_to_tree.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/18 13:57:36 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/01/20 11:53:26 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ t_ast_node	*tokens_to_tree(t_token *tokens_root, t_ast_node *ast_root)
 			current = locate_pipe(current);
 			if (ast)
 			{
-				ast->right = ast_constructor(current, NULL);
+				ast->right = ast_constructor(current, ast);
 				ast = ast->right;
 			}
 			else
@@ -195,24 +195,24 @@ static t_token		*append_children(t_token *tokens, t_ast_node *ast, t_ast_node *p
 	i = 0;
 	current = tokens;
 	if (current->type == COMMAND && current->next != NULL)
-	{
-		printf("appending children to: %s\n", current->value);
 		current = current->next;
-	}
 
 	while (current)
 	{
 		if (ast->children == NULL)
-			ast->children = malloc(sizeof(t_ast_node) *count_children(current)); // TODO protect
+			ast->children = malloc(sizeof(t_ast_node) * count_children(current)); // TODO protect
 		if (current->type != ARGUMENT)
 		{
 			ast->num_children = i + 1;
-			printf("Arg found returning; %s\n", current->value);
 			return (current);
 		}
 		ast->children[i] = ast_constructor(current, ast);
+		ast->num_children = i + 1;
 		i++;
-		current = current->next;
+		if (current->next)
+			current = current->next;
+		else
+			return (current);
 	}
 	ast->num_children = i + 1;
 	return (current);
@@ -232,7 +232,6 @@ static t_token	*append_children_parent(t_token *tokens, t_ast_node *parent)
 			if (parent->num_children == 0)
 				parent->children = malloc(sizeof(t_ast_node)); //check size
 			parent->children[(parent->num_children - 1) + i] = ast_constructor(current, parent);
-			printf("parent->children[%d] is %s\n", (parent->num_children - 1) + i, current->value);
 			parent->num_children = parent->num_children + i;
 			i++;
 		}
@@ -243,10 +242,6 @@ static t_token	*append_children_parent(t_token *tokens, t_ast_node *parent)
 	}
 	return (current);
 }
-
-// cat << EOF > file
-// cat file.txt < input_1.txt input_2.txt
-// cat file.txt >> cat file2.txt >> "file3.txt"
 
 t_ast_node  *tokens_to_tree_simple(t_token *tokens_root, t_ast_node *ast_root)
 {
@@ -260,7 +255,6 @@ t_ast_node  *tokens_to_tree_simple(t_token *tokens_root, t_ast_node *ast_root)
 	{
 		if (current->type == COMMAND && ast == NULL)
 		{
-			printf("ast null, val: %s\n", current->value);
 			ast = ast_constructor(current, NULL);
 			ast_root = ast;
 			current = append_children(current, ast, ast);
@@ -274,16 +268,13 @@ t_ast_node  *tokens_to_tree_simple(t_token *tokens_root, t_ast_node *ast_root)
 			}
 			if (ast)
 			{
-				ast->right = ast_constructor(current, ast);
-				ast = ast->right;
-				printf("ast->right val is %s\n", ast->value);
+				ast->left = ast_constructor(current, ast);
+				ast = ast->left;
 				if (current->next)
 				{
 					current = current->next;
 					if (current->type == ARGFILE)
 					{
-						printf("making argfile: %s\n", current->value);
-						printf("ast->right val (inside argf): %s\n", ast->value);
 						ast->children = malloc(sizeof(t_ast_node));
 						ast->children[0] = ast_constructor(current, ast);
 						ast->num_children = 1;
@@ -292,12 +283,11 @@ t_ast_node  *tokens_to_tree_simple(t_token *tokens_root, t_ast_node *ast_root)
 				if (current->next)
 				{
 					current = current->next;
-					printf("making children at: %s\n", current->value);
 					current = append_children_parent(current, ast->parent);
+					continue ;
 				}
 			}
 		}
-		// ast != NULL
 		if (current)
 			current = current->next;
 	}
