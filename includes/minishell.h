@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/20 10:44:41 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/25 00:27:01 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,11 +154,20 @@ typedef void 	(*HANDLE_FUNCTIONS)(t_ast_node*);
 extern 			HANDLE_FUNCTIONS handle_functions[];
 int				parse_lexer(t_token *tokens_root);
 
-//lexer_to_tree.c
+// lexer_to_tree.c
+t_ast_node	*ast_constructor(t_token *current, t_ast_node *parent);
+t_token		*locate_pipe_n(t_token *current, int count);
+t_token		*locate_next_pipe(t_token *current);
+int 		count_children(t_token *current_cmd);
 t_ast_node	*tokens_to_tree(t_token *tokens_root, t_ast_node *ast_root);
-t_ast_node  *tokens_to_tree_simple(t_token *tokens_root, t_ast_node *ast_root);
 bool		contains_pipe(t_token *current);
-t_token		*locate_pipe(t_token *current);
+
+// lexer_to_tree_simple.c
+t_ast_node  *tokens_to_tree_simple(t_token *tokens_root, t_ast_node *ast_root);
+
+// lexer_to_tree_new.c
+t_token	*fill_start_location(t_token *tokens_root, t_token *current, int pipe_count);
+t_ast_node	*tokens_to_ast(t_token *tokens_root, t_ast_node *ast_root);
 
 // parser_checks.c
 int			check_pipes(t_token *tokens);
