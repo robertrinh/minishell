@@ -6,13 +6,13 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/25 22:22:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/25 22:52:03 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/26 21:14:23 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_parse *init_parse(t_token *tokens_root, t_ast_node *ast_root)
+t_parse *init_parse(t_token *tokens_root)
 {
 	t_parse		*p;
 
@@ -22,8 +22,8 @@ t_parse *init_parse(t_token *tokens_root, t_ast_node *ast_root)
 		// TODO clean_exit()
 		return (NULL);
 	}
-	p->ast_c = ast_root;
-	p->ast_r = ast_root;
+	p->ast_c = NULL;
+	p->ast_r = NULL;
 	p->tokens_c = tokens_root;
 	p->tokens_r = tokens_root;
 	return (p);
