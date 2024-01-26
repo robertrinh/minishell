@@ -1,13 +1,35 @@
 
+=== NO SPECIAL CHAR ===
+
+cat "file1" "file2" "file3"
+
+
 === ONLY PIPES ===
 
+cat "file1" "file2" | wc -w
 test this | and that | three more
+what if | there are | pipes | that dont end
+what if | there are | pipes that |
+cmg arg || cmd arg
+cmd arg arg arg arg arg arg arg arg arg arg arg arg arg arg | cmd arg
 one 1 2 3 4 5 | two 1 | three 1 | four 1 2 3 | five 1 | six 1 | seven 1
 one 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 | two 1 2 3 | three 1
 
 
+=== ONLY REDIRECTS ===
+
+cmd < input.txt
+cmd > output.txt
+>> output.txt
+echo >>
+cat tasks.md > grep "a"
+test this > out arg arg arg arg > out2 arg
+cat << END > output.txt
+'EOF' / "..."
+
+
 === PIPES AND REDIRECTS ===
 
+cmd >> output.txt | grep "a"
 one 1 2 > outfile | two 1 2 3 | three 1 2
 one 1 2 > outfile1 > outfile2 > outfile3  3 4 5 6 | two 1 2 3 | three 1 2
-

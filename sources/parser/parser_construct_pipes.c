@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser_construct_pipes.c                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/01/25 22:34:33 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/25 22:34:58 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser_construct_pipes.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/25 22:34:33 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/01/26 13:35:27 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ bool	construct_pipe_node(t_parse *p, int pipe_count)
 	{
 		if (p->ast_c->value)
 		{
-			printf("constructing pipe: %s\n", p->tokens_c->value);
+			printf("ast != NULL: constructing pipe: %s\n", p->tokens_c->value);
 			p->ast_c->right = ast_constructor(p->tokens_c, p->ast_c);
 			p->ast_c = p->ast_c->right;
 		}
 		else
 		{
-			printf("constructing pipe: %s\n", p->tokens_c->value);
+			printf("ast = NULL: constructing pipe: %s\n", p->tokens_c->value);
 			p->ast_c = ast_constructor(p->tokens_c, NULL);
 			p->ast_r = p->ast_c;
 		}
