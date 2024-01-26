@@ -1,35 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parser_checks.c                                    :+:    :+:            */
+/*   parser_pipe_utils.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/01/18 21:07:32 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/24 20:25:15 by quentinbeuk   ########   odam.nl         */
+/*   Created: 2024/01/25 22:29:50 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/01/25 22:30:17 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		check_pipes(t_token *tokens)
+bool	contains_pipe(t_token *current)
 {
-	t_token		*current;
+	if (current->type == PIPE)
+		return (true);
+	return (false);
+}
 
-	current = tokens;
+t_token	*locate_pipe_n(t_token *tokens_root, int pipe_count)
+{
+	int			i;
+	t_token 	*current;
+	
+	i = 0;
+	current = tokens_root;
 	while (current)
 	{
-		if (contains_pipe(current))
+		if (current->type == PIPE)
 		{
-			// next is nothing
-			if (current->next == NULL)
-				return (FAILURE);
-			
-			// next is pipe
-			else if (contains_pipe(current->next))
-				return (FAILURE);
+			if (i == pipe_count)
+				return (current);
+			i++;
 		}
+		if (current->next == NULL)
+			return (NULL);
+		
 		current = current->next;
 	}
-	return (SUCCESS);
+	return (NULL);
 }

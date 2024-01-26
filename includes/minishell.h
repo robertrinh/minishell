@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/20 10:44:41 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/25 23:16:46 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@
 // ===== [ includes ] =====
 # include "libft/include/libft.h"
 # include "error_messages.h"
+
+// ===== [ libraries ] =====
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
 
 //====================================================================: Define
 # define OPERATORS "<>|"
@@ -30,14 +33,21 @@
 # define CYELLOW "\033[0;33m"
 # define RESET_COLOR "\033[0m"
 
+
 //====================================================================: Enum
 typedef enum e_exit
 {
-	SUCCESS,
-	FAILURE
+	FAILURE,
+	SUCCESS
 }	t_exit;
 
-typedef enum e_token_types
+typedef enum e_direction
+{
+	LEFT,
+	RIGHT
+}	t_direction;
+
+typedef enum e_token_type
 {
 	COMMAND,
 	ARGUMENT,
@@ -51,7 +61,6 @@ typedef enum e_token_types
 
 
 //====================================================================: Struct
-// Abstract Syntaxr Tree
 typedef struct s_ast_node
 {
 	t_token_type		type;
@@ -62,7 +71,6 @@ typedef struct s_ast_node
 	struct s_ast_node	*left;
 	struct s_ast_node	*right;
 }	t_ast_node;
-
 
 typedef struct s_split
 {
@@ -86,6 +94,14 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+typedef struct s_parse
+{
+	t_ast_node	*ast_r;
+	t_ast_node	*ast_c;
+	t_token		*tokens_c;
+	t_token		*tokens_r;
+}	t_parse;
+
 typedef struct s_cmd
 {
 	int		fd_in;
@@ -104,7 +120,8 @@ typedef struct s_shell
 	int			exit_code;
 }	t_shell;
 
-//====================================================================: Main
+
+//===============================================================: Main
 // shell_init.c
 t_shell	*shell_init(void);
 bool	save_command(char *input, t_shell *shell);
@@ -116,7 +133,8 @@ t_token	*lst_rev(t_token *tokens_head);
 t_token	*lst_copy(t_token *tokens_head);
 void	print_token(t_token *tokens);
 
-//====================================================================: Lexer
+
+//===============================================================: Lexer
 // lexer.c
 char	*type_to_string(t_token_type type);
 t_token	*token_constructor(char *split_input, int i);
@@ -130,7 +148,8 @@ t_token_type	assign_type(char *value);
 bool	post_lexer(t_shell *shell);
 bool	is_special_type(t_token_type type);
 
-//-------------: Lexer/ Quote
+
+//===============================================================: Lexer / Quote
 // quotes.c
 int		is_quote(char c);
 int		quote_manager(t_shell *shell);
@@ -138,7 +157,8 @@ int		quote_manager(t_shell *shell);
 // buffer_quote.c
 void	buffer_quote(t_split *sp, int quote_type);
 
-//-------------: Lexer/ Split
+
+//===============================================================: Lexer / Split
 // split.c
 char	**split(t_shell *shell);
 bool	is_white_space(char c);
@@ -148,23 +168,44 @@ int		check_operator(char c1, char c2);
 // allocate_strings.c
 char	**allocate_strings(t_split *sp);
 
-//====================================================================: Parser
-// parser.c
-typedef void 	(*HANDLE_FUNCTIONS)(t_ast_node*);
-extern 			HANDLE_FUNCTIONS handle_functions[];
-int				parse_lexer(t_token *tokens_root);
 
-//lexer_to_tree.c
-t_ast_node	*tokens_to_tree(t_token *tokens_root, t_ast_node *ast_root);
-t_ast_node  *tokens_to_tree_simple(t_token *tokens_root, t_ast_node *ast_root);
-bool		contains_pipe(t_token *current);
-t_token		*locate_pipe(t_token *current);
+//===============================================================: Parser
+// lexer_to_parser.c
+t_ast_node		*tokens_to_parser(t_token *tokens_root, t_ast_node *ast_root);
 
 // parser_checks.c
-int			check_pipes(t_token *tokens);
+int				check_pipes(t_token *tokens);
+
+// parser_construct_command.c
+bool		construct_command_node(t_parse *p, t_direction direction);
+bool		construct_arg_nodes(t_parse *p, t_direction direction);
+
+// parser_construct_pipes.c
+t_token		*fill_start_location(t_token *tokens_root, t_token *current, int pipe_count);
+bool		construct_pipe_node(t_parse *p, int pipe_count);
+
+// parser_construct_redirects.c
+t_token		*fill_start_location(t_token *tokens_root, t_token *current, int pipe_count);
+bool		construct_redirect_nodes(t_parse *p, int pipe_count);
+
+// parser_operations.c
+typedef void 	(*HANDLE_FUNCTIONS)(t_ast_node*);
+extern 			HANDLE_FUNCTIONS handle_functions[];
+
+// parser_pipe_utils.c
+bool		contains_pipe(t_token *current);
+t_token		*locate_pipe_n(t_token *tokens_root, int pipe_count);
+
+// parser_utils.c
+t_parse 		*init_parse(t_token *tokens_root, t_ast_node *ast_root);
+t_ast_node		*ast_constructor(t_token *current, t_ast_node *parent);
+int 			count_children(t_token *current_cmd);
+
+// parser.c
+int			parse_lexer(t_token *tokens_root);
 
 
-//====================================================================: Utils
+//===============================================================: Utils
 // utils.c
 void	print_token(t_token *tokens);
 

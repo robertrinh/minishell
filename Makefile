@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/01/18 21:29:46 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2024/01/25 23:00:15 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,9 +47,15 @@ SOURCES_LEXER_QUOTE		= quote.c \
 							buffer_quote.c \
 
 SOURCES_PARSER			= parser.c \
-							lexer_to_tree.c \
-							parse_operations.c \
-							parser_checks.c
+							lexer_to_parser.c \
+							parser_checks.c \
+							parser_construct_command.c \
+							parser_construct_pipes.c \
+							parser_construct_redirects.c \
+							parser_operations.c \
+							parser_pipe_utils.c \
+							parser_utils.c
+							
 
 SOURCES_UTILS			= clean_exit.c \
 							list.c \

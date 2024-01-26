@@ -1,3 +1,0 @@
-cat file.txt < input.txt
-cat file.txt >> cat file2.txt >> "file3.txt"
-cat > output.txt arg1 arg2

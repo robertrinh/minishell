@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/20 11:58:43 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/25 22:41:04 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	traverse_ast(t_ast_node *ast, int depth)
 		else if (ast == ast->parent->right)
 			printf("\\R-- ");
 	}
-
+	
 	handle_functions[ast->type](ast);
 
 	while (i < ast->num_children)
@@ -86,10 +86,8 @@ int		parse_lexer(t_token *tokens_root)
 	if (check_pipes(tokens_root) == FAILURE)
 		return (exit_with_message(ERROR_UNMATCHED_PIPE, RED));
 
-	if (locate_pipe(tokens_root) == NULL)
-		ast_root = tokens_to_tree_simple(tokens_root, ast_root);
-	else
-		ast_root = tokens_to_tree(tokens_root, ast_root);
+	ast_root = tokens_to_parser(tokens_root, ast_root);
+	
 	traverse_ast(ast_root, 8);
 	return (SUCCESS);
 }
@@ -129,11 +127,10 @@ int		parse_lexer(t_token *tokens_root)
 // cat tasks.md > grep "a". "a" is arg of cat. grep is argfile. (out of scope)?
 // same goes for >>
 
-// ! Args after third redirect
+// ! Args after third redirect (Wrong parent)
 // test this > out arg arg arg arg > out2 arg
 
 // TODO in << heredoc
 // Handle 'EOF' / "..."
 // These are shorthand used in heredoc
 // cat << END > output.txt
-
