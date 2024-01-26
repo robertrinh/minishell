@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/25 23:16:46 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/01/26 14:50:16 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,8 +170,14 @@ char	**allocate_strings(t_split *sp);
 
 
 //===============================================================: Parser
+// lexer_to_parser_pipe.c
+t_ast_node		*tokens_to_parser_pipe(t_token *tokens_root, t_ast_node *ast_root);
+
 // lexer_to_parser.c
-t_ast_node		*tokens_to_parser(t_token *tokens_root, t_ast_node *ast_root);
+bool	make_command_node(t_parse *p);
+bool	make_parent_node(t_parse *p);
+bool	make_redirect_node(t_parse *p);
+t_ast_node	*tokens_to_parser(t_token *tokens_root);
 
 // parser_checks.c
 int				check_pipes(t_token *tokens);
@@ -186,6 +192,7 @@ bool		construct_pipe_node(t_parse *p, int pipe_count);
 
 // parser_construct_redirects.c
 t_token		*fill_start_location(t_token *tokens_root, t_token *current, int pipe_count);
+bool 		construct_argfile_node(t_parse *p, t_token *current);
 bool		construct_redirect_nodes(t_parse *p, int pipe_count);
 
 // parser_operations.c

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser_construct_redirects.c                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/01/25 19:54:45 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/25 23:01:16 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser_construct_redirects.c                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/25 19:54:45 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/01/26 14:55:32 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,12 @@ static bool	construct_redirect_node(t_parse *p, t_token *current)
 	return (SUCCESS);
 }
 
-static bool construct_argfile_node(t_parse *p, t_token *current)
+bool construct_argfile_node(t_parse *p, t_token *current)
 {
 	if (current->type == ARGFILE)
 	{
-		p->ast_c->left->children = malloc(sizeof(t_ast_node) * count_children_redirect(current));
+		printf("appending argfile: %s\n", current->value);
+		p->ast_c->left->children = malloc(sizeof(t_ast_node) * count_children_redirect(current)); // ! No count needed
 		p->ast_c->left->children[0] = ast_constructor(current, p->ast_c->left);
 		p->ast_c->left->num_children = 1;
 	}

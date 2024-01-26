@@ -1,49 +1,43 @@
 # Tasks
 
-## Schedules:
-Availability Robert:
-Normal times @ codam = wednesday to friday
+## Uncertainties
+
+> How does << work? Add delimiter to parser and lexer. 
+Do we have to handle no given heredoc? (cat << END > output.txt)
+
+> 
 
 ---
+<br />
 
 
-## Availablilty Quinten:
-Normal times @ codam = thursday + friday
+## Needed for next steps
 
----
+> 1. Read about `pipes` and multiple pipes
 
-## Notes
-Join quote into one token
+> 2. Understand how `signals` work, perhaps read minitalk subject. Global var? And how to hande $?
 
-Based on outer quote, expand
-
-Tokenizing based on operators
-
-if first occurance from input is a command -> afterwards arguments, tokens until you encounter a specific symbol 
-example: cat sources/minishell.c | grep "include" --> gives include line
-
-Need to splite allocate_strings into 2 functions for the norm
+> 3. Read man pages of available `functions`
 
 ---
+<br />
 
-## Tests
 
-`echo "test"` -> segfaults when quotes are 1 token
+## For a later time
 
-`token ">> more"` -> no space after heredoc
+> Expanding
 
-`test "another |more"` -> works?
+> Environment
 
-`token "   more tokens"` -> skips first spaces
+> History
 
-`token "token   >>   more"` -> skips spaces
+> Interactive mode (^ C)
 
-to consider: retraverse the token; add spaces back?
-
-so "lets try" --> extra token at the end. check
+> Built-ins
 
 
 ---
+<br />
 
 
 ## Documentation and Links: 
