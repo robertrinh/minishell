@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/12/03 13:06:57 by quentinbeuk       #+#    #+#              #
-#    Updated: 2024/01/26 14:09:37 by qbeukelm         ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
+#                                                    +#+                       #
+#    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
+#    Updated: 2024/01/26 21:05:37 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,7 +91,7 @@ $(NAME_EXECUTABLE): $(OBJ)
 	@echo "$(BLUE)\nMaking LIBFT ...\n$(RESET)"
 	@$(MAKE) -C $(LIBFT)
 	@echo "$(BLUE)\nMaking MINISHELL ...\n$(RESET)"
-	@$(CC) $(CFLAGS) $(HEADERS) $^ $(LIBFT)/libft.a -o $(NAME_EXECUTABLE) 
+	@$(CC) $(CFLAGS) $(HEADERS) $^ $(LIBFT)/libft.a -o $(NAME_EXECUTABLE) -lreadline
 	@echo "$(GREEN)Compiled all!\n$(RESET)"
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES)/%.c | $(DIR_OBJ)

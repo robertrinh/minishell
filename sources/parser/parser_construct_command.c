@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/25 22:35:21 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/25 22:47:48 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/26 21:21:27 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,18 @@ static bool	construct_parent_node(t_parse *p, t_token *current, t_direction dire
 	if (direction == LEFT)
 	{
 		if (p->ast_c->left->children == NULL)
-		{
-			printf("constructing children left root[%d]: %s\n", count_children(current), current->value);
-			p->ast_c->left->children = malloc(sizeof(t_ast_node) * count_children(current)); // TODO
-		}
+			p->ast_c->left->children = malloc(sizeof(t_ast_node) * count_children(current)); // TODO protect
 	}
 	if (direction == RIGHT)
 	{
 		if (p->ast_c->right->children == NULL)
-		{
-			printf("constructing children right root[%d]: %s\n", count_children(current), current->value);
-			p->ast_c->right->children = malloc(sizeof(t_ast_node) * count_children(current)); // TODO
-		}
+			p->ast_c->right->children = malloc(sizeof(t_ast_node) * count_children(current)); // TODO protect
 	}
 	return (SUCCESS);
 }
 
 static bool 	append_child_node(t_parse *p, t_token *current, int i, t_direction direction)
 {
-	printf("appending child: %s, \t parent: %s\n", current->value, p->ast_c->left->value);
 	if (direction == LEFT)
 		p->ast_c->left->children[i] = ast_constructor(current, p->ast_c->left);
 	if (direction == RIGHT)
@@ -45,7 +38,6 @@ static bool 	append_child_node(t_parse *p, t_token *current, int i, t_direction 
 
 static bool	assign_num_children(t_parse *p, int i, t_direction direction)
 {
-	printf("num children: %d\n", i);
 	if (direction == LEFT)
 		p->ast_c->left->num_children = i;
 	if (direction == RIGHT)
@@ -58,15 +50,9 @@ bool	construct_command_node(t_parse *p, t_direction direction)
 	if (p->tokens_c->type == COMMAND)
 	{
 		if (direction == LEFT)
-		{
-			printf("constructing cmd left: %s\n", p->tokens_c->value);
 			p->ast_c->left = ast_constructor(p->tokens_c, p->ast_c);
-		}
 		if (direction == RIGHT)
-		{
-			printf("constructing cmd right: %s\n", p->tokens_c->value);
 			p->ast_c->right = ast_constructor(p->tokens_c, p->ast_c);
-		}
 	}
 	if (p->tokens_c->next)
 		p->tokens_c = p->tokens_c->next;

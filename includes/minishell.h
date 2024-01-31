@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/01/26 14:50:16 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/01/26 21:15:00 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ char	**allocate_strings(t_split *sp);
 
 //===============================================================: Parser
 // lexer_to_parser_pipe.c
-t_ast_node		*tokens_to_parser_pipe(t_token *tokens_root, t_ast_node *ast_root);
+t_ast_node		*tokens_to_parser_pipe(t_token *tokens_root);
 
 // lexer_to_parser.c
 bool	make_command_node(t_parse *p);
@@ -204,7 +204,7 @@ bool		contains_pipe(t_token *current);
 t_token		*locate_pipe_n(t_token *tokens_root, int pipe_count);
 
 // parser_utils.c
-t_parse 		*init_parse(t_token *tokens_root, t_ast_node *ast_root);
+t_parse 		*init_parse(t_token *tokens_root);
 t_ast_node		*ast_constructor(t_token *current, t_ast_node *parent);
 int 			count_children(t_token *current_cmd);
 

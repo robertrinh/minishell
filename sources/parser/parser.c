@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/11 19:53:12 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/01/26 16:23:33 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parser.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/01/26 21:14:39 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int		parse_lexer(t_token *tokens_root)
 		return (exit_with_message(ERROR_UNMATCHED_PIPE, RED));
 	
 	if (locate_pipe_n(tokens_root, 0))
-		ast_root = tokens_to_parser_pipe(tokens_root, ast_root);
+		ast_root = tokens_to_parser_pipe(tokens_root);
 	else
 		ast_root = tokens_to_parser(tokens_root);
 	
