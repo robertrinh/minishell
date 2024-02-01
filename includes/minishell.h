@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/26 21:15:00 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/01 21:07:33 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,8 +183,8 @@ t_ast_node	*tokens_to_parser(t_token *tokens_root);
 int				check_pipes(t_token *tokens);
 
 // parser_construct_command.c
-bool		construct_command_node(t_parse *p, t_direction direction);
 bool		construct_arg_nodes(t_parse *p, t_direction direction);
+bool		construct_command_node(t_parse *p, t_direction direction);
 
 // parser_construct_pipes.c
 t_token		*fill_start_location(t_token *tokens_root, t_token *current, int pipe_count);
@@ -196,8 +196,8 @@ bool 		construct_argfile_node(t_parse *p, t_token *current);
 bool		construct_redirect_nodes(t_parse *p, int pipe_count);
 
 // parser_operations.c
-typedef void 	(*HANDLE_FUNCTIONS)(t_ast_node*);
-extern 			HANDLE_FUNCTIONS handle_functions[];
+typedef void 	(*HANDLE_FUNCTIONS_PRINT)(t_ast_node*);
+extern 			HANDLE_FUNCTIONS_PRINT handle_functions_print[];
 
 // parser_pipe_utils.c
 bool		contains_pipe(t_token *current);
@@ -219,5 +219,8 @@ void	print_token(t_token *tokens);
 // clean_exit.c
 void	finish_command(t_shell *shell);
 int		exit_with_message(t_error_messages error_code, t_message_colors color);
+
+// print_parser.c
+void	print_ast(t_ast_node *ast, int depth);
 
 #endif

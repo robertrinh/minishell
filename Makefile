@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/01/26 21:05:37 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2024/02/01 21:09:15 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,14 +53,15 @@ SOURCES_PARSER			= parser.c \
 							parser_construct_command.c \
 							parser_construct_pipes.c \
 							parser_construct_redirects.c \
-							parser_operations.c \
 							parser_pipe_utils.c \
 							parser_utils.c
 							
 
 SOURCES_UTILS			= clean_exit.c \
+							error_messages.c \
 							list.c \
-							error_messages.c
+							print_parser_operations.c \
+							print_parser.c
 
 
 # ===== Manage Directories =====

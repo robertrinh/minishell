@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/26 21:14:39 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/01 21:07:55 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,51 +32,6 @@ cat << EOF > file | wc -c | tr -d " " > file2
 
  */
 
-
-static void	print_depth(int	depth)
-{
-	int	i = 0;
-	while (i < depth)
-	{
-		printf("    ");
-		i++;
-	}
-}
-
-static void	traverse_ast(t_ast_node *ast, int depth)
-{
-	int		i = 0;
-
-	if (ast == NULL)
-		return ;
-
-	print_depth(depth);
-	
-	if (ast->parent != NULL)
-	{
-		if (ast == ast->parent->left)
-			printf("/L-- ");
-		else if (ast->type == ARGUMENT)
-			printf("-- ");
-		else if (ast == ast->parent->right)
-			printf("\\R-- ");
-	}
-	
-	handle_functions[ast->type](ast);
-
-	while (i < ast->num_children)
-	{
-		if (ast->children)
-            traverse_ast(ast->children[i], depth + 1);
-		i++;
-	}
-
-	if (ast->left)
-		traverse_ast(ast->left, depth - 2);
-	if (ast->right)
-		traverse_ast(ast->right, depth + 2);
-}
-
 int		parse_lexer(t_token *tokens_root)
 {
 	t_ast_node *ast_root;
@@ -90,6 +45,6 @@ int		parse_lexer(t_token *tokens_root)
 	else
 		ast_root = tokens_to_parser(tokens_root);
 	
-	traverse_ast(ast_root, 8);
+	print_ast(ast_root, 8);
 	return (SUCCESS);
 }
