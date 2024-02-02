@@ -11,13 +11,19 @@ Do we have to handle no given heredoc? (cat << END > output.txt)
 <br />
 
 
+## Next Step
+
+> Create `fork()` for `execve()`
+
+---
+<br />
+
+
 ## Needed for next steps
 
-> 1. Read about `pipes` and multiple pipes
+> Understand how `signals` work, perhaps read minitalk subject. Global var? And how to hande $?
 
-> 2. Understand how `signals` work, perhaps read minitalk subject. Global var? And how to hande $?
-
-> 3. Read man pages of available `functions`
+> Read man pages of available `functions`
 
 ---
 <br />
@@ -25,7 +31,9 @@ Do we have to handle no given heredoc? (cat << END > output.txt)
 
 ## For a later time
 
-> Expanding
+> Read about multiple `pipes`
+
+> Expanding (heredoc)
 
 > Environment
 

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 14:04:02 by qtrinh            #+#    #+#             */
-/*   Updated: 2024/02/02 14:49:30 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/02/02 18:56:05 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,32 @@ static t_cmd	*cmd_init(void)
 	return (cmd);
 }
 
+static int		count_substrings(char **strings)
+{
+	int		i;
+
+	i = 0;
+	while (strings[i])
+		i++;
+	return (i);
+}
+
+static char **alloc_envp(char **envp)
+{
+	int		i;
+	char	**copy_envp;
+
+	i = 0;
+	copy_envp = malloc(sizeof(char *) * count_substrings(envp)); // TODO protect
+	while (envp[i])
+	{
+		copy_envp[i] = ft_strdup(envp[i]); // TODO protect
+		i++;
+	}
+	copy_envp[i] = 0;
+	return (copy_envp);
+}
+
 t_shell	*shell_init(char **envp)
 {
 	t_shell	*shell;
@@ -34,7 +60,7 @@ t_shell	*shell_init(char **envp)
 		// TODO clean_exit()
 	}
 	shell->cmd = cmd_init();
-	shell->envp = envp;
+	shell->envp = alloc_envp(envp);
 	return (shell);
 }
 

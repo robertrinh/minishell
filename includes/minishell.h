@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/02/02 14:58:45 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/02/02 19:17:46 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ typedef struct s_shell
 {
 	t_token		*tokens;
 	t_cmd		*cmd;
+	t_ast_node	*ast;
 	char		**envp;
 	char const	*input;
 	int			exit_code;
@@ -124,6 +125,7 @@ typedef struct s_shell
 
 //===============================================================: Main
 // shell_init.c
+
 t_shell	*shell_init(char **envp);
 bool	save_command(char *input, t_shell *shell);
 t_split	*init_split(t_shell *shell, t_split *split);
@@ -167,7 +169,7 @@ int		skip_whitespace(t_split *sp);
 int		check_operator(char c1, char c2);
 
 // allocate_strings.c
-char	**allocate_strings(t_split *sp);
+char	**allocate_strings_split(t_split *sp);
 
 
 //===============================================================: Parser
@@ -197,6 +199,9 @@ bool 		construct_argfile_node(t_parse *p, t_token *current);
 bool		construct_redirect_nodes(t_parse *p, int pipe_count);
 
 // parser_operations.c
+typedef void 	(*HANDLE_FUNCTIONS)(t_shell*, t_ast_node*);
+extern			HANDLE_FUNCTIONS handle_functions[];
+
 typedef void 	(*HANDLE_FUNCTIONS_PRINT)(t_ast_node*);
 extern 			HANDLE_FUNCTIONS_PRINT handle_functions_print[];
 
@@ -210,12 +215,15 @@ t_ast_node		*ast_constructor(t_token *current, t_ast_node *parent);
 int 			count_children(t_token *current_cmd);
 
 // parser.c
-int			parse_lexer(t_token *tokens_root);
+int		parse_lexer(t_shell *shell);
 
 
 //===============================================================: Executor
+// executer.c
+int		execute(t_shell *shell);
+
 // execute_command.c
-bool	execute_command(t_shell *shell);
+void	execute_command(t_shell *shell, t_ast_node *current);
 
 
 //===============================================================: Utils

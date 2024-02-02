@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 13:13:49 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/02/02 14:59:05 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/02/02 19:10:24 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ static bool	run(t_shell *shell)
 			finish_command(shell);
 			print_token(shell->tokens);
 		}
-		parse_lexer(shell->tokens);
-		execute_command(shell);
+		parse_lexer(shell);
+		execute(shell);
 		printf("\n--------------------End--------------------\n\n");
 	}
 	return (SUCCESS); // <- Return status to main

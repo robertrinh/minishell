@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk       #+#    #+#              #
-#    Updated: 2024/02/02 14:30:20 by qbeukelm         ###   ########.fr        #
+#    Updated: 2024/02/02 19:16:32 by qbeukelm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,8 @@ SOURCES_UTILS			= clean_exit.c \
 							print_parser.c
 
 
-SOURCES_EXECUTOR_COMMAND = execute_command.c
+SOURCES_EXECUTOR_COMMAND = executor.c \
+							execute_command.c
 
 
 # ===== Manage Directories =====

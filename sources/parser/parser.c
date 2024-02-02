@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/01 21:07:55 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/11 19:53:12 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/02/02 19:10:49 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,22 @@ cat << EOF > file | wc -c | tr -d " " > file2
 
  */
 
-int		parse_lexer(t_token *tokens_root)
+int		parse_lexer(t_shell *shell)
 {
 	t_ast_node *ast_root;
 
 	printf("\n\n========parser========\n");
-	if (check_pipes(tokens_root) == FAILURE)
+	if (check_pipes(shell->tokens) == FAILURE)
 		return (exit_with_message(ERROR_UNMATCHED_PIPE, RED));
 	
-	if (locate_pipe_n(tokens_root, 0))
-		ast_root = tokens_to_parser_pipe(tokens_root);
+	if (locate_pipe_n(shell->tokens, 0))
+		ast_root = tokens_to_parser_pipe(shell->tokens);
 	else
-		ast_root = tokens_to_parser(tokens_root);
+		ast_root = tokens_to_parser(shell->tokens);
+
+  shell->ast = ast_root;
 	
 	print_ast(ast_root, 8);
+  
 	return (SUCCESS);
 }
