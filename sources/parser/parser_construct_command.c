@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/25 22:35:21 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/26 21:21:27 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/01/31 17:41:31 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,6 @@ static bool	assign_num_children(t_parse *p, int i, t_direction direction)
 	return (SUCCESS);
 }
 
-bool	construct_command_node(t_parse *p, t_direction direction)
-{
-	if (p->tokens_c->type == COMMAND)
-	{
-		if (direction == LEFT)
-			p->ast_c->left = ast_constructor(p->tokens_c, p->ast_c);
-		if (direction == RIGHT)
-			p->ast_c->right = ast_constructor(p->tokens_c, p->ast_c);
-	}
-	if (p->tokens_c->next)
-		p->tokens_c = p->tokens_c->next;
-	return (SUCCESS);
-}
-
 bool	construct_arg_nodes(t_parse *p, t_direction direction)
 {
 	int		i;
@@ -81,5 +67,19 @@ bool	construct_arg_nodes(t_parse *p, t_direction direction)
 		}
 		current = current->next;
 	}
+	return (SUCCESS);
+}
+
+bool	construct_command_node(t_parse *p, t_direction direction)
+{
+	if (p->tokens_c->type == COMMAND)
+	{
+		if (direction == LEFT)
+			p->ast_c->left = ast_constructor(p->tokens_c, p->ast_c);
+		if (direction == RIGHT)
+			p->ast_c->right = ast_constructor(p->tokens_c, p->ast_c);
+	}
+	if (p->tokens_c->next)
+		p->tokens_c = p->tokens_c->next;
 	return (SUCCESS);
 }

@@ -6,25 +6,23 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/25 19:54:45 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/26 21:20:36 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/01 21:11:44 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int count_children_redirect(t_token *current_cmd)
+static int count_pipes(t_parse *p)
 {
-	int			count;
 	t_token		*current;
+	int			count;
 
+	current = p->tokens_r;
 	count = 0;
-	current = current_cmd;
 	while (current)
 	{
-		if (current->type == ARGFILE)
-			count++;
 		if (current->type == PIPE)
-			return (count);
+			count++;
 		current = current->next;
 	}
 	return (count);
@@ -53,13 +51,17 @@ bool	construct_redirect_nodes(t_parse *p, int pipe_count)
 {
 	t_ast_node	*ast_place_holder;
 	t_token		*current;
+	int			total_pipes;
 
+	total_pipes = count_pipes(p);
 	ast_place_holder = p->ast_c;
 	current = p->tokens_c;
 	while (current)
 	{
 		if (current->type == REDIRECT || current->type == HEREDOC)
 		{
+			if (total_pipes == pipe_count && p->ast_c->right)
+				p->ast_c = p->ast_c->right;
 			construct_redirect_node(p, current);
 			current = current->next;
 			construct_argfile_node(p, current);
