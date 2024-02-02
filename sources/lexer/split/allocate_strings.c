@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   allocate_strings.c                                 :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/01/07 13:01:10 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/17 17:17:28 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   allocate_strings.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/07 13:01:10 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/02/02 16:53:29 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	**allocate_substrings(t_split *sp)
 	return (sp->strings);
 }
 
-char	**allocate_strings(t_split *sp)
+char	**allocate_strings_split(t_split *sp)
 {
 	sp->i = 0;
 	while (sp->i < sp->len)
