@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 14:04:02 by qtrinh            #+#    #+#             */
-/*   Updated: 2024/01/26 16:26:33 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/02/02 14:49:30 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static t_cmd	*cmd_init(void)
 	return (cmd);
 }
 
-t_shell	*shell_init(void)
+t_shell	*shell_init(char **envp)
 {
 	t_shell	*shell;
 
@@ -34,6 +34,7 @@ t_shell	*shell_init(void)
 		// TODO clean_exit()
 	}
 	shell->cmd = cmd_init();
+	shell->envp = envp;
 	return (shell);
 }
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/01 21:07:33 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/02/02 14:58:45 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ typedef struct s_shell
 {
 	t_token		*tokens;
 	t_cmd		*cmd;
+	char		**envp;
 	char const	*input;
 	int			exit_code;
 }	t_shell;
@@ -123,7 +124,7 @@ typedef struct s_shell
 
 //===============================================================: Main
 // shell_init.c
-t_shell	*shell_init(void);
+t_shell	*shell_init(char **envp);
 bool	save_command(char *input, t_shell *shell);
 t_split	*init_split(t_shell *shell, t_split *split);
 
@@ -212,6 +213,11 @@ int 			count_children(t_token *current_cmd);
 int			parse_lexer(t_token *tokens_root);
 
 
+//===============================================================: Executor
+// execute_command.c
+bool	execute_command(t_shell *shell);
+
+
 //===============================================================: Utils
 // utils.c
 void	print_token(t_token *tokens);
@@ -222,5 +228,6 @@ int		exit_with_message(t_error_messages error_code, t_message_colors color);
 
 // print_parser.c
 void	print_ast(t_ast_node *ast, int depth);
+
 
 #endif

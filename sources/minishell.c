@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/01 21:00:42 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 13:13:49 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/02/02 14:59:05 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static bool	run(t_shell *shell)
 			print_token(shell->tokens);
 		}
 		parse_lexer(shell->tokens);
+		execute_command(shell);
 		printf("\n--------------------End--------------------\n\n");
 	}
 	return (SUCCESS); // <- Return status to main
@@ -46,7 +47,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_shell	*shell;
 
-	shell = shell_init();
+	shell = shell_init(envp);
 	run(shell);
 	printf("argc: %d, %p, %p", argc, argv, envp);
 	return (0);
