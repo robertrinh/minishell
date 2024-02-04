@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   execute_command.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 14:28:14 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/02/02 19:23:06 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   execute_command.c                                  :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/02/04 11:58:32 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static char	**get_paths(void)
 	return (env_paths);
 }
 
-void	execute_command(t_shell *shell, t_ast_node *current)
+int		execute_command(t_shell *shell, t_ast_node *current)
 {
 	char 	**env_paths;
 	char	*cmd_path;
@@ -101,4 +101,6 @@ void	execute_command(t_shell *shell, t_ast_node *current)
 	env_paths = get_paths();
 	cmd_path = get_path_for_cmd(env_paths, current->value);
 	manage_execution(cmd_path, shell->ast, shell);
+
+	return (1); // Return status code
 }
