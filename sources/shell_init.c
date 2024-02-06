@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   shell_init.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/14 14:04:02 by qtrinh            #+#    #+#             */
-/*   Updated: 2024/02/02 18:56:05 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   shell_init.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/14 14:04:02 by qtrinh        #+#    #+#                 */
+/*   Updated: 2024/02/04 12:13:37 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,20 @@ static char **alloc_envp(char **envp)
 	return (copy_envp);
 }
 
+HANDLE_FUNCTIONS *init_functions(void)
+{
+	HANDLE_FUNCTIONS	*exec_funcs;
+
+	exec_funcs = malloc(sizeof(HANDLE_FUNCTIONS) * NONE);
+	if (exec_funcs == NULL)
+	{
+		// TODO clean_exit()
+	}
+
+	exec_funcs[COMMAND] = execute_command;
+	return (exec_funcs);
+}
+
 t_shell	*shell_init(char **envp)
 {
 	t_shell	*shell;
@@ -61,6 +75,7 @@ t_shell	*shell_init(char **envp)
 	}
 	shell->cmd = cmd_init();
 	shell->envp = alloc_envp(envp);
+	shell->exec_funcs = init_functions();
 	return (shell);
 }
 

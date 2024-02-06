@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 19:16:50 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/02/02 19:16:53 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   executor.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/02 19:16:50 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/02/04 11:52:26 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-HANDLE_FUNCTIONS handle_functions[] = {
-	execute_command
-};
-
 static void	execute_ast(t_shell *shell, t_ast_node *ast)
 {
-	int		i = 0;
+	int					i = 0;
 
 	if (ast == NULL)
 		return ;
 	
-	handle_functions[ast->type](shell, ast);
+	shell->exec_funcs[ast->type](shell, ast);
 
 	while (i < ast->num_children)
 	{

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/02/02 19:17:46 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/02/04 12:13:03 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <readline/history.h>
 
 
-//====================================================================: Define
+//===============================================================: Define
 # define OPERATORS "<>|"
 # define REDIRECTS "<>"
 
@@ -34,7 +34,7 @@
 # define RESET_COLOR "\033[0m"
 
 
-//====================================================================: Enum
+//===============================================================: Enum
 typedef enum e_exit
 {
 	FAILURE,
@@ -60,7 +60,7 @@ typedef enum e_token_type
 }	t_token_type;
 
 
-//====================================================================: Struct
+//===============================================================: Struct
 typedef struct s_ast_node
 {
 	t_token_type		type;
@@ -112,14 +112,17 @@ typedef struct s_cmd
 	int		double_quote;
 }	t_cmd;
 
-typedef struct s_shell
+typedef struct	s_shell t_shell;
+typedef int		(*HANDLE_FUNCTIONS)(t_shell*, t_ast_node*);
+typedef struct	s_shell
 {
-	t_token		*tokens;
-	t_cmd		*cmd;
-	t_ast_node	*ast;
-	char		**envp;
-	char const	*input;
-	int			exit_code;
+	t_token				*tokens;
+	t_cmd				*cmd;
+	t_ast_node			*ast;
+	char				**envp;
+	char const			*input;
+	HANDLE_FUNCTIONS	*exec_funcs;
+	int					exit_code;
 }	t_shell;
 
 
@@ -198,10 +201,6 @@ t_token		*fill_start_location(t_token *tokens_root, t_token *current, int pipe_c
 bool 		construct_argfile_node(t_parse *p, t_token *current);
 bool		construct_redirect_nodes(t_parse *p, int pipe_count);
 
-// parser_operations.c
-typedef void 	(*HANDLE_FUNCTIONS)(t_shell*, t_ast_node*);
-extern			HANDLE_FUNCTIONS handle_functions[];
-
 typedef void 	(*HANDLE_FUNCTIONS_PRINT)(t_ast_node*);
 extern 			HANDLE_FUNCTIONS_PRINT handle_functions_print[];
 
@@ -223,7 +222,7 @@ int		parse_lexer(t_shell *shell);
 int		execute(t_shell *shell);
 
 // execute_command.c
-void	execute_command(t_shell *shell, t_ast_node *current);
+int		execute_command(t_shell *shell, t_ast_node *current);
 
 
 //===============================================================: Utils
