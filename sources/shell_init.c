@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   shell_init.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/14 14:04:02 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/02/04 12:13:37 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   shell_init.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/14 14:04:02 by qtrinh            #+#    #+#             */
+/*   Updated: 2024/02/08 15:57:52 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ static char **alloc_envp(char **envp)
 	return (copy_envp);
 }
 
+int		temp_arg_func(t_shell *shell, t_ast_node *ast)
+{
+	return (0);
+};
+
 HANDLE_FUNCTIONS *init_functions(void)
 {
 	HANDLE_FUNCTIONS	*exec_funcs;
@@ -61,6 +66,8 @@ HANDLE_FUNCTIONS *init_functions(void)
 	}
 
 	exec_funcs[COMMAND] = execute_command;
+	exec_funcs[ARGUMENT] = temp_arg_func;
+	exec_funcs[PIPE] = execute_pipe;
 	return (exec_funcs);
 }
 

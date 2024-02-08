@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk       #+#    #+#              #
-#    Updated: 2024/02/02 19:16:32 by qbeukelm         ###   ########.fr        #
+#    Updated: 2024/02/08 15:55:43 by qbeukelm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIBFT				= includes/libft
 
 
 # ===== Compile =====
-CC 					= cc
+CC 					= cc -g
 CFLAGS 				= 
 HEADERS				= -I include -I ~/.brew/opt/readline/include -lreadline
 
@@ -67,6 +67,9 @@ SOURCES_UTILS			= clean_exit.c \
 SOURCES_EXECUTOR_COMMAND = executor.c \
 							execute_command.c
 
+							
+SOURCES_EXECUTOR_PIPE = pipe.c
+
 
 # ===== Manage Directories =====
 INC 					= inc
@@ -79,6 +82,7 @@ DIR_SOURCES_LEXER_QUOTE = sources/lexer/quote
 DIR_SOURCES_PARSER		= sources/parser
 DIR_SOURCES_UTILS		= sources/utils
 DIR_SOURCES_EXECUTOR_COMMAND = sources/executor/command
+DIR_SOURCES_EXECUTOR_PIPE = sources/executor/pipe
 
 
 # ===== Object Files =====
@@ -88,7 +92,8 @@ OBJ = $(addprefix $(DIR_OBJ)/, $(SOURCES:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_LEXER_QUOTE:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_PARSER:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_UTILS:.c=.o)) \
-	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_COMMAND:.c=.o))
+	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_COMMAND:.c=.o)) \
+	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_PIPE:.c=.o))
 
 
 # ===== Rules =====
@@ -120,6 +125,9 @@ $(DIR_OBJ)/%.o: $(DIR_SOURCES_UTILS)/%.c | $(DIR_OBJ)
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES_EXECUTOR_COMMAND)/%.c | $(DIR_OBJ)
+	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
+
+$(DIR_OBJ)/%.o: $(DIR_SOURCES_EXECUTOR_PIPE)/%.c | $(DIR_OBJ)
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ):
