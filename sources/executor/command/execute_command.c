@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   execute_command.c                                  :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/02/04 11:58:32 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   execute_command.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/02 14:28:14 by qbeukelm          #+#    #+#             */
+/*   Updated: 2024/02/08 17:36:42 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,25 @@ char	**format_cmd(t_ast_node *ast_c)
 	return (cmd_and_args);
 }
 
-bool	manage_execution(char *cmd_path, t_ast_node *ast_c, t_shell *shell)
+static int	manage_execution(char *cmd_path, t_ast_node *ast_c, t_shell *shell)
 {
-	int		result;
+	int		exit_code = 0;
 	char	**cmd_and_args;
+	pid_t	pid;
 	
 	cmd_and_args = format_cmd(ast_c);
-	result = execve(cmd_path, cmd_and_args, shell->envp);
+	pid = fork();
+	// waitpid(pid, NULL, 0);
+	if (pid == 0)
+	{
+		exit_code = execve(cmd_path, cmd_and_args, shell->envp);
+		return (exit_code);
+	} 
+	else if (pid > 0)
+	{
+		return (exit_code);
+	}
+	return (-1);
 }
 
 char	*get_path_for_cmd(char **env_paths, char *command)
@@ -95,12 +107,13 @@ int		execute_command(t_shell *shell, t_ast_node *current)
 {
 	char 	**env_paths;
 	char	*cmd_path;
+	int		exit_code = 0;
 	
 	printf("\n\n========execute========\n");
 
 	env_paths = get_paths();
 	cmd_path = get_path_for_cmd(env_paths, current->value);
-	manage_execution(cmd_path, shell->ast, shell);
+	exit_code = manage_execution(cmd_path, shell->ast, shell);
 
-	return (1); // Return status code
+	return (exit_code); // Return status code
 }

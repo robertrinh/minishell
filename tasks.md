@@ -39,6 +39,8 @@ Do we have to handle no given heredoc? (cat << END > output.txt)
 
 > History
 
+> redirect as input for command ("<")
+
 > Interactive mode (^ C)
 
 > Built-ins
@@ -55,3 +57,5 @@ Do we have to handle no given heredoc? (cat << END > output.txt)
 [Markdown: Basic Syntax](https://www.markdownguide.org/basic-syntax/)
 
 [readline(3) - Linux manual page](https://man7.org/linux/man-pages/man3/readline.3.html)
+
+[Stackoverflow Pipes](https://stackoverflow.com/questions/33884291/pipes-dup2-and-exec)

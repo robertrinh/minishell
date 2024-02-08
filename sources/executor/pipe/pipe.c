@@ -1,42 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
+/*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 19:16:50 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/02/08 15:28:59 by qbeukelm         ###   ########.fr       */
+/*   Created: 2024/02/08 15:54:04 by qbeukelm          #+#    #+#             */
+/*   Updated: 2024/02/08 17:40:31 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static void	execute_ast(t_shell *shell, t_ast_node *ast)
+int		execute_pipe(t_shell *shell, t_ast_node *ast_c)
 {
-	int					i = 0;
+	int		pipefd[2] = {10, 20};
+	int		result = 0;
+	pid_t	pid[2];
 
-	if (ast == NULL)
-		return ;
-	
-	// TODO skip arguments
-	shell->exec_funcs[ast->type](shell, ast);
+	result = pipe(pipefd);
 
-	while (i < ast->num_children)
+	dup2(pipefd[0], 10);
+	dup2(pipefd[1], 20);
+
+	if (pid[0] == 0)
 	{
-		if (ast->children)
-            execute_ast(shell, ast->children[i]);
-		i++;
+		// Command	
+	}
+	else
+	{
+		pid[1] = fork();
 	}
 
-	if (ast->left)
-		execute_ast(shell, ast->left);
-	if (ast->right)
-		execute_ast(shell, ast->right);
-}
-
-int		execute(t_shell *shell)
-{
-	execute_ast(shell, shell->ast);
+	// pid: 3132131
+	// 0
+	// 0
+	
+	// Pass to command
+	// Is pid = 0?
+	// Write(L) or Read(R)?
+	
+	// Wait for children before parent continues
+	
 	return (0);
 }
