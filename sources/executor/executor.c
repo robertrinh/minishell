@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 19:16:50 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/02/08 15:28:59 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   executor.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/02 19:16:50 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/02/11 16:11:09 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static void	execute_ast(t_shell *shell, t_ast_node *ast)
 {
-	int					i = 0;
+	int		i = 0;
 
 	if (ast == NULL)
 		return ;
@@ -37,6 +37,8 @@ static void	execute_ast(t_shell *shell, t_ast_node *ast)
 
 int		execute(t_shell *shell)
 {
+
 	execute_ast(shell, shell->ast);
+
 	return (0);
 }

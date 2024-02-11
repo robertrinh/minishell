@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/02/08 15:58:39 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/02/11 15:51:14 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "error_messages.h"
 
 // ===== [ libraries ] =====
+# include <string.h> // ! Remove
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
@@ -63,10 +64,17 @@ typedef enum e_token_type
 
 
 //===============================================================: Struct
+typedef struct s_pids
+{
+	int		pipefd[2];
+	pid_t	pid[2];
+} t_pids;
+
 typedef struct s_ast_node
 {
 	t_token_type		type;
 	char				*value;
+	struct s_pids		*pids;
 	struct s_ast_node	**children;
 	int					num_children;
 	struct s_ast_node	*parent;
@@ -199,6 +207,7 @@ t_token		*fill_start_location(t_token *tokens_root, t_token *current, int pipe_c
 bool		construct_pipe_node(t_parse *p, int pipe_count);
 
 // parser_construct_redirects.c
+int			count_pipes(t_parse *p);
 t_token		*fill_start_location(t_token *tokens_root, t_token *current, int pipe_count);
 bool 		construct_argfile_node(t_parse *p, t_token *current);
 bool		construct_redirect_nodes(t_parse *p, int pipe_count);
@@ -223,7 +232,16 @@ int		parse_lexer(t_shell *shell);
 // executer.c
 int		execute(t_shell *shell);
 
+// execute_checks.c
+bool	in_pipeline(t_ast_node *ast_c);
+
+// execute_command_pipe.c
+int		manage_execution_pipe(char *cmd_path, t_ast_node *ast_c, t_shell *shell);
+
 // execute_command.c
+void 	print_2d_char(char **arr);
+char	**format_cmd(t_ast_node *ast_c);
+char	*get_path_for_cmd(char **env_paths, char *command);
 int		execute_command(t_shell *shell, t_ast_node *current);
 
 // pipe.c

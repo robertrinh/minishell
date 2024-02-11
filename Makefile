@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/12/03 13:06:57 by quentinbeuk       #+#    #+#              #
-#    Updated: 2024/02/08 15:55:43 by qbeukelm         ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
+#                                                    +#+                       #
+#    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
+#    Updated: 2024/02/11 16:10:56 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,8 +64,12 @@ SOURCES_UTILS			= clean_exit.c \
 							print_parser.c
 
 
-SOURCES_EXECUTOR_COMMAND = executor.c \
-							execute_command.c
+SOURCES_EXECUTOR		= executor.c 
+
+
+SOURCES_EXECUTOR_COMMAND = execute_checks.c \
+							execute_command_pipe.c \
+							execute_command.c \
 
 							
 SOURCES_EXECUTOR_PIPE = pipe.c
@@ -81,6 +85,7 @@ DIR_SOURCES_LEXER_SPLIT = sources/lexer/split
 DIR_SOURCES_LEXER_QUOTE = sources/lexer/quote
 DIR_SOURCES_PARSER		= sources/parser
 DIR_SOURCES_UTILS		= sources/utils
+DIR_SOURCES_EXECUTOR	= sources/executor
 DIR_SOURCES_EXECUTOR_COMMAND = sources/executor/command
 DIR_SOURCES_EXECUTOR_PIPE = sources/executor/pipe
 
@@ -92,6 +97,7 @@ OBJ = $(addprefix $(DIR_OBJ)/, $(SOURCES:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_LEXER_QUOTE:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_PARSER:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_UTILS:.c=.o)) \
+	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_COMMAND:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_PIPE:.c=.o))
 
@@ -103,7 +109,7 @@ $(NAME_EXECUTABLE): $(OBJ)
 	@echo "$(BLUE)\nMaking LIBFT ...\n$(RESET)"
 	@$(MAKE) -C $(LIBFT)
 	@echo "$(BLUE)\nMaking MINISHELL ...\n$(RESET)"
-	@$(CC) $(CFLAGS) $(HEADERS) $^ $(LIBFT)/libft.a -o $(NAME_EXECUTABLE) -lreadline
+	@$(CC) $(CFLAGS) $(HEADERS) $^ $(LIBFT)/libft.a -o $(NAME_EXECUTABLE)
 	@echo "$(GREEN)Compiled all!\n$(RESET)"
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES)/%.c | $(DIR_OBJ)
@@ -122,6 +128,9 @@ $(DIR_OBJ)/%.o: $(DIR_SOURCES_PARSER)/%.c | $(DIR_OBJ)
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES_UTILS)/%.c | $(DIR_OBJ)
+	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
+
+$(DIR_OBJ)/%.o: $(DIR_SOURCES_EXECUTOR)/%.c | $(DIR_OBJ)
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES_EXECUTOR_COMMAND)/%.c | $(DIR_OBJ)

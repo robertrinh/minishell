@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser_pipe_utils.c                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/25 22:29:50 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/01/26 14:03:08 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parser_pipe_utils.c                                :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/25 22:29:50 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/02/11 13:05:22 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-
 
 bool	contains_pipe(t_token *current)
 {

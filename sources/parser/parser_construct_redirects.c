@@ -6,13 +6,13 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/25 19:54:45 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/01 21:11:44 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/11 13:08:33 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int count_pipes(t_parse *p)
+int count_pipes(t_parse *p)
 {
 	t_token		*current;
 	int			count;
