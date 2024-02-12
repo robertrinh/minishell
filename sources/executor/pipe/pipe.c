@@ -1,46 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   pipe.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 15:54:04 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/02/08 17:40:31 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   pipe.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/08 15:54:04 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/02/11 12:55:49 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
+static t_pids	*init_pids(void)
+{
+	t_pids	*pids;
+
+	pids = malloc(sizeof(t_pids));
+	if (pids == NULL)
+	{
+		// TODO clean_exit()
+	}
+	pids->pipefd[0] = 0;
+	pids->pipefd[1] = 0;
+	pids->pid[0] = (pid_t) -1;
+    pids->pid[1] = (pid_t) -1;
+	return (pids);
+}
+
 int		execute_pipe(t_shell *shell, t_ast_node *ast_c)
 {
-	int		pipefd[2] = {10, 20};
 	int		result = 0;
-	pid_t	pid[2];
 
-	result = pipe(pipefd);
+	ast_c->pids = init_pids();
+	result = pipe(ast_c->pids->pipefd);
 
-	dup2(pipefd[0], 10);
-	dup2(pipefd[1], 20);
-
-	if (pid[0] == 0)
-	{
-		// Command	
-	}
-	else
-	{
-		pid[1] = fork();
-	}
-
-	// pid: 3132131
-	// 0
-	// 0
-	
-	// Pass to command
-	// Is pid = 0?
-	// Write(L) or Read(R)?
-	
-	// Wait for children before parent continues
+	printf("pidfd[0]: %d\n", ast_c->pids->pipefd[0]);
+	printf("pidfd[0]: %d\n", ast_c->pids->pipefd[1]);
+	// ast_c->pids->pipefd[0] = fork();
 	
 	return (0);
 }

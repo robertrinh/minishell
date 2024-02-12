@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/11 19:53:12 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/02/02 19:10:49 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parser.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/02/11 11:19:27 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		parse_lexer(t_shell *shell)
 	else
 		ast_root = tokens_to_parser(shell->tokens);
 
-  shell->ast = ast_root;
+  	shell->ast = ast_root;
 	
 	print_ast(ast_root, 8);
   

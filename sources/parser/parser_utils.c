@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/25 22:22:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/26 21:14:23 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/11 11:20:06 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_ast_node	*ast_constructor(t_token *current, t_ast_node *parent)
 	}
 	ast->type = current->type;
 	ast->value = current->value;
+	ast->pids = NULL;
 	ast->children = NULL;
 	ast->num_children = 0;
 	ast->parent = parent;

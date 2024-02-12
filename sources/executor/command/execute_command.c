@@ -1,20 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   execute_command.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 14:28:14 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/02/08 17:36:42 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   execute_command.c                                  :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/02/11 15:53:31 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
-
-// Get path
-
-// Handle environment
-
-// Make a process for command
 
 #include "../../../includes/minishell.h"
 
@@ -23,7 +17,7 @@ void print_2d_char(char **arr)
 	int i = 0;
 	while (arr[i])
 	{
-		printf("%s\n", arr[i]);
+		printf("2D[%d] %s\n", i, arr[i]);
 		i++;
 	}
 }
@@ -34,7 +28,7 @@ char	**format_cmd(t_ast_node *ast_c)
 	char		**cmd_and_args;
 	
 	i = 0;
-	cmd_and_args = malloc(sizeof(char *) * ast_c->num_children + 1); //TODO protect
+	cmd_and_args = malloc(sizeof(char *) * (ast_c->num_children + 2));  //TODO protect
 	if (ast_c->type == COMMAND)
 		cmd_and_args[0] = ast_c->value;
 	while (i < ast_c->num_children)
@@ -42,19 +36,16 @@ char	**format_cmd(t_ast_node *ast_c)
 		cmd_and_args[i + 1] = ft_strdup(ast_c->children[i]->value); //TODO protect
 		i++;
 	}
-	cmd_and_args[i + 1] = 0;
+	cmd_and_args[i + 1] = NULL;
 	return (cmd_and_args);
 }
 
-static int	manage_execution(char *cmd_path, t_ast_node *ast_c, t_shell *shell)
+static int	manage_execution(char *cmd_path, char **cmd_and_args, t_shell *shell)
 {
 	int		exit_code = 0;
-	char	**cmd_and_args;
 	pid_t	pid;
 	
-	cmd_and_args = format_cmd(ast_c);
 	pid = fork();
-	// waitpid(pid, NULL, 0);
 	if (pid == 0)
 	{
 		exit_code = execve(cmd_path, cmd_and_args, shell->envp);
@@ -103,17 +94,27 @@ static char	**get_paths(void)
 	return (env_paths);
 }
 
-int		execute_command(t_shell *shell, t_ast_node *current)
+int		execute_command(t_shell *shell, t_ast_node *ast_c)
 {
 	char 	**env_paths;
 	char	*cmd_path;
 	int		exit_code = 0;
+	char	**cmd_and_args;
+	
 	
 	printf("\n\n========execute========\n");
+	printf("performing: %s\n", ast_c->value);
 
 	env_paths = get_paths();
-	cmd_path = get_path_for_cmd(env_paths, current->value);
-	exit_code = manage_execution(cmd_path, shell->ast, shell);
+	cmd_path = get_path_for_cmd(env_paths, ast_c->value);
+	cmd_and_args = format_cmd(ast_c);
 
-	return (exit_code); // Return status code
+	if (in_pipeline(ast_c))
+	{
+		manage_execution_pipe(cmd_path, ast_c, shell);
+	}
+	
+	// exit_code = manage_execution(cmd_path, cmd_and_args, shell);
+
+	return (0); // Return status code
 }
