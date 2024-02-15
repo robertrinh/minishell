@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/11 15:51:14 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/02/15 15:19:22 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include "error_messages.h"
 
 // ===== [ libraries ] =====
-# include <string.h> // ! Remove
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
@@ -126,6 +125,8 @@ typedef struct	s_shell t_shell;
 typedef int		(*HANDLE_FUNCTIONS)(t_shell*, t_ast_node*);
 typedef struct	s_shell
 {
+	int					total_pipes;
+	int					current_pipe;
 	t_token				*tokens;
 	t_cmd				*cmd;
 	t_ast_node			*ast;
@@ -207,7 +208,7 @@ t_token		*fill_start_location(t_token *tokens_root, t_token *current, int pipe_c
 bool		construct_pipe_node(t_parse *p, int pipe_count);
 
 // parser_construct_redirects.c
-int			count_pipes(t_parse *p);
+int			count_pipes_for_parse(t_parse *p);
 t_token		*fill_start_location(t_token *tokens_root, t_token *current, int pipe_count);
 bool 		construct_argfile_node(t_parse *p, t_token *current);
 bool		construct_redirect_nodes(t_parse *p, int pipe_count);
@@ -253,7 +254,8 @@ int		execute_pipe(t_shell *shell, t_ast_node *current);
 void	print_token(t_token *tokens);
 
 // clean_exit.c
-void	finish_command(t_shell *shell);
+int		count_pipes(t_shell *shell);
+void	finish_lexer(t_shell *shell);
 int		exit_with_message(t_error_messages error_code, t_message_colors color);
 
 // print_parser.c
