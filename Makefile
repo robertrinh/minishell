@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
-#                                                    +#+                       #
-#    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/02/11 16:10:56 by quentinbeuk   ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/12/03 13:06:57 by quentinbeuk       #+#    #+#              #
+#    Updated: 2024/02/15 17:36:24 by qbeukelm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,7 +107,7 @@ all: $(NAME_EXECUTABLE)
 
 $(NAME_EXECUTABLE): $(OBJ)
 	@echo "$(BLUE)\nMaking LIBFT ...\n$(RESET)"
-	@$(MAKE) -C $(LIBFT)
+	@$(MAKE) -C $(LIBFT) >/dev/null
 	@echo "$(BLUE)\nMaking MINISHELL ...\n$(RESET)"
 	@$(CC) $(CFLAGS) $(HEADERS) $^ $(LIBFT)/libft.a -o $(NAME_EXECUTABLE)
 	@echo "$(GREEN)Compiled all!\n$(RESET)"
@@ -146,14 +146,14 @@ $(DIR_OBJ):
 # ===== Clean =====
 clean:
 	@echo "$(BLUE)\nCleaning ...$(RESET)"
-	@$(MAKE) clean -C ./includes/libft/
+	@$(MAKE) clean -C ./includes/libft/ >/dev/null
 	@$(RM) -rf $(DIR_OBJ)
 	@$(RM) -rf $(EXTRA_O)
 	@$(RM) -rf $(OBJS)
 	@echo "$(GREEN)$(BOLD)\nAll clean!\n$(RESET)"
 
 fclean: clean
-	@$(MAKE) fclean -C ./includes/libft/
+	@$(MAKE) fclean -C ./includes/libft/ >/dev/null
 	@$(RM) $(NAME_EXECUTABLE)
 
 re: fclean all

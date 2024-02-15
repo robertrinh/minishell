@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 14:04:02 by qtrinh            #+#    #+#             */
-/*   Updated: 2024/02/08 15:57:52 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:02:15 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ t_shell	*shell_init(char **envp)
 	{
 		// TODO clean_exit()
 	}
+	shell->current_pipe = 0;
+	shell->total_pipes = 0;
 	shell->cmd = cmd_init();
 	shell->envp = alloc_envp(envp);
 	shell->exec_funcs = init_functions();
