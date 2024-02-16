@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/25 22:35:21 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/31 17:41:31 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/16 14:24:51 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static bool	construct_parent_node(t_parse *p, t_token *current, t_direction dire
 	return (SUCCESS);
 }
 
-static bool 	append_child_node(t_parse *p, t_token *current, int i, t_direction direction)
+static bool	append_child_node(t_parse *p, t_token *current, int i, t_direction direction)
 {
 	if (direction == LEFT)
 		p->ast_c->left->children[i] = ast_constructor(current, p->ast_c->left);

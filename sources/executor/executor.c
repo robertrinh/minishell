@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 19:16:50 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/02/15 16:31:53 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   executor.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/02 19:16:50 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/02/16 14:17:44 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 static void	execute_ast(t_shell *shell, t_ast_node *ast)
 {
-	int		i = 0;
+	int	i;
 
+	i = 0;
 	if (ast == NULL)
 		return ;
-	
+
 	// TODO skip arguments
 	shell->exec_funcs[ast->type](shell, ast);
 
@@ -28,7 +29,6 @@ static void	execute_ast(t_shell *shell, t_ast_node *ast)
             execute_ast(shell, ast->children[i]);
 		i++;
 	}
-
 	if (ast->left)
 		execute_ast(shell, ast->left);
 	if (ast->right)
@@ -70,7 +70,6 @@ static void open_pipes(t_ast_node *ast)
 
 	if (ast->type == PIPE)
 		open_pipe(ast);
-
 	if (ast->left)
 		open_pipes(ast->left);
 	if (ast->right)
