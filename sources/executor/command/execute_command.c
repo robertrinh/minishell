@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   execute_command.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 14:28:14 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/02/15 16:44:59 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   execute_command.c                                  :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/02/16 17:07:32 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,16 @@ char	**format_cmd(t_ast_node *ast_c)
 
 static int	manage_execution(char *cmd_path, char **cmd_and_args, t_shell *shell)
 {
-	int		exit_code = 0;
+	int		exit_code;
 	pid_t	pid;
 	
+	exit_code = 0;
 	pid = fork();
 	if (pid == 0)
-	{
 		exit_code = execve(cmd_path, cmd_and_args, shell->envp);
-		return (exit_code);
-	} 
 	else if (pid > 0)
 	{
+		waitpid(pid, NULL, 0);
 		return (exit_code);
 	}
 	return (-1);
@@ -113,6 +112,8 @@ int		execute_command(t_shell *shell, t_ast_node *ast_c)
 		printf("in pipeline\n");
 		manage_execution_pipe(cmd_path, ast_c, shell);
 	}
+	else
+		exit_code = manage_execution(cmd_path, cmd_and_args, shell); // * No pipe, single command
 	
 	// TODO no pipes
 	// exit_code = manage_execution(cmd_path, cmd_and_args, shell);

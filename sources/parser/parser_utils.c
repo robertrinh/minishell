@@ -6,13 +6,13 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/25 22:22:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/11 11:20:06 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/16 14:26:56 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_parse *init_parse(t_token *tokens_root)
+t_parse	*init_parse(t_token *tokens_root)
 {
 	t_parse		*p;
 
@@ -31,7 +31,7 @@ t_parse *init_parse(t_token *tokens_root)
 
 t_ast_node	*ast_constructor(t_token *current, t_ast_node *parent)
 {
-	t_ast_node *ast;
+	t_ast_node	*ast;
 
 	ast = malloc(sizeof(t_ast_node));
 	if (ast == NULL)
@@ -49,7 +49,7 @@ t_ast_node	*ast_constructor(t_token *current, t_ast_node *parent)
 	return (ast);
 }
 
-int count_children(t_token *current_cmd)
+int	count_children(t_token *current_cmd)
 {
 	int			count;
 	t_token		*current;

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/26 14:08:07 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/01/26 21:23:27 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/16 14:21:02 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static bool	append_child_node(t_parse *p, int i)
 static bool	make_command_and_children(t_parse *p)
 {
 	int	i;
-	
+
 	i = 0;
 	while (p->tokens_c)
 	{

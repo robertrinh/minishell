@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/11 11:19:27 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/16 14:23:32 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,13 @@ cat << EOF > file | wc -c | tr -d " " > file2
 
  */
 
-int		parse_lexer(t_shell *shell)
+int	parse_lexer(t_shell *shell)
 {
 	t_ast_node *ast_root;
 
 	printf("\n\n========parser========\n");
 	if (check_pipes(shell->tokens) == FAILURE)
 		return (exit_with_message(ERROR_UNMATCHED_PIPE, RED));
-	
 	if (locate_pipe_n(shell->tokens, 0))
 		ast_root = tokens_to_parser_pipe(shell->tokens);
 	else
@@ -48,6 +47,6 @@ int		parse_lexer(t_shell *shell)
   	shell->ast = ast_root;
 	
 	print_ast(ast_root, 8);
-  
+
 	return (SUCCESS);
 }

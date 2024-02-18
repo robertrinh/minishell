@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser_construct_redirects.c                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/25 19:54:45 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/02/15 15:13:07 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parser_construct_redirects.c                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/25 19:54:45 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/02/16 14:25:31 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int count_pipes_for_parse(t_parse *p)
+int	count_pipes_for_parse(t_parse *p)
 {
 	t_token		*current;
 	int			count;
@@ -36,7 +36,7 @@ static bool	construct_redirect_node(t_parse *p, t_token *current)
 	return (SUCCESS);
 }
 
-bool construct_argfile_node(t_parse *p, t_token *current)
+bool	construct_argfile_node(t_parse *p, t_token *current)
 {
 	if (current->type == ARGFILE)
 	{
