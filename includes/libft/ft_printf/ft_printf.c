@@ -3,58 +3,91 @@
 /*                                                        ::::::::            */
 /*   ft_printf.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
+/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/24 13:53:19 by qtrinh        #+#    #+#                 */
-/*   Updated: 2023/08/04 15:06:44 by qtrinh        ########   odam.nl         */
+/*   Created: 2022/10/25 10:23:30 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2022/12/02 12:17:56 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+// Recreate the function printf(1). Do not implement the buffer management of
+// the orignal prinft. The ft_printf should hande the following conversions:
 
-static int	what_format(va_list args, const char format)
+/*
+• %c Prints a single character.
+• %s Prints a string (as defined by the common C convention).
+• %p The void * pointer argument has to be printed in hexadecimal format. 
+• %d Prints a decimal (base 10) number.
+• %i Prints an integer in base 10.
+• %u Prints an unsigned decimal (base 10) number.
+• %x Prints a number in hexadecimal (base 16) lowercase format.
+• %X Prints a number in hexadecimal (base 16) uppercase format.
+• %% Prints a percent sign.
+*/
+
+#include "../includes/libft.h"
+
+int	check_string(const char c)
 {
-	int	print_length;
+	char	*format;
 
-	print_length = 0;
-	if (format == 'c')
-		print_length += print_char(va_arg(args, int));
-	else if (format == 's')
-		print_length += print_str(va_arg(args, char *));
-	else if (format == 'p')
-		print_length += print_pointer(va_arg(args, unsigned long));
-	else if (format == 'd' || format == 'i')
-		print_length += print_num(va_arg(args, int));
-	else if (format == 'u')
-		print_length += print_unsigned(va_arg(args, unsigned int));
-	else if (format == 'x' || format == 'X')
-		print_length += print_hex(va_arg(args, unsigned int), format);
+	format = "cspdiuxX%";
+	if (ft_strchr(format, c))
+		return (1);
 	else
-		print_length += print_char(format);
-	return (print_length);
+		return (0);
+	return (1);
 }
 
-int	ft_printf(const char *str, ...)
+int	conversions(va_list args, const char format)
 {
-	va_list	args;
-	int		len;
+	int		char_count;
 
-	len = 0;
-	va_start(args, str);
-	while (*str)
+	char_count = 0;
+	if (format == 'c')
+		char_count += ft_putchar(va_arg(args, int));
+	else if (format == 's')
+		char_count += ft_printstring(va_arg(args, char *));
+	else if (format == 'p')
+		char_count += ft_print_p(va_arg(args, unsigned long long));
+	else if (format == 'd' || format == 'i')
+		char_count += ft_print_dec(va_arg(args, int));
+	else if (format == 'u')
+		char_count += ft_print_unsigned(va_arg(args, unsigned int));
+	else if (format == 'x' || format == 'X')
+		char_count += ft_print_hex(va_arg(args, unsigned int), format);
+	else if (format == '%')
 	{
-		if (*str == '%' && *(str + 1) != '\0')
+		char_count += 1;
+		ft_putchar('%');
+	}
+	return (char_count);
+}
+
+int	ft_printf(const char *input, ...)
+{
+	int			i;
+	int			char_count;
+	va_list		args;
+
+	i = 0;
+	char_count = 0;
+	va_start(args, input);
+	while (input[i])
+	{
+		if (input[i] == '%')
 		{
-			len += what_format(args, *(str + 1));
-			str++;
+			if (!(check_string(input[i + 1])))
+				char_count += ft_putchar(input[i + 1]);
+			if (input[i + 1] == '\0')
+				break ;
+			char_count += conversions(args, input[i + 1]);
+			i++;
 		}
 		else
-		{
-			if (*str != '%')
-				len += print_char(*str);
-		}
-		str++;
+			char_count += ft_putchar(input[i]);
+		i++;
 	}
 	va_end(args);
-	return (len);
+	return (char_count);
 }

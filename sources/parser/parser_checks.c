@@ -6,13 +6,27 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/18 21:07:32 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/24 20:25:15 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/21 20:34:44 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		check_pipes(t_token *tokens)
+static bool	contains_pipe(t_token *token)
+{
+	if (token->type == PIPE)
+		return (true);
+	return (false);
+}
+
+static bool contains_redirect(t_token *token)
+{
+	if (token->type == REDIRECT)
+		return (true);
+	return (false);
+}
+
+static bool	check_pipes(t_token *tokens)
 {
 	t_token		*current;
 
@@ -24,12 +38,34 @@ int		check_pipes(t_token *tokens)
 			// next is nothing
 			if (current->next == NULL)
 				return (FAILURE);
-			
-			// next is pipe
-			else if (contains_pipe(current->next))
+		}
+		current = current->next;
+	}
+	return (SUCCESS);
+}
+
+static bool	check_redirects(t_token *tokens)
+{
+	t_token		*current;
+
+	current = tokens;
+	while (current)
+	{
+		if (contains_redirect(current))
+		{
+			if (current->next == NULL)
 				return (FAILURE);
 		}
 		current = current->next;
 	}
+	return (SUCCESS);
+}
+
+bool	parser_checks(t_token *tokens)
+{
+	if (check_pipes(tokens) == FAILURE)
+		return (exit_with_message(ERROR_UNMATCHED_PIPE, RED));
+	if (check_redirects(tokens) == FAILURE)
+		return (exit_with_message(ERROR_UNMATCHED_REDIRECT, RED));
 	return (SUCCESS);
 }

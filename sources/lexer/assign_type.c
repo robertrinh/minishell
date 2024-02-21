@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   assign_type.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 14:27:34 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/01/19 16:12:53 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   assign_type.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/12 14:27:34 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/02/21 22:21:05 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,34 @@ static bool	contains_redirect(char *value)
 		i++;
 	}
 	return (false);
+}
+
+static t_token_type	assign_redirect_type(char *value)
+{
+	if (ft_strncmp(value, ">", 2) == 0)
+		return (REDIR_OUT);
+	else if (ft_strncmp(value, ">>", 2) == 0)
+		return (REDIR_OUT_APPEND);
+	else if (ft_strncmp(value, "<", 2) == 0)
+		return (REDIR_IN);
+	else if (ft_strncmp(value, "<<", 2) == 0)
+		return (REDIR_IN_APPEND);
+	// TODO add END_OF_FILE
+	return (REDIRECT);
+}
+
+bool	assign_redirect_types(t_token *tokens)
+{
+	t_token *current;
+
+	current = tokens;
+	while (current)
+	{
+		if (current->type == REDIRECT)
+			current->type = assign_redirect_type(current->value);
+		current = current->next;
+	}
+	return (SUCCESS);
 }
 
 t_token_type	assign_type(char *value)

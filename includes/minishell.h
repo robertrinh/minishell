@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/16 15:05:55 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/02/21 21:34:54 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 // ===== [ includes ] =====
-# include "libft/include/libft.h"
+# include "libft/includes/libft.h"
 # include "error_messages.h"
 
 // ===== [ libraries ] =====
@@ -58,7 +58,11 @@ typedef enum e_token_type
 	ARGUMENT,
 	PIPE,
 	REDIRECT,
-	HEREDOC,
+	REDIR_IN,
+	REDIR_IN_APPEND,
+	REDIR_OUT,
+	REDIR_OUT_APPEND,
+	END_OF_FILE,
 	QUOTE,
 	ARGFILE,
 	NONE,
@@ -66,24 +70,6 @@ typedef enum e_token_type
 
 
 //===============================================================: Struct
-typedef struct s_pids
-{
-	int		pipefd[2];
-	pid_t	pid[2];
-} t_pids;
-
-typedef struct s_ast_node
-{
-	t_token_type		type;
-	char				*value;
-	struct s_pids		*pids;
-	struct s_ast_node	**children;
-	int					num_children;
-	struct s_ast_node	*parent;
-	struct s_ast_node	*left;
-	struct s_ast_node	*right;
-}	t_ast_node;
-
 typedef struct s_split
 {
 	int			len;
@@ -106,43 +92,47 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-typedef struct s_parse
-{
-	t_ast_node	*ast_r;
-	t_ast_node	*ast_c;
-	t_token		*tokens_c;
-	t_token		*tokens_r;
-}	t_parse;
-
 typedef struct s_cmd
 {
-	int		fd_in;
-	int		fd_out;
-	int		fd_err;
-	char	*arg;
-	int		single_quote;
-	int		double_quote;
+	t_list		*fd_in;
+	t_list		*fd_out;
+	t_list		*fd_err;
+	char		*value;
+	char		**args;
+	int			arg_count;
 }	t_cmd;
 
-typedef struct	s_shell t_shell;
-typedef int		(*HANDLE_FUNCTIONS)(t_shell*, t_ast_node*);
+typedef struct s_cmd_table
+{
+	t_cmd		**cmds;
+	int			cmd_count;
+} t_cmd_table;
+
 typedef struct	s_shell
 {
-	int					total_pipes;
-	int					current_pipe;
 	t_token				*tokens;
-	t_cmd				*cmd;
-	t_ast_node			*ast;
+	t_cmd_table			*cmd_table;
+	t_cmd				**cmds;
 	char				**envp;
 	char const			*input;
-	HANDLE_FUNCTIONS	*exec_funcs;
 	int					exit_code;
+	int					single_quote;
+	int					double_quote;
 }	t_shell;
+
+typedef struct s_parse
+{
+	t_token		*tokens_r;
+	t_token		*tokens_c;
+	t_cmd		**cmds;
+	int			current_pipe;
+	int			cmd_count;
+	int			i;
+} t_parse;
 
 
 //===============================================================: Main
 // shell_init.c
-
 t_shell	*shell_init(char **envp);
 bool	save_command(char *input, t_shell *shell);
 t_split	*init_split(t_shell *shell, t_split *split);
@@ -162,10 +152,11 @@ int		tokens_builder_manager(t_shell *shell);
 int		lexer_manager(t_shell *shell);
 
 // assign_type.c
+bool			assign_redirect_types(t_token *tokens);
 t_token_type	assign_type(char *value);
 
 // post_lexer.c
-bool	post_lexer(t_shell *shell);
+bool	post_lexer(t_token *tokens);
 bool	is_special_type(t_token_type type);
 
 
@@ -190,66 +181,28 @@ char	**allocate_strings_split(t_split *sp);
 
 
 //===============================================================: Parser
-// lexer_to_parser_pipe.c
-t_ast_node		*tokens_to_parser_pipe(t_token *tokens_root);
-
-// lexer_to_parser.c
-bool	make_command_node(t_parse *p);
-bool	make_parent_node(t_parse *p);
-bool	make_redirect_node(t_parse *p);
-t_ast_node	*tokens_to_parser(t_token *tokens_root);
+// parser.c
+bool	parse(t_shell *shell);
 
 // parser_checks.c
-int				check_pipes(t_token *tokens);
+bool	parser_checks(t_token *tokens);
 
-// parser_construct_command.c
-bool		construct_arg_nodes(t_parse *p, t_direction direction);
-bool		construct_command_node(t_parse *p, t_direction direction);
-
-// parser_construct_pipes.c
-t_token		*fill_start_location(t_token *tokens_root, t_token *current, int pipe_count);
-bool		construct_pipe_node(t_parse *p, int pipe_count);
-
-// parser_construct_redirects.c
-int			count_pipes_for_parse(t_parse *p);
-t_token		*fill_start_location(t_token *tokens_root, t_token *current, int pipe_count);
-bool 		construct_argfile_node(t_parse *p, t_token *current);
-bool		construct_redirect_nodes(t_parse *p, int pipe_count);
-
-typedef void 	(*HANDLE_FUNCTIONS_PRINT)(t_ast_node*);
-extern 			HANDLE_FUNCTIONS_PRINT handle_functions_print[];
-
-// parser_pipe_utils.c
-bool		contains_pipe(t_token *current);
-t_token		*locate_pipe_n(t_token *tokens_root, int pipe_count);
+// parser_redirects.c
+t_cmd	*construct_redirects(t_cmd *cmd, t_parse *p);
 
 // parser_utils.c
-t_parse 		*init_parse(t_token *tokens_root);
-t_ast_node		*ast_constructor(t_token *current, t_ast_node *parent);
-int 			count_children(t_token *current_cmd);
-
-// parser.c
-int		parse_lexer(t_shell *shell);
+t_parse		*init_parse(t_shell *shell);
+t_cmd		*allocate_cmd(void);
+t_token 	*locate_current_token(t_parse *p);
+t_token		*locate_pipe_n(t_token *tokens_root, int pipe_count);
 
 
 //===============================================================: Executor
-// executer.c
-int		execute(t_shell *shell);
-
-// execute_checks.c
-bool	in_pipeline(t_ast_node *ast_c);
-
-// execute_command_pipe.c
-int		manage_execution_pipe(char *cmd_path, t_ast_node *ast_c, t_shell *shell);
-
 // execute_command.c
-void 	print_2d_char(char **arr);
-char	**format_cmd(t_ast_node *ast_c);
-char	*get_path_for_cmd(char **env_paths, char *command);
-int		execute_command(t_shell *shell, t_ast_node *current);
+void	print_2d_char(char **arr);
 
-// pipe.c
-int		execute_pipe(t_shell *shell, t_ast_node *current);
+// executor.c
+int		execute(t_shell *shell);
 
 
 //===============================================================: Utils
@@ -261,8 +214,7 @@ int		count_pipes(t_shell *shell);
 void	finish_lexer(t_shell *shell);
 int		exit_with_message(t_error_messages error_code, t_message_colors color);
 
-// print_parser.c
-void	print_ast(t_ast_node *ast, int depth);
-
+// print_cmds.c
+void		print_cmds(t_cmd_table *cmd_table);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/12 16:19:25 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/01/20 11:55:36 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/21 21:13:54 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,11 @@ static t_token	*assign_argfile_args(t_token *current)
 	return (current);
 }
 
-bool	post_lexer(t_shell *shell)
+static bool	assign_lexer_types(t_token *tokens)
 {
 	t_token		*current;
 
-	current = shell->tokens;
+	current = tokens;
 	while (current)
 	{
 		if (current->type == NONE && is_special_type(current->type) == false)
@@ -101,6 +101,11 @@ bool	post_lexer(t_shell *shell)
 	return (SUCCESS);
 }
 
+bool	post_lexer(t_token *tokens)
+{
+	assign_lexer_types(tokens);
+	assign_redirect_types(tokens);
+	return (SUCCESS);
+}
+
 // TODO add to unit tests
-// >> word | and some
-// >> word and | and some more <<> this

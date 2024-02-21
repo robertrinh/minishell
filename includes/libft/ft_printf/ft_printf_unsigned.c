@@ -3,61 +3,60 @@
 /*                                                        ::::::::            */
 /*   ft_printf_unsigned.c                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
+/*   By: qbeukelm <qbeukelm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/30 15:03:07 by qtrinh        #+#    #+#                 */
-/*   Updated: 2023/08/04 15:06:38 by qtrinh        ########   odam.nl         */
+/*   Created: 2022/10/29 09:24:56 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2022/12/02 12:17:50 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
-static int	numlen(unsigned int num)
+int	ft_number_len(unsigned int nbr)
 {
-	int	length;
-
-	length = 0;
-	while (num)
-	{
-		num = num / 10;
-		length++;
-	}
-	return (length);
-}
-
-static char	*itoa_unsigned(unsigned int num)
-{
-	char	*result;
-	int		size;
-
-	size = numlen(num);
-	result = ft_calloc(sizeof(char), (size + 1));
-	if (!result)
-		return (NULL);
-	while (size--)
-	{
-		result[size] = num % 10 + '0';
-		num = num / 10;
-	}
-	return (result);
-}
-
-int	print_unsigned(unsigned int num)
-{
-	int		char_count;
-	char	*str;
+	int	char_count;
 
 	char_count = 0;
-	if (num == 0)
-		char_count += print_char('0');
+	while (nbr != 0)
+	{
+		char_count++;
+		nbr = nbr / 10;
+	}
+	return (char_count);
+}
+
+char	*ft_itoa_unsigned( unsigned int nbr)
+{
+	char	*nbr_str;
+	int		char_count;
+
+	char_count = ft_number_len(nbr);
+	nbr_str = (char *)malloc((char_count + 1) * sizeof(char));
+	if (nbr_str == NULL)
+		return (0);
+	nbr_str[char_count] = '\0';
+	while (nbr != 0)
+	{
+		nbr_str[char_count - 1] = nbr % 10 + 48;
+		nbr = nbr / 10;
+		char_count--;
+	}
+	return (nbr_str);
+}
+
+int	ft_print_unsigned(unsigned int nbr)
+{
+	int		char_count;
+	char	*nbr_str;
+
+	char_count = 0;
+	if (nbr == 0)
+		char_count += ft_putchar('0');
 	else
 	{
-		str = itoa_unsigned(num);
-		if (str)
-		{
-			char_count += print_str(str);
-			free (str);
-		}
+		nbr_str = ft_itoa_unsigned(nbr);
+		char_count += ft_printstring(nbr_str);
+		free (nbr_str);
 	}
 	return (char_count);
 }
