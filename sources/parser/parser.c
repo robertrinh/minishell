@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/21 22:03:54 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/22 16:57:10 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_cmd	*construct_command(t_cmd *cmd, t_parse *p)
 	return (cmd);
 }
 
-int		count_args(t_parse *p)
+int	count_args(t_parse *p)
 {
 	int			count;
 	t_token		*current_token;
@@ -62,7 +62,12 @@ t_cmd	*construct_args(t_cmd *cmd, t_parse *p)
 	cmd->args = allocate_args(p);
 	while (current)
 	{
-		if (current->type == ARGUMENT)
+		if (current->type == COMMAND)
+		{
+			cmd->args[i] = ft_strdup(current->value);
+			i++;
+		}
+		else if (current->type == ARGUMENT)
 		{
 			cmd->args[i] = ft_strdup(current->value);
 			i++;
@@ -74,7 +79,6 @@ t_cmd	*construct_args(t_cmd *cmd, t_parse *p)
 	cmd->arg_count = i;
 	return (cmd);
 }
-
 
 // ====================================================: Helpers
 t_cmd	*build_cmd(t_parse *p)
@@ -106,15 +110,14 @@ bool	build_cmds(t_parse *p)
 
 bool	parse(t_shell *shell)
 {
-	t_cmd		**cmds;
-	t_parse 	*p;
+	t_cmd	**cmds;
+	t_parse	*p;
 
 	printf("\n\n========parser========\n");
-
 	p = init_parse(shell);
 	if (parser_checks(shell->tokens))
 		build_cmds(p);
-	
+
 	shell->cmd_table->cmds = p->cmds;
 	shell->cmd_table->cmd_count = p->cmd_count;
 	free(p);

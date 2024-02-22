@@ -6,13 +6,13 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/27 13:00:37 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2022/12/02 12:17:40 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/22 13:59:18 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-int	ft_count_p(uintptr_t number)
+int	ft_count_p(intptr_t number)
 {
 	int	count;
 
@@ -25,7 +25,7 @@ int	ft_count_p(uintptr_t number)
 	return (count);
 }
 
-void	ft_ptr_hex(uintptr_t number)
+void	ft_ptr_hex(intptr_t number)
 {
 	if (number >= 16)
 	{

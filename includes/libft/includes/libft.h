@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/20 10:01:20 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/02/21 22:14:46 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/22 13:58:55 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ int		ft_print_dec(int number);
 
 // Pointers
 int		ft_print_p(unsigned long long p);
-void	ft_ptr_hex(uintptr_t number);
-int		ft_count_p(uintptr_t number);
+void	ft_ptr_hex(intptr_t number);
+int		ft_count_p(intptr_t number);
 
 // Unsigned
 int		ft_print_unsigned(unsigned int nbr);
