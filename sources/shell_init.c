@@ -1,28 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   shell_init.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/14 14:04:02 by qtrinh            #+#    #+#             */
-/*   Updated: 2024/02/15 15:02:15 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   shell_init.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/14 14:04:02 by qtrinh        #+#    #+#                 */
+/*   Updated: 2024/02/21 21:25:44 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-static t_cmd	*cmd_init(void)
-{
-	t_cmd	*cmd;
-
-	cmd = malloc(sizeof(t_cmd));
-	if (cmd == NULL)
-	{
-		// TODO clean_exit()
-	}
-	return (cmd);
-}
 
 static int		count_substrings(char **strings)
 {
@@ -50,25 +38,16 @@ static char **alloc_envp(char **envp)
 	return (copy_envp);
 }
 
-int		temp_arg_func(t_shell *shell, t_ast_node *ast)
+static t_cmd_table *init_cmd_table(void)
 {
-	return (0);
-};
+	t_cmd_table		*cmd_table;
 
-HANDLE_FUNCTIONS *init_functions(void)
-{
-	HANDLE_FUNCTIONS	*exec_funcs;
-
-	exec_funcs = malloc(sizeof(HANDLE_FUNCTIONS) * NONE);
-	if (exec_funcs == NULL)
+	cmd_table = malloc(sizeof(t_cmd_table));
+	if (cmd_table == NULL)
 	{
 		// TODO clean_exit()
 	}
-
-	exec_funcs[COMMAND] = execute_command;
-	exec_funcs[ARGUMENT] = temp_arg_func;
-	exec_funcs[PIPE] = execute_pipe;
-	return (exec_funcs);
+	return (cmd_table);
 }
 
 t_shell	*shell_init(char **envp)
@@ -80,11 +59,8 @@ t_shell	*shell_init(char **envp)
 	{
 		// TODO clean_exit()
 	}
-	shell->current_pipe = 0;
-	shell->total_pipes = 0;
-	shell->cmd = cmd_init();
+	shell->cmd_table = init_cmd_table();
 	shell->envp = alloc_envp(envp);
-	shell->exec_funcs = init_functions();
 	return (shell);
 }
 

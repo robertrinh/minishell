@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:36:44 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/18 21:26:30 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/21 20:31:12 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 // Definitions of variables
 const char* error_messages[] = {
     "ERROR unmatched quote",
-	"ERROR unmatched pipe"
+	"ERROR unmatched pipe",
+	"ERROR unmatched redirect"
 };
 
 const char* color_codes[] = {

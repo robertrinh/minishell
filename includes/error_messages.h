@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/18 21:26:09 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/21 20:30:48 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 typedef enum e_error_messages
 {
 	ERROR_UNMATCHED_QUOTE,
-	ERROR_UNMATCHED_PIPE
+	ERROR_UNMATCHED_PIPE,
+	ERROR_UNMATCHED_REDIRECT
 }	t_error_messages;
 
 // Colors

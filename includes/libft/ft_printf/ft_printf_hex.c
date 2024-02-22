@@ -3,51 +3,54 @@
 /*                                                        ::::::::            */
 /*   ft_printf_hex.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
+/*   By: qbeukelm <qbeukelm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/12/01 12:41:57 by qtrinh        #+#    #+#                 */
-/*   Updated: 2023/08/04 16:43:22 by qtrinh        ########   odam.nl         */
+/*   Created: 2022/10/29 10:21:30 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2022/12/02 12:17:36 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
-static int	hex_length(unsigned int num)
+int	ft_hex_length(unsigned int nbr)
 {
-	int	length;
+	int	char_count;
 
-	length = 0;
-	while (num)
+	char_count = 0;
+	while (nbr != 0)
 	{
-		num = num / 16;
-		length++;
+		char_count++;
+		nbr = nbr / 16;
 	}
-	return (length);
+	return (char_count);
 }
 
-int	print_hex(unsigned int num, const char format)
+void	ft_put_hex(unsigned int nbr, const char format)
 {
-	if (num == 0)
-		return (print_char('0'));
+	if (nbr >= 16)
+	{
+		ft_put_hex(nbr / 16, format);
+		ft_put_hex(nbr % 16, format);
+	}
 	else
 	{
-		if (num >= 16)
-		{
-			print_hex(num / 16, format);
-			print_hex(num % 16, format);
-		}
+		if (nbr <= 9)
+			ft_putchar(nbr + '0');
 		else
 		{
-			if (num < 10)
-				print_char(num + '0');
-			else
-			{
-				if (format == 'x')
-					print_char(num - 10 + 'a');
-				if (format == 'X')
-					print_char(num - 10 + 'A');
-			}
+			if (format == 'x')
+				ft_putchar(nbr - 10 + 'a');
+			if (format == 'X')
+				ft_putchar(nbr - 10 + 'A');
 		}
 	}
-	return (hex_length(num));
+}
+
+int	ft_print_hex(unsigned int nbr, const char format)
+{
+	if (nbr == 0)
+		return (ft_putchar('0'));
+	else
+		ft_put_hex(nbr, format);
+	return (ft_hex_length(nbr));
 }

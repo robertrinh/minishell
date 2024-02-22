@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 13:13:52 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/01/19 16:25:08 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   lexer.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/02/21 21:27:57 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,16 @@ char	*type_to_string(t_token_type type)
 			return ("pipe");
 		case REDIRECT:
 			return ("redirect");
-		case HEREDOC:
-			return ("heredoc");
+		case REDIR_IN:
+			return ("in");
+		case REDIR_IN_APPEND:
+			return ("in_append");
+		case REDIR_OUT:
+			return ("out");
+		case REDIR_OUT_APPEND:
+			return ("out_append");
+		case END_OF_FILE:
+			return ("END");
 		case QUOTE:
 			return ("quote");
 		case ARGFILE:
@@ -94,7 +102,8 @@ int	tokens_builder_manager(t_shell *shell)
 	tokens_head = NULL;
 	tokens_head = tokenize_command(shell, tokens_head);
 	shell->tokens = tokens_head;
-	post_lexer(shell);
+	post_lexer(shell->tokens);
+
 	return (SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 19:21:32 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/17 15:56:41 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/02/19 17:21:09 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ static int	count_quotes(t_shell *shell)
 	int		i;
 
 	i = 0;
-	shell->cmd->double_quote = 0;
-	shell->cmd->single_quote = 0;
+	shell->double_quote = 0;
+	shell->single_quote = 0;
 	while (shell->input[i])
 	{
 		if (shell->input[i] == 34)
-			shell->cmd->double_quote += 1;
+			shell->double_quote += 1;
 		if (shell->input[i] == 39)
-			shell->cmd->single_quote += 1;
+			shell->single_quote += 1;
 		i++;
 	}
 	return (SUCCESS);
@@ -41,11 +41,11 @@ static bool	is_quote_matched(t_shell *shell)
 {
 	if (count_quotes(shell) == SUCCESS)
 	{
-		if (is_even_int(shell->cmd->double_quote) == false
-			&& shell->cmd->double_quote > 0)
+		if (is_even_int(shell->double_quote) == false
+			&& shell->double_quote > 0)
 			return (false);
-		else if (is_even_int(shell->cmd->single_quote) == false
-			&& shell->cmd->single_quote > 0)
+		else if (is_even_int(shell->single_quote) == false
+			&& shell->single_quote > 0)
 			return (false);
 		else
 			return (true);

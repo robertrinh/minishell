@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/12/03 13:06:57 by quentinbeuk       #+#    #+#              #
-#    Updated: 2024/02/15 17:36:24 by qbeukelm         ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
+#                                                    +#+                       #
+#    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
+#    Updated: 2024/02/21 21:35:12 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,29 +47,21 @@ SOURCES_LEXER_QUOTE		= quote.c \
 							buffer_quote.c \
 
 SOURCES_PARSER			= parser.c \
-							lexer_to_parser_pipe.c \
-							lexer_to_parser.c \
 							parser_checks.c \
-							parser_construct_command.c \
-							parser_construct_pipes.c \
-							parser_construct_redirects.c \
-							parser_pipe_utils.c \
+							parser_redirects.c \
 							parser_utils.c
 							
 
 SOURCES_UTILS			= clean_exit.c \
 							error_messages.c \
 							list.c \
-							print_parser_operations.c \
-							print_parser.c
+							print_cmds.c
 
 
 SOURCES_EXECUTOR		= executor.c 
 
 
-SOURCES_EXECUTOR_COMMAND = execute_checks.c \
-							execute_command_pipe.c \
-							execute_command.c \
+SOURCES_EXECUTOR_COMMAND = execute_command.c \
 
 							
 SOURCES_EXECUTOR_PIPE = pipe.c

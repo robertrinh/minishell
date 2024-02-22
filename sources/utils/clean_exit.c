@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   clean_exit.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/07 12:29:05 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/02/15 15:18:57 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   clean_exit.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/07 12:29:05 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/02/19 17:20:00 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ int	exit_with_message(t_error_messages error_code, t_message_colors color)
 
 void	finish_lexer(t_shell *shell)
 {
-	shell->cmd->single_quote = 0;
-	shell->cmd->double_quote = 0;
+	shell->single_quote = 0;
+	shell->double_quote = 0;
 }
