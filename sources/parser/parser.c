@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/22 16:57:10 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/02/22 19:55:48 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,7 @@ t_cmd	*construct_args(t_cmd *cmd, t_parse *p)
 	cmd->args = allocate_args(p);
 	while (current)
 	{
-		if (current->type == COMMAND)
-		{
-			cmd->args[i] = ft_strdup(current->value);
-			i++;
-		}
-		else if (current->type == ARGUMENT)
+		if (current->type == ARGUMENT)
 		{
 			cmd->args[i] = ft_strdup(current->value);
 			i++;

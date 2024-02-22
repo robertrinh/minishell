@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/02/22 15:36:49 by qtrinh        ########   odam.nl          #
+#    Updated: 2024/02/22 20:12:31 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,11 +40,11 @@ SOURCES_LEXER 			= lexer.c \
 
 SOURCES_LEXER_SPLIT	 	= split.c \
 							split_utils.c \
-							allocate_strings.c \
+							allocate_strings.c
 							
 
 SOURCES_LEXER_QUOTE		= quote.c \
-							buffer_quote.c \
+							buffer_quote.c
 
 SOURCES_PARSER			= parser.c \
 							parser_checks.c \
@@ -58,11 +58,14 @@ SOURCES_UTILS			= clean_exit.c \
 							print_cmds.c
 
 
-SOURCES_EXECUTOR		= executor.c 
+SOURCES_EXECUTOR		= executor_enviroment.c \
+							executor_utils.c \
+							executor.c
+							
 
 
 SOURCES_EXECUTOR_COMMAND = execute_commands.c \
-							single_command.c \
+							single_command.c
 
 							
 SOURCES_EXECUTOR_PIPE = pipe.c
