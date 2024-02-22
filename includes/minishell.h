@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/21 21:34:54 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/22 16:53:16 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_cmd
 	t_list		*fd_err;
 	char		*value;
 	char		**args;
+	char		**cmd_args;
 	int			arg_count;
 }	t_cmd;
 
@@ -107,18 +108,6 @@ typedef struct s_cmd_table
 	t_cmd		**cmds;
 	int			cmd_count;
 } t_cmd_table;
-
-typedef struct	s_shell
-{
-	t_token				*tokens;
-	t_cmd_table			*cmd_table;
-	t_cmd				**cmds;
-	char				**envp;
-	char const			*input;
-	int					exit_code;
-	int					single_quote;
-	int					double_quote;
-}	t_shell;
 
 typedef struct s_parse
 {
@@ -129,6 +118,20 @@ typedef struct s_parse
 	int			cmd_count;
 	int			i;
 } t_parse;
+
+typedef struct	s_shell
+{
+	t_parse				*p;
+	t_token				*tokens;
+	t_cmd_table			*cmd_table;
+	t_cmd				**cmds;
+	char				**envp;
+	char const			*input;
+	int					exit_code;
+	int					single_quote;
+	int					double_quote;
+}	t_shell;
+
 
 
 //===============================================================: Main
@@ -198,8 +201,13 @@ t_token		*locate_pipe_n(t_token *tokens_root, int pipe_count);
 
 
 //===============================================================: Executor
-// execute_command.c
+// execute_commands.c
+int	execute_command(t_shell *shell);
+
+// single_command.c
 void	print_2d_char(char **arr);
+int		single_command(t_shell *shell);
+void	child_process(t_shell *shell);
 
 // executor.c
 int		execute(t_shell *shell);

@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/21 20:55:56 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/21 22:05:55 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/22 14:42:50 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_list	*construct_redirect_file(t_token *token)
 	return (files);
 }
 
-static t_list	*redriects_for_type(t_cmd *cmd, t_parse *p, t_token_type type)
+static t_list	*redirects_for_type(t_cmd *cmd, t_parse *p, t_token_type type)
 {
 	t_list		*files;
 	t_token		*current;
@@ -51,7 +51,7 @@ static t_list	*redriects_for_type(t_cmd *cmd, t_parse *p, t_token_type type)
 
 t_cmd	*construct_redirects(t_cmd *cmd, t_parse *p)
 {
-	cmd->fd_in = redriects_for_type(cmd, p, REDIR_IN);
-	cmd->fd_out = redriects_for_type(cmd, p, REDIR_OUT);
+	cmd->fd_in = redirects_for_type(cmd, p, REDIR_IN);
+	cmd->fd_out = redirects_for_type(cmd, p, REDIR_OUT);
 	return (cmd);
 }

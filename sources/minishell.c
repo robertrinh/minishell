@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/19 16:12:37 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/22 14:36:59 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static bool	retrieve_command(t_shell *shell)
 		return (FAILURE);
 	}
 	save_command(command, shell);
+	if (command)
+		add_history(command);
 	return (SUCCESS);
 }
 

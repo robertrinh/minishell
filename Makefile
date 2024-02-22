@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/02/21 21:35:12 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2024/02/22 15:36:49 by qtrinh        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,8 @@ SOURCES_UTILS			= clean_exit.c \
 SOURCES_EXECUTOR		= executor.c 
 
 
-SOURCES_EXECUTOR_COMMAND = execute_command.c \
+SOURCES_EXECUTOR_COMMAND = execute_commands.c \
+							single_command.c \
 
 							
 SOURCES_EXECUTOR_PIPE = pipe.c

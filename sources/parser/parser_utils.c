@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/25 22:22:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/21 21:34:12 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/22 14:39:24 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_cmd	**init_cmds(int cmd_count)
 {
-	t_cmd 	**cmds;
+	t_cmd	**cmds;
 
 	cmds = malloc(sizeof(t_cmd) * (cmd_count + 1));
 	if (cmds == NULL)
@@ -24,7 +24,7 @@ static t_cmd	**init_cmds(int cmd_count)
 	return (cmds);
 }
 
-t_parse		*init_parse(t_shell *shell)
+t_parse	*init_parse(t_shell *shell)
 {
 	t_parse		*p;
 
@@ -76,7 +76,7 @@ t_token	*locate_pipe_n(t_token *tokens_root, int pipe_count)
 	return (NULL);
 }
 
-t_token *locate_current_token(t_parse *p)
+t_token	*locate_current_token(t_parse *p)
 {
 	if (p->current_pipe == 0)
 		return (p->tokens_r);
