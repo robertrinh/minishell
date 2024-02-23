@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/22 16:53:16 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/02/22 21:04:32 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,11 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+typedef struct s_pipe
+{
+	int		pipefd[2];
+} t_pipe;
+
 typedef struct s_cmd
 {
 	t_list		*fd_in;
@@ -99,7 +104,8 @@ typedef struct s_cmd
 	t_list		*fd_err;
 	char		*value;
 	char		**args;
-	char		**cmd_args;
+	char		**formatted_cmd;
+	char		*cmd_path;
 	int			arg_count;
 }	t_cmd;
 
@@ -109,19 +115,8 @@ typedef struct s_cmd_table
 	int			cmd_count;
 } t_cmd_table;
 
-typedef struct s_parse
-{
-	t_token		*tokens_r;
-	t_token		*tokens_c;
-	t_cmd		**cmds;
-	int			current_pipe;
-	int			cmd_count;
-	int			i;
-} t_parse;
-
 typedef struct	s_shell
 {
-	t_parse				*p;
 	t_token				*tokens;
 	t_cmd_table			*cmd_table;
 	t_cmd				**cmds;
@@ -132,6 +127,15 @@ typedef struct	s_shell
 	int					double_quote;
 }	t_shell;
 
+typedef struct s_parse
+{
+	t_token		*tokens_r;
+	t_token		*tokens_c;
+	t_cmd		**cmds;
+	int			current_pipe;
+	int			cmd_count;
+	int			i;
+} t_parse;
 
 
 //===============================================================: Main
@@ -201,16 +205,24 @@ t_token		*locate_pipe_n(t_token *tokens_root, int pipe_count);
 
 
 //===============================================================: Executor
+// executor.c
+int		execute(t_shell *shell);
+
+// executor_utils.c
+char	**format_cmd(t_cmd *cmd);
+char	*get_path_for_cmd(char **env_paths, char *command);
+char	**get_paths(void);
+
+// ---------------------------------------- command
 // execute_commands.c
-int	execute_command(t_shell *shell);
+int		execute_command(t_shell *shell, int i);
+int		execute_commands(t_shell *shell);
 
 // single_command.c
 void	print_2d_char(char **arr);
 int		single_command(t_shell *shell);
 void	child_process(t_shell *shell);
 
-// executor.c
-int		execute(t_shell *shell);
 
 
 //===============================================================: Utils
