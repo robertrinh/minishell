@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/02/22 20:12:31 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2024/02/23 17:16:26 by qtrinh        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,16 +59,18 @@ SOURCES_UTILS			= clean_exit.c \
 
 
 SOURCES_EXECUTOR		= executor_enviroment.c \
+							executor_redirect.c \
 							executor_utils.c \
 							executor.c
 							
 
 
 SOURCES_EXECUTOR_COMMAND = execute_commands.c \
+							redirect_command.c \
 							single_command.c
 
 							
-SOURCES_EXECUTOR_PIPE = pipe.c
+SOURCES_EXECUTOR_PIPE = pipe_utils.c
 
 
 # ===== Manage Directories =====

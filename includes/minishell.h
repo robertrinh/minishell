@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/22 21:04:32 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/23 17:16:05 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,14 @@ typedef enum e_token_type
 	NONE,
 }	t_token_type;
 
+typedef enum e_redirect_type
+{
+	IN,
+	IN_APPEND,
+	OUT,
+	OUT_APPEND,
+	REDIR_NONE,
+}	t_redirect_type;
 
 //===============================================================: Struct
 typedef struct s_split
@@ -92,16 +100,24 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-typedef struct s_pipe
+typedef struct s_pipes
 {
-	int		pipefd[2];
-} t_pipe;
+	int		prev_pipe[2];
+	int		curr_pipe[2];
+} t_pipes;
+
+typedef struct s_redirect
+{
+	char				*value;
+	int					fd;
+	struct s_redirect	*next;
+}	t_redirect;
 
 typedef struct s_cmd
 {
-	t_list		*fd_in;
-	t_list		*fd_out;
-	t_list		*fd_err;
+	t_redirect	*fd_in;
+	t_redirect	*fd_out;
+	t_redirect	*fd_err;
 	char		*value;
 	char		**args;
 	char		**formatted_cmd;
@@ -205,24 +221,41 @@ t_token		*locate_pipe_n(t_token *tokens_root, int pipe_count);
 
 
 //===============================================================: Executor
-// executor.c
-int		execute(t_shell *shell);
-
-// executor_utils.c
+// executor_enviroment.c
 char	**format_cmd(t_cmd *cmd);
 char	*get_path_for_cmd(char **env_paths, char *command);
 char	**get_paths(void);
+
+// executor_redirect.c
+int		fd_in_file(t_cmd *cmd);
+
+// executor_utils.c
+void	print_2d_char(char **arr);
+int		prepare_command(t_shell *shell, int i);
+int		new_process(t_shell *shell, int i, t_pipes *pipes);
+
+// executor.c
+int		execute(t_shell *shell);
 
 // ---------------------------------------- command
 // execute_commands.c
 int		execute_command(t_shell *shell, int i);
 int		execute_commands(t_shell *shell);
 
+// redirect_command.c
+void	open_redirects(t_cmd *cmd);
+
 // single_command.c
-void	print_2d_char(char **arr);
 int		single_command(t_shell *shell);
 void	child_process(t_shell *shell);
 
+// ---------------------------------------- pipe
+// pipe_utils.c
+t_pipes	*init_pipes(void);
+void	will_open_pipe(t_cmd_table *cmd_table, t_pipes *pipes, int i);
+void	will_close_pipes(t_pipes *pipes);
+void	dup_fds(t_pipes *pipes, t_cmd *cmd);
+void	iterate_pipes(t_pipes *pipes);
 
 
 //===============================================================: Utils
