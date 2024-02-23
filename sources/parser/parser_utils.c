@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/25 22:22:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/22 14:39:24 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/02/23 17:50:04 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ t_cmd	*allocate_cmd(void)
 	{
 		// TODO clean_exit()
 	}
+	cmd->fd_in = NULL;
+	cmd->fd_out = NULL;
+	cmd->fd_err = NULL;
 	return (cmd);
 }
 

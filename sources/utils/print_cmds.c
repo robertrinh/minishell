@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/21 21:33:51 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/21 22:20:21 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/23 16:08:05 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 static void	print_redirects(t_cmd *cmd)
 {
-	t_list	*fd_in;
-	t_list	*fd_out;
+	t_redirect	*fd_in;
+	t_redirect	*fd_out;
 
 	fd_in = cmd->fd_in;
 	while (fd_in)
 	{
-		printf("\t\t< %s\n", (char *) fd_in->content);
+		printf("\t\t< %s, %d\n", (char *) fd_in->value, fd_in->fd);
 		fd_in = fd_in->next;
 	}
 
 	fd_out = cmd->fd_out;
 	while (fd_out)
 	{
-		printf("\t\t> %s\n", (char *) fd_out->content);
+		printf("\t\t> %s, %d\n", (char *) fd_out->value, fd_out->fd);
 		fd_out = fd_out->next;
 	}
 }
