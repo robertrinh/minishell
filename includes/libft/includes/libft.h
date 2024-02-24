@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/20 10:01:20 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/02/22 13:58:55 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/02/24 19:29:49 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void		*ft_memmove(void *dst, const void *src, size_t len);
 void		*ft_memchr(const void *s, int c, size_t n);
 int			ft_memcmp(const void *s1, const void *s2, size_t n);
 void		*ft_calloc(size_t count, size_t size);
+void		*ft_realloc(void *ptr, size_t size);
 
 // String
 size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);

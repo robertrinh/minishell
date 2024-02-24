@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/21 21:27:57 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/24 21:56:14 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ char	*type_to_string(t_token_type type)
 			return ("in_append");
 		case REDIR_OUT:
 			return ("out");
-		case REDIR_OUT_APPEND:
-			return ("out_append");
 		case END_OF_FILE:
 			return ("END");
 		case QUOTE:

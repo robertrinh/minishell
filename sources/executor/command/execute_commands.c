@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 15:22:01 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/02/23 17:42:29 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/02/24 22:51:31 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	execute_commands(t_shell *shell)
 	{
         printf("cmd[%d]\n", i);
         prepare_command(shell, i);
-		open_redirects(shell->cmd_table->cmds[i]);
+		open_in_redirects(shell->cmd_table->cmds[i]);
 		will_open_pipe(shell->cmd_table, pipes, i);
         new_process(shell, i, pipes);
 		iterate_pipes(pipes);
@@ -44,6 +44,5 @@ int	execute_commands(t_shell *shell)
     }
     // Close the last pipe ends
 	will_close_pipes(pipes);
-	close(fd_in_file(shell->cmd_table->cmds[1]));
     return (SUCCESS);
 }

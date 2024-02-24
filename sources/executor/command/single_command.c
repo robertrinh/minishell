@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/02/23 16:26:49 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/02/24 22:52:58 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	child_process(t_shell *shell)
 	//TODO redirect dupe fd -> fd_in/fd_out
 	//TODO run builtin instead of command
 	prepare_command(shell, 0);
-	open_redirects(shell->cmd_table->cmds[0]);
+	open_in_redirects(shell->cmd_table->cmds[0]);
 	print_cmds(shell->cmd_table);
 	execute_command(shell, 0);
 }

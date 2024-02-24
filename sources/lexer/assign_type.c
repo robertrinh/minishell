@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/12 14:27:34 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/02/21 22:21:05 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/24 21:55:51 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_token_type	assign_redirect_type(char *value)
 	if (ft_strncmp(value, ">", 2) == 0)
 		return (REDIR_OUT);
 	else if (ft_strncmp(value, ">>", 2) == 0)
-		return (REDIR_OUT_APPEND);
+		return (REDIR_OUT);
 	else if (ft_strncmp(value, "<", 2) == 0)
 		return (REDIR_IN);
 	else if (ft_strncmp(value, "<<", 2) == 0)

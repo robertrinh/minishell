@@ -22,6 +22,7 @@ LIB_MEMORY = ft_memset.c \
 			ft_memchr.c \
 			ft_memcmp.c \
 			ft_calloc.c \
+			ft_realloc.c \
 
 LIB_STRING = ft_strlcpy.c \
 			ft_strlcpy.c \
