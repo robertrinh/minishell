@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/02/24 22:10:53 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2024/02/25 11:15:13 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,8 @@ SOURCES_EXECUTOR_COMMAND = execute_commands.c \
 							
 SOURCES_EXECUTOR_PIPE = pipe_utils.c
 
-SOURCES_EXECUTOR_REDIRECTS = redirect_in_files.c \
+SOURCES_EXECUTOR_REDIRECTS = redirect_heredoc.c \
+								redirect_in_files.c \
 								redirect_open.c \
 								redirect_types.c \
 								redirect_utils.c

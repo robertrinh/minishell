@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/08 15:54:04 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/02/24 23:34:55 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/25 18:56:01 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,24 @@ void redirect_out(t_cmd *cmd)
 	}
 }
 
-// !  echo hello world | wc > outfile.txt >> outfile.txt
-// echo hello | wc > outfile.txt
+// !	grep aa < README.md | wc
+//		grep aa << EOF < README.md | wc
+
 void	dup_fds(t_pipes *pipes, t_cmd *cmd)
 {
-	int *fd_ins;
+	int 	*fd_ins;
+	int		*fd_heredocs;
 
+	// Infiles
+	if (cmd->heredoc)
+		fd_heredocs = collect_heredocs(cmd);
+	
 	if (cmd->fd_in)
 		fd_ins = collect_fd_in_files(cmd);
 
-	// Input
-	redirect_in_files(cmd, fd_ins);
-
+	if (cmd->fd_in || cmd->heredoc)
+		redirect_in_files(cmd, fd_ins, fd_heredocs);
+	
 	// Not First
 	if (pipes->prev_pipe[READ] != -1)
 	{
@@ -79,7 +85,7 @@ void	dup_fds(t_pipes *pipes, t_cmd *cmd)
         dup2(pipes->prev_pipe[READ], STDIN_FILENO);
         close(pipes->prev_pipe[READ]);
     }
-	
+		
 	// First
 	if (pipes->curr_pipe[WRITE] != -1)
 	{

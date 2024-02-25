@@ -6,21 +6,11 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 19:43:07 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/23 17:10:00 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/02/25 13:26:53 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void print_2d_char(char **arr)
-{
-	int i = 0;
-	while (arr[i])
-	{
-		printf("2D[%d] %s\n", i, arr[i]);
-		i++;
-	}
-}
 
 int	prepare_command(t_shell *shell, int i)
 {

@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 13:07:55 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/24 22:07:53 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/25 18:33:55 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		count_redirects_for_type(t_cmd *cmd, t_redirect_type type)
 	return (count);
 }
 
-size_t read_large_file(int fd, char **buff)
+size_t read_large_file(int fd, char ***buff)
 {
 	size_t		read_bytes;
 	size_t		buff_size;
@@ -46,7 +46,7 @@ size_t read_large_file(int fd, char **buff)
 		{
 			buff_size *= 2;
 			temp = ft_realloc(*buff, buff_size);
-			*buff = temp;
+			*buff = &temp;
 		}
 	}
 	return (total_bytes);

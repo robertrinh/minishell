@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/24 21:56:14 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/25 18:40:52 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,27 @@ char	*type_to_string(t_token_type type)
 	switch (type)
 	{
 		case COMMAND:
-			return ("command");
+			return ("command  ");
 		case ARGUMENT:
-			return ("argument");
+			return ("argument ");
 		case PIPE:
-			return ("pipe");
+			return ("pipe     ");
 		case REDIRECT:
-			return ("redirect");
+			return ("redirect ");
 		case REDIR_IN:
-			return ("in");
+			return ("in       ");
 		case REDIR_IN_APPEND:
 			return ("in_append");
 		case REDIR_OUT:
-			return ("out");
+			return ("out      ");
 		case END_OF_FILE:
-			return ("END");
+			return ("eof      ");
 		case QUOTE:
-			return ("quote");
+			return ("quote    ");
 		case ARGFILE:
-			return ("argfile");
+			return ("argfile  ");
 		default:
-			return ("none");
+			return ("none     ");
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/12 14:27:34 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/02/24 21:55:51 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/25 11:08:54 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ bool	assign_redirect_types(t_token *tokens)
 	{
 		if (current->type == REDIRECT)
 			current->type = assign_redirect_type(current->value);
+		if (current->type == REDIR_IN_APPEND)
+			current->next->type = END_OF_FILE;
 		current = current->next;
 	}
 	return (SUCCESS);

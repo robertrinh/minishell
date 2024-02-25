@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/24 23:35:13 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/25 19:05:47 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define RESET_COLOR "\033[0m"
 
 # define BUFF_SIZE 1024
+# define PRINT_FLAG "-p"
 
 
 //===============================================================: Enum
@@ -76,6 +77,7 @@ typedef enum e_redirect_type
 	IN_APPEND,
 	OUT,
 	OUT_APPEND,
+	END,
 	REDIR_NONE,
 }	t_redirect_type;
 
@@ -121,6 +123,7 @@ typedef struct s_cmd
 	t_redirect	*fd_in;
 	t_redirect	*fd_out;
 	t_redirect	*fd_err;
+	t_redirect	*heredoc;
 	char		*value;
 	char		**args;
 	char		**formatted_cmd;
@@ -143,6 +146,7 @@ typedef struct	s_shell
 	int					exit_code;
 	int					single_quote;
 	int					double_quote;
+	bool				print_output;
 }	t_shell;
 
 typedef struct s_parse
@@ -158,7 +162,7 @@ typedef struct s_parse
 
 //===============================================================: Main
 // shell_init.c
-t_shell	*shell_init(char **envp);
+t_shell	*shell_init(char **envp, char **argv);
 bool	save_command(char *input, t_shell *shell);
 t_split	*init_split(t_shell *shell, t_split *split);
 
@@ -260,9 +264,12 @@ void	dup_fds(t_pipes *pipes, t_cmd *cmd);
 void	iterate_pipes(t_pipes *pipes);
 
 // ----------------------------------- executor/redirects
+// redirect_heredoc
+int		*collect_heredocs(t_cmd *cmd);
+
 // redirect_in_files.c
 int		*collect_fd_in_files(t_cmd *cmd);
-void	redirect_in_files(t_cmd *cmd, int *fd_ins);
+void	redirect_in_files(t_cmd *cmd, int *fd_ins, int *fd_heredocs);
 
 // redirect_open.c
 void		open_in_redirects(t_cmd *cmd);
@@ -273,7 +280,7 @@ int			get_open_flag_for_type(t_redirect_type type);
 
 // redirect_utils.c
 int		count_redirects_for_type(t_cmd *cmd, t_redirect_type type);
-size_t	read_large_file(int fd, char **buff);
+size_t	read_large_file(int fd, char ***buff);
 
 
 //===============================================================: Utils
@@ -287,5 +294,6 @@ int		exit_with_message(t_error_messages error_code, t_message_colors color);
 
 // print_cmds.c
 void		print_cmds(t_cmd_table *cmd_table);
+void 		should_print(char *s, bool should_print);
 
 #endif
