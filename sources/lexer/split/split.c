@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   split.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/05 14:17:27 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/02/02 16:53:40 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   split.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/05 14:17:27 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/02/25 12:22:43 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ char	**split(t_shell *shell)
 
 	// 3. Assign strings
 	split->strings = allocate_strings_split(split);
+
+	free(split);
 
 	// 4. Free split struct
 	return (split->strings);

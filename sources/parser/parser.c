@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/23 15:48:34 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/02/25 19:09:18 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,16 +108,17 @@ bool	parse(t_shell *shell)
 	t_cmd	**cmds;
 	t_parse	*p;
 
-	printf("\n\n========parser========\n");
+	should_print("\n\n========parser========\n", shell->print_output);
 	p = init_parse(shell);
 	if (parser_checks(shell->tokens))
 		build_cmds(p);
 
 	shell->cmd_table->cmds = p->cmds;
 	shell->cmd_table->cmd_count = p->cmd_count;
+	
 	free(p);
-
-	print_cmds(shell->cmd_table);
+	if (shell->print_output)
+		print_cmds(shell->cmd_table);
 	return (SUCCESS);
 }
 

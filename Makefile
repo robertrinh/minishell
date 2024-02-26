@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/02/23 17:16:26 by qtrinh        ########   odam.nl          #
+#    Updated: 2024/02/25 11:15:13 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ RESET				:= \033[0m
 
 # ===== Sources =====
 SOURCES 				= minishell.c \
-							shell_init.c 
 
 SOURCES_LEXER 			= lexer.c \
 							assign_type.c \
@@ -41,7 +40,6 @@ SOURCES_LEXER 			= lexer.c \
 SOURCES_LEXER_SPLIT	 	= split.c \
 							split_utils.c \
 							allocate_strings.c
-							
 
 SOURCES_LEXER_QUOTE		= quote.c \
 							buffer_quote.c
@@ -50,27 +48,27 @@ SOURCES_PARSER			= parser.c \
 							parser_checks.c \
 							parser_redirects.c \
 							parser_utils.c
-							
 
 SOURCES_UTILS			= clean_exit.c \
 							error_messages.c \
 							list.c \
-							print_cmds.c
-
+							print_cmds.c \
+							shell_init.c
 
 SOURCES_EXECUTOR		= executor_enviroment.c \
-							executor_redirect.c \
 							executor_utils.c \
 							executor.c
-							
-
 
 SOURCES_EXECUTOR_COMMAND = execute_commands.c \
-							redirect_command.c \
 							single_command.c
-
 							
 SOURCES_EXECUTOR_PIPE = pipe_utils.c
+
+SOURCES_EXECUTOR_REDIRECTS = redirect_heredoc.c \
+								redirect_in_files.c \
+								redirect_open.c \
+								redirect_types.c \
+								redirect_utils.c
 
 
 # ===== Manage Directories =====
@@ -86,6 +84,7 @@ DIR_SOURCES_UTILS		= sources/utils
 DIR_SOURCES_EXECUTOR	= sources/executor
 DIR_SOURCES_EXECUTOR_COMMAND = sources/executor/command
 DIR_SOURCES_EXECUTOR_PIPE = sources/executor/pipe
+DIR_SOURCES_EXECUTOR_REDIRECTS = sources/executor/redirects
 
 
 # ===== Object Files =====
@@ -97,7 +96,8 @@ OBJ = $(addprefix $(DIR_OBJ)/, $(SOURCES:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_UTILS:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_COMMAND:.c=.o)) \
-	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_PIPE:.c=.o))
+	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_PIPE:.c=.o)) \
+	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_REDIRECTS:.c=.o))
 
 
 # ===== Rules =====
@@ -135,6 +135,9 @@ $(DIR_OBJ)/%.o: $(DIR_SOURCES_EXECUTOR_COMMAND)/%.c | $(DIR_OBJ)
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES_EXECUTOR_PIPE)/%.c | $(DIR_OBJ)
+	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
+
+$(DIR_OBJ)/%.o: $(DIR_SOURCES_EXECUTOR_REDIRECTS)/%.c | $(DIR_OBJ)
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ):

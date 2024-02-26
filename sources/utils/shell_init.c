@@ -6,11 +6,11 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/14 14:04:02 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/02/21 21:25:44 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/02/25 19:01:24 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int		count_substrings(char **strings)
 {
@@ -50,7 +50,7 @@ static t_cmd_table *init_cmd_table(void)
 	return (cmd_table);
 }
 
-t_shell	*shell_init(char **envp)
+t_shell	*shell_init(char **envp, char **argv)
 {
 	t_shell	*shell;
 
@@ -61,6 +61,9 @@ t_shell	*shell_init(char **envp)
 	}
 	shell->cmd_table = init_cmd_table();
 	shell->envp = alloc_envp(envp);
+	shell->print_output = false;
+	if (argv[1] && ft_strncmp(argv[1], PRINT_FLAG, 2) == 0)
+		shell->print_output = true;
 	return (shell);
 }
 

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/08 15:54:04 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/02/23 18:02:21 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/02/25 18:56:01 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ t_pipes	*init_pipes(void)
 
 void	will_open_pipe(t_cmd_table *cmd_table, t_pipes *pipes, int i)
 {
-	// Only create a pipe if not the last command
     if (i < cmd_table->cmd_count - 1)
         pipe(pipes->curr_pipe);
 }
@@ -44,33 +43,63 @@ void	will_close_pipes(t_pipes *pipes)
 	}
 }
 
+void redirect_out(t_cmd *cmd)
+{
+	int			fd;
+	t_redirect	*fd_outs;
+
+	fd_outs = cmd->fd_out;
+	while (fd_outs)
+	{
+		fd_outs->fd = open(fd_outs->value, get_open_flag_for_type(fd_outs->type), 0644);
+		dup2(fd_outs->fd, STDOUT_FILENO);
+		close(fd_outs->fd);
+		if (fd_outs->next == NULL)
+			return ;
+		fd_outs = fd_outs->next;
+	}
+}
+
+// !	grep aa < README.md | wc
+//		grep aa << EOF < README.md | wc
+
 void	dup_fds(t_pipes *pipes, t_cmd *cmd)
 {
-	int fd_input = STDIN_FILENO;
+	int 	*fd_ins;
+	int		*fd_heredocs;
+
+	// Infiles
+	if (cmd->heredoc)
+		fd_heredocs = collect_heredocs(cmd);
 	
 	if (cmd->fd_in)
-		fd_input = fd_in_file(cmd);
+		fd_ins = collect_fd_in_files(cmd);
+
+	if (cmd->fd_in || cmd->heredoc)
+		redirect_in_files(cmd, fd_ins, fd_heredocs);
 	
-	printf("fd_input is %d\n", fd_input);
-	// First
+	// Not First
 	if (pipes->prev_pipe[READ] != -1)
 	{
         close(pipes->prev_pipe[WRITE]);
-        dup2(pipes->prev_pipe[READ], fd_input); // was STDIN_FILENO
+        dup2(pipes->prev_pipe[READ], STDIN_FILENO);
         close(pipes->prev_pipe[READ]);
     }
-	// Not first
+		
+	// First
 	if (pipes->curr_pipe[WRITE] != -1)
 	{
 		close(pipes->curr_pipe[READ]);
-		dup2(pipes->curr_pipe[WRITE], STDOUT_FILENO);
+		if (cmd->fd_out)
+			redirect_out(cmd);
+		else
+			dup2(pipes->curr_pipe[WRITE], STDOUT_FILENO);
 		close(pipes->curr_pipe[WRITE]);
 	}
 }
 
 void	iterate_pipes(t_pipes *pipes)
 {
-	 // Update pipes->prev_pipe for the next iteration
     pipes->prev_pipe[READ] = pipes->curr_pipe[READ];
     pipes->prev_pipe[WRITE] = pipes->curr_pipe[WRITE];
 }

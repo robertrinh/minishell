@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/23 17:16:05 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/02/25 19:05:47 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <unistd.h>
+# include <fcntl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
@@ -37,6 +38,9 @@
 
 # define CYELLOW "\033[0;33m"
 # define RESET_COLOR "\033[0m"
+
+# define BUFF_SIZE 1024
+# define PRINT_FLAG "-p"
 
 
 //===============================================================: Enum
@@ -61,7 +65,6 @@ typedef enum e_token_type
 	REDIR_IN,
 	REDIR_IN_APPEND,
 	REDIR_OUT,
-	REDIR_OUT_APPEND,
 	END_OF_FILE,
 	QUOTE,
 	ARGFILE,
@@ -74,6 +77,7 @@ typedef enum e_redirect_type
 	IN_APPEND,
 	OUT,
 	OUT_APPEND,
+	END,
 	REDIR_NONE,
 }	t_redirect_type;
 
@@ -110,6 +114,7 @@ typedef struct s_redirect
 {
 	char				*value;
 	int					fd;
+	t_redirect_type		type;
 	struct s_redirect	*next;
 }	t_redirect;
 
@@ -118,6 +123,7 @@ typedef struct s_cmd
 	t_redirect	*fd_in;
 	t_redirect	*fd_out;
 	t_redirect	*fd_err;
+	t_redirect	*heredoc;
 	char		*value;
 	char		**args;
 	char		**formatted_cmd;
@@ -135,12 +141,12 @@ typedef struct	s_shell
 {
 	t_token				*tokens;
 	t_cmd_table			*cmd_table;
-	t_cmd				**cmds;
 	char				**envp;
 	char const			*input;
 	int					exit_code;
 	int					single_quote;
 	int					double_quote;
+	bool				print_output;
 }	t_shell;
 
 typedef struct s_parse
@@ -156,7 +162,7 @@ typedef struct s_parse
 
 //===============================================================: Main
 // shell_init.c
-t_shell	*shell_init(char **envp);
+t_shell	*shell_init(char **envp, char **argv);
 bool	save_command(char *input, t_shell *shell);
 t_split	*init_split(t_shell *shell, t_split *split);
 
@@ -227,7 +233,7 @@ char	*get_path_for_cmd(char **env_paths, char *command);
 char	**get_paths(void);
 
 // executor_redirect.c
-int		fd_in_file(t_cmd *cmd);
+int		*fd_in_files(t_cmd *cmd);
 
 // executor_utils.c
 void	print_2d_char(char **arr);
@@ -237,7 +243,7 @@ int		new_process(t_shell *shell, int i, t_pipes *pipes);
 // executor.c
 int		execute(t_shell *shell);
 
-// ---------------------------------------- command
+// ----------------------------------- executor/command
 // execute_commands.c
 int		execute_command(t_shell *shell, int i);
 int		execute_commands(t_shell *shell);
@@ -249,13 +255,32 @@ void	open_redirects(t_cmd *cmd);
 int		single_command(t_shell *shell);
 void	child_process(t_shell *shell);
 
-// ---------------------------------------- pipe
+// ----------------------------------- executor/pipe
 // pipe_utils.c
 t_pipes	*init_pipes(void);
 void	will_open_pipe(t_cmd_table *cmd_table, t_pipes *pipes, int i);
 void	will_close_pipes(t_pipes *pipes);
 void	dup_fds(t_pipes *pipes, t_cmd *cmd);
 void	iterate_pipes(t_pipes *pipes);
+
+// ----------------------------------- executor/redirects
+// redirect_heredoc
+int		*collect_heredocs(t_cmd *cmd);
+
+// redirect_in_files.c
+int		*collect_fd_in_files(t_cmd *cmd);
+void	redirect_in_files(t_cmd *cmd, int *fd_ins, int *fd_heredocs);
+
+// redirect_open.c
+void		open_in_redirects(t_cmd *cmd);
+
+// redirect_types.c
+t_redirect	*file_type(t_cmd *cmd, t_redirect_type type);
+int			get_open_flag_for_type(t_redirect_type type);
+
+// redirect_utils.c
+int		count_redirects_for_type(t_cmd *cmd, t_redirect_type type);
+size_t	read_large_file(int fd, char ***buff);
 
 
 //===============================================================: Utils
@@ -269,5 +294,6 @@ int		exit_with_message(t_error_messages error_code, t_message_colors color);
 
 // print_cmds.c
 void		print_cmds(t_cmd_table *cmd_table);
+void 		should_print(char *s, bool should_print);
 
 #endif

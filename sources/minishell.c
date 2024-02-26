@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/22 14:36:59 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/02/25 19:08:43 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,12 @@ static bool	run(t_shell *shell)
 		if (lexer_manager(shell) == SUCCESS)
 		{
 			finish_lexer(shell);
-			print_token(shell->tokens);
+			if (shell->print_output)
+				print_token(shell->tokens);
 		}
 		parse(shell);
 		execute(shell);
-		printf("\n--------------------End--------------------\n\n");
+		should_print("\n--------------------End--------------------\n\n", shell->print_output);
 	}
 	return (SUCCESS); // <- Return status to main
 }
@@ -49,7 +50,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_shell	*shell;
 
-	shell = shell_init(envp);
+	shell = shell_init(envp, argv);
 	run(shell);
 	printf("argc: %d, %p, %p", argc, argv, envp);
 	return (0);
