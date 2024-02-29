@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser_redirects.c                                 :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/21 20:55:56 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/25 13:30:39 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser_redirects.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/21 20:55:56 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/02/29 14:01:55 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,7 @@ static t_redirect	*construct_redirect_file(t_token *token)
 {
 	t_redirect	*file;
 
-	file = malloc(sizeof(t_redirect));
-	if (file == NULL)
-	{
-		// TODO clean_exit()
-	}
+	file = safe_malloc(sizeof(t_redirect));
 	file->value = token->next->value;
 	file->fd = 0;
 	file->type = assign_file_type(token->value);

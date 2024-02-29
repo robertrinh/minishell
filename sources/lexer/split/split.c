@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   split.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/01/05 14:17:27 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/02/25 12:22:43 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   split.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/05 14:17:27 by qbeukelm          #+#    #+#             */
+/*   Updated: 2024/02/29 14:01:41 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,7 @@ char	**split(t_shell *shell)
 {
 	t_split		*split;
 
-	split = malloc(sizeof(t_split));
-	if (split == NULL)
-	{
-		// TODO clean_exit()
-	}
+	split = safe_malloc(sizeof(t_split));
 	split = init_split(shell, split);
 
 	// 1. Count substrings

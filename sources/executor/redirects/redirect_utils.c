@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   redirect_utils.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/24 13:07:55 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/25 18:33:55 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   redirect_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/24 13:07:55 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/02/29 14:01:10 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ size_t read_large_file(int fd, char ***buff)
 	char		*temp;
 
 	buff_size = BUFF_SIZE;
-	*buff = malloc(buff_size);
+	*buff = safe_malloc(buff_size);
 	total_bytes = 0;
     while ((read_bytes = read(fd, *buff + total_bytes, buff_size - total_bytes)) > 0)
 	{

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser_utils.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/01/25 22:22:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/23 17:50:04 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/25 22:22:42 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/02/29 14:02:36 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,8 @@ static t_cmd	**init_cmds(int cmd_count)
 {
 	t_cmd	**cmds;
 
-	cmds = malloc(sizeof(t_cmd) * (cmd_count + 1));
-	if (cmds == NULL)
-	{
-		// TODO clean_exit()
-	}
+	cmds = safe_malloc(sizeof(t_cmd) * (cmd_count + 1));
+
 	return (cmds);
 }
 
@@ -28,11 +25,7 @@ t_parse	*init_parse(t_shell *shell)
 {
 	t_parse		*p;
 
-	p = malloc(sizeof(t_parse));
-	if (p == NULL)
-	{
-		// TODO clean_exit()
-	}
+	p = safe_malloc(sizeof(t_parse));
 	p->tokens_r = shell->tokens;
 	p->tokens_c = shell->tokens;
 	p->current_pipe = 0;
@@ -46,11 +39,7 @@ t_cmd	*allocate_cmd(void)
 {
 	t_cmd	*cmd;
 
-	cmd = malloc(sizeof(t_cmd));
-	if (cmd == NULL)
-	{
-		// TODO clean_exit()
-	}
+	cmd = safe_malloc(sizeof(t_cmd));
 	cmd->fd_in = NULL;
 	cmd->fd_out = NULL;
 	cmd->fd_err = NULL;

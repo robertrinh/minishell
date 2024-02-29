@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser_checks.c                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/01/18 21:07:32 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/21 20:34:44 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser_checks.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/18 21:07:32 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/02/29 13:38:28 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ static bool	check_redirects(t_token *tokens)
 bool	parser_checks(t_token *tokens)
 {
 	if (check_pipes(tokens) == FAILURE)
-		return (exit_with_message(ERROR_UNMATCHED_PIPE, RED));
+		return (exit_with_message(ERROR_UNMATCHED_PIPE, RED, 0));
 	if (check_redirects(tokens) == FAILURE)
-		return (exit_with_message(ERROR_UNMATCHED_REDIRECT, RED));
+		return (exit_with_message(ERROR_UNMATCHED_REDIRECT, RED, 0));
 	return (SUCCESS);
 }

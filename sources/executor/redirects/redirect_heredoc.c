@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   redirect_heredoc.c                                 :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/25 11:15:17 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/25 18:35:09 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   redirect_heredoc.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/25 11:15:17 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/02/29 14:00:41 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,8 @@ int		*collect_heredocs(t_cmd *cmd)
 
 	i = 0;
 	heredoc = cmd->heredoc;
-	open_fds = malloc(sizeof(int) * count_redirects_for_type(cmd, OUT_APPEND));
-	if (open_fds == NULL)
-	{
-		// TODO clean_exit()
-	}
+	open_fds = safe_malloc(sizeof(int) * count_redirects_for_type(cmd, OUT_APPEND));
+
 	while (heredoc)
 	{
 		open_fds[i] = STDIN_FILENO;

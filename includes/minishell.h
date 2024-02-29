@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/25 19:05:47 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/02/29 13:50:18 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,12 +166,6 @@ t_shell	*shell_init(char **envp, char **argv);
 bool	save_command(char *input, t_shell *shell);
 t_split	*init_split(t_shell *shell, t_split *split);
 
-// list.c
-t_token	*lstlast(t_token *token);
-t_token	*lst_rev(t_token *tokens_head);
-t_token	*lst_copy(t_token *tokens_head);
-void	print_token(t_token *tokens);
-
 
 //===============================================================: Lexer
 // lexer.c
@@ -256,11 +250,14 @@ int		single_command(t_shell *shell);
 void	child_process(t_shell *shell);
 
 // ----------------------------------- executor/pipe
+// pipe_manager.c
+void	dup_fds(t_pipes *pipes, t_cmd *cmd);
+
 // pipe_utils.c
 t_pipes	*init_pipes(void);
+int		count_pipes(t_shell *shell);
 void	will_open_pipe(t_cmd_table *cmd_table, t_pipes *pipes, int i);
 void	will_close_pipes(t_pipes *pipes);
-void	dup_fds(t_pipes *pipes, t_cmd *cmd);
 void	iterate_pipes(t_pipes *pipes);
 
 // ----------------------------------- executor/redirects
@@ -284,16 +281,18 @@ size_t	read_large_file(int fd, char ***buff);
 
 
 //===============================================================: Utils
-// utils.c
-void	print_token(t_token *tokens);
-
 // clean_exit.c
-int		count_pipes(t_shell *shell);
 void	finish_lexer(t_shell *shell);
-int		exit_with_message(t_error_messages error_code, t_message_colors color);
+int		exit_with_message(t_error_messages error_code, t_message_colors color, int exit_code);
+
+// function_protection.c
+void	*safe_malloc(size_t size);
 
 // print_cmds.c
 void		print_cmds(t_cmd_table *cmd_table);
 void 		should_print(char *s, bool should_print);
+
+// print_tokens.c
+void	print_tokens(t_token *tokens);
 
 #endif
