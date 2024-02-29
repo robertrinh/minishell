@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   redirect_in_files.c                                :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/24 22:08:44 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/25 18:50:39 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   redirect_in_files.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/24 22:08:44 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/02/29 14:00:54 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	buffer_in_files(t_cmd *cmd, int fd, int *fds, char **buff)
 
 	i = 0;
 	count = count_redirects_for_type(cmd, IN);
-	printf("count in: %d\n", count);
 	while (i < count)
 	{
 		if (fds[i] != STDIN_FILENO)
@@ -80,7 +79,7 @@ void	redirect_in_files(t_cmd *cmd, int *fd_ins, int *fd_heredocs)
 	int		temp_pipe[2];
 
 	pipe(temp_pipe);
-	buff = malloc(sizeof(char *) * BUFF_SIZE);
+	buff = safe_malloc(sizeof(char *) * BUFF_SIZE);
 
 	if (cmd->fd_in)
 	{

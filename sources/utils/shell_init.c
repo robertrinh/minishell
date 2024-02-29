@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   shell_init.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/14 14:04:02 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/02/25 19:01:24 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   shell_init.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/14 14:04:02 by qtrinh            #+#    #+#             */
+/*   Updated: 2024/02/29 14:03:32 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char **alloc_envp(char **envp)
 	char	**copy_envp;
 
 	i = 0;
-	copy_envp = malloc(sizeof(char *) * count_substrings(envp)); // TODO protect
+	copy_envp = safe_malloc(sizeof(char *) * count_substrings(envp)); // TODO protect
 	while (envp[i])
 	{
 		copy_envp[i] = ft_strdup(envp[i]); // TODO protect
@@ -42,11 +42,8 @@ static t_cmd_table *init_cmd_table(void)
 {
 	t_cmd_table		*cmd_table;
 
-	cmd_table = malloc(sizeof(t_cmd_table));
-	if (cmd_table == NULL)
-	{
-		// TODO clean_exit()
-	}
+	cmd_table = safe_malloc(sizeof(t_cmd_table));
+
 	return (cmd_table);
 }
 
@@ -54,11 +51,7 @@ t_shell	*shell_init(char **envp, char **argv)
 {
 	t_shell	*shell;
 
-	shell = malloc(sizeof(t_shell));
-	if (shell == NULL)
-	{
-		// TODO clean_exit()
-	}
+	shell = safe_malloc(sizeof(t_shell));
 	shell->cmd_table = init_cmd_table();
 	shell->envp = alloc_envp(envp);
 	shell->print_output = false;
@@ -81,11 +74,7 @@ bool	save_command(char *input, t_shell *shell)
 
 t_split	*init_split(t_shell *shell, t_split *split)
 {
-	split->input = malloc(sizeof(char) * ft_strlen(shell->input) + 1);
-	if (split->input == NULL)
-	{
-		// TODO clean_exit()
-	}
+	split->input = safe_malloc(sizeof(char) * ft_strlen(shell->input) + 1);
 	split->input = shell->input;
 	split->len = ft_strlen(shell->input);
 	split->i = 0;

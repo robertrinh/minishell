@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_exit.c                                       :+:      :+:    :+:   */
+/*   token_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/07 12:29:05 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/02/29 13:55:03 by qbeukelm         ###   ########.fr       */
+/*   Created: 2023/12/22 15:12:33 by qbeukelm          #+#    #+#             */
+/*   Updated: 2024/02/29 13:24:38 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	exit_with_message(t_error_messages error_code, t_message_colors color, int exit_code)
+void	print_tokens(t_token *tokens)
 {
-	printf("\n%s%s%s\n\n", color_codes[color], error_messages[error_code], RESET_COLOR);
-	exit(exit_code);
-	return (FAILURE);
-}
-
-void	finish_lexer(t_shell *shell)
-{
-	shell->single_quote = 0;
-	shell->double_quote = 0;
+	printf("\n\n========lexer========\n");
+	while (tokens)
+	{
+		printf("%s - \t %s \n", type_to_string(tokens->type), tokens->value);
+		tokens = tokens->next;
+	}
 }

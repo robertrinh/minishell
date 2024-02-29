@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/25 19:09:18 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/11 19:53:12 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/02/29 14:02:49 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,11 @@ char	**allocate_args(t_parse *p)
 {
 	char	**args;
 
-	args = malloc(sizeof(char *) * (count_args(p) + 1));
-	if (args == NULL)
-	{
-		// TODO clean_exit()
-	}
+	args = safe_malloc(sizeof(char *) * (count_args(p) + 1));
+
 	return (args);
 }
 
-// test this < and that < with | more at the end
 t_cmd	*construct_args(t_cmd *cmd, t_parse *p)
 {
 	int			i;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   executor_enviroment.c                              :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/22 19:45:47 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/22 20:25:09 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   executor_enviroment.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/22 19:45:47 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/02/29 13:59:05 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	**format_cmd(t_cmd *cmd)
 	char		**cmd_and_args;
 	
 	i = 0;
-	cmd_and_args = malloc(sizeof(char *) * (cmd->arg_count + 2)); // TODO protect
+	cmd_and_args = safe_malloc(sizeof(char *) * (cmd->arg_count + 2));
 	cmd_and_args[0] = cmd->value;
 	while (i < cmd->arg_count)
 	{

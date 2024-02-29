@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
-#                                                    +#+                       #
-#    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/02/25 11:15:13 by quentinbeuk   ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/12/03 13:06:57 by quentinbeuk       #+#    #+#              #
+#    Updated: 2024/02/29 13:27:12 by qbeukelm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,8 +51,9 @@ SOURCES_PARSER			= parser.c \
 
 SOURCES_UTILS			= clean_exit.c \
 							error_messages.c \
-							list.c \
+							function_protection.c \
 							print_cmds.c \
+							print_tokens.c \
 							shell_init.c
 
 SOURCES_EXECUTOR		= executor_enviroment.c \
@@ -62,7 +63,8 @@ SOURCES_EXECUTOR		= executor_enviroment.c \
 SOURCES_EXECUTOR_COMMAND = execute_commands.c \
 							single_command.c
 							
-SOURCES_EXECUTOR_PIPE = pipe_utils.c
+SOURCES_EXECUTOR_PIPE = pipe_manager.c \
+							pipe_utils.c
 
 SOURCES_EXECUTOR_REDIRECTS = redirect_heredoc.c \
 								redirect_in_files.c \

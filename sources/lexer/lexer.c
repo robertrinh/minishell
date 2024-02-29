@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   lexer.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/25 18:40:52 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 13:13:52 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/02/29 14:01:23 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,7 @@ t_token	*token_constructor(char *split_input, int i)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
-	if (token == NULL)
-	{
-		// TODO clean_exit()
-	}
+	token = safe_malloc(sizeof(t_token));
 	token->len = ft_strlen(split_input);
 	token->value = split_input;
 	token->type = assign_type(token->value);
@@ -108,7 +104,7 @@ int	tokens_builder_manager(t_shell *shell)
 int	lexer_manager(t_shell *shell)
 {
 	if (quote_manager(shell) == FAILURE)
-		return (exit_with_message(ERROR_UNMATCHED_QUOTE, RED));
+		return (exit_with_message(ERROR_UNMATCHED_QUOTE, RED, 0));
 	if (tokens_builder_manager(shell) == SUCCESS)
 		return (SUCCESS);
 	return (FAILURE);
