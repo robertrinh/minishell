@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/02/29 13:50:18 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/03/01 19:25:22 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,18 +224,28 @@ t_token		*locate_pipe_n(t_token *tokens_root, int pipe_count);
 // executor_enviroment.c
 char	**format_cmd(t_cmd *cmd);
 char	*get_path_for_cmd(char **env_paths, char *command);
-char	**get_paths(void);
+char	**get_paths(t_shell *shell);
 
 // executor_redirect.c
 int		*fd_in_files(t_cmd *cmd);
 
 // executor_utils.c
-void	print_2d_char(char **arr);
 int		prepare_command(t_shell *shell, int i);
 int		new_process(t_shell *shell, int i, t_pipes *pipes);
 
 // executor.c
 int		execute(t_shell *shell);
+
+// ----------------------------------- executor/builtins
+// builtins.c
+bool	is_builtin(char *cmd);
+bool	exec_builtin(t_cmd *cmd);
+
+// ft_echo.c
+bool	ft_echo(t_cmd *cmd);
+
+// ft_pwd.c
+bool	ft_pwd(void);
 
 // ----------------------------------- executor/command
 // execute_commands.c
@@ -251,6 +261,7 @@ void	child_process(t_shell *shell);
 
 // ----------------------------------- executor/pipe
 // pipe_manager.c
+t_cmd	*prepare_infiles(t_cmd *cmd);
 void	dup_fds(t_pipes *pipes, t_cmd *cmd);
 
 // pipe_utils.c

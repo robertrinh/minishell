@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   executor_enviroment.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 19:45:47 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/02/29 13:59:05 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   executor_enviroment.c                              :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/22 19:45:47 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/03/01 20:04:29 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,31 @@ char	*get_path_for_cmd(char **env_paths, char *command)
 	return (NULL);
 }
 
-char	**get_paths(void)
+static char	*ft_getenv(t_shell *shell)
+{
+	char	**own_env;
+	int	i;
+
+	own_env = shell->envp;
+	i = 0;
+	
+	while (own_env[i])
+	{
+		if (ft_strncmp(own_env[i], "PATH=", 5) == 0)
+			return (ft_substr(own_env[i], 5, ft_strlen(own_env[i])));
+		i++;
+	}
+	return (NULL); //* Null in case path cannot be found @unset
+}
+
+
+char	**get_paths(t_shell *shell)
 {
 	char	*env_path;
 	char	**env_paths;
-	
-	env_path = getenv("PATH");
+
+	env_path = ft_getenv(shell);
+	// env_path = getenv("PATH");
 	if (env_path == NULL)
 	{
 		//TODO clean_exit()

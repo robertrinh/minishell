@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 19:43:07 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/25 13:26:53 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/01 17:13:54 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	prepare_command(t_shell *shell, int i)
 	char	**env_paths;
 	char	*cmd_path;
 
-	env_paths = get_paths();
+	env_paths = get_paths(shell);
 	shell->cmd_table->cmds[i]->formatted_cmd = format_cmd(shell->cmd_table->cmds[i]);
 	cmd_path = get_path_for_cmd(env_paths, shell->cmd_table->cmds[i]->value);
 	shell->cmd_table->cmds[i]->cmd_path = cmd_path;
@@ -42,5 +42,5 @@ int	new_process(t_shell *shell, int i, t_pipes *pipes)
 		will_close_pipes(pipes);
         waitpid(pid, NULL, 0);
     }
-    return SUCCESS;
+    return (SUCCESS);
 }
