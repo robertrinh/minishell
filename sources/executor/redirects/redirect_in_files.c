@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   redirect_in_files.c                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/24 22:08:44 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/02/29 14:00:54 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   redirect_in_files.c                                :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/24 22:08:44 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/03/01 15:44:40 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	redirect_in_files(t_cmd *cmd, int *fd_ins, int *fd_heredocs)
 	char	*buff;
 	int		temp_pipe[2];
 
-	pipe(temp_pipe);
+	pipe(temp_pipe); //TODO protect pipe
 	buff = safe_malloc(sizeof(char *) * BUFF_SIZE);
 
 	if (cmd->fd_in)

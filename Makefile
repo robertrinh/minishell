@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/12/03 13:06:57 by quentinbeuk       #+#    #+#              #
-#    Updated: 2024/02/29 13:27:12 by qbeukelm         ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
+#                                                    +#+                       #
+#    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
+#    Updated: 2024/03/01 19:24:27 by qtrinh        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,10 @@ SOURCES_EXECUTOR		= executor_enviroment.c \
 							executor_utils.c \
 							executor.c
 
+SOURCES_EXECUTOR_BUILTINS = builtins.c \
+								ft_echo.c \
+								ft_pwd.c \
+
 SOURCES_EXECUTOR_COMMAND = execute_commands.c \
 							single_command.c
 							
@@ -84,6 +88,7 @@ DIR_SOURCES_LEXER_QUOTE = sources/lexer/quote
 DIR_SOURCES_PARSER		= sources/parser
 DIR_SOURCES_UTILS		= sources/utils
 DIR_SOURCES_EXECUTOR	= sources/executor
+DIR_SOURCES_EXECUTOR_BUILTINS = sources/executor/builtins
 DIR_SOURCES_EXECUTOR_COMMAND = sources/executor/command
 DIR_SOURCES_EXECUTOR_PIPE = sources/executor/pipe
 DIR_SOURCES_EXECUTOR_REDIRECTS = sources/executor/redirects
@@ -97,6 +102,7 @@ OBJ = $(addprefix $(DIR_OBJ)/, $(SOURCES:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_PARSER:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_UTILS:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR:.c=.o)) \
+	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_BUILTINS:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_COMMAND:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_PIPE:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_REDIRECTS:.c=.o))
@@ -131,6 +137,9 @@ $(DIR_OBJ)/%.o: $(DIR_SOURCES_UTILS)/%.c | $(DIR_OBJ)
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES_EXECUTOR)/%.c | $(DIR_OBJ)
+	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
+
+$(DIR_OBJ)/%.o: $(DIR_SOURCES_EXECUTOR_BUILTINS)/%.c | $(DIR_OBJ)
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES_EXECUTOR_COMMAND)/%.c | $(DIR_OBJ)

@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 15:22:01 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/02/25 13:06:32 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/01 15:12:25 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	execute_command(t_shell *shell, int i)
 	cmd_path = shell->cmd_table->cmds[i]->cmd_path;
 	formatted_cmd = shell->cmd_table->cmds[i]->formatted_cmd;
 
-	execve(cmd_path, formatted_cmd, shell->envp);
+	execve(cmd_path, formatted_cmd, shell->envp); //TODO protect incase of fail
 
 	return (SUCCESS);
 }

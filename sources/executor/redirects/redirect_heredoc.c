@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   redirect_heredoc.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/25 11:15:17 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/02/29 14:00:41 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   redirect_heredoc.c                                 :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/25 11:15:17 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/03/01 15:46:23 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	perform_heredoc(int fd, t_redirect *heredoc)
 
 	while (1)
 	{
-		line = readline(CYELLOW "> " RESET_COLOR);
+		line = readline(CYELLOW "heredoc> " RESET_COLOR);
 		if (is_eof(line, heredoc->value) == true)
 		{
 			if (line)
@@ -49,7 +49,7 @@ static int	setup_heredoc(t_redirect *heredoc)
 	int		fd[2];
 	pid_t	pid;
 
-	pipe(fd);
+	pipe(fd); // TODO protect pipe
 
 	pid = fork();
 	if (pid == -1)
