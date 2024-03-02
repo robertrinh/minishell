@@ -6,11 +6,11 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/01 16:46:40 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/03/01 20:02:27 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/03/02 14:14:32 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 //! -n -> do not output the trailing newline
 static bool	find_n_flag(char *str)

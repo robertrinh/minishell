@@ -6,13 +6,13 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/29 13:17:01 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/03/01 15:53:28 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/03/02 11:27:38 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static void redirect_out(t_cmd *cmd)
+void redirect_out(t_cmd *cmd)
 {
 	int			fd;
 	t_redirect	*fd_outs;
@@ -29,36 +29,23 @@ static void redirect_out(t_cmd *cmd)
 	}
 }
 
-t_cmd	*prepare_infiles(t_cmd *cmd)
+void	dup_fds(t_pipes *pipes, t_cmd *cmd)
 {
 	int 	*fd_ins;
 	int		*fd_heredocs;
 
-	// Infiles
 	if (cmd->heredoc)
 		fd_heredocs = collect_heredocs(cmd);
 	if (cmd->fd_in)
 		fd_ins = collect_fd_in_files(cmd);
 	if (cmd->fd_in || cmd->heredoc)
 		redirect_in_files(cmd, fd_ins, fd_heredocs);
-	if (cmd->fd_out)
-		redirect_out(cmd);
-	return (cmd);
-}
-
-void	dup_fds(t_pipes *pipes, t_cmd *cmd)
-{
-	
-	prepare_infiles(cmd);
-	// Not First
 	if (pipes->prev_pipe[READ] != -1)
 	{
         close(pipes->prev_pipe[WRITE]);
         dup2(pipes->prev_pipe[READ], STDIN_FILENO);
         close(pipes->prev_pipe[READ]);
     }
-		
-	// First
 	if (pipes->curr_pipe[WRITE] != -1)
 	{
 		close(pipes->curr_pipe[READ]);

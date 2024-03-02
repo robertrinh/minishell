@@ -6,11 +6,11 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/01 14:47:56 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/03/01 20:05:28 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/03/02 14:14:27 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 bool	is_builtin(char *cmd)
 {

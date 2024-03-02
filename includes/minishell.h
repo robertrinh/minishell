@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/01 19:25:22 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/03/02 14:52:50 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 # include <stdbool.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <termios.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
 
 //===============================================================: Define
 # define OPERATORS "<>|"
@@ -42,6 +42,8 @@
 # define BUFF_SIZE 1024
 # define PRINT_FLAG "-p"
 
+//===============================================================: Global
+extern int	g_exit_status;
 
 //===============================================================: Enum
 typedef enum e_exit
@@ -55,6 +57,13 @@ typedef enum e_direction
 	LEFT,
 	RIGHT
 }	t_direction;
+
+typedef enum e_signal
+{
+	PARENT,
+	CHILD,
+	HEREDOC
+}	t_signal;
 
 typedef enum e_token_type
 {
@@ -159,7 +168,6 @@ typedef struct s_parse
 	int			i;
 } t_parse;
 
-
 //===============================================================: Main
 // shell_init.c
 t_shell	*shell_init(char **envp, char **argv);
@@ -261,7 +269,7 @@ void	child_process(t_shell *shell);
 
 // ----------------------------------- executor/pipe
 // pipe_manager.c
-t_cmd	*prepare_infiles(t_cmd *cmd);
+void 	redirect_out(t_cmd *cmd);
 void	dup_fds(t_pipes *pipes, t_cmd *cmd);
 
 // pipe_utils.c
@@ -289,6 +297,11 @@ int			get_open_flag_for_type(t_redirect_type type);
 // redirect_utils.c
 int		count_redirects_for_type(t_cmd *cmd, t_redirect_type type);
 size_t	read_large_file(int fd, char ***buff);
+
+// ----------------------------------- executor/signals
+// signals.c
+void	handle_signals(t_signal signal_process);
+void	rl_replace_line(const char *text, int clear_undo);
 
 
 //===============================================================: Utils

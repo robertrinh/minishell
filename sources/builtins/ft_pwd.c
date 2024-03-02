@@ -6,11 +6,11 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/01 18:57:33 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/03/01 19:49:11 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/03/02 14:14:40 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 bool	ft_pwd(void)
 {
