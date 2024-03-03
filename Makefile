@@ -6,20 +6,9 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/03/02 15:29:11 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2024/03/03 09:42:31 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
-
-# ===== Names =====
-NAME_EXECUTABLE 	= minishell
-LIBFT				= includes/libft
-
-
-# ===== Compile =====
-CC 					= cc -g
-CFLAGS 				= 
-HEADERS				= -I include -I ~/.brew/opt/readline/include -lreadline
-
 
 # ===== Colors =====
 BOLD				:= \033[1m
@@ -61,8 +50,8 @@ SOURCES_EXECUTOR		= executor_enviroment.c \
 							executor.c
 
 SOURCES_BUILTINS		= builtins.c \
-								ft_echo.c \
-								ft_pwd.c \
+								echo.c \
+								pwd.c \
 
 SOURCES_EXECUTOR_COMMAND	= execute_commands.c \
 								single_command.c
@@ -111,6 +100,17 @@ OBJ = $(addprefix $(DIR_OBJ)/, $(SOURCES:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_REDIRECTS:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_SIGNALS:.c=.o))
 
+# ===== Names =====
+NAME_EXECUTABLE 	= minishell
+LIBFT				= includes/libft
+
+# ===== Compile =====
+CC 					= cc -g
+CFLAGS 				= # -Wall -Werror -Wextra -g -fsanitize=address
+
+READLINE_LOC		=	~/.brew/opt/readline
+READLINE_LIB		=	-L $(READLINE_LOC)/lib -lreadline
+READLINE_INCLUDE	=	-I includes -I $(READLINE_LOC)/include
 
 # ===== Rules =====
 all: $(NAME_EXECUTABLE)
@@ -119,7 +119,7 @@ $(NAME_EXECUTABLE): $(OBJ)
 	@echo "$(BLUE)\nMaking LIBFT ...\n$(RESET)"
 	@$(MAKE) -C $(LIBFT) >/dev/null
 	@echo "$(BLUE)Making MINISHELL ...\n$(RESET)"
-	@$(CC) $(CFLAGS) $(HEADERS) $^ $(LIBFT)/libft.a -o $(NAME_EXECUTABLE)
+	@$(CC) $(CFLAGS) $(READLINE_LIB) $^ $(LIBFT)/libft.a -o $(NAME_EXECUTABLE)
 	@echo "$(GREEN)Compiled all!\n$(RESET)"
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES)/%.c | $(DIR_OBJ)

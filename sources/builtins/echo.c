@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_echo.c                                          :+:    :+:            */
+/*   echo.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/01 16:46:40 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/03/02 14:14:32 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/03 09:42:04 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	print_echo(t_cmd *cmd)
 	// TODO fix the -n flag writing
 }
 
-bool	ft_echo(t_cmd *cmd)
+bool	echo(t_cmd *cmd)
 {
 	if (cmd->arg_count == 0)
 		return (FAILURE);

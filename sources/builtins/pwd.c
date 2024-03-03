@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_pwd.c                                           :+:    :+:            */
+/*   pwd.c                                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/01 18:57:33 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/03/02 14:14:40 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/03 09:42:13 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	ft_pwd(void)
+bool	pwd(void)
 {
 	// * getcwd
 	// ! when building cd, have to update pwd with oldpwd / pwd @ env but should implement at cd

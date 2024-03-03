@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/02 14:52:50 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/03 09:42:59 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stdbool.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <signal.h>
 # include <termios.h>
 # include <sys/types.h>
 # include <sys/wait.h>
@@ -249,11 +250,11 @@ int		execute(t_shell *shell);
 bool	is_builtin(char *cmd);
 bool	exec_builtin(t_cmd *cmd);
 
-// ft_echo.c
-bool	ft_echo(t_cmd *cmd);
+// echo.c
+bool	echo(t_cmd *cmd);
 
-// ft_pwd.c
-bool	ft_pwd(void);
+// pwd.c
+bool	pwd(void);
 
 // ----------------------------------- executor/command
 // execute_commands.c

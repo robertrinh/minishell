@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/01 14:47:56 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/03/02 14:14:27 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/03 09:43:33 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ bool	exec_builtin(t_cmd *cmd)
 	int	exit_status = 0; //TODO signal
 
 	if (ft_strncmp(cmd->value, "echo", 5) == 0)
-		exit_status = ft_echo(cmd);
+		exit_status = echo(cmd);
 	// else if (ft_strncmp(cmd->value, "cd", 3) == 0)
 	// 	exit_status = ft_cd();
 	else if (ft_strncmp(cmd->value, "pwd", 4) == 0)
-		exit_status = ft_pwd();
+		exit_status = pwd();
 	// else if (ft_strncmp(cmd->value, "export", 7) == 0)
 	// 	exit_status = ft_export();
 	// else if (ft_strncmp(cmd->value, "unset", 6) == 0)

@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/02 14:17:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/02 15:29:21 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/03 09:26:08 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	restore_prompt(int signal_process)
 {
 	if (signal_process == SIGINT)
 	{
-		// rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		rl_on_new_line();
 		rl_redisplay();
