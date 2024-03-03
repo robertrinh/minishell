@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/03 09:42:59 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/03 10:26:18 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,17 @@ typedef enum e_redirect_type
 	END,
 	REDIR_NONE,
 }	t_redirect_type;
+
+typedef enum e_builtin
+{
+	S_ECHO,
+	S_PWD,
+	S_EXPORT,
+	S_UNSET,
+	S_ENV,
+	S_EXIT,
+	S_NUM_BUILTIN
+} t_builtin;
 
 //===============================================================: Struct
 typedef struct s_split
@@ -246,15 +257,30 @@ int		new_process(t_shell *shell, int i, t_pipes *pipes);
 int		execute(t_shell *shell);
 
 // ----------------------------------- executor/builtins
+typedef struct s_builtin_entry
+{
+    char	*name;
+    int		(*function)(t_cmd*);
+} t_builtin_entry;
+
 // builtins.c
 bool	is_builtin(char *cmd);
-bool	exec_builtin(t_cmd *cmd);
+int		exec_builtin(t_cmd *cmd);
 
 // echo.c
-bool	echo(t_cmd *cmd);
+int		echo(t_cmd *cmd);
 
 // pwd.c
-bool	pwd(void);
+int		pwd(t_cmd *cmd);
+
+// exit.c
+int		exit_shell(t_cmd *cmd);
+
+static const t_builtin_entry builtin_table[] = {
+    {"echo", echo},
+    {"pwd", pwd},
+	{"exit", exit_shell},
+};
 
 // ----------------------------------- executor/command
 // execute_commands.c

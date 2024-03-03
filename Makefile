@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/03/03 09:42:31 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2024/03/03 10:27:38 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SOURCES_EXECUTOR		= executor_enviroment.c \
 
 SOURCES_BUILTINS		= builtins.c \
 								echo.c \
+								exit.c \
 								pwd.c \
 
 SOURCES_EXECUTOR_COMMAND	= execute_commands.c \

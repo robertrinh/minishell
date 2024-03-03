@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/01 16:46:40 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/03/03 09:42:04 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/03 10:23:25 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ static void	print_echo(t_cmd *cmd)
 	// TODO fix the -n flag writing
 }
 
-bool	echo(t_cmd *cmd)
+int		echo(t_cmd *cmd)
 {
 	if (cmd->arg_count == 0)
 		return (FAILURE);
 	if (cmd->arg_count > 0)
 		print_echo(cmd);
-	return (SUCCESS);
+	return (0);
 }
