@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/03 10:26:18 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/06 17:54:23 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef enum e_direction
 
 typedef enum e_signal
 {
+	NO_SIG,
 	PARENT,
 	CHILD,
 	HEREDOC

@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/03 09:41:20 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/03 10:34:35 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/06 18:07:43 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		exit_shell(t_cmd *cmd)
 {
-	printf("exit\n");
-	exit(100);
+	ft_putstr_fd("exit minishell\n", STDOUT_FILENO);
+	exit(g_exit_status);
 	return (0);
 }

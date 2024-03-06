@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/03/02 11:26:16 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/06 17:50:42 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ int	single_command(t_shell *shell)
 		//TODO exit
 	}
 	if (pid == 0)
+	{
+		handle_signals(CHILD);
 		child_process(shell);
+	}
 	waitpid(pid, &exit_code, 0);
 	return (WEXITSTATUS(exit_code));
 }
