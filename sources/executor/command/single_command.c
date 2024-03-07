@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   single_command.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/03/06 17:50:42 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   single_command.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/02 14:28:14 by qbeukelm          #+#    #+#             */
+/*   Updated: 2024/03/07 17:26:11 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,15 @@ static bool	assign_redirects(t_cmd *cmd)
 
 void	child_process(t_shell *shell)
 {
-	//TODO redirect dupe fd -> fd_in/fd_out
-	//TODO run builtin instead of command
 	open_in_redirects(shell->cmd_table->cmds[0]);
 	assign_redirects(shell->cmd_table->cmds[0]);
 	if (is_builtin(shell->cmd_table->cmds[0]->value))
+		exec_builtin(shell->cmd_table->cmds[0], shell);
+	else
 	{
-		exec_builtin(shell->cmd_table->cmds[0]);
-		return ;
+		prepare_command(shell, 0);
+		execute_command(shell, 0);
 	}
-	prepare_command(shell, 0);
-	execute_command(shell, 0);
 }
 
 int	single_command(t_shell *shell)
@@ -48,11 +46,11 @@ int	single_command(t_shell *shell)
 	pid_t	pid;
 	int	exit_code;
 
-	//TODO expanders
+	// TODO expanders
 	pid = fork();
 	if (pid == -1)
 	{
-		//TODO exit
+		// TODO exit
 	}
 	if (pid == 0)
 	{

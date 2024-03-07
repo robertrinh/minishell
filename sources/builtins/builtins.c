@@ -1,16 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   builtins.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/03/01 14:47:56 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/03/03 10:25:26 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   builtins.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/01 14:47:56 by qtrinh            #+#    #+#             */
+/*   Updated: 2024/03/07 16:56:36 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+// TODO move
+int	export(t_cmd *cmd, t_shell *shell) {return 0;}
+int	unset(t_cmd *cmd, t_shell *shell) {return 0;}
 
 bool	is_builtin(char *cmd_value)
 {
@@ -19,14 +23,14 @@ bool	is_builtin(char *cmd_value)
 	i = 0;
 	while (i < S_NUM_BUILTIN)
 	{
-		if (ft_strncmp(cmd_value, builtin_table[i].name, ft_strlen(cmd_value)) == 0)
+		if (ft_strncmp(cmd_value, builtin_table[i].name, ft_strlen(builtin_table[i].name)) == 0)
 			return (true);
 		i++;
 	}
 	return (false);
 }
 
-int	exec_builtin(t_cmd *cmd)
+int	exec_builtin(t_cmd *cmd, t_shell *shell)
 {
 	int		i;
 	int		exit_status;
@@ -38,7 +42,7 @@ int	exec_builtin(t_cmd *cmd)
 	{
 		if (ft_strncmp(cmd->value, builtin_table[i].name, ft_strlen(cmd->value)) == 0)
 		{
-			exit_status = builtin_table[i].function(cmd);
+			exit_status = builtin_table[i].function(cmd, shell);
 			return (exit_status);
 		}
 		i++;
