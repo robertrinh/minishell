@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   signals.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/03/02 14:17:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/06 18:20:41 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/02 14:17:42 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/03/07 14:31:49 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,18 +94,18 @@ void	handle_signals(t_signal signal_process)
 		signal(SIGQUIT, SIG_IGN);
 	}
 
-	if (signal_process == CHILD)
-	{
-		tcgetattr(STDIN_FILENO, &termios_struct);
-		termios_struct.c_lflag |= ECHOCTL;
-		tcsetattr(STDIN_FILENO, TCSAFLUSH, &termios_struct);
-		signal(SIGINT, signal_ctrl_c);
-		signal(SIGQUIT, signal_backslash);
-	}
+	// if (signal_process == CHILD)
+	// {
+	// 	tcgetattr(STDIN_FILENO, &termios_struct);
+	// 	termios_struct.c_lflag |= ECHOCTL;
+	// 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &termios_struct);
+	// 	signal(SIGINT, signal_ctrl_c);
+	// 	signal(SIGQUIT, signal_backslash);
+	// }
 
-	if (signal_process == HEREDOC)
-	{
-		signal(SIGINT, signal_heredoc);
-        signal(SIGQUIT, SIG_IGN);
-	}
+	// if (signal_process == HEREDOC)
+	// {
+	// 	signal(SIGINT, signal_heredoc);
+    //     signal(SIGQUIT, SIG_IGN);
+	// }
 }

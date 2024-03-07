@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/06 17:54:23 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/03/07 14:55:32 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,24 +261,28 @@ int		execute(t_shell *shell);
 typedef struct s_builtin_entry
 {
     char	*name;
-    int		(*function)(t_cmd*);
+    int		(*function)(t_cmd*, t_shell*);
 } t_builtin_entry;
 
 // builtins.c
 bool	is_builtin(char *cmd);
-int		exec_builtin(t_cmd *cmd);
+int		exec_builtin(t_cmd *cmd, t_shell *shell);
 
 // echo.c
-int		echo(t_cmd *cmd);
+int		echo(t_cmd* cmd, t_shell *shell);
+
+// env.c
+int		env(t_cmd* cmd, t_shell *shell);
 
 // pwd.c
-int		pwd(t_cmd *cmd);
+int		pwd(t_cmd* cmd, t_shell *shell);
 
 // exit.c
-int		exit_shell(t_cmd *cmd);
+int		exit_shell(t_cmd* cmd, t_shell *shell);
 
 static const t_builtin_entry builtin_table[] = {
     {"echo", echo},
+	{"env", env},
     {"pwd", pwd},
 	{"exit", exit_shell},
 };

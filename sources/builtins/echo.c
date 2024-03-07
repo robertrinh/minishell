@@ -1,75 +1,65 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   echo.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/03/01 16:46:40 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/03/03 10:23:25 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/07 14:45:13 by qbeukelm          #+#    #+#             */
+/*   Updated: 2024/03/07 14:58:25 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 //! -n -> do not output the trailing newline
-static bool	find_n_flag(char *str)
+static bool find_n_flag(char *str)
 {
-	int	i;
-
-	i = 0;
-	if (str[i] == '-')
-	{
-		i++;
-		while (str[i])
-		{
-			if (str[i] == 'n')
-				return (true);
-			i++;
-		}
-		return (false);
-	}
-	return (false);
+    int i;
+    i = 0;
+    if (str[i] == '-')
+    {
+        i++;
+        while (str[i])
+        {
+            if (str[i] == 'n')
+                return (true);
+            i++;
+        }
+        return (false);
+    }
+    return (false);
 }
 
-static void	print_echo(t_cmd *cmd)
+static void print_echo(t_cmd *cmd)
 {
-	int	i;
-	int	j;
-	bool	flag;
+    int i;
+    bool    flag;
+    
+    i = 0;
+    flag = false;
+    while (cmd->args[i] && find_n_flag(cmd->args[i]))
+    {
+        flag = true;
+        i++;
+    }
+    while (cmd->args[i])
+    {
+        write(1, cmd->args[i], ft_strlen(cmd->args[i]));
+        if (cmd->args[i + 1])
+            write(1, " ", 2);
+        i++;
+    }
+    if (flag == false)
+        write(1, "\n", 1);
+} //! at one args, it has trash value
 
-	i = 0;
-	j = 0;
-	flag = false;
-	while (cmd->args[i][j] && find_n_flag(&cmd->args[i][j])) //* look at this later
-	{
-		flag = true;
-		j++;
-	}
-	if (cmd->args[i])
-	{
-		ft_putstr_fd(cmd->args[i], 1);
-		i++;
-	}
-	if (cmd->arg_count == 1)
-		return ;
-	while (cmd->args[i])
-	{
-		write(1, " ", 2);
-		ft_putstr_fd(cmd->args[i], 1);
-		i++;
-	}
-	if (flag == false)
-		write(1, "\n", 3);
-	// ! incomplete work
-	// TODO fix the -n flag writing
-}
-
-int		echo(t_cmd *cmd)
+int echo(t_cmd *cmd, t_shell *shell)
 {
-	if (cmd->arg_count == 0)
-		return (FAILURE);
-	if (cmd->arg_count > 0)
-		print_echo(cmd);
-	return (0);
+    if (cmd->arg_count == 0)
+        return (FAILURE);
+    if (cmd->arg_count > 0)
+        print_echo(cmd);
+	should_print("pointer %p\n", shell->print_output);
+    exit(0);
 }
