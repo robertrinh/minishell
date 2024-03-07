@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/03/07 14:55:32 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/03/07 16:54:58 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,6 +265,8 @@ typedef struct s_builtin_entry
 } t_builtin_entry;
 
 // builtins.c
+int		export(t_cmd *cmd, t_shell *shell);
+int		unset(t_cmd *cmd, t_shell *shell);
 bool	is_builtin(char *cmd);
 int		exec_builtin(t_cmd *cmd, t_shell *shell);
 
@@ -282,8 +284,10 @@ int		exit_shell(t_cmd* cmd, t_shell *shell);
 
 static const t_builtin_entry builtin_table[] = {
     {"echo", echo},
-	{"env", env},
     {"pwd", pwd},
+	{"export", export},
+	{"unset", unset},
+	{"env", env},
 	{"exit", exit_shell},
 };
 

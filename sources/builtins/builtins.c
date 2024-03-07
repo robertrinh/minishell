@@ -6,11 +6,15 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 14:47:56 by qtrinh            #+#    #+#             */
-/*   Updated: 2024/03/07 14:55:11 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/03/07 16:56:36 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+// TODO move
+int	export(t_cmd *cmd, t_shell *shell) {return 0;}
+int	unset(t_cmd *cmd, t_shell *shell) {return 0;}
 
 bool	is_builtin(char *cmd_value)
 {
@@ -19,7 +23,7 @@ bool	is_builtin(char *cmd_value)
 	i = 0;
 	while (i < S_NUM_BUILTIN)
 	{
-		if (ft_strncmp(cmd_value, builtin_table[i].name, ft_strlen(cmd_value)) == 0)
+		if (ft_strncmp(cmd_value, builtin_table[i].name, ft_strlen(builtin_table[i].name)) == 0)
 			return (true);
 		i++;
 	}
