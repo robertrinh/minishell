@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 22:08:44 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/01 15:44:40 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/03/02 11:27:43 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,12 @@ void	buffer_heredoc_files(t_cmd *cmd, int fd, int *fds, char **buff)
 	}
 }
 
-// !		grep aa < README.md | wc
-
 void	redirect_in_files(t_cmd *cmd, int *fd_ins, int *fd_heredocs)
 {
 	char	*buff;
 	int		temp_pipe[2];
 
-	pipe(temp_pipe); //TODO protect pipe
+	pipe(temp_pipe); // TODO protect pipe
 	buff = safe_malloc(sizeof(char *) * BUFF_SIZE);
 
 	if (cmd->fd_in)
@@ -93,4 +91,3 @@ void	redirect_in_files(t_cmd *cmd, int *fd_ins, int *fd_heredocs)
 	close(temp_pipe[READ]);
 	close(temp_pipe[WRITE]);
 }
-

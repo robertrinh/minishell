@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/23 15:04:57 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/02/24 22:52:17 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/02 11:43:56 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static int open_file_for_type(char *file_name, t_redirect_type type)
 	fd = open(file_name, get_open_flag_for_type(type));
 	if (fd == -1)
 	{
-		// TODO check file permission
-		// TODO hanlde error
 		return (-1);
 	}
 	return (fd);

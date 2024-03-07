@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/01 19:25:22 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/03/06 17:54:23 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@
 # include <stdbool.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <signal.h>
+# include <termios.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
 
 //===============================================================: Define
 # define OPERATORS "<>|"
@@ -42,6 +43,8 @@
 # define BUFF_SIZE 1024
 # define PRINT_FLAG "-p"
 
+//===============================================================: Global
+extern int	g_exit_status;
 
 //===============================================================: Enum
 typedef enum e_exit
@@ -55,6 +58,14 @@ typedef enum e_direction
 	LEFT,
 	RIGHT
 }	t_direction;
+
+typedef enum e_signal
+{
+	NO_SIG,
+	PARENT,
+	CHILD,
+	HEREDOC
+}	t_signal;
 
 typedef enum e_token_type
 {
@@ -80,6 +91,17 @@ typedef enum e_redirect_type
 	END,
 	REDIR_NONE,
 }	t_redirect_type;
+
+typedef enum e_builtin
+{
+	S_ECHO,
+	S_PWD,
+	S_EXPORT,
+	S_UNSET,
+	S_ENV,
+	S_EXIT,
+	S_NUM_BUILTIN
+} t_builtin;
 
 //===============================================================: Struct
 typedef struct s_split
@@ -159,7 +181,6 @@ typedef struct s_parse
 	int			i;
 } t_parse;
 
-
 //===============================================================: Main
 // shell_init.c
 t_shell	*shell_init(char **envp, char **argv);
@@ -237,15 +258,30 @@ int		new_process(t_shell *shell, int i, t_pipes *pipes);
 int		execute(t_shell *shell);
 
 // ----------------------------------- executor/builtins
+typedef struct s_builtin_entry
+{
+    char	*name;
+    int		(*function)(t_cmd*);
+} t_builtin_entry;
+
 // builtins.c
 bool	is_builtin(char *cmd);
-bool	exec_builtin(t_cmd *cmd);
+int		exec_builtin(t_cmd *cmd);
 
-// ft_echo.c
-bool	ft_echo(t_cmd *cmd);
+// echo.c
+int		echo(t_cmd *cmd);
 
-// ft_pwd.c
-bool	ft_pwd(void);
+// pwd.c
+int		pwd(t_cmd *cmd);
+
+// exit.c
+int		exit_shell(t_cmd *cmd);
+
+static const t_builtin_entry builtin_table[] = {
+    {"echo", echo},
+    {"pwd", pwd},
+	{"exit", exit_shell},
+};
 
 // ----------------------------------- executor/command
 // execute_commands.c
@@ -261,7 +297,7 @@ void	child_process(t_shell *shell);
 
 // ----------------------------------- executor/pipe
 // pipe_manager.c
-t_cmd	*prepare_infiles(t_cmd *cmd);
+void 	redirect_out(t_cmd *cmd);
 void	dup_fds(t_pipes *pipes, t_cmd *cmd);
 
 // pipe_utils.c
@@ -289,6 +325,11 @@ int			get_open_flag_for_type(t_redirect_type type);
 // redirect_utils.c
 int		count_redirects_for_type(t_cmd *cmd, t_redirect_type type);
 size_t	read_large_file(int fd, char ***buff);
+
+// ----------------------------------- executor/signals
+// signals.c
+void	handle_signals(t_signal signal_process);
+void	rl_replace_line(const char *text, int clear_undo);
 
 
 //===============================================================: Utils

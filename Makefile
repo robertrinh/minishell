@@ -6,20 +6,9 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/03/01 19:24:27 by qtrinh        ########   odam.nl          #
+#    Updated: 2024/03/03 10:27:38 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
-
-# ===== Names =====
-NAME_EXECUTABLE 	= minishell
-LIBFT				= includes/libft
-
-
-# ===== Compile =====
-CC 					= cc -g
-CFLAGS 				= 
-HEADERS				= -I include -I ~/.brew/opt/readline/include -lreadline
-
 
 # ===== Colors =====
 BOLD				:= \033[1m
@@ -60,21 +49,24 @@ SOURCES_EXECUTOR		= executor_enviroment.c \
 							executor_utils.c \
 							executor.c
 
-SOURCES_EXECUTOR_BUILTINS = builtins.c \
-								ft_echo.c \
-								ft_pwd.c \
+SOURCES_BUILTINS		= builtins.c \
+								echo.c \
+								exit.c \
+								pwd.c \
 
-SOURCES_EXECUTOR_COMMAND = execute_commands.c \
-							single_command.c
+SOURCES_EXECUTOR_COMMAND	= execute_commands.c \
+								single_command.c
 							
-SOURCES_EXECUTOR_PIPE = pipe_manager.c \
+SOURCES_EXECUTOR_PIPE	= pipe_manager.c \
 							pipe_utils.c
 
-SOURCES_EXECUTOR_REDIRECTS = redirect_heredoc.c \
+SOURCES_EXECUTOR_REDIRECTS	= redirect_heredoc.c \
 								redirect_in_files.c \
 								redirect_open.c \
 								redirect_types.c \
 								redirect_utils.c
+
+SOURCES_EXECUTOR_SIGNALS	= signals.c
 
 
 # ===== Manage Directories =====
@@ -88,10 +80,11 @@ DIR_SOURCES_LEXER_QUOTE = sources/lexer/quote
 DIR_SOURCES_PARSER		= sources/parser
 DIR_SOURCES_UTILS		= sources/utils
 DIR_SOURCES_EXECUTOR	= sources/executor
-DIR_SOURCES_EXECUTOR_BUILTINS = sources/executor/builtins
+DIR_SOURCES_BUILTINS	= sources/builtins
 DIR_SOURCES_EXECUTOR_COMMAND = sources/executor/command
 DIR_SOURCES_EXECUTOR_PIPE = sources/executor/pipe
 DIR_SOURCES_EXECUTOR_REDIRECTS = sources/executor/redirects
+DIR_SOURCES_EXECUTOR_SIGNALS = sources/executor/signals
 
 
 # ===== Object Files =====
@@ -102,11 +95,23 @@ OBJ = $(addprefix $(DIR_OBJ)/, $(SOURCES:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_PARSER:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_UTILS:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR:.c=.o)) \
-	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_BUILTINS:.c=.o)) \
+	$(addprefix $(DIR_OBJ)/, $(SOURCES_BUILTINS:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_COMMAND:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_PIPE:.c=.o)) \
-	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_REDIRECTS:.c=.o))
+	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_REDIRECTS:.c=.o)) \
+	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_SIGNALS:.c=.o))
 
+# ===== Names =====
+NAME_EXECUTABLE 	= minishell
+LIBFT				= includes/libft
+
+# ===== Compile =====
+CC 					= cc -g
+CFLAGS 				= # -Wall -Werror -Wextra -g -fsanitize=address
+
+READLINE_LOC		=	~/.brew/opt/readline
+READLINE_LIB		=	-L $(READLINE_LOC)/lib -lreadline
+READLINE_INCLUDE	=	-I includes -I $(READLINE_LOC)/include
 
 # ===== Rules =====
 all: $(NAME_EXECUTABLE)
@@ -114,8 +119,8 @@ all: $(NAME_EXECUTABLE)
 $(NAME_EXECUTABLE): $(OBJ)
 	@echo "$(BLUE)\nMaking LIBFT ...\n$(RESET)"
 	@$(MAKE) -C $(LIBFT) >/dev/null
-	@echo "$(BLUE)\nMaking MINISHELL ...\n$(RESET)"
-	@$(CC) $(CFLAGS) $(HEADERS) $^ $(LIBFT)/libft.a -o $(NAME_EXECUTABLE)
+	@echo "$(BLUE)Making MINISHELL ...\n$(RESET)"
+	@$(CC) $(CFLAGS) $(READLINE_LIB) $^ $(LIBFT)/libft.a -o $(NAME_EXECUTABLE)
 	@echo "$(GREEN)Compiled all!\n$(RESET)"
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES)/%.c | $(DIR_OBJ)
@@ -139,7 +144,7 @@ $(DIR_OBJ)/%.o: $(DIR_SOURCES_UTILS)/%.c | $(DIR_OBJ)
 $(DIR_OBJ)/%.o: $(DIR_SOURCES_EXECUTOR)/%.c | $(DIR_OBJ)
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
-$(DIR_OBJ)/%.o: $(DIR_SOURCES_EXECUTOR_BUILTINS)/%.c | $(DIR_OBJ)
+$(DIR_OBJ)/%.o: $(DIR_SOURCES_BUILTINS)/%.c | $(DIR_OBJ)
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES_EXECUTOR_COMMAND)/%.c | $(DIR_OBJ)
@@ -149,6 +154,9 @@ $(DIR_OBJ)/%.o: $(DIR_SOURCES_EXECUTOR_PIPE)/%.c | $(DIR_OBJ)
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES_EXECUTOR_REDIRECTS)/%.c | $(DIR_OBJ)
+	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
+
+$(DIR_OBJ)/%.o: $(DIR_SOURCES_EXECUTOR_SIGNALS)/%.c | $(DIR_OBJ)
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ):

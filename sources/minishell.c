@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 13:13:49 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/02/29 13:26:14 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/03/02 14:56:16 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	g_exit_status = 0;
 
 static bool	retrieve_command(t_shell *shell)
 {
@@ -32,6 +34,7 @@ static bool	run(t_shell *shell)
 {
 	while (1)
 	{
+		handle_signals(PARENT);
 		retrieve_command(shell);
 		if (lexer_manager(shell) == SUCCESS)
 		{
@@ -43,7 +46,7 @@ static bool	run(t_shell *shell)
 		execute(shell);
 		should_print("\n--------------------End--------------------\n\n", shell->print_output);
 	}
-	return (SUCCESS); // <- Return status to main
+	return (SUCCESS);
 }
 
 int	main(int argc, char **argv, char **envp)

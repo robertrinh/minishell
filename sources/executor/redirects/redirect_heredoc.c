@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/25 11:15:17 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/01 15:46:23 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/03/06 17:48:35 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ static int	setup_heredoc(t_redirect *heredoc)
 	}
 
 	if (pid == 0)
+	{
+		handle_signals(HEREDOC);
 		perform_heredoc(fd[WRITE], heredoc);
+	}
 	else if (pid > 0)
 	{
 		waitpid(pid, NULL, 0);
