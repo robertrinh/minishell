@@ -26,7 +26,7 @@ grep aa << EOF | wc > out
 
 bugs:
 cat <README.md | wc (gives 0 0 0, bash gives 4 4 19)
-cat <README.md gives README.md as output. must be some pipes dup2 issue / flow issue
+
 
 == VALID PIPES ==
 cat Makefile | grep pr | head -n 5 | hello (overwrites commands)
@@ -40,3 +40,10 @@ grep aa << EOF < README.md | wc
 bugs:
 cat | cat | cat | ls (bash does not wait for ls output, ours does + does not auto end, only with a ctrl-d signal)
 
+=== SIGNALS ===
+bugs:
+heredoc: ctrl-c gives a newline, not sure why
+heredoc: ctrl-\ activates quit whilst there is a SIG_IGN for that?
+
+grep aa <<EOF
+when aa is typed and you press ctrl-c -> still prints out aa, bash does not do that

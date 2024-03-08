@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   single_command.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 14:28:14 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/03/07 17:26:11 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   single_command.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/03/08 17:21:01 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,13 @@ int	single_command(t_shell *shell)
 
 	// TODO expanders
 	pid = fork();
+	handle_signals(CHILD);
 	if (pid == -1)
 	{
 		// TODO exit
 	}
 	if (pid == 0)
-	{
-		handle_signals(CHILD);
 		child_process(shell);
-	}
 	waitpid(pid, &exit_code, 0);
 	return (WEXITSTATUS(exit_code));
 }

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/25 11:15:17 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/06 17:48:35 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/08 17:21:39 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	perform_heredoc(int fd, t_redirect *heredoc)
 {
 	char	*line;
 
+	handle_signals(HEREDOC);
 	while (1)
 	{
 		line = readline(CYELLOW "heredoc> " RESET_COLOR);
@@ -58,10 +59,7 @@ static int	setup_heredoc(t_redirect *heredoc)
 	}
 
 	if (pid == 0)
-	{
-		handle_signals(HEREDOC);
 		perform_heredoc(fd[WRITE], heredoc);
-	}
 	else if (pid > 0)
 	{
 		waitpid(pid, NULL, 0);
