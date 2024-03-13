@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/12/03 13:06:57 by quentinbeuk       #+#    #+#              #
-#    Updated: 2024/03/07 14:46:06 by qbeukelm         ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
+#                                                    +#+                       #
+#    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
+#    Updated: 2024/03/13 21:27:44 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SOURCES_PARSER			= parser.c \
 							parser_utils.c
 
 SOURCES_UTILS			= clean_exit.c \
+							env_utils.c \
 							error_messages.c \
 							function_protection.c \
 							print_cmds.c \
@@ -53,7 +54,9 @@ SOURCES_BUILTINS		= builtins.c \
 								echo.c \
 								env.c \
 								exit.c \
+								export.c \
 								pwd.c \
+								unset.c \
 
 SOURCES_EXECUTOR_COMMAND	= execute_commands.c \
 								single_command.c

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/03/07 16:54:58 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/03/13 21:27:03 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,8 +265,6 @@ typedef struct s_builtin_entry
 } t_builtin_entry;
 
 // builtins.c
-int		export(t_cmd *cmd, t_shell *shell);
-int		unset(t_cmd *cmd, t_shell *shell);
 bool	is_builtin(char *cmd);
 int		exec_builtin(t_cmd *cmd, t_shell *shell);
 
@@ -276,11 +274,17 @@ int		echo(t_cmd* cmd, t_shell *shell);
 // env.c
 int		env(t_cmd* cmd, t_shell *shell);
 
+// exit.c
+int		exit_shell(t_cmd* cmd, t_shell *shell);
+
+// export.c
+int		export(t_cmd* cmd, t_shell *shell);
+
 // pwd.c
 int		pwd(t_cmd* cmd, t_shell *shell);
 
-// exit.c
-int		exit_shell(t_cmd* cmd, t_shell *shell);
+// unset.c
+int		unset(t_cmd* cmd, t_shell *shell);
 
 static const t_builtin_entry builtin_table[] = {
     {"echo", echo},
@@ -344,6 +348,9 @@ void	rl_replace_line(const char *text, int clear_undo);
 // clean_exit.c
 void	finish_lexer(t_shell *shell);
 int		exit_with_message(t_error_messages error_code, t_message_colors color, int exit_code);
+
+// env_utils.c
+int	index_for_env_key(t_shell *shell, char *key);
 
 // function_protection.c
 void	*safe_malloc(size_t size);
