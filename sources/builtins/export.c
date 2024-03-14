@@ -6,12 +6,15 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:25:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/13 23:12:26 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/14 17:12:35 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/*
+	Counts the occurances of the given delimiter character in the given string
+*/
 static int	count_delimiters(char *arg_value, char delimiter)
 {
 	int 	i;
@@ -64,15 +67,8 @@ static size_t env_realloc_size(char **env, char *str)
 {
     size_t		current_size;
 	size_t		new_size;
-    char		**temp;
 
-	current_size = 0;
-	new_size = 0;
-	temp = env;
-    while (*temp != NULL) {
-        current_size += strlen(*temp) + 1;
-        temp++;
-    }
+	current_size = env_size(env);
     new_size = current_size + (ft_strlen(str) + 1);
     return (new_size);
 }
@@ -84,12 +80,12 @@ static void	add_arg_to_env(t_shell *shell, char *arg)
 	char	*key;
 
 	key = env_key_from_arg(arg);
-	incert_index = index_for_env_key(shell, key);
+	incert_index = index_for_env_key(shell->envp, key);
 	free (key);
     shell->envp = ft_realloc(shell->envp, env_realloc_size(shell->envp, arg));
 	if (incert_index == -1)
 	{
-		incert_index = index_for_env_key(shell, "_");
+		incert_index = index_for_env_key(shell->envp, "_");
 		save_line = shell->envp[incert_index];
 		shell->envp[incert_index] = malloc(strlen(arg) + 1);
    		shell->envp[incert_index] = arg;
@@ -104,7 +100,7 @@ static void	add_arg_to_env(t_shell *shell, char *arg)
 	}
 }
 
-// !	export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8 I=9 J=10
+// TODO add to test set ->	export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8 I=9 J=10
 int		export(t_cmd* cmd, t_shell *shell)
 {
 	int		i;

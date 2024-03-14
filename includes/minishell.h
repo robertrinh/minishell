@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/13 21:27:03 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/14 17:34:21 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,7 +350,9 @@ void	finish_lexer(t_shell *shell);
 int		exit_with_message(t_error_messages error_code, t_message_colors color, int exit_code);
 
 // env_utils.c
-int	index_for_env_key(t_shell *shell, char *key);
+int		count_lines_from(char **env, int index);
+size_t	env_size(char **env);
+int		index_for_env_key(char **input_env, char *key);
 
 // function_protection.c
 void	*safe_malloc(size_t size);
@@ -361,5 +363,6 @@ void 		should_print(char *s, bool should_print);
 
 // print_tokens.c
 void	print_tokens(t_token *tokens);
+void	print_strings(char **strings);
 
 #endif
