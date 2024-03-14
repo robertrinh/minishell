@@ -1,20 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/01 14:47:56 by qtrinh            #+#    #+#             */
-/*   Updated: 2024/03/07 16:56:36 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   builtins.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/03/01 14:47:56 by qtrinh        #+#    #+#                 */
+/*   Updated: 2024/03/13 21:26:19 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// TODO move
-int	export(t_cmd *cmd, t_shell *shell) {return 0;}
-int	unset(t_cmd *cmd, t_shell *shell) {return 0;}
 
 bool	is_builtin(char *cmd_value)
 {
