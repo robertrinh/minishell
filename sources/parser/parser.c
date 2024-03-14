@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/11 19:53:12 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/02/29 14:02:49 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parser.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/03/14 18:38:04 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// ====================================================: CMD + Args
-
-t_cmd	*construct_command(t_cmd *cmd, t_parse *p)
+static t_cmd	*construct_command(t_cmd *cmd, t_parse *p)
 {
 	if (p->tokens_c->type == COMMAND)
 		cmd->value = p->tokens_c->value;
 	return (cmd);
+}
+
+static bool	is_type_arg(t_token_type type)
+{
+	if (type == ARGUMENT || type == S_QUOTE || type == D_QUOTE)
+		return (true);
+	return (false);
 }
 
 int	count_args(t_parse *p)
@@ -32,7 +37,7 @@ int	count_args(t_parse *p)
 	{
 		if (current_token->type == PIPE)
 			return (count);
-		if (current_token->type == ARGUMENT)
+		if (is_type_arg(current_token->type))
 			count++;
 		current_token = current_token->next;
 	}
@@ -58,7 +63,7 @@ t_cmd	*construct_args(t_cmd *cmd, t_parse *p)
 	cmd->args = allocate_args(p);
 	while (current)
 	{
-		if (current->type == ARGUMENT)
+		if (is_type_arg(current->type))
 		{
 			cmd->args[i] = ft_strdup(current->value);
 			i++;

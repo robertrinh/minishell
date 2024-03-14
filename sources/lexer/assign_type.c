@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/12 14:27:34 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/02/25 11:08:54 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/14 18:44:32 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,23 @@ static t_token_type	assign_redirect_type(char *value)
 		return (REDIR_IN);
 	else if (ft_strncmp(value, "<<", 2) == 0)
 		return (REDIR_IN_APPEND);
-	// TODO add END_OF_FILE
 	return (REDIRECT);
+}
+
+static t_token_type assign_quote_type(char *value)
+{
+	int		i;
+
+	i = 0;
+	while (value[i])
+	{
+		if (value[i] == D_QUOTE_CHAR)
+			return (D_QUOTE);
+		else if (value[i] == 39)
+			return (S_QUOTE);
+		i++;
+	}
+	return (ARGUMENT);
 }
 
 bool	assign_redirect_types(t_token *tokens)
@@ -62,5 +77,7 @@ t_token_type	assign_type(char *value)
 		return (REDIRECT);
 	else if (ft_strchr(value, '|'))
 		return (PIPE);
+	else if (ft_strchr(value, S_QUOTE_CHAR) || ft_strchr(value, D_QUOTE_CHAR))
+		return (assign_quote_type(value));
 	return (NONE);
 }

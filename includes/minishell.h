@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/14 17:34:21 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/14 18:33:40 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 //===============================================================: Define
 # define OPERATORS "<>|"
 # define REDIRECTS "<>"
+# define D_QUOTE_CHAR 34
+# define S_QUOTE_CHAR 39
 
 # define READ 0
 # define WRITE 1
@@ -77,7 +79,8 @@ typedef enum e_token_type
 	REDIR_IN_APPEND,
 	REDIR_OUT,
 	END_OF_FILE,
-	QUOTE,
+	S_QUOTE,
+	D_QUOTE,
 	ARGFILE,
 	NONE,
 }	t_token_type;
@@ -190,7 +193,6 @@ t_split	*init_split(t_shell *shell, t_split *split);
 
 //===============================================================: Lexer
 // lexer.c
-char	*type_to_string(t_token_type type);
 t_token	*token_constructor(char *split_input, int i);
 int		tokens_builder_manager(t_shell *shell);
 int		lexer_manager(t_shell *shell);

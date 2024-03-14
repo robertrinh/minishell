@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 19:21:32 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/02/19 17:21:09 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/14 18:09:09 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ static bool	contains_quote(const char *str)
 
 int	quote_manager(t_shell *shell)
 {
-	// Continue if no quote is found
 	if (contains_quote(shell->input) == false)
 		return (SUCCESS);
 	if (is_quote_matched(shell) == false)
