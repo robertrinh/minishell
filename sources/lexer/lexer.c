@@ -1,45 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 13:13:52 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/02/29 14:01:23 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   lexer.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/03/15 12:54:02 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-char	*type_to_string(t_token_type type)
-{
-	switch (type)
-	{
-		case COMMAND:
-			return ("command  ");
-		case ARGUMENT:
-			return ("argument ");
-		case PIPE:
-			return ("pipe     ");
-		case REDIRECT:
-			return ("redirect ");
-		case REDIR_IN:
-			return ("in       ");
-		case REDIR_IN_APPEND:
-			return ("in_append");
-		case REDIR_OUT:
-			return ("out      ");
-		case END_OF_FILE:
-			return ("eof      ");
-		case QUOTE:
-			return ("quote    ");
-		case ARGFILE:
-			return ("argfile  ");
-		default:
-			return ("none     ");
-	}
-}
 
 static bool	is_token(t_token *tokens_head)
 {
@@ -103,7 +74,7 @@ int	tokens_builder_manager(t_shell *shell)
 
 int	lexer_manager(t_shell *shell)
 {
-	if (quote_manager(shell) == FAILURE)
+	if (validate_quotes(shell) == FAILURE)
 		return (exit_with_message(ERROR_UNMATCHED_QUOTE, RED, 0));
 	if (tokens_builder_manager(shell) == SUCCESS)
 		return (SUCCESS);

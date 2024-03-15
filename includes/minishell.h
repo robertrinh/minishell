@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/13 21:27:03 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/15 12:53:49 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 //===============================================================: Define
 # define OPERATORS "<>|"
 # define REDIRECTS "<>"
+# define D_QUOTE_CHAR 34
+# define S_QUOTE_CHAR 39
 
 # define READ 0
 # define WRITE 1
@@ -47,11 +49,11 @@
 extern int	g_exit_status;
 
 //===============================================================: Enum
-typedef enum e_exit
+typedef enum e_validation
 {
 	FAILURE,
 	SUCCESS
-}	t_exit;
+}	t_validation;
 
 typedef enum e_direction
 {
@@ -77,7 +79,8 @@ typedef enum e_token_type
 	REDIR_IN_APPEND,
 	REDIR_OUT,
 	END_OF_FILE,
-	QUOTE,
+	S_QUOTE,
+	D_QUOTE,
 	ARGFILE,
 	NONE,
 }	t_token_type;
@@ -190,7 +193,6 @@ t_split	*init_split(t_shell *shell, t_split *split);
 
 //===============================================================: Lexer
 // lexer.c
-char	*type_to_string(t_token_type type);
 t_token	*token_constructor(char *split_input, int i);
 int		tokens_builder_manager(t_shell *shell);
 int		lexer_manager(t_shell *shell);
@@ -207,7 +209,7 @@ bool	is_special_type(t_token_type type);
 //===============================================================: Lexer / Quote
 // quotes.c
 int		is_quote(char c);
-int		quote_manager(t_shell *shell);
+t_validation	validate_quotes(t_shell *shell);
 
 // buffer_quote.c
 void	buffer_quote(t_split *sp, int quote_type);
@@ -350,7 +352,9 @@ void	finish_lexer(t_shell *shell);
 int		exit_with_message(t_error_messages error_code, t_message_colors color, int exit_code);
 
 // env_utils.c
-int	index_for_env_key(t_shell *shell, char *key);
+int		count_lines_from(char **env, int index);
+size_t	env_size(char **env);
+int		index_for_env_key(char **input_env, char *key);
 
 // function_protection.c
 void	*safe_malloc(size_t size);
@@ -361,5 +365,6 @@ void 		should_print(char *s, bool should_print);
 
 // print_tokens.c
 void	print_tokens(t_token *tokens);
+void	print_strings(char **strings);
 
 #endif
