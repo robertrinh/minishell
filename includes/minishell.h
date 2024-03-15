@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/14 18:33:40 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/15 12:53:49 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@
 extern int	g_exit_status;
 
 //===============================================================: Enum
-typedef enum e_exit
+typedef enum e_validation
 {
 	FAILURE,
 	SUCCESS
-}	t_exit;
+}	t_validation;
 
 typedef enum e_direction
 {
@@ -209,7 +209,7 @@ bool	is_special_type(t_token_type type);
 //===============================================================: Lexer / Quote
 // quotes.c
 int		is_quote(char c);
-int		quote_manager(t_shell *shell);
+t_validation	validate_quotes(t_shell *shell);
 
 // buffer_quote.c
 void	buffer_quote(t_split *sp, int quote_type);
