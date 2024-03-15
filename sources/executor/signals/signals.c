@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/02 14:17:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/08 17:23:41 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/03/15 17:00:18 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	signal_backslash(int sig)
 {
 	if (sig == SIGQUIT)
 	{
+		write(STDERR_FILENO, "Child signal\n", 14);
 		write(STDERR_FILENO, "Quit\n", 5);
 		g_exit_status = sig + 128;
 	}
@@ -51,6 +52,7 @@ void	signal_heredoc(int sig)
 	if (sig == SIGINT)
 	{
 		rl_replace_line("", 0);
+		write(1, "\n", 1);
 		rl_on_new_line();
 		exit(g_exit_status = sig + 127); // ? exit code is 130?
 	}
@@ -77,7 +79,7 @@ void	handle_signals(t_signal signal_process)
 		signal(SIGINT, signal_ctrl_c);
 		signal(SIGQUIT, signal_backslash);
 	}
-	if (signal_process == HEREDOC) //*issue: pressing Ctrl-\ still quits (should not?)
+	if (signal_process == HEREDOC)
 	{
 		signal(SIGINT, signal_heredoc);
 		signal(SIGQUIT, SIG_IGN);
