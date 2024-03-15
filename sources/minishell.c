@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 13:13:49 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/03/07 14:31:19 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/03/15 15:18:23 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static bool	retrieve_command(t_shell *shell)
 	command = readline(CYELLOW "[minishell]: " RESET_COLOR);
 	if (command == NULL)
 	{
-		// TODO clean_exit()
-		return (FAILURE);
+		write(1, "exit\n", 6);
+		exit(0);
 	}
 	save_command(command, shell);
 	if (command)
@@ -36,6 +36,8 @@ static bool	run(t_shell *shell)
 	{
 		handle_signals(PARENT);
 		retrieve_command(shell);
+		if (shell->input)
+			add_history(shell->input);
 		if (lexer_manager(shell) == SUCCESS)
 		{
 			finish_lexer(shell);
@@ -55,6 +57,5 @@ int	main(int argc, char **argv, char **envp)
 
 	shell = shell_init(envp, argv);
 	run(shell);
-	printf("argc: %d, %p, %p", argc, argv, envp);
-	return (0);
+	return (EXIT_SUCCESS);
 }
