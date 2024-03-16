@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/15 14:51:37 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/03/16 11:18:39 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 //===============================================================: Define
 # define OPERATORS "<>|"
 # define REDIRECTS "<>"
+# define EXPAND_CHAR '$'
 # define D_QUOTE_CHAR 34
 # define S_QUOTE_CHAR 39
 
@@ -230,6 +231,12 @@ char	**allocate_strings_split(t_split *sp);
 // parser.c
 bool	parse(t_shell *shell);
 
+// parser_cmd_arguments.c
+t_cmd	*construct_args(t_cmd *cmd, t_parse *p);
+
+// parser_post_process.c
+int		parser_post_process(t_shell *shell);
+
 // parser_checks.c
 bool	parser_checks(t_token *tokens);
 
@@ -344,6 +351,12 @@ size_t	read_large_file(int fd, char ***buff);
 // signals.c
 void	handle_signals(t_signal signal_process);
 void	rl_replace_line(const char *text, int clear_undo);
+
+
+//===============================================================: Expander
+// expand_quotes.c
+int		will_expand_quotes(char *arg);
+void	strip_quote_chars(char *arg);
 
 
 //===============================================================: Utils

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/14 18:38:04 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/16 10:32:38 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,64 +19,6 @@ static t_cmd	*construct_command(t_cmd *cmd, t_parse *p)
 	return (cmd);
 }
 
-static bool	is_type_arg(t_token_type type)
-{
-	if (type == ARGUMENT || type == S_QUOTE || type == D_QUOTE)
-		return (true);
-	return (false);
-}
-
-int	count_args(t_parse *p)
-{
-	int			count;
-	t_token		*current_token;
-
-	count = 0;
-	current_token = p->tokens_c;
-	while (current_token)
-	{
-		if (current_token->type == PIPE)
-			return (count);
-		if (is_type_arg(current_token->type))
-			count++;
-		current_token = current_token->next;
-	}
-	return (count);
-}
-
-char	**allocate_args(t_parse *p)
-{
-	char	**args;
-
-	args = safe_malloc(sizeof(char *) * (count_args(p) + 1));
-
-	return (args);
-}
-
-t_cmd	*construct_args(t_cmd *cmd, t_parse *p)
-{
-	int			i;
-	t_token		*current;
-
-	i = 0;
-	current = p->tokens_c;
-	cmd->args = allocate_args(p);
-	while (current)
-	{
-		if (is_type_arg(current->type))
-		{
-			cmd->args[i] = ft_strdup(current->value);
-			i++;
-		}
-		if (current->type == PIPE)
-			break ;
-		current = current->next;
-	}
-	cmd->arg_count = i;
-	return (cmd);
-}
-
-// ====================================================: Helpers
 t_cmd	*build_cmd(t_parse *p)
 {
 	t_cmd	*cmd;
@@ -118,6 +60,9 @@ bool	parse(t_shell *shell)
 	shell->cmd_table->cmd_count = p->cmd_count;
 	
 	free(p);
+
+	parser_post_process(shell);
+
 	if (shell->print_output)
 		print_cmds(shell->cmd_table);
 	return (SUCCESS);
