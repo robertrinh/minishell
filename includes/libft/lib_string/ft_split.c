@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/12 10:12:31 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2022/12/02 11:54:14 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/17 10:13:54 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 // Return Value: The array of new strings resulting from the
 // split. NULL if the allocation fails.
 
-// https://www.youtube.com/watch?v=Vp6OELK4gmo
 
 int		count_substrings(char const *s, char c, int len, int count);
 char	**allocate_strings_buff(char const *s, char c, int len, char **strings);

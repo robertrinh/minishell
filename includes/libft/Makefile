@@ -1,6 +1,6 @@
 
 NAME = libft.a
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = # -Wall -Wextra -Werror
 
 # List source files.
 LIB_CHECK = ft_isalpha.c \
@@ -37,6 +37,8 @@ LIB_STRING = ft_strlcpy.c \
 			ft_strjoin.c \
 			ft_split.c \
 			ft_strtrim.c \
+			ft_str_incert.c \
+			ft_str_remove.c \
 
 LIB_APPLY = ft_strmapi.c \
 			ft_striteri.c \

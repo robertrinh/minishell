@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/17 10:09:11 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/17 16:37:30 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,34 +31,47 @@ static char	*get_env_key(char *arg, int i)
 	return (key);
 }
 
-static int	expand_arg(char **env, char *arg, int i)
+static char	*expand_arg(char **env, char *arg, int i)
 {
 	char	*key;
+	char	*value;
 
 	key = get_env_key(arg, i);
-	if (key == NULL)
+	value = get_value_for_key(env, key);
+	if (key == NULL || value == NULL)
 		return (0);
 
-	// TODO free Key & Value
-	printf("key: %s\n", key);
-	printf("value: %s\n", get_value_for_key(env, key));
+	// TODO protect str_remove() & str_incert()
+	key = ft_strjoin("$", key);
+	arg = ft_str_remove(arg, key);
+	if (arg)
+		arg = ft_str_incert(arg, value, i);
 
-	return (0);
+	free (key);
+	free (value);
+	return (arg);
 }
 
-int		will_expand(char **env, char *arg)
+// !	echo "hello $USER$TERM more "
+// !	echo "hello $USER more"
+// !	echo hello$USER
+char	*will_expand(char **env, char *arg)
 {
 	int		i;
 
 	if (ft_strchr(arg, EXPAND_CHAR) == NULL)
-		return (0);
+		return (arg);
 	
 	i = 0;
 	while (arg[i])
 	{
 		if (arg[i] == EXPAND_CHAR)
-			expand_arg(env, arg, i);
+		{
+			arg = expand_arg(env, arg, i);
+			i = 0;
+			continue ;
+		}
 		i++;
 	}
-	return (0);
+	return (arg);
 }

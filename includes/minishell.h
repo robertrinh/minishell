@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/17 10:02:36 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/17 16:34:58 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -355,7 +355,7 @@ void	rl_replace_line(const char *text, int clear_undo);
 
 //===============================================================: Expander
 // expander.c
-int		will_expand(char **env, char *arg);
+char	*will_expand(char **env, char *arg);
 void	strip_quote_chars(char *arg); // TODO move ?
 
 
