@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   expander_quotes.c                                  :+:    :+:            */
+/*   expander.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/16 11:20:36 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/17 10:09:11 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*get_env_key(char *arg, int i)
 	key = safe_malloc(sizeof(char *) * ft_strlen(arg));
 	while (arg[i])
 	{
-		if (ft_isspace(arg[i]))
+		if (ft_isspace(arg[i]) || arg[i] == EXPAND_CHAR)
 			return (key);
 		key[j] = arg[i];
 		j++;
@@ -31,7 +31,7 @@ static char	*get_env_key(char *arg, int i)
 	return (key);
 }
 
-static int		expand_quote(char *arg, int i)
+static int	expand_arg(char **env, char *arg, int i)
 {
 	char	*key;
 
@@ -39,27 +39,14 @@ static int		expand_quote(char *arg, int i)
 	if (key == NULL)
 		return (0);
 
-
+	// TODO free Key & Value
+	printf("key: %s\n", key);
+	printf("value: %s\n", get_value_for_key(env, key));
 
 	return (0);
 }
 
-void	strip_quote_chars(char *arg)
-{
-	int i;
-	int	len;
-
-	i = 0;
-	len = ft_strlen(arg);
-	while (i < len)
-	{
-		arg[i] = arg[i + 1];
-		i++;
-	}
-	arg[len - 2] = '\0';
-}
-
-int		will_expand_quotes(char *arg)
+int		will_expand(char **env, char *arg)
 {
 	int		i;
 
@@ -70,7 +57,7 @@ int		will_expand_quotes(char *arg)
 	while (arg[i])
 	{
 		if (arg[i] == EXPAND_CHAR)
-			expand_quote(arg, i);
+			expand_arg(env, arg, i);
 		i++;
 	}
 	return (0);

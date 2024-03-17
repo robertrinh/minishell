@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/16 11:18:39 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/17 10:02:36 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -354,9 +354,9 @@ void	rl_replace_line(const char *text, int clear_undo);
 
 
 //===============================================================: Expander
-// expand_quotes.c
-int		will_expand_quotes(char *arg);
-void	strip_quote_chars(char *arg);
+// expander.c
+int		will_expand(char **env, char *arg);
+void	strip_quote_chars(char *arg); // TODO move ?
 
 
 //===============================================================: Utils
@@ -365,6 +365,7 @@ void	finish_lexer(t_shell *shell);
 int		exit_with_message(t_error_messages error_code, t_message_colors color, int exit_code);
 
 // env_utils.c
+char	*get_value_for_key(char **env, char *key);
 int		count_lines_from(char **env, int index);
 size_t	env_size(char **env);
 int		index_for_env_key(char **input_env, char *key);

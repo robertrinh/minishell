@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/03/16 11:19:50 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2024/03/17 09:32:36 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ SOURCES_EXECUTOR_REDIRECTS	= redirect_heredoc.c \
 
 SOURCES_EXECUTOR_SIGNALS	= signals.c
 
-SOURCES_EXPANDER		= expander_quotes.c
+SOURCES_EXPANDER		= expander.c
 
 
 # ===== Manage Directories =====

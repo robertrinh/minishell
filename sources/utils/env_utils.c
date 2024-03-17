@@ -6,11 +6,55 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:19:19 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/14 17:23:34 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/17 10:09:18 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static char *buffer_env_value(char *env_row, int i)
+{
+	char	*value;
+	int		j;
+
+	i += 1;
+	j = 0;
+	value = safe_malloc(sizeof(char *) * ft_strlen(env_row));
+
+	while (env_row[i])
+	{
+		if (ft_isspace(env_row[i]))
+			return (value);
+		value[j] = env_row[i];
+		j++;
+		i++;
+	}
+	return (value);
+}
+
+/*
+	Given key e.g. 'KEY=value', get_value_for_key() returns the string value
+	for the corresponding env key.
+*/
+char	*get_value_for_key(char **env, char *key)
+{
+	int		row_index;
+	int		i;
+
+	row_index = index_for_env_key(env, key);
+
+	if (row_index == -1)
+		return (NULL);
+
+	i = 0;
+	while (env[row_index][i])
+	{
+		if (env[row_index][i] == '=')
+			return (buffer_env_value(env[row_index], i));
+		i++;
+	}
+	return (NULL);
+}
 
 /*
 	Given starting index, returns the count of remaining lines in env
