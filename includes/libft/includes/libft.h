@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/20 10:01:20 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/03/17 15:33:12 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/18 19:56:57 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@
 # include <stdarg.h>
 # include <stddef.h>
 
-
 // -- LIBFT --
-
 // Linked list struct
 typedef struct s_list
 {
@@ -98,47 +96,43 @@ void		ft_lstclear(t_list **lst, void (*del)(void *));
 void		ft_lstiter(t_list *lst, void (*f)(void *));
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
-
 // -- PRINTF --
-
 // Print
-int		ft_printf(const char *input, ...);
+int			ft_printf(const char *input, ...);
 
 // Tools
-int		ft_putchar(int c);
-int		ft_printstring(char *str);
-void	ft_putstr(char *str);
-int		ft_print_dec(int number);
+int			ft_putchar(int c);
+int			ft_printstring(char *str);
+void		ft_putstr(char *str);
+int			ft_print_dec(int number);
 
 // Pointers
-int		ft_print_p(unsigned long long p);
-void	ft_ptr_hex(intptr_t number);
-int		ft_count_p(intptr_t number);
+int			ft_print_p(unsigned long long p);
+void		ft_ptr_hex(intptr_t number);
+int			ft_count_p(intptr_t number);
 
 // Unsigned
-int		ft_print_unsigned(unsigned int nbr);
-char	*ft_itoa_unsigned( unsigned int nbr);
-int		ft_number_len(unsigned int nbr);
+int			ft_print_unsigned(unsigned int nbr);
+char		*ft_itoa_unsigned( unsigned int nbr);
+int			ft_number_len(unsigned int nbr);
 
 // Hex
-int		ft_print_hex(unsigned int nbr, const char format);
-void	ft_put_hex(unsigned int nbr, const char format);
-int		ft_hex_length(unsigned int nbr);
-
+int			ft_print_hex(unsigned int nbr, const char format);
+void		ft_put_hex(unsigned int nbr, const char format);
+int			ft_hex_length(unsigned int nbr);
 
 // -- GET NEXT LINE --
-
 // get_next_line
-char	*get_next_line(int fd);
-char	*ft_read_and_save(int fd, char *saved_line);
-char	*ft_save(char *line_saved);
-void	ft_str_dup(char *saved_line, char *str, int i);
-char	*ft_process_line(char *line_saved);
+char		*get_next_line(int fd);
+char		*ft_read_and_save(int fd, char *saved_line);
+char		*ft_save(char *line_saved);
+void		ft_str_dup(char *saved_line, char *str, int i);
+char		*ft_process_line(char *line_saved);
 
 // utils
-char	*ft_gnl_strchr(char *s, int c);
-size_t	ft_gnl_strlen(char *str);
-char	*ft_gnl_strjoin(char *s1, char *s2);
-int		ft_gnl_len(char *saved_line);
+char		*ft_gnl_strchr(char *s, int c);
+size_t		ft_gnl_strlen(char *str);
+char		*ft_gnl_strjoin(char *s1, char *s2);
+int			ft_gnl_len(char *saved_line);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 10:13:21 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/18 17:59:46 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/18 20:00:24 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		parser_post_process(t_shell *shell)
 	{
 		cmd_value = shell->cmd_table->cmds[i]->value;
 		shell->cmd_table->cmds[i]->value = will_expand(shell->envp, cmd_value);
-		// strip_quote_chars(shell->cmd_table->cmds[i]->value);
+		strip_quote_chars(shell->cmd_table->cmds[i]->value);
 		process_args(shell->envp, shell->cmd_table->cmds[i]);
 		i++;
 	}

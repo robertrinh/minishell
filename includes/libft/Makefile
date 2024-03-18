@@ -1,6 +1,6 @@
 
 NAME = libft.a
-CFLAGS = # -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 # List source files.
 LIB_CHECK = ft_isalpha.c \
