@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:19:19 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/17 10:09:18 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/18 17:57:12 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char *buffer_env_value(char *env_row, int i)
 
 	i += 1;
 	j = 0;
-	value = safe_malloc(sizeof(char *) * ft_strlen(env_row));
+	value = safe_malloc(sizeof(char *) * ft_strlen(env_row) + 1);
 
 	while (env_row[i])
 	{
@@ -29,6 +29,7 @@ static char *buffer_env_value(char *env_row, int i)
 		j++;
 		i++;
 	}
+	value[j] = '\0';
 	return (value);
 }
 

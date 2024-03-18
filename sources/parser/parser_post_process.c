@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 10:13:21 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/17 16:40:57 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/18 17:59:46 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	strip_quote_chars(char *arg)
 	arg[len - 2] = '\0';
 }
 
-static int	process_cmd(char **env, t_cmd *cmd)
+static int	process_args(char **env, t_cmd *cmd)
 {
 	int		i;
 
@@ -38,8 +38,8 @@ static int	process_cmd(char **env, t_cmd *cmd)
 			strip_quote_chars(cmd->args[i]);
 		else if (cmd->args[i][0] == D_QUOTE_CHAR)
 		{
-			cmd->args[i] = will_expand(env, cmd->args[i]);
 			strip_quote_chars(cmd->args[i]);
+			cmd->args[i] = will_expand(env, cmd->args[i]);
 		}
 		else
 			cmd->args[i] = will_expand(env, cmd->args[i]);
@@ -51,12 +51,15 @@ static int	process_cmd(char **env, t_cmd *cmd)
 int		parser_post_process(t_shell *shell)
 {
 	int		i;
+	char	*cmd_value;
 
 	i = 0;
 	while (i < shell->cmd_table->cmd_count)
 	{
-		// TODO expand command itself
-		process_cmd(shell->envp, shell->cmd_table->cmds[i]);
+		cmd_value = shell->cmd_table->cmds[i]->value;
+		shell->cmd_table->cmds[i]->value = will_expand(shell->envp, cmd_value);
+		// strip_quote_chars(shell->cmd_table->cmds[i]->value);
+		process_args(shell->envp, shell->cmd_table->cmds[i]);
 		i++;
 	}
 	return (0);
