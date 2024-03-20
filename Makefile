@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/03/15 14:51:15 by robertrinh    ########   odam.nl          #
+#    Updated: 2024/03/17 09:32:36 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,10 +33,12 @@ SOURCES_LEXER_SPLIT	 	= split.c \
 SOURCES_LEXER_QUOTE		= quote.c \
 							buffer_quote.c
 
-SOURCES_PARSER			= parser.c \
-							parser_checks.c \
+SOURCES_PARSER			=  parser_checks.c \
+							parser_cmd_arguments.c \
+							parser_post_process.c \
 							parser_redirects.c \
-							parser_utils.c
+							parser_utils.c \
+							parser.c
 
 SOURCES_UTILS			= clean_exit.c \
 							env_utils.c \
@@ -56,7 +58,7 @@ SOURCES_BUILTINS		= builtins.c \
 								exit.c \
 								export.c \
 								pwd.c \
-								unset.c \
+								unset.c
 
 SOURCES_EXECUTOR_COMMAND	= execute_commands.c \
 								single_command.c
@@ -71,6 +73,8 @@ SOURCES_EXECUTOR_REDIRECTS	= redirect_heredoc.c \
 								redirect_utils.c
 
 SOURCES_EXECUTOR_SIGNALS	= signals.c
+
+SOURCES_EXPANDER		= expander.c
 
 
 # ===== Manage Directories =====
@@ -89,6 +93,7 @@ DIR_SOURCES_EXECUTOR_COMMAND = sources/executor/command
 DIR_SOURCES_EXECUTOR_PIPE = sources/executor/pipe
 DIR_SOURCES_EXECUTOR_REDIRECTS = sources/executor/redirects
 DIR_SOURCES_EXECUTOR_SIGNALS = sources/executor/signals
+DIR_SOURCES_EXPANDER 	= sources/expander
 
 
 # ===== Object Files =====
@@ -103,7 +108,9 @@ OBJ = $(addprefix $(DIR_OBJ)/, $(SOURCES:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_COMMAND:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_PIPE:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_REDIRECTS:.c=.o)) \
-	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_SIGNALS:.c=.o))
+	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_SIGNALS:.c=.o)) \
+	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_SIGNALS:.c=.o)) \
+	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXPANDER:.c=.o))
 
 # ===== Names =====
 NAME_EXECUTABLE 	= minishell
@@ -161,6 +168,9 @@ $(DIR_OBJ)/%.o: $(DIR_SOURCES_EXECUTOR_REDIRECTS)/%.c | $(DIR_OBJ)
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES_EXECUTOR_SIGNALS)/%.c | $(DIR_OBJ)
+	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
+
+$(DIR_OBJ)/%.o: $(DIR_SOURCES_EXPANDER)/%.c | $(DIR_OBJ)
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ):

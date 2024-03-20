@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 19:21:32 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/15 12:53:36 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/16 10:01:12 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ static int	count_quotes(t_shell *shell)
 	shell->single_quote = 0;
 	while (shell->input[i])
 	{
-		if (shell->input[i] == 34)
+		if (shell->input[i] == D_QUOTE_CHAR)
 			shell->double_quote += 1;
-		if (shell->input[i] == 39)
+		if (shell->input[i] == S_QUOTE_CHAR)
 			shell->single_quote += 1;
 		i++;
 	}
@@ -60,7 +60,7 @@ static bool	contains_quote(const char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == 34 || str[i] == 39)
+		if (str[i] == D_QUOTE_CHAR || str[i] == S_QUOTE_CHAR)
 			return (true);
 		i++;
 	}

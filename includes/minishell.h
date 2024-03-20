@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/15 14:51:37 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/03/18 17:35:06 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 //===============================================================: Define
 # define OPERATORS "<>|"
 # define REDIRECTS "<>"
+# define EXPAND_CHAR '$'
 # define D_QUOTE_CHAR 34
 # define S_QUOTE_CHAR 39
 
@@ -230,6 +231,12 @@ char	**allocate_strings_split(t_split *sp);
 // parser.c
 bool	parse(t_shell *shell);
 
+// parser_cmd_arguments.c
+t_cmd	*construct_args(t_cmd *cmd, t_parse *p);
+
+// parser_post_process.c
+int		parser_post_process(t_shell *shell);
+
 // parser_checks.c
 bool	parser_checks(t_token *tokens);
 
@@ -346,12 +353,19 @@ void	handle_signals(t_signal signal_process);
 void	rl_replace_line(const char *text, int clear_undo);
 
 
+//===============================================================: Expander
+// expander.c
+char	*will_expand(char **env, char *arg);
+void	strip_quote_chars(char *arg); // TODO move ?
+
+
 //===============================================================: Utils
 // clean_exit.c
 void	finish_lexer(t_shell *shell);
 int		exit_with_message(t_error_messages error_code, t_message_colors color, int exit_code);
 
 // env_utils.c
+char	*get_value_for_key(char **env, char *key);
 int		count_lines_from(char **env, int index);
 size_t	env_size(char **env);
 int		index_for_env_key(char **input_env, char *key);

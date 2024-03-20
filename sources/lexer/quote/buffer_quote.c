@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 21:58:11 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/01/17 15:56:45 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/03/16 10:07:49 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	is_quote(char c)
 {
-	if (c == 34)
-		return (34);
-	else if (c == 39)
-		return (39);
+	if (c == D_QUOTE_CHAR)
+		return (c);
+	else if (c == S_QUOTE_CHAR)
+		return (c);
 	return (0);
 }
 
