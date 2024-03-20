@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/17 11:11:34 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/18 20:01:06 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/20 19:17:24 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static char	*buffer_trailing_string(char *base_input, int remove_len, int i)
 	return (buffer);
 }
 
-static char	*incert_buffer(char *base_input, char *buffer, int i)
+static char	*insert_buffer(char *base_input, char *buffer, int i)
 {
 	int		j;
 
@@ -73,7 +73,7 @@ char	*ft_str_remove(char *base_input, const char *remove)
 	buffer = buffer_trailing_string(base_input, remove_len, i);
 	if (buffer == NULL)
 		return (NULL);
-	base_input = incert_buffer(base_input, buffer, i);
+	base_input = insert_buffer(base_input, buffer, i);
 	free(buffer);
 	return (ft_realloc(base_input, ft_strlen(base_input)));
 }

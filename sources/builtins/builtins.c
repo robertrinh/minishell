@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/01 14:47:56 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/03/13 21:26:19 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/20 19:11:29 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	exec_builtin(t_cmd *cmd, t_shell *shell)
 
 	i = 0;
 	exit_status = 0;
-
 	while (i < S_NUM_BUILTIN)
 	{
 		if (ft_strncmp(cmd->value, builtin_table[i].name, ft_strlen(cmd->value)) == 0)

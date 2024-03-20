@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/03/08 17:21:01 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/03/20 18:58:34 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	single_command(t_shell *shell)
 	int	exit_code;
 
 	// TODO expanders
+	//catch builtin bij exit/export
+
 	pid = fork();
 	handle_signals(CHILD);
 	if (pid == -1)

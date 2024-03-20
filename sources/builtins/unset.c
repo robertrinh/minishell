@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:02:51 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/14 17:49:15 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/20 19:14:53 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char **buffer_env_after_index(char **env, int index)
 	return (buffer);
 }
 
-static void	incert_env_buffer(char **env, char **buffer, int env_index)
+static void	insert_env_buffer(char **env, char **buffer, int env_index)
 {
 	int		buffer_index;
 
@@ -54,7 +54,7 @@ static void	remove_line_from_env(char **env, char *key)
 	if (remove_index >= 0)
 	{
 		buffer = buffer_env_after_index(env, (remove_index + 1));
-		incert_env_buffer(env, buffer, remove_index);
+		insert_env_buffer(env, buffer, remove_index);
 	}
 }
 

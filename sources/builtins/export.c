@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:25:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/14 17:12:35 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/20 19:14:19 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,28 +75,28 @@ static size_t env_realloc_size(char **env, char *str)
 
 static void	add_arg_to_env(t_shell *shell, char *arg)
 {
-	int		incert_index;
+	int		insert_index;
 	char	*save_line;
 	char	*key;
 
 	key = env_key_from_arg(arg);
-	incert_index = index_for_env_key(shell->envp, key);
+	insert_index = index_for_env_key(shell->envp, key);
 	free (key);
     shell->envp = ft_realloc(shell->envp, env_realloc_size(shell->envp, arg));
-	if (incert_index == -1)
+	if (insert_index == -1)
 	{
-		incert_index = index_for_env_key(shell->envp, "_");
-		save_line = shell->envp[incert_index];
-		shell->envp[incert_index] = malloc(strlen(arg) + 1);
-   		shell->envp[incert_index] = arg;
-		shell->envp[incert_index + 1] = malloc(strlen(save_line) + 1);
-		shell->envp[incert_index + 1] = save_line;
-		shell->envp[incert_index + 2] = NULL;
+		insert_index = index_for_env_key(shell->envp, "_");
+		save_line = shell->envp[insert_index];
+		shell->envp[insert_index] = malloc(strlen(arg) + 1);
+   		shell->envp[insert_index] = arg;
+		shell->envp[insert_index + 1] = malloc(strlen(save_line) + 1);
+		shell->envp[insert_index + 1] = save_line;
+		shell->envp[insert_index + 2] = NULL;
 	}
 	else
 	{
-		shell->envp[incert_index] = malloc(strlen(arg) + 1);
-		shell->envp[incert_index] = arg;
+		shell->envp[insert_index] = malloc(strlen(arg) + 1);
+		shell->envp[insert_index] = arg;
 	}
 }
 
