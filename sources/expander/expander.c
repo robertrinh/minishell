@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/18 18:03:04 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/20 19:17:37 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char	*expand_arg(char **env, char *arg, int i)
 	arg = ft_str_remove(arg, key);
 
 	if (arg && value)
-		arg = ft_str_incert(arg, value, i);
+		arg = ft_str_insert(arg, value, i);
 
 	free (key);
 	free (value);
@@ -71,7 +71,7 @@ static int	count_expand(char *arg)
 // !	echo "hello $USER more"
 // !	echo hello$USER
 // !	echo "hello $NOT_A_KEY"
-// TODO protect str_remove() & str_incert() 
+// TODO protect str_remove() & str_insert() 
 char	*will_expand(char **env, char *arg)
 {
 	int		i;

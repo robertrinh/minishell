@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/17 10:13:25 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/18 19:39:09 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/20 19:17:30 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ static char	*buffer_trailing_string(char *base, int i)
 	return (buffer);
 }
 
-static char	*incert_substring(char *base, char *incert, int i)
+static char	*insert_substring(char *base, char *insert, int i)
 {
 	int		j;
 
 	j = 0;
-	while (incert[j])
+	while (insert[j])
 	{
-		base[i] = incert[j];
+		base[i] = insert[j];
 		i++;
 		j++;
 	}
@@ -46,19 +46,19 @@ static char	*incert_substring(char *base, char *incert, int i)
 	return (base);
 }
 
-char	*ft_str_incert(char *base, char *incert, int i)
+char	*ft_str_insert(char *base, char *insert, int i)
 {
 	char	*buffer;
 
 	if (base == NULL)
-		return (incert);
-	base = ft_realloc(base, (ft_strlen(base) + ft_strlen(incert) + 1));
+		return (insert);
+	base = ft_realloc(base, (ft_strlen(base) + ft_strlen(insert) + 1));
 	if (base == NULL)
 		return (NULL);
 	buffer = buffer_trailing_string(base, i);
 	if (buffer == NULL)
 		return (NULL);
-	base = incert_substring(base, incert, i);
+	base = insert_substring(base, insert, i);
 	base = ft_strjoin(base, buffer);
 	free (buffer);
 	return (base);

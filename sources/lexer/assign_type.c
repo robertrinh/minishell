@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/12 14:27:34 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/03/14 18:44:32 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/20 16:50:19 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static t_token_type assign_quote_type(char *value)
 	{
 		if (value[i] == D_QUOTE_CHAR)
 			return (D_QUOTE);
-		else if (value[i] == 39)
+		else if (value[i] == S_QUOTE_CHAR)
 			return (S_QUOTE);
 		i++;
 	}
