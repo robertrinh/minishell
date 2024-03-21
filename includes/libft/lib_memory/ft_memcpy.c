@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_memcpy.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/12 08:50:40 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2022/12/02 11:53:59 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/12 08:50:40 by qbeukelm          #+#    #+#             */
+/*   Updated: 2024/03/21 16:54:50 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 		i_dst[i] = i_src[i];
 		i++;
 	}
+	i_dst[i] = 0;
 	return (dst);
 }

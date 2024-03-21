@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   executor.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/02 19:16:50 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/03/20 19:05:13 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   executor.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/02 19:16:50 by qbeukelm          #+#    #+#             */
+/*   Updated: 2024/03/21 15:05:53 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static bool catch_single_builtin(t_cmd *cmd, t_shell *shell)
 {
 	if (!ft_strncmp(cmd->value, "exit", 5))
 		exit_shell(cmd, shell);
+	
 	// else if (!ft_strncmp(cmd->value, "export", 7))
 	// 	export(cmd, shell);
 	return (SUCCESS);

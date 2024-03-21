@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   expander.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/20 19:17:37 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   expander.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/16 11:15:41 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/03/21 17:53:53 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@ static char	*get_env_key(char *arg, int i)
 	char	*key;
 
 	i += 1;
+	if (arg[i] == '?')
+		return ("?");
+	
+	if (ft_strlen(arg) == i + 1)
+	{
+		printf("return [%d] %s\n", i + 1, arg);	
+		return (arg);
+	}
+	
 	j = 0;
 	key = safe_malloc(sizeof(char *) * ft_strlen(arg) + 1);
 	while (arg[i])
@@ -32,22 +41,49 @@ static char	*get_env_key(char *arg, int i)
 	return (key);
 }
 
+static bool should_add_dollar_sign(char *arg, int i)
+{
+	while (arg[i])
+	{
+		if (arg[i] != '$')
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
 static char	*expand_arg(char **env, char *arg, int i)
 {
 	char	*key;
 	char	*value;
 
+	if (ft_strlen(arg) == 1)
+		return (arg);
+		
 	key = get_env_key(arg, i);
 	value = get_value_for_key(env, key);
 
-	key = ft_strjoin("$", key);
+	if (key[0] == '?')
+	{
+		key = ft_strjoin("$", key);
+		arg = ft_str_remove(arg, key);
+		arg = ft_str_insert(arg, ft_itoa(g_exit_status), i);
+		return (arg);
+	}
+
+	// !	$$$$$??? -> ?
+	if (should_add_dollar_sign(arg, i))
+		key = ft_strjoin("$", key);
 	arg = ft_str_remove(arg, key);
 
 	if (arg && value)
+	{
 		arg = ft_str_insert(arg, value, i);
+		printf("Arg after insert: %s\n", arg);
+	}
 
-	free (key);
-	free (value);
+	// free (key);
+	// free (value);
 	return (arg);
 }
 
