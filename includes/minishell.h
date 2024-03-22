@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/03/21 15:08:39 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/03/22 16:46:16 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@
 # define PRINT_FLAG "-p"
 
 //===============================================================: Global
-extern int	g_exit_status;
+extern int	g_exit_code;
 
 //===============================================================: Enum
 typedef enum e_validation
@@ -169,7 +169,6 @@ typedef struct	s_shell
 	t_cmd_table			*cmd_table;
 	char				**envp;
 	char const			*input;
-	int					exit_code;
 	int					single_quote;
 	int					double_quote;
 	bool				print_output;
@@ -306,7 +305,7 @@ static const t_builtin_entry builtin_table[] = {
 
 // ----------------------------------- executor/command
 // execute_commands.c
-int		execute_command(t_shell *shell, int i);
+void	execute_command(t_shell *shell, int i);
 int		execute_commands(t_shell *shell);
 
 // redirect_command.c

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   single_command.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 14:28:14 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/03/21 14:06:25 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   single_command.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/03/22 17:40:39 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,9 @@ void	child_process(t_shell *shell)
 int	single_command(t_shell *shell)
 {
 	pid_t	pid;
-	int	exit_code;
+	int		exit_status;
 
 	// TODO expanders
-	//catch builtin bij exit/export
-
 	pid = fork();
 	handle_signals(CHILD);
 	if (pid == -1)
@@ -57,6 +55,8 @@ int	single_command(t_shell *shell)
 	}
 	if (pid == 0)
 		child_process(shell);
-	waitpid(pid, &exit_code, 0);
-	return (WEXITSTATUS(exit_code));
+	waitpid(pid, &exit_status, 0);
+	if (WIFEXITED(exit_status))
+		return (WEXITSTATUS(exit_status));
+	return (-1); // *in case of abnormal child process termination
 }

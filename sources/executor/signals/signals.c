@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/02 14:17:42 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/03/21 15:06:54 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   signals.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/03/02 14:17:42 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/03/22 16:19:20 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	signal_reset_prompt(int sig)
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
-		g_exit_status = 1;
+		g_exit_code = 1; // ! exit code 1 on mac bash
 	}
 }
 
@@ -31,7 +31,7 @@ void	signal_ctrl_c(int sig)
 	if (sig == SIGINT)
 	{
 		write(1, "\n", 1);
-		g_exit_status = sig + 129;
+		g_exit_code = 130; // ! exit code 130 on mac bash
 	}
 }
 
@@ -40,9 +40,9 @@ void	signal_backslash(int sig)
 {
 	if (sig == SIGQUIT)
 	{
-		write(STDERR_FILENO, "Child signal\n", 14);
+		//write(STDERR_FILENO, "Child signal\n", 14); // ? test regarding heredoc/child signals
 		write(STDERR_FILENO, "Quit\n", 5);
-		g_exit_status = sig + 128;
+		g_exit_code = 131; // ! exit code 131 on mac bash
 	}
 }
 
@@ -54,7 +54,8 @@ void	signal_heredoc(int sig)
 		rl_replace_line("", 0);
 		write(1, "\n", 1);
 		rl_on_new_line();
-		exit(g_exit_status = sig + 127); // ? exit code is 130?
+		g_exit_code = 1;
+		exit(g_exit_code); // ! exit code 1 on mac bash
 	}
 }
 

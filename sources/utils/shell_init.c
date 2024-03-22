@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/14 14:04:02 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/03/15 15:15:38 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/03/22 17:33:29 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int		count_substrings(char **strings)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (strings[i])
@@ -22,13 +22,13 @@ static int		count_substrings(char **strings)
 	return (i);
 }
 
-static char **alloc_envp(char **envp)
+static char	**alloc_envp(char **envp)
 {
 	int		i;
 	char	**copy_envp;
 
 	i = 0;
-	copy_envp = safe_malloc(sizeof(char *) * count_substrings(envp)); // TODO protect
+	copy_envp = safe_malloc(sizeof(char *) * count_substrings(envp));
 	while (envp[i])
 	{
 		copy_envp[i] = ft_strdup(envp[i]); // TODO protect
@@ -43,7 +43,6 @@ static t_cmd_table *init_cmd_table(void)
 	t_cmd_table		*cmd_table;
 
 	cmd_table = safe_malloc(sizeof(t_cmd_table));
-
 	return (cmd_table);
 }
 

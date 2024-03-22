@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   executor_enviroment.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 19:45:47 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/03/07 16:23:04 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   executor_enviroment.c                              :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/22 19:45:47 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/03/22 16:57:36 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ char	*get_path_for_cmd(char **env_paths, char *command)
 	i = 0;
 	while (env_paths[i])
 	{
-		temp_path = ft_strjoin(env_paths[i], "/");
-		command_path = ft_strjoin(temp_path, command);
-		if (access(command_path, 0) == 0)
+		temp_path = ft_strjoin(env_paths[i], "/"); // TODO protect + error
+		command_path = ft_strjoin(temp_path, command); // TODO protect + error
+		if (access(command_path, F_OK) == 0)
 			return (command_path);
 		i++;
 	}

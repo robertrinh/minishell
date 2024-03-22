@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   pipe_utils.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 15:54:04 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/02/29 14:00:24 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   pipe_utils.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/08 15:54:04 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/03/22 17:21:55 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int count_pipes(t_shell *shell)
 void	will_open_pipe(t_cmd_table *cmd_table, t_pipes *pipes, int i)
 {
     if (i < cmd_table->cmd_count - 1)
-        pipe(pipes->curr_pipe);
+        pipe(pipes->curr_pipe); // TODO protect
 }
 
 void	will_close_pipes(t_pipes *pipes)

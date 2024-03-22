@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 19:43:07 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/08 17:32:31 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/03/22 17:15:37 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ int	prepare_command(t_shell *shell, int i)
 
 int	new_process(t_shell *shell, int i, t_pipes *pipes)
 {
-    pid_t pid;
-
+	int	status;
+	pid_t pid;
+	
     pid = fork();
 	handle_signals(CHILD);
     if (pid == 0) 
@@ -40,7 +41,8 @@ int	new_process(t_shell *shell, int i, t_pipes *pipes)
 	{
 		// Close the previous pipe ends if not the first command
 		will_close_pipes(pipes);
-        waitpid(pid, NULL, 0);
+        waitpid(pid, &status, 0);
     }
+	
     return (SUCCESS);
 }
