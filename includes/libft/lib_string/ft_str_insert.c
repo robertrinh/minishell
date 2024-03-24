@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_str_insert.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/17 10:13:25 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/03/21 17:03:27 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_str_insert.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/03/17 10:13:25 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/03/24 13:23:32 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ char	*ft_str_insert(char *base, char *insert, int i)
 {
 	char	*buffer;
 
-	printf("base: %s, insert: %s, i: %d\n", base, insert, i);
 	if (base == NULL || ft_strlen(base) == 0)
 		return (insert);
 	base = ft_realloc(base, (ft_strlen(base) + ft_strlen(insert) + 1));

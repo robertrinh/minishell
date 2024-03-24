@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 19:21:32 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/16 10:01:12 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/24 09:32:09 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,23 +53,25 @@ static bool	is_quote_matched(t_shell *shell)
 	return (false);
 }
 
-static bool	contains_quote(const char *str)
+int	contains_quote(const char *str)
 {
 	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == D_QUOTE_CHAR || str[i] == S_QUOTE_CHAR)
-			return (true);
+		if (str[i] == D_QUOTE_CHAR)
+			return (D_QUOTE_CHAR);
+		if (str[i] == S_QUOTE_CHAR)
+			return (S_QUOTE_CHAR);
 		i++;
 	}
-	return (false);
+	return (0);
 }
 
 t_validation	validate_quotes(t_shell *shell)
 {
-	if (contains_quote(shell->input) == false)
+	if (contains_quote(shell->input) == 0)
 		return (SUCCESS);
 	if (is_quote_matched(shell) == false)
 		return (FAILURE);

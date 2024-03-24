@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/03/17 09:32:36 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2024/03/24 09:56:38 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SOURCES_PARSER			=  parser_checks.c \
 							parser_cmd_arguments.c \
 							parser_post_process.c \
 							parser_redirects.c \
+							parser_strip_quotes.c \
 							parser_utils.c \
 							parser.c
 
