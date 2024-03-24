@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/16 11:15:41 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/03/21 17:53:53 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   expander.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/03/22 16:06:25 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static char	*expand_arg(char **env, char *arg, int i)
 	{
 		key = ft_strjoin("$", key);
 		arg = ft_str_remove(arg, key);
-		arg = ft_str_insert(arg, ft_itoa(g_exit_status), i);
+		arg = ft_str_insert(arg, ft_itoa(g_exit_code), i);
 		return (arg);
 	}
 

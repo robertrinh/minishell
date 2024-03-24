@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:25:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/20 19:14:19 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/03/22 18:29:10 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,15 @@ static void	add_arg_to_env(t_shell *shell, char *arg)
 	{
 		insert_index = index_for_env_key(shell->envp, "_");
 		save_line = shell->envp[insert_index];
-		shell->envp[insert_index] = malloc(strlen(arg) + 1);
+		shell->envp[insert_index] = safe_malloc(ft_strlen(arg) + 1);
    		shell->envp[insert_index] = arg;
-		shell->envp[insert_index + 1] = malloc(strlen(save_line) + 1);
+		shell->envp[insert_index + 1] = safe_malloc(ft_strlen(save_line) + 1);
 		shell->envp[insert_index + 1] = save_line;
 		shell->envp[insert_index + 2] = NULL;
 	}
 	else
 	{
-		shell->envp[insert_index] = malloc(strlen(arg) + 1);
+		shell->envp[insert_index] = safe_malloc(ft_strlen(arg) + 1);
 		shell->envp[insert_index] = arg;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:19:19 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/18 17:57:12 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/22 16:22:47 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,9 @@ size_t	env_size(char **env)
 
 	env_size = 0;
 	temp = env;
-    while (*temp != NULL) {
-        env_size += strlen(*temp) + 1;
+    while (*temp != NULL) 
+	{
+        env_size += ft_strlen(*temp) + 1;
         temp++;
     }
 	return (env_size);
