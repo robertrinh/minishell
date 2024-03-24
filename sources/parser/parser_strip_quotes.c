@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/24 09:51:56 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/24 13:26:47 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/24 15:47:16 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,5 @@ char	*strip_quote_for_type(char *arg, int quote_char)
 {
 	arg = strip_quotes_forward(arg, quote_char);
 	arg = strip_quotes_reverse(arg, quote_char);
-	printf("Stripped arg: %s\n", arg);
 	return (arg);
 }

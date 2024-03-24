@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/24 13:24:10 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/24 16:28:41 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,16 +96,10 @@ static char	*expand_arg(char **env, char *arg, int i)
 	}
 
 	key = ft_strjoin("$", key);
-	printf("KEY: %s\n", key);
 	arg = ft_str_remove(arg, key);
 
-	printf("Arg after remove: %s\n", arg);
-	
 	if (arg && value)
-	{
 		arg = ft_str_insert(arg, value, i);
-		printf("Arg after incert: %s\n", arg);
-	}
 
 	free (key);
 	free (value);
@@ -128,8 +122,10 @@ static int	count_expand(char *arg)
 	return (count);
 }
 
-// !	$$$$$???
-// !	123$????
+// !	echo "hello $TERM$NOARG more"
+
+// !	echo $$$$$???
+// !	echo 123$????
 // !	echo hello$?
 
 // !	echo e'ch'o
@@ -148,7 +144,6 @@ char	*will_expand(char **env, char *arg)
 
 	expanded_count = 0;
 	expand_count = count_expand(arg);
-	printf("expand count: %d\n", expand_count);
 	if (expand_count == 0)
 		return (arg);
 	

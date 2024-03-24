@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/17 11:11:34 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/24 12:55:34 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/24 16:28:21 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,19 @@ static char	*buffer_trailing_string(char *base_input, int remove_len, int i)
 static char	*insert_buffer(char *base_input, char *buffer, int i)
 {
 	int		j;
-	int		i_before;
 
 	j = 0;
-	i_before = i;
 	while (buffer[j])
 	{
 		base_input[i] = buffer[j];
 		i++;
 		j++;
 	}
-	if (i_before == 0)
-		base_input[i] = '\0';
-	else
-		base_input[i + j] = '\0';
+	base_input[i] = '\0';
 	return (base_input);
 }
+
+// 123?????
 
 char	*ft_str_remove(char *base_input, const char *remove)
 {
@@ -91,8 +88,5 @@ char	*ft_str_remove(char *base_input, const char *remove)
 	base_input = insert_buffer(base_input, buffer, i);
 	free(buffer);
 
-	if (i > 0)
-		return (ft_realloc(base_input, ft_strlen(base_input) - remove_len));
-	else
-		return (ft_realloc(base_input, ft_strlen(base_input)));
+	return (ft_realloc(base_input, ft_strlen(base_input)));
 }

@@ -6,13 +6,13 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 10:13:21 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/24 13:17:38 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/24 15:45:54 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	process_args(char **env, t_cmd *cmd)
+static t_cmd	*process_args(char **env, t_cmd *cmd)
 {
 	int		i;
 
@@ -25,27 +25,33 @@ static int	process_args(char **env, t_cmd *cmd)
 		{
 			cmd->args[i] = strip_quote_for_type(cmd->args[i], D_QUOTE_CHAR);
 			cmd->args[i] = will_expand(env, cmd->args[i]);
-			printf("expanded arg: %s\n", cmd->args[i]);
 		}
 		else
 			cmd->args[i] = will_expand(env, cmd->args[i]);
 		i++;
 	}
-	return (0);
+	return (cmd);
+}
+
+static t_cmd	*process_cmd(char **env, t_cmd *cmd)
+{
+	if (contains_quote(cmd->value) == S_QUOTE_CHAR)
+		cmd->value = strip_quote_for_type(cmd->value, S_QUOTE_CHAR);
+	else if (contains_quote(cmd->value) == D_QUOTE_CHAR)
+		cmd->value = strip_quote_for_type(cmd->value, D_QUOTE_CHAR);
+	cmd->value = will_expand(env, cmd->value);
+	return (cmd);
 }
 
 int		parser_post_process(t_shell *shell)
 {
 	int		i;
-	char	*cmd_value;
 
 	i = 0;
 	while (i < shell->cmd_table->cmd_count)
 	{
-		// cmd_value = shell->cmd_table->cmds[i]->value;
-		// shell->cmd_table->cmds[i]->value = will_expand(shell->envp, cmd_value);
-		// strip_quote_chars(shell->cmd_table->cmds[i]->value);
-		process_args(shell->envp, shell->cmd_table->cmds[i]);
+		shell->cmd_table->cmds[i] = process_cmd(shell->envp, shell->cmd_table->cmds[i]);
+		shell->cmd_table->cmds[i] = process_args(shell->envp, shell->cmd_table->cmds[i]);
 		i++;
 	}
 	return (0);
