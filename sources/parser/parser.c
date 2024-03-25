@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/20 16:43:25 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/03/24 16:51:31 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@ static t_cmd	*construct_command(t_cmd *cmd, t_parse *p)
 {
 	if (p->tokens_c->type == COMMAND)
 		cmd->value = p->tokens_c->value;
+	else if (p->tokens_c->type == S_QUOTE || p->tokens_c->type == D_QUOTE)
+	{
+		cmd->value = p->tokens_c->value;
+		if (p->tokens_c->next)
+			p->tokens_c = p->tokens_c->next;
+	}
 	return (cmd);
 }
 
@@ -52,9 +58,11 @@ bool	parse(t_shell *shell)
 	t_parse	*p;
 
 	should_print("\n\n========parser========\n", shell->print_output);
+	if (parser_checks(shell->tokens) == FAILURE)
+		return (FAILURE);
+
 	p = init_parse(shell);
-	if (parser_checks(shell->tokens))
-		build_cmds(p);
+	build_cmds(p);
 
 	shell->cmd_table->cmds = p->cmds;
 	shell->cmd_table->cmd_count = p->cmd_count;

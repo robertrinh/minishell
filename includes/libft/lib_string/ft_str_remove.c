@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_str_remove.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/17 11:11:34 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/03/21 17:00:25 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_str_remove.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/03/17 11:11:34 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/03/24 16:28:21 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,28 +45,22 @@ static char	*buffer_trailing_string(char *base_input, int remove_len, int i)
 	return (buffer);
 }
 
-// !	echo 123$?????
-// !	echo $?????
 static char	*insert_buffer(char *base_input, char *buffer, int i)
 {
 	int		j;
-	int		i_before;
 
 	j = 0;
-	i_before = i;
-	printf("buffer len: %zu\n", ft_strlen(buffer));
 	while (buffer[j])
 	{
 		base_input[i] = buffer[j];
 		i++;
 		j++;
 	}
-	if (i_before == 0)
-		base_input[i] = '\0';
-	else
-		base_input[i + j] = '\0';
+	base_input[i] = '\0';
 	return (base_input);
 }
+
+// 123?????
 
 char	*ft_str_remove(char *base_input, const char *remove)
 {
@@ -75,17 +69,13 @@ char	*ft_str_remove(char *base_input, const char *remove)
 	char	*needle;
 	char	*buffer;
 
-	printf("base input: %s, remove: %s\n", base_input, remove);
 	needle = ft_strnstr(base_input, remove, ft_strlen(base_input));
 	remove_len = ft_strlen(remove);
 	i = locate_substring(base_input, needle);
 	
 	// Base == Remove
 	if (ft_strncmp(base_input, remove, ft_strlen(base_input)) == 0)
-	{
-		printf("base == remove\n");
 		return ("");
-	}
 
 	// Nothing to buffer
 	if ((size_t)(i + remove_len) == ft_strlen(base_input))
@@ -96,12 +86,7 @@ char	*ft_str_remove(char *base_input, const char *remove)
 		return (NULL);
 
 	base_input = insert_buffer(base_input, buffer, i);
-
-
 	free(buffer);
 
-	if (i > 0)
-		return (ft_realloc(base_input, ft_strlen(base_input) - remove_len));
-	else
-		return (ft_realloc(base_input, ft_strlen(base_input)));
+	return (ft_realloc(base_input, ft_strlen(base_input)));
 }

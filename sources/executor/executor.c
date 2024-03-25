@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/02 19:16:50 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/03/22 18:27:13 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/03/24 15:41:02 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 // TODO add cd builtin
 static bool catch_single_builtin(t_cmd *cmd, t_shell *shell)
 {
-	if (!ft_strncmp(cmd->value, "exit", 5))
+	if (ft_strncmp(cmd->value, "exit", 5) == 0)
 		g_exit_code = exit_shell(cmd, shell);
-	else if (!ft_strncmp(cmd->value, "export", 7))
+	else if (ft_strncmp(cmd->value, "export", 7) == 0)
 		g_exit_code = export(cmd, shell);
-	else if (!ft_strncmp(cmd->value, "unset", 6))
+	else if (ft_strncmp(cmd->value, "unset", 6) == 0)
 		g_exit_code = unset(cmd, shell);
 	return (SUCCESS);
 } 

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/22 16:46:16 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/03/24 12:49:18 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,10 +208,11 @@ bool	is_special_type(t_token_type type);
 
 //===============================================================: Lexer / Quote
 // quotes.c
-int		is_quote(char c);
+int		contains_quote(const char *str);
 t_validation	validate_quotes(t_shell *shell);
 
 // buffer_quote.c
+int		is_quote(char c);
 void	buffer_quote(t_split *sp, int quote_type);
 
 
@@ -241,6 +242,9 @@ bool	parser_checks(t_token *tokens);
 
 // parser_redirects.c
 t_cmd	*construct_redirects(t_cmd *cmd, t_parse *p);
+
+// parser_strip_quotes.c
+char	*strip_quote_for_type(char *arg, int quote_char);
 
 // parser_utils.c
 t_parse		*init_parse(t_shell *shell);
@@ -355,7 +359,6 @@ void	rl_replace_line(const char *text, int clear_undo);
 //===============================================================: Expander
 // expander.c
 char	*will_expand(char **env, char *arg);
-void	strip_quote_chars(char *arg); // TODO move ?
 
 
 //===============================================================: Utils

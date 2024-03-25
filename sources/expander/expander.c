@@ -6,11 +6,37 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/22 16:06:25 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/03/24 16:28:41 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static char *skip_multiple_expand_chars(char *arg, int i)
+{
+	int		j;
+	int		k;
+	char	*buffer;
+
+	j = i;
+	k = 0;
+	buffer = safe_malloc(sizeof(char *) * ft_strlen(arg));
+	if (arg[j] == EXPAND_CHAR)
+	{
+		while (arg[j])
+		{
+			if (arg[j] != EXPAND_CHAR)
+			{
+				buffer[k] = '\0';
+				return (ft_str_remove(arg, buffer));
+			}
+			buffer[k] = arg[j];
+			k++;
+			j++;
+		}
+	}
+	return (arg);
+}
 
 static char	*get_env_key(char *arg, int i)
 {
@@ -18,14 +44,12 @@ static char	*get_env_key(char *arg, int i)
 	char	*key;
 
 	i += 1;
+	arg = skip_multiple_expand_chars(arg, i);
 	if (arg[i] == '?')
 		return ("?");
 	
 	if (ft_strlen(arg) == i + 1)
-	{
-		printf("return [%d] %s\n", i + 1, arg);	
 		return (arg);
-	}
 	
 	j = 0;
 	key = safe_malloc(sizeof(char *) * ft_strlen(arg) + 1);
@@ -71,19 +95,14 @@ static char	*expand_arg(char **env, char *arg, int i)
 		return (arg);
 	}
 
-	// !	$$$$$??? -> ?
-	if (should_add_dollar_sign(arg, i))
-		key = ft_strjoin("$", key);
+	key = ft_strjoin("$", key);
 	arg = ft_str_remove(arg, key);
 
 	if (arg && value)
-	{
 		arg = ft_str_insert(arg, value, i);
-		printf("Arg after insert: %s\n", arg);
-	}
 
-	// free (key);
-	// free (value);
+	free (key);
+	free (value);
 	return (arg);
 }
 
@@ -103,7 +122,16 @@ static int	count_expand(char *arg)
 	return (count);
 }
 
-// !	echo "hello $USER$TERM more "
+// !	echo "hello $TERM$NOARG more"
+
+// !	echo $$$$$???
+// !	echo 123$????
+// !	echo hello$?
+
+// !	echo e'ch'o
+// !	echo hel'll"o"'
+// !	echo hello"more more"hello
+// !	echo "hello $USER$TERM more"
 // !	echo "hello $USER more"
 // !	echo hello$USER
 // !	echo "hello $NOT_A_KEY"

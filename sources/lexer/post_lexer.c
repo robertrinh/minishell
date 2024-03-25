@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/12 16:19:25 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/02/21 21:13:54 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/24 16:51:22 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ static t_token	*skip_operators(t_token *current)
 	return (current);
 }
 
-static t_token	*assign_cmd_arg(t_token *current)
+static t_token	*assign_cmd_arg(t_token *current, int i)
 {
-	if (current->type == NONE)
+	if (current->type == NONE && i == 0)
 		current->type = COMMAND;
 	else if (current->next)
 		current = current->next;
@@ -72,19 +72,21 @@ static t_token	*assign_argfile_args(t_token *current)
 
 static bool	assign_lexer_types(t_token *tokens)
 {
+	int			i;
 	t_token		*current;
 
+	i = 0;
 	current = tokens;
 	while (current)
 	{
 		if (current->type == NONE && is_special_type(current->type) == false)
-			current = assign_cmd_arg(current);
+			current = assign_cmd_arg(current, i);
 		if (current->type == PIPE)
 		{
 			if (current->next)
 			{
 				current = skip_operators(current);
-				current = assign_cmd_arg(current);
+				current = assign_cmd_arg(current, i);
 			}
 		}
 		if (current->type == REDIRECT)
@@ -96,6 +98,7 @@ static bool	assign_lexer_types(t_token *tokens)
 				continue ;
 			}
 		}
+		i++;
 		current = current->next;
 	}
 	return (SUCCESS);
@@ -107,5 +110,3 @@ bool	post_lexer(t_token *tokens)
 	assign_redirect_types(tokens);
 	return (SUCCESS);
 }
-
-// TODO add to unit tests
