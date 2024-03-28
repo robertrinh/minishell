@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/24 12:49:18 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/28 12:22:39 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -363,8 +363,9 @@ char	*will_expand(char **env, char *arg);
 
 //===============================================================: Utils
 // clean_exit.c
-void	finish_lexer(t_shell *shell);
+void 	show_error_message(t_error_messages error_code, t_message_colors color);
 int		exit_with_message(t_error_messages error_code, t_message_colors color, int exit_code);
+void	finish_lexer(t_shell *shell);
 
 // env_utils.c
 char	*get_value_for_key(char **env, char *key);

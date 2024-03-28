@@ -53,3 +53,4 @@ when aa is typed and you press ctrl-c -> still prints out aa, bash does not do t
 === ENV ===
 echo $USER$PATH
 e'ch'o hello
+echo hello "my name is $USER and I use $TERM" <- ERROR
