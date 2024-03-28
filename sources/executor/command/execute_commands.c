@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 15:22:01 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/03/28 16:25:06 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/28 17:38:18 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	execute_commands(t_shell *shell)
     while (i < shell->cmd_table->cmd_count) 
 	{
         prepare_command(shell, i);
-		open_in_redirects(shell->cmd_table->cmds[i]);
+		if (shell->cmd_table->cmds[i]->fd_in)
+			redirect_in_files(shell->cmd_table->cmds[i]);
 		will_open_pipe(shell->cmd_table, pipes, i);
         new_process(shell, i, pipes);
 		iterate_pipes(pipes);

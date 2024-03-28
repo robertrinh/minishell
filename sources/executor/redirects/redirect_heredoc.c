@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/25 11:15:17 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/28 17:04:54 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/28 17:22:50 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	perform_heredoc(int fd, t_redirect *heredoc)
 	return (0);
 }
 
-static int	setup_heredoc(t_redirect *heredoc)
+int	setup_heredoc(t_redirect *heredoc)
 {
 	int		fd[2];
 	pid_t	pid;
@@ -69,23 +69,3 @@ static int	setup_heredoc(t_redirect *heredoc)
 	}
 	return (fd[READ]);
 }
-
-// int		*collect_heredocs(t_cmd *cmd)
-// {
-// 	int			exit_code;
-// 	t_redirect	*heredoc;
-// 	int			*open_fds;
-// 	int			i;
-
-// 	i = 0;
-// 	heredoc = cmd->heredoc;
-// 	open_fds = safe_malloc(sizeof(int) * count_redirects_for_type(cmd, OUT_APPEND));
-// 	while (heredoc)
-// 	{
-// 		open_fds[i] = STDIN_FILENO;
-// 		open_fds[i] = setup_heredoc(heredoc);
-// 		i++;
-// 		heredoc = heredoc->next;
-// 	}
-// 	return (open_fds);
-// }

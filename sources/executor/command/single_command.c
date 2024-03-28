@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/03/28 15:29:59 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/28 17:29:46 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@ static t_validation	assign_redirects(t_cmd *cmd)
 	int				*fd_heredocs;
 
 	validation = SUCCESS;
-	// if (cmd->heredoc)
-	// 	fd_heredocs = collect_heredocs(cmd);
-	// if (cmd->fd_in)
-	// 	fd_ins = collect_fd_in_files(cmd);
-	// if (cmd->fd_in || cmd->heredoc)
-	// 	redirect_in_files(cmd, fd_ins, fd_heredocs);
 	if (cmd->fd_out)
 		validation = redirect_out(cmd);
 	return (validation);
@@ -32,7 +26,6 @@ static t_validation	assign_redirects(t_cmd *cmd)
 
 t_validation	child_process(t_shell *shell)
 {
-	open_in_redirects(shell->cmd_table->cmds[0]);
 	if (assign_redirects(shell->cmd_table->cmds[0]) == SUCCESS)
 	{
 		if (is_builtin(shell->cmd_table->cmds[0]->value))
@@ -55,6 +48,7 @@ t_validation	single_command(t_shell *shell)
 
 	pid = fork();
 	handle_signals(CHILD);
+	redirect_in_files(shell->cmd_table->cmds[0]);
 	if (pid == -1)
 	{
 		// TODO exit

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/28 17:05:09 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/28 21:33:16 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,12 @@ typedef struct s_parse
 	int			i;
 } t_parse;
 
+typedef struct s_in_files
+{
+	int		*heredocs;
+	int		*infiles;
+} t_in_files;
+
 //===============================================================: Main
 // shell_init.c
 t_shell	*shell_init(char **envp, char **argv);
@@ -331,14 +337,15 @@ void	iterate_pipes(t_pipes *pipes);
 
 // ----------------------------------- executor/redirects
 // redirect_heredoc
+int		setup_heredoc(t_redirect *heredoc);
 
 // redirect_in_files.c
-int		*collect_fd_in_files(t_cmd *cmd);
-void	redirect_in_files(t_cmd *cmd, int *fd_ins, int *fd_heredocs);
+void	redirect_in_files(t_cmd *cmd);
+
 
 // redirect_open.c
-int	safe_open(const char *path, t_redirect_type oflag, int mode);
-void		open_in_redirects(t_cmd *cmd);
+int			safe_open(const char *path, t_redirect_type oflag, int mode);
+t_in_files	*open_in_files(t_cmd *cmd, t_in_files *ins, t_redirect_type type);
 
 // redirect_out_files.c
 t_validation 	redirect_out(t_cmd *cmd);
@@ -348,8 +355,9 @@ t_redirect	*file_type(t_cmd *cmd, t_redirect_type type);
 int			get_open_flag_for_type(t_redirect_type type);
 
 // redirect_utils.c
-int		count_redirects_for_type(t_cmd *cmd, t_redirect_type type);
-size_t	read_large_file(int fd, char ***buff);
+t_redirect_type last_infile_type(t_cmd *cmd);
+int				count_files_for_type(t_cmd *cmd, t_redirect_type type);
+size_t			read_large_file(int fd, char ***buff);
 
 // ----------------------------------- executor/signals
 // signals.c

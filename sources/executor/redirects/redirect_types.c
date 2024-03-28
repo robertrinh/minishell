@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 13:08:29 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/28 17:05:56 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/28 21:27:56 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@ t_redirect	*file_type(t_cmd *cmd, t_redirect_type type)
 {
 	if (cmd)
 	{
-		if (type == IN)
+		if (type == IN || type == IN_APPEND)
 			return (cmd->fd_in);
 		if (type == OUT)
 			return (cmd->fd_out);
-		// if (type == IN_APPEND)
-		// 	return (cmd->heredoc);
 	}
 	return (NULL);
 }

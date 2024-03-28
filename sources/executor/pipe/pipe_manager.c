@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/29 13:17:01 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/03/28 16:24:02 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/28 17:30:12 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,6 @@ t_validation	dup_fds(t_pipes *pipes, t_cmd *cmd)
 
 	validation = SUCCESS;
 
-	// if (cmd->heredoc)
-	// 	fd_heredocs = collect_heredocs(cmd);
-	// if (cmd->fd_in)
-	// 	fd_ins = collect_fd_in_files(cmd);
-	// if (cmd->fd_in || cmd->heredoc) 
-	// 	redirect_in_files(cmd, fd_ins, fd_heredocs);
-	
 	if (pipes->prev_pipe[READ] != -1)
 	{
         close(pipes->prev_pipe[WRITE]);
