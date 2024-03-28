@@ -6,15 +6,15 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/07 12:29:05 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/28 12:20:12 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/28 15:55:41 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void show_error_message(t_error_messages error_code, t_message_colors color)
+void show_error_message(t_error_messages error_code, t_message_colors color, const char *arg)
 {
-	printf("\n%s%s%s\n\n", color_codes[color], error_messages[error_code], RESET_COLOR);
+	printf("%s%s %s %s\n", color_codes[color], error_messages[error_code], arg, RESET_COLOR);
 }
 
 int	exit_with_message(t_error_messages error_code, t_message_colors color, int exit_code)

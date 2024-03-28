@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/28 12:22:39 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/28 15:23:23 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -316,13 +316,12 @@ int		execute_commands(t_shell *shell);
 void	open_redirects(t_cmd *cmd);
 
 // single_command.c
-int		single_command(t_shell *shell);
-void	child_process(t_shell *shell);
+t_validation	single_command(t_shell *shell);
+t_validation	child_process(t_shell *shell);
 
 // ----------------------------------- executor/pipe
 // pipe_manager.c
-void 	redirect_out(t_cmd *cmd);
-void	dup_fds(t_pipes *pipes, t_cmd *cmd);
+t_validation	dup_fds(t_pipes *pipes, t_cmd *cmd);
 
 // pipe_utils.c
 t_pipes	*init_pipes(void);
@@ -340,7 +339,11 @@ int		*collect_fd_in_files(t_cmd *cmd);
 void	redirect_in_files(t_cmd *cmd, int *fd_ins, int *fd_heredocs);
 
 // redirect_open.c
+int	safe_open(const char *path, t_redirect_type oflag, int mode);
 void		open_in_redirects(t_cmd *cmd);
+
+// redirect_out_files.c
+t_validation 	redirect_out(t_cmd *cmd);
 
 // redirect_types.c
 t_redirect	*file_type(t_cmd *cmd, t_redirect_type type);
@@ -363,7 +366,7 @@ char	*will_expand(char **env, char *arg);
 
 //===============================================================: Utils
 // clean_exit.c
-void 	show_error_message(t_error_messages error_code, t_message_colors color);
+void 	show_error_message(t_error_messages error_code, t_message_colors color, const char *arg);
 int		exit_with_message(t_error_messages error_code, t_message_colors color, int exit_code);
 void	finish_lexer(t_shell *shell);
 

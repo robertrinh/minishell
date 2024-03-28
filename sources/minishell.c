@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/22 15:37:38 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/03/28 15:28:44 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ static bool	run(t_shell *shell)
 	{
 		handle_signals(PARENT);
 		retrieve_command(shell);
-		// if (shell->input)
-		// 	add_history(shell->input);
 		if (lexer_manager(shell) == SUCCESS)
 		{
 			finish_lexer(shell);

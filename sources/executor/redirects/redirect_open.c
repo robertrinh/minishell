@@ -6,22 +6,22 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/23 15:04:57 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/03/02 11:43:56 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/28 15:22:04 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static int open_file_for_type(char *file_name, t_redirect_type type)
+int	safe_open(const char *path, t_redirect_type oflag, int mode)
 {
 	int		fd;
 
+	if (mode == 0)
+		mode = 0644;
 	fd = STDIN_FILENO;
-	fd = open(file_name, get_open_flag_for_type(type));
+	fd = open(path, oflag, mode);
 	if (fd == -1)
-	{
-		return (-1);
-	}
+		show_error_message(ERROR_OPENING_FILE, RED, path);
 	return (fd);
 }
 
@@ -34,7 +34,7 @@ void	open_in_redirects(t_cmd *cmd)
 	fd_head = cmd->fd_in;
 	while (fd)
 	{
-		fd->fd = open_file_for_type(fd->value, IN);
+		fd->fd = safe_open(fd->value, IN, 0);
 		fd = fd->next;
 	}
 	cmd->fd_in = fd_head;
