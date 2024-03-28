@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 19:45:47 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/22 16:57:36 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/03/28 18:08:12 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,17 @@ char	*get_path_for_cmd(char **env_paths, char *command)
 	return (NULL);
 }
 
-static char	*ft_getenv(t_shell *shell)
+char	*ft_getenv(t_shell *shell, char *input)
 {
 	char	**local_env;
 	int	i;
 
 	local_env = shell->envp;
 	i = 0;
-	
+
 	while (local_env[i])
 	{
-		if (ft_strncmp(local_env[i], "PATH=", 5) == 0)
+		if (ft_strncmp(local_env[i], input, ft_strlen(input + 1)) == 0)
 			return (ft_substr(local_env[i], 5, ft_strlen(local_env[i])));
 		i++;
 	}
@@ -70,7 +70,7 @@ char	**get_paths(t_shell *shell)
 	char	*env_path;
 	char	**env_paths;
 
-	env_path = ft_getenv(shell);
+	env_path = ft_getenv(shell, "PATH");
 	// env_path = getenv("PATH");
 	if (env_path == NULL)
 	{

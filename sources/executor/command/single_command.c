@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/03/22 17:40:39 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/03/28 18:31:04 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ int	single_command(t_shell *shell)
 	waitpid(pid, &exit_status, 0);
 	if (WIFEXITED(exit_status))
 		return (WEXITSTATUS(exit_status));
-	return (-1); // *in case of abnormal child process termination
+	return(WEXITSTATUS(g_exit_code));
+// 	return (-1); // *in case of abnormal child process termination
 }

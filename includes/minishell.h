@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/24 12:49:18 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/28 16:54:37 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,6 +257,7 @@ t_token		*locate_pipe_n(t_token *tokens_root, int pipe_count);
 // executor_enviroment.c
 char	**format_cmd(t_cmd *cmd);
 char	*get_path_for_cmd(char **env_paths, char *command);
+char	*ft_getenv(t_shell *shell, char *input);
 char	**get_paths(t_shell *shell);
 
 // executor_redirect.c
@@ -277,26 +278,31 @@ typedef struct s_builtin_entry
 } t_builtin_entry;
 
 // builtins.c
+bool	is_single_builtin(char *cmd_value);
+int		exec_single_builtin(t_cmd *cmd, t_shell *shell);
 bool	is_builtin(char *cmd);
 int		exec_builtin(t_cmd *cmd, t_shell *shell);
 
+// cd.c
+int		cd(t_cmd *cmd, t_shell *shell);
+
 // echo.c
-int		echo(t_cmd* cmd, t_shell *shell);
+int		echo(t_cmd *cmd, t_shell *shell);
 
 // env.c
-int		env(t_cmd* cmd, t_shell *shell);
+int		env(t_cmd *cmd, t_shell *shell);
 
 // exit.c
-int		exit_shell(t_cmd* cmd, t_shell *shell);
+int		exit_shell(t_cmd *cmd, t_shell *shell);
 
 // export.c
-int		export(t_cmd* cmd, t_shell *shell);
+int		export(t_cmd *cmd, t_shell *shell);
 
 // pwd.c
-int		pwd(t_cmd* cmd, t_shell *shell);
+int		pwd(t_cmd *cmd, t_shell *shell);
 
 // unset.c
-int		unset(t_cmd* cmd, t_shell *shell);
+int		unset(t_cmd *cmd, t_shell *shell);
 
 static const t_builtin_entry builtin_table[] = {
     {"echo", echo},
