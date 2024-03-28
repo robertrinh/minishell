@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/02 14:17:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/22 16:19:20 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/03/28 18:29:14 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	signal_reset_prompt(int sig)
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
-		g_exit_code = 1; // ! exit code 1 on mac bash
+		g_exit_code = 130; // ! exit code 130 on linux bash
 	}
 }
 
