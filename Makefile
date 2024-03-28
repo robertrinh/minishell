@@ -6,9 +6,10 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/03/28 12:41:35 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2024/03/28 21:40:33 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
+
 
 # ===== Colors =====
 BOLD				:= \033[1m
@@ -54,6 +55,7 @@ SOURCES_EXECUTOR		= executor_enviroment.c \
 							executor.c
 
 SOURCES_BUILTINS		= builtins.c \
+								cd.c \
 								echo.c \
 								env.c \
 								exit.c \

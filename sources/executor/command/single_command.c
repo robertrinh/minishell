@@ -6,9 +6,11 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/03/28 17:29:46 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/28 21:42:56 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "../../../includes/minishell.h"
 
@@ -60,4 +62,6 @@ t_validation	single_command(t_shell *shell)
 	if (WIFEXITED(exit_status))
 		return (WEXITSTATUS(exit_status));
 	return (validation); // *in case of abnormal child process termination
+	return(WEXITSTATUS(g_exit_code));
+// 	return (-1); // *in case of abnormal child process termination
 }

@@ -6,24 +6,11 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/02 19:16:50 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/03/24 15:41:02 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/28 17:12:04 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// * change later with jump table
-// TODO add cd builtin
-static bool catch_single_builtin(t_cmd *cmd, t_shell *shell)
-{
-	if (ft_strncmp(cmd->value, "exit", 5) == 0)
-		g_exit_code = exit_shell(cmd, shell);
-	else if (ft_strncmp(cmd->value, "export", 7) == 0)
-		g_exit_code = export(cmd, shell);
-	else if (ft_strncmp(cmd->value, "unset", 6) == 0)
-		g_exit_code = unset(cmd, shell);
-	return (SUCCESS);
-} 
 
 int		execute(t_shell *shell)
 {
@@ -31,11 +18,12 @@ int		execute(t_shell *shell)
 
 	if (shell->cmd_table->cmd_count == 1)
 	{
-		catch_single_builtin(shell->cmd_table->cmds[0], shell);
+		if (is_single_builtin(shell->cmd_table->cmds[0]->value))
+			exec_single_builtin(shell->cmd_table->cmds[0], shell);
 		g_exit_code = single_command(shell);
 	}
 	else
 		g_exit_code = execute_commands(shell);
-	
-	return (0);
+	// printf("global exit code after executing is %d\n", g_exit_code);
+	return (g_exit_code);
 }
