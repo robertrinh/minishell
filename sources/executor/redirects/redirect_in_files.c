@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 22:08:44 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/02 11:27:43 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/28 17:05:33 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ void	redirect_in_files(t_cmd *cmd, int *fd_ins, int *fd_heredocs)
 		buffer_in_files(cmd, temp_pipe[WRITE], fd_ins, &buff);
 		write(temp_pipe[WRITE], "\n", 1);
 	}
-	if (cmd->heredoc)
-		buffer_heredoc_files(cmd, temp_pipe[WRITE], fd_heredocs, &buff);
+	// if (cmd->heredoc)
+	// 	buffer_heredoc_files(cmd, temp_pipe[WRITE], fd_heredocs, &buff);
 
 	dup2(temp_pipe[READ], STDIN_FILENO);
 	close(temp_pipe[READ]);

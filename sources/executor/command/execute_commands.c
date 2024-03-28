@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 15:22:01 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/03/28 15:30:40 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/28 16:25:06 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	execute_command(t_shell *shell, int i)
 
 	execve(cmd_path, formatted_cmd, shell->envp); // TODO protec
 }
+
+
 
 int	execute_commands(t_shell *shell)
 {

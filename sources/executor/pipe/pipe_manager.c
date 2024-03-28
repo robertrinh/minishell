@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/29 13:17:01 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/03/28 15:37:59 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/28 16:24:02 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 t_validation	dup_fds(t_pipes *pipes, t_cmd *cmd)
 {
 	t_validation	validation;
-	int 			*fd_ins;
-	int				*fd_heredocs;
 
 	validation = SUCCESS;
 

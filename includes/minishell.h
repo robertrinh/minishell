@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/28 15:23:23 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/28 17:05:09 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,6 @@ typedef struct s_cmd
 	t_redirect	*fd_in;
 	t_redirect	*fd_out;
 	t_redirect	*fd_err;
-	t_redirect	*heredoc;
 	char		*value;
 	char		**args;
 	char		**formatted_cmd;
@@ -332,7 +331,6 @@ void	iterate_pipes(t_pipes *pipes);
 
 // ----------------------------------- executor/redirects
 // redirect_heredoc
-int		*collect_heredocs(t_cmd *cmd);
 
 // redirect_in_files.c
 int		*collect_fd_in_files(t_cmd *cmd);
