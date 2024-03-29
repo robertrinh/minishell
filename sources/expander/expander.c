@@ -6,105 +6,11 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/24 16:28:41 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/29 22:23:43 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static char *skip_multiple_expand_chars(char *arg, int i)
-{
-	int		j;
-	int		k;
-	char	*buffer;
-
-	j = i;
-	k = 0;
-	buffer = safe_malloc(sizeof(char *) * ft_strlen(arg));
-	if (arg[j] == EXPAND_CHAR)
-	{
-		while (arg[j])
-		{
-			if (arg[j] != EXPAND_CHAR)
-			{
-				buffer[k] = '\0';
-				return (ft_str_remove(arg, buffer));
-			}
-			buffer[k] = arg[j];
-			k++;
-			j++;
-		}
-	}
-	return (arg);
-}
-
-static char	*get_env_key(char *arg, int i)
-{
-	int		j;
-	char	*key;
-
-	i += 1;
-	arg = skip_multiple_expand_chars(arg, i);
-	if (arg[i] == '?')
-		return ("?");
-	
-	if (ft_strlen(arg) == i + 1)
-		return (arg);
-	
-	j = 0;
-	key = safe_malloc(sizeof(char *) * ft_strlen(arg) + 1);
-	while (arg[i])
-	{
-		if (ft_isspace(arg[i]) || arg[i] == EXPAND_CHAR)
-			return (key);
-		key[j] = arg[i];
-		j++;
-		i++;
-	}
-	key[j] = '\0';
-	return (key);
-}
-
-static bool should_add_dollar_sign(char *arg, int i)
-{
-	while (arg[i])
-	{
-		if (arg[i] != '$')
-			return (true);
-		i++;
-	}
-	return (false);
-}
-
-static char	*expand_arg(char **env, char *arg, int i)
-{
-	char	*key;
-	char	*value;
-
-	if (ft_strlen(arg) == 1)
-		return (arg);
-		
-	key = get_env_key(arg, i);
-	value = get_value_for_key(env, key);
-
-	if (key[0] == '?')
-	{
-		key = ft_strjoin("$", key);
-		arg = ft_str_remove(arg, key);
-		arg = ft_str_insert(arg, ft_itoa(g_exit_code), i);
-		return (arg);
-	}
-
-	key = ft_strjoin("$", key);
-	arg = ft_str_remove(arg, key);
-
-	if (arg && value)
-		arg = ft_str_insert(arg, value, i);
-
-	free (key);
-	free (value);
-	return (arg);
-}
 
 static int	count_expand(char *arg)
 {
@@ -122,19 +28,40 @@ static int	count_expand(char *arg)
 	return (count);
 }
 
-// !	echo "hello $TERM$NOARG more"
+static char *expand_exit_code(char *arg, char *key, int i)
+{
+	key = ft_strjoin("$", key);
+	arg = ft_str_remove(arg, key);
+	arg = ft_str_insert(arg, ft_itoa(g_exit_code), i);
+	return (arg);
+}
 
-// !	echo $$$$$???
-// !	echo 123$????
-// !	echo hello$?
+static char	*expand_arg(char **env, char *arg, int i)
+{
+	char	*key;
+	char	*value;
 
-// !	echo e'ch'o
-// !	echo hel'll"o"'
-// !	echo hello"more more"hello
-// !	echo "hello $USER$TERM more"
-// !	echo "hello $USER more"
-// !	echo hello$USER
-// !	echo "hello $NOT_A_KEY"
+	if (ft_strlen(arg) == 1)
+		return (arg);
+	
+	key = get_env_key(arg, i);
+	ft_sleep(5000);
+	value = get_value_for_key(env, key);
+
+	if (key[0] == '?')
+		return (expand_exit_code(arg, key, i));
+
+	key = ft_strjoin("$", key);
+	arg = ft_str_remove(arg, key);
+
+	if (arg && value)
+		arg = ft_str_insert(arg, value, i);
+	
+	free (key);
+	free (value);
+	return (arg);
+}
+
 // TODO protect str_remove() & str_insert() 
 char	*will_expand(char **env, char *arg)
 {

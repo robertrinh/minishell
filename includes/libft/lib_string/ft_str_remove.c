@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/17 11:11:34 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/24 16:28:21 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/29 21:41:29 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ static char	*insert_buffer(char *base_input, char *buffer, int i)
 	return (base_input);
 }
 
-// 123?????
-
 char	*ft_str_remove(char *base_input, const char *remove)
 {
 	int		i;
@@ -88,5 +86,6 @@ char	*ft_str_remove(char *base_input, const char *remove)
 	base_input = insert_buffer(base_input, buffer, i);
 	free(buffer);
 
-	return (ft_realloc(base_input, ft_strlen(base_input)));
+	ft_realloc(base_input, ft_strlen(base_input));
+	return (base_input);
 }

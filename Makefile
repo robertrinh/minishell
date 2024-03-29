@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/03/28 21:40:33 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2024/03/29 22:16:28 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SOURCES_PARSER			=  parser_checks.c \
 							parser.c
 
 SOURCES_UTILS			= clean_exit.c \
+							control_utils.c \
 							env_utils.c \
 							error_messages.c \
 							function_protection.c \
@@ -78,7 +79,8 @@ SOURCES_EXECUTOR_REDIRECTS	= redirect_heredoc.c \
 
 SOURCES_EXECUTOR_SIGNALS	= signals.c
 
-SOURCES_EXPANDER		= expander.c
+SOURCES_EXPANDER		= expander.c \
+								get_env_key.c \
 
 
 # ===== Manage Directories =====

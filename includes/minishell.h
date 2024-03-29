@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/28 21:40:49 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/29 22:16:56 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,7 +327,7 @@ int		execute_commands(t_shell *shell);
 void	open_redirects(t_cmd *cmd);
 
 // single_command.c
-t_validation	single_command(t_shell *shell);
+int	single_command(t_shell *shell);
 t_validation	child_process(t_shell *shell);
 
 // ----------------------------------- executor/pipe
@@ -375,12 +375,18 @@ void	rl_replace_line(const char *text, int clear_undo);
 // expander.c
 char	*will_expand(char **env, char *arg);
 
+// get_env_key.c
+char	*get_env_key(char *arg, int i);
+
 
 //===============================================================: Utils
 // clean_exit.c
 void 	show_error_message(t_error_messages error_code, t_message_colors color, const char *arg);
 int		exit_with_message(t_error_messages error_code, t_message_colors color, int exit_code);
 void	finish_lexer(t_shell *shell);
+
+// control_utils.c
+void 	ft_sleep(size_t count);
 
 // env_utils.c
 char	*get_value_for_key(char **env, char *key);
