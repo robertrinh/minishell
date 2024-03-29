@@ -6,9 +6,10 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/03/28 15:23:15 by qtrinh        ########   odam.nl          #
+#    Updated: 2024/03/28 21:40:33 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
+
 
 # ===== Colors =====
 BOLD				:= \033[1m
@@ -71,6 +72,7 @@ SOURCES_EXECUTOR_PIPE	= pipe_manager.c \
 SOURCES_EXECUTOR_REDIRECTS	= redirect_heredoc.c \
 								redirect_in_files.c \
 								redirect_open.c \
+								redirect_out_files.c \
 								redirect_types.c \
 								redirect_utils.c
 

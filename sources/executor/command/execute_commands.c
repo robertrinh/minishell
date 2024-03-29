@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 15:22:01 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/03/22 18:14:14 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/03/28 17:38:18 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ void	execute_command(t_shell *shell, int i)
 	cmd_path = shell->cmd_table->cmds[i]->cmd_path;
 	formatted_cmd = shell->cmd_table->cmds[i]->formatted_cmd;
 
-	execve(cmd_path, formatted_cmd, shell->envp); //TODO protect incase of fail
+	execve(cmd_path, formatted_cmd, shell->envp); // TODO protec
 }
+
+
 
 int	execute_commands(t_shell *shell)
 {
@@ -34,14 +36,13 @@ int	execute_commands(t_shell *shell)
     while (i < shell->cmd_table->cmd_count) 
 	{
         prepare_command(shell, i);
-		open_in_redirects(shell->cmd_table->cmds[i]);
+		if (shell->cmd_table->cmds[i]->fd_in)
+			redirect_in_files(shell->cmd_table->cmds[i]);
 		will_open_pipe(shell->cmd_table, pipes, i);
         new_process(shell, i, pipes);
 		iterate_pipes(pipes);
 		i++;
     }
-
-    // Close the last pipe ends
 	will_close_pipes(pipes);
     return (SUCCESS);
 }

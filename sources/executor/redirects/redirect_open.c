@@ -6,36 +6,48 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/23 15:04:57 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/03/02 11:43:56 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/28 21:30:28 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static int open_file_for_type(char *file_name, t_redirect_type type)
+int	safe_open(const char *path, t_redirect_type oflag, int mode)
 {
 	int		fd;
 
+	if (mode == 0)
+		mode = 0644;
 	fd = STDIN_FILENO;
-	fd = open(file_name, get_open_flag_for_type(type));
+	fd = open(path, oflag, mode);
 	if (fd == -1)
-	{
-		return (-1);
-	}
+		show_error_message(ERROR_OPENING_FILE, RED, path);
 	return (fd);
 }
 
-void	open_in_redirects(t_cmd *cmd)
+t_in_files	*open_in_files(t_cmd *cmd, t_in_files *ins, t_redirect_type type)
 {
-	t_redirect	*fd;
-	t_redirect	*fd_head;
+	int			i;
+	t_redirect	*in_files;
 
-	fd = cmd->fd_in;
-	fd_head = cmd->fd_in;
-	while (fd)
+	i = 0;
+	in_files = cmd->fd_in;
+
+	while (in_files)
 	{
-		fd->fd = open_file_for_type(fd->value, IN);
-		fd = fd->next;
+		if (in_files->type == type && type == IN_APPEND)
+		{
+			ins->heredocs[i] = setup_heredoc(in_files);
+			i++;
+		}
+		if (in_files->type == type && type == IN)
+		{
+			ins->infiles[i] = safe_open(in_files->value, get_open_flag_for_type(IN), 0);
+			i++;
+		}
+		if (in_files->next == NULL)
+			break ;
+		in_files = in_files->next;
 	}
-	cmd->fd_in = fd_head;
+	return (ins);
 }

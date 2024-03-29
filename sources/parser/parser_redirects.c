@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser_redirects.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/21 20:55:56 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/02/29 14:01:55 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parser_redirects.c                                 :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/21 20:55:56 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/03/28 17:00:08 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,33 @@ static t_redirect	*construct_redirect_file(t_token *token)
 	t_redirect	*file;
 
 	file = safe_malloc(sizeof(t_redirect));
-	file->value = token->next->value;
+	if (token->next)
+		file->value = token->next->value;
 	file->fd = 0;
 	file->type = assign_file_type(token->value);
 	file->next = NULL;
 	return (file);
 }
 
-// !  test << this << this more | and << more
+static t_redirect	*construct_redirect_files(t_redirect *files, t_token *current)
+{
+	files->next = construct_redirect_file(current);
+	files = files->next;
+	return (files);
+}
+
+static bool		should_add_files(t_token_type current_type, t_token_type type)
+{
+	if (current_type == REDIR_OUT && type == REDIR_OUT)
+		return (true);
+	else if (current_type == REDIR_IN || current_type == REDIR_IN_APPEND)
+	{
+		if (type == REDIR_IN)
+			return (true);
+	}
+	return (false);
+}
+
 static t_redirect	*redirects_for_type(t_cmd *cmd, t_parse *p, t_token_type type)
 {
 	t_redirect	*files;
@@ -49,19 +68,15 @@ static t_redirect	*redirects_for_type(t_cmd *cmd, t_parse *p, t_token_type type)
 	current = p->tokens_c;
 	while (current)
 	{
-		if (current->type == type)
+		if (should_add_files(current->type, type))
 		{
-			// TODO sub function
 			if (files == NULL)
 			{
 				files = construct_redirect_file(current);
 				files_head = files;
 			}
 			else
-			{
-				files->next = construct_redirect_file(current);
-				files = files->next;		
-			}
+				files = construct_redirect_files(files, current);
 		}
 		if (current->type == PIPE)
 			break ;
@@ -74,6 +89,5 @@ t_cmd	*construct_redirects(t_cmd *cmd, t_parse *p)
 {
 	cmd->fd_in = redirects_for_type(cmd, p, REDIR_IN);
 	cmd->fd_out = redirects_for_type(cmd, p, REDIR_OUT);
-	cmd->heredoc = redirects_for_type(cmd, p, REDIR_IN_APPEND);
 	return (cmd);
 }

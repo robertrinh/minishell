@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   error_messages.h                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 20:04:35 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/02/29 13:32:52 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   error_messages.h                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/03/28 12:18:47 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ typedef enum e_error_messages
 	ERROR_UNMATCHED_QUOTE,
 	ERROR_UNMATCHED_PIPE,
 	ERROR_UNMATCHED_REDIRECT,
-	ERROR_MALLOC
+	ERROR_MALLOC,
+	ERROR_OPENING_FILE
 }	t_error_messages;
 
 // Colors

@@ -1,18 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   redirect_utils.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/24 13:07:55 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/02/29 14:01:10 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   redirect_utils.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/24 13:07:55 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/03/28 21:32:09 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-int		count_redirects_for_type(t_cmd *cmd, t_redirect_type type)
+t_redirect_type last_infile_type(t_cmd *cmd)
+{
+	t_redirect			*in_files;
+	t_redirect_type		type;
+
+	in_files = cmd->fd_in;
+	while (in_files)
+	{
+		type = in_files->type;
+		in_files = in_files->next;
+	}
+	return (type);
+}
+
+int		count_files_for_type(t_cmd *cmd, t_redirect_type type)
 {
 	int			count;
 	t_redirect	*fd;
@@ -23,7 +37,8 @@ int		count_redirects_for_type(t_cmd *cmd, t_redirect_type type)
 		return (count);
 	while (fd)
 	{
-		count++;
+		if (fd->type == type)
+			count++;
 		fd = fd->next;
 	}
 	return (count);

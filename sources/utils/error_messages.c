@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   error_messages.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 20:36:44 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/02/29 13:30:44 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   error_messages.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/15 20:36:44 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/03/28 15:24:00 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ const char* error_messages[] = {
     "ERROR unmatched quote",
 	"ERROR unmatched pipe",
 	"ERROR unmatched redirect",
-    "ERROR malloc failure"
+    "ERROR malloc failure",
+	"ERROR cound not open file:"
 };
 
 const char* color_codes[] = {
