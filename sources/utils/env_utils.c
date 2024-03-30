@@ -6,25 +6,26 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:19:19 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/22 16:22:47 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/03/29 20:48:13 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char *buffer_env_value(char *env_row, int i)
+static char *buffer_env_value(char *env_row, char *key, int i)
 {
 	char	*value;
 	int		j;
+	int		len;
 
 	i += 1;
 	j = 0;
-	value = safe_malloc(sizeof(char *) * ft_strlen(env_row) + 1);
-
+	len = ft_strlen(env_row) - ft_strlen(key) + 1;
+	value = safe_malloc(sizeof(char *) * len);
 	while (env_row[i])
 	{
 		if (ft_isspace(env_row[i]))
-			return (value);
+			break ;
 		value[j] = env_row[i];
 		j++;
 		i++;
@@ -51,7 +52,7 @@ char	*get_value_for_key(char **env, char *key)
 	while (env[row_index][i])
 	{
 		if (env[row_index][i] == '=')
-			return (buffer_env_value(env[row_index], i));
+			return (buffer_env_value(env[row_index], key, i));
 		i++;
 	}
 	return (NULL);
