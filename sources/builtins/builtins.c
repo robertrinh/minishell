@@ -6,13 +6,13 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/01 14:47:56 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/03/28 18:28:21 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/04/03 22:15:00 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	is_single_builtin(char *cmd_value) // ! ugly but for testing :)
+bool	is_single_builtin(char *cmd_value)
 {
 	if (cmd_value == NULL)
 		return (false);

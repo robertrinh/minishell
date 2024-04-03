@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/15 12:54:02 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/29 22:43:51 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	tokens_builder_manager(t_shell *shell)
 int	lexer_manager(t_shell *shell)
 {
 	if (validate_quotes(shell) == FAILURE)
-		return (exit_with_message(ERROR_UNMATCHED_QUOTE, RED, 0));
+		return (show_error_message(ERROR_UNMATCHED_QUOTE, RED, ""));
 	if (tokens_builder_manager(shell) == SUCCESS)
 		return (SUCCESS);
 	return (FAILURE);

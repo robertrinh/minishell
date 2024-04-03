@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/29 15:13:49 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/03 22:39:45 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static bool	retrieve_command(t_shell *shell)
 	command = readline(CYELLOW "[minishell]: " RESET_COLOR);
 	if (command == NULL)
 	{
-		write(1, "exit\n", 6);
+		write(1, "readline NULL\n", 16);
 		exit(0);
 	}
 	save_command(command, shell);

@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/28 12:35:51 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/28 16:03:36 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/03 22:03:56 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,6 @@ static int	open_out_files(t_cmd *cmd)
 	cmd->fd_out = fd_lst_head;
 	return (fd_lst_last->fd);
 }
-
-// !	echo hello > out1 > out2
-// !	echo hello > out1 > out2 | wc
 
 t_validation	redirect_out(t_cmd *cmd)
 {

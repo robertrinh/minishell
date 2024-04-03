@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/18 21:07:32 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/24 16:35:05 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/29 22:41:44 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ bool	parser_checks(t_token *tokens)
 	if (tokens == NULL)
 		return (FAILURE);
 	if (check_pipes(tokens) == FAILURE)
-		return (exit_with_message(ERROR_UNMATCHED_PIPE, RED, 0));
+		return (show_error_message(ERROR_UNMATCHED_PIPE, RED, ""));
 	if (check_redirects(tokens) == FAILURE)
-		return (exit_with_message(ERROR_UNMATCHED_REDIRECT, RED, 0));
+		return (show_error_message(ERROR_UNMATCHED_REDIRECT, RED, ""));
 	return (SUCCESS);
 }

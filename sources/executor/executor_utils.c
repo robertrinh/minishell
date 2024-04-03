@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 19:43:07 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/28 21:41:16 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/03 22:13:28 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ int	new_process(t_shell *shell, int i, t_pipes *pipes)
 	int	status;
 	pid_t pid;
 	
+	
     pid = fork();
-	handle_signals(CHILD);
     if (pid == 0) 
 	{
+		handle_signals(CHILD);
 		if (dup_fds(pipes, shell->cmd_table->cmds[i]) == SUCCESS)
         	execute_command(shell, i);
     }

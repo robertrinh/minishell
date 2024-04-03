@@ -12,6 +12,8 @@ grep aa << EOF
 echo hello to this >> input.txt 
 cat README.md > input.txt
 echo hello > input.txt
+echo hello > out1 > out2
+echo hello > out1 > out2 | wc
 
 bugs:
 <<EOF (fixed)
@@ -65,3 +67,9 @@ echo hello$USER
 echo "hello $NOT_A_KEY"
 echo "my name is $USER and I use $TERM"
 echo "hello '$USER' more"
+
+
+=== ERROR MESSAGES ===
+echo >
+echo <<
+echo > |

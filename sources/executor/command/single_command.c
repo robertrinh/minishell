@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/03/29 14:53:22 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/03 22:08:19 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "../../../includes/minishell.h"
 
-static t_validation	assign_redirects(t_cmd *cmd)
+static t_validation	assign_out_redirects(t_cmd *cmd)
 {
 	t_validation	validation;
 	int 			*fd_ins;
@@ -28,7 +28,7 @@ static t_validation	assign_redirects(t_cmd *cmd)
 
 t_validation	child_process(t_shell *shell)
 {
-	if (assign_redirects(shell->cmd_table->cmds[0]) == SUCCESS)
+	if (assign_out_redirects(shell->cmd_table->cmds[0]) == SUCCESS)
 	{
 		if (is_builtin(shell->cmd_table->cmds[0]->value))
 			exec_builtin(shell->cmd_table->cmds[0], shell);
@@ -48,9 +48,10 @@ int	single_command(t_shell *shell)
 	pid_t			pid;
 	int				exit_status;
 
-	pid = fork();
 	handle_signals(CHILD);
 	redirect_in_files(shell->cmd_table->cmds[0]);
+	
+	pid = fork();
 	if (pid == -1)
 	{
 		// TODO exit
@@ -62,5 +63,4 @@ int	single_command(t_shell *shell)
 	if (WIFEXITED(exit_status))
 		return (WEXITSTATUS(exit_status));
 	return(WEXITSTATUS(g_exit_code));
-// 	return (-1); // *in case of abnormal child process termination
 }

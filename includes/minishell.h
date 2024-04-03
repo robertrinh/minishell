@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/29 22:16:56 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/03 21:59:57 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,7 +346,7 @@ void	iterate_pipes(t_pipes *pipes);
 int		setup_heredoc(t_redirect *heredoc);
 
 // redirect_in_files.c
-void	redirect_in_files(t_cmd *cmd);
+t_validation	redirect_in_files(t_cmd *cmd);
 
 
 // redirect_open.c
@@ -381,9 +381,9 @@ char	*get_env_key(char *arg, int i);
 
 //===============================================================: Utils
 // clean_exit.c
-void 	show_error_message(t_error_messages error_code, t_message_colors color, const char *arg);
-int		exit_with_message(t_error_messages error_code, t_message_colors color, int exit_code);
-void	finish_lexer(t_shell *shell);
+t_validation 	show_error_message(t_error_messages error_code, t_message_colors color, const char *arg);
+int				exit_with_message(t_error_messages error_code, t_message_colors color, int exit_code);
+void			finish_lexer(t_shell *shell);
 
 // control_utils.c
 void 	ft_sleep(size_t count);
