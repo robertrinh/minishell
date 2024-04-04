@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 22:08:44 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/28 21:31:59 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/03 21:59:41 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void dup_infile(t_cmd *cmd, t_in_files *ins, t_redirect_type type)
 		dup_for_fd(ins->infiles[index]);
 }
 
-void	redirect_in_files(t_cmd *cmd)
+t_validation	redirect_in_files(t_cmd *cmd)
 {
 	t_redirect_type		last_type;
 	t_in_files			*ins;
@@ -83,4 +83,5 @@ void	redirect_in_files(t_cmd *cmd)
 	close_in_files(cmd, ins, IN_APPEND);
 	close_in_files(cmd, ins, IN);
 	free (ins);
+	return (SUCCESS);
 }

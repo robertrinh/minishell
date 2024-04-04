@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/25 11:15:17 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/29 15:09:32 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/03 22:37:30 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	perform_heredoc(int fd, t_redirect *heredoc)
 		{
 			if (line)
 				free(line);
-			exit(0);
+			return (0);
 		}
 		line = ft_strjoin(line, "\n");
 		write(fd, line, ft_strlen(line));
@@ -60,12 +60,13 @@ int	setup_heredoc(t_redirect *heredoc)
 	if (pid == 0)
 	{
 		handle_signals(HEREDOC);
-		perform_heredoc(fd[WRITE], heredoc);
+		if (perform_heredoc(fd[WRITE], heredoc) == 0)
+			exit(0);
 	}
 	else if (pid > 0)
 	{
-		waitpid(pid, NULL, 0);
 		close(fd[WRITE]);
+		waitpid(pid, NULL, 0);
 	}
 	return (fd[READ]);
 }

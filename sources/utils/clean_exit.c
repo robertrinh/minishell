@@ -6,15 +6,16 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/07 12:29:05 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/28 15:55:41 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/03/29 22:37:14 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void show_error_message(t_error_messages error_code, t_message_colors color, const char *arg)
+t_validation show_error_message(t_error_messages error_code, t_message_colors color, const char *arg)
 {
 	printf("%s%s %s %s\n", color_codes[color], error_messages[error_code], arg, RESET_COLOR);
+	return (FAILURE);
 }
 
 int	exit_with_message(t_error_messages error_code, t_message_colors color, int exit_code)
