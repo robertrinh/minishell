@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/03 22:39:45 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/04 16:44:15 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ static bool	run(t_shell *shell)
 	{
 		handle_signals(PARENT);
 		retrieve_command(shell);
+		if (shell->input[0] == '\0')
+		{
+			free(shell->input);
+			continue ;
+		}
 		if (lexer_manager(shell) == SUCCESS)
 		{
 			finish_lexer(shell);
@@ -53,6 +58,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_shell	*shell;
 
+	(void) argc;
 	shell = shell_init(envp, argv);
 	run(shell);
 	return (EXIT_SUCCESS);

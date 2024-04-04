@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/04/03 22:08:19 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/04 20:39:38 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 static t_validation	assign_out_redirects(t_cmd *cmd)
 {
 	t_validation	validation;
-	int 			*fd_ins;
-	int				*fd_heredocs;
+	// int 			*fd_ins; // ? unused
+	// int				*fd_heredocs; // ? unused
 
 	validation = SUCCESS;
 	if (cmd->fd_out)
@@ -48,9 +48,9 @@ int	single_command(t_shell *shell)
 	pid_t			pid;
 	int				exit_status;
 
+	(void)validation;
 	handle_signals(CHILD);
 	redirect_in_files(shell->cmd_table->cmds[0]);
-	
 	pid = fork();
 	if (pid == -1)
 	{

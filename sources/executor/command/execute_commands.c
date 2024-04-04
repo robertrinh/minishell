@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 15:22:01 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/03/28 17:38:18 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/04 17:46:13 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	execute_command(t_shell *shell, int i)
 int	execute_commands(t_shell *shell)
 {
     int	i;
-	int	exit_status;
+	// int	exit_status;
 	t_pipes	*pipes;
 	
 	i = 0;

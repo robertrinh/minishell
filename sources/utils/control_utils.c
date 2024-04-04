@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/29 21:56:32 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/29 21:58:02 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/04 16:46:46 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void ft_sleep(size_t count)
 {
-	int	i;
-	int j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = 0;

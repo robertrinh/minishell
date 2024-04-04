@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/29 22:23:43 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/04 20:42:40 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	count_expand(char *arg)
 	return (count);
 }
 
-static char *expand_exit_code(char *arg, char *key, int i)
+static char *expand_exit_code(char *arg, char *key, size_t i)
 {
 	key = ft_strjoin("$", key);
 	arg = ft_str_remove(arg, key);
@@ -36,7 +36,7 @@ static char *expand_exit_code(char *arg, char *key, int i)
 	return (arg);
 }
 
-static char	*expand_arg(char **env, char *arg, int i)
+static char	*expand_arg(char **env, char *arg, size_t i)
 {
 	char	*key;
 	char	*value;
@@ -65,7 +65,7 @@ static char	*expand_arg(char **env, char *arg, int i)
 // TODO protect str_remove() & str_insert() 
 char	*will_expand(char **env, char *arg)
 {
-	int		i;
+	size_t	i;
 	int		expand_count;
 	int		expanded_count;
 

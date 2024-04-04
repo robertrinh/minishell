@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/03 21:59:57 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/04 20:43:52 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ typedef struct	s_shell
 	t_token				*tokens;
 	t_cmd_table			*cmd_table;
 	char				**envp;
-	char const			*input;
+	char				*input;
 	int					single_quote;
 	int					double_quote;
 	bool				print_output;
@@ -276,47 +276,47 @@ int		new_process(t_shell *shell, int i, t_pipes *pipes);
 int		execute(t_shell *shell);
 
 // ----------------------------------- executor/builtins
-typedef struct s_builtin_entry
-{
-    char	*name;
-    int		(*function)(t_cmd*, t_shell*);
-} t_builtin_entry;
+// typedef struct s_builtin_entry
+// {
+//     char	*name;
+//     int		(*function)(t_cmd*, t_shell*);
+// } t_builtin_entry;
 
 // builtins.c
-bool	is_single_builtin(char *cmd_value);
-int		exec_single_builtin(t_cmd *cmd, t_shell *shell);
-bool	is_builtin(char *cmd);
+bool	is_special_builtin(char *cmd_value);
+int		exec_special_builtin(t_cmd *cmd, t_shell *shell);
+bool	is_builtin(char *cmd_value);
 int		exec_builtin(t_cmd *cmd, t_shell *shell);
 
 // cd.c
 int		cd(t_cmd *cmd, t_shell *shell);
 
 // echo.c
-int		echo(t_cmd *cmd, t_shell *shell);
+int		echo(t_cmd *cmd);
 
 // env.c
-int		env(t_cmd *cmd, t_shell *shell);
+int		env(t_shell *shell);
 
 // exit.c
-int		exit_shell(t_cmd *cmd, t_shell *shell);
+int		exit_shell(t_cmd *cmd);
 
 // export.c
 int		export(t_cmd *cmd, t_shell *shell);
 
 // pwd.c
-int		pwd(t_cmd *cmd, t_shell *shell);
+int		pwd(void);
 
 // unset.c
 int		unset(t_cmd *cmd, t_shell *shell);
 
-static const t_builtin_entry builtin_table[] = {
-    {"echo", echo},
-    {"pwd", pwd},
-	{"export", export},
-	{"unset", unset},
-	{"env", env},
-	{"exit", exit_shell},
-};
+// static const t_builtin_entry builtin_table[] = {
+//     {"echo", echo},
+//     {"pwd", pwd},
+// 	{"export", export},
+// 	{"unset", unset},
+// 	{"env", env},
+// 	{"exit", exit_shell},
+// };
 
 // ----------------------------------- executor/command
 // execute_commands.c
@@ -376,7 +376,7 @@ void	rl_replace_line(const char *text, int clear_undo);
 char	*will_expand(char **env, char *arg);
 
 // get_env_key.c
-char	*get_env_key(char *arg, int i);
+char	*get_env_key(char *arg, size_t i);
 
 
 //===============================================================: Utils

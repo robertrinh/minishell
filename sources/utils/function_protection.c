@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/29 13:21:05 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/03/22 16:06:01 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/04 20:54:20 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	*safe_malloc(size_t size)
 {
 	void	*ptr;
-	
+
 	ptr = malloc(size);
 	if (ptr == NULL)
 	{

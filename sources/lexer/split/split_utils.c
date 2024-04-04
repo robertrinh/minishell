@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/17 15:59:08 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/01/17 16:07:56 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/04/04 16:45:05 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	is_white_space(char c)
 {
-	if (c >= 9 && c <= 13 || c == 32)
+	if ((c >= 9 && c <= 13) || c == 32)
 		return (true);
 	return (false);
 }

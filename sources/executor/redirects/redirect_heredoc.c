@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/25 11:15:17 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/03 22:37:30 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/04 20:40:08 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool is_eof(char *line, char *eof)
 {
-	int		eof_len;
+	size_t	eof_len;
 
 	eof_len = ft_strlen(eof);
 	if (ft_strlen(line) != eof_len)

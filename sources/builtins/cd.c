@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/28 14:31:20 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/03/28 18:26:35 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/04/04 16:47:09 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	set_home_directory(t_cmd *cmd, t_shell *shell)
 int	cd(t_cmd *cmd, t_shell *shell)
 {
 	char	cwd[1024];
-	char	**path;
+	// char	**path;
 	
 	getcwd(cwd, 1024);
 	printf("cwd: %s\n", cwd);
