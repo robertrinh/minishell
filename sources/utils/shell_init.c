@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/14 14:04:02 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/04 20:57:35 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/04 21:00:28 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ t_shell	*shell_init(char **envp, char **argv)
 {
 	t_shell	*shell;
 
-	(void)envp;
 	shell = safe_malloc(sizeof(t_shell));
 	shell->cmd_table = init_cmd_table();
 	shell->envp = alloc_envp(envp);

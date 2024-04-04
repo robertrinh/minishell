@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/05 14:17:27 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/03/24 09:05:31 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/04 21:06:22 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,25 +61,18 @@ static int	count_substrings(t_split *sp)
 char	**split(t_shell *shell)
 {
 	t_split		*split;
+	char		**split_string;
 
 	split = safe_malloc(sizeof(t_split));
 	split = init_split(shell, split);
-
-	// 1. Count substrings
 	split->count = count_substrings(split);
-
-	// 2. Malloc substring for count
 	split->strings = ft_calloc(sizeof(char *), (split->count + 1));
 	if (split->strings == NULL)
 	{
 		// TODO clean_exit()
 	}
-
-	// 3. Assign strings
 	split->strings = allocate_strings_split(split);
-
+	split_string = split->strings;
 	free(split);
-
-	// 4. Free split struct
-	return (split->strings);
+	return (split_string);
 }
