@@ -39,6 +39,7 @@ LIB_STRING = ft_strlcpy.c \
 			ft_strtrim.c \
 			ft_str_insert.c \
 			ft_str_remove.c \
+			ft_str_remove_char.c \
 
 LIB_APPLY = ft_strmapi.c \
 			ft_striteri.c \

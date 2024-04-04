@@ -6,38 +6,51 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/24 09:51:56 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/29 22:02:25 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/04 21:03:04 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char *char_to_string(char c)
+static int next_quote_char(char *arg, int i, int quote_char)
 {
-	char *str;
-
-	str = safe_malloc(sizeof(char *) * 2);
-	str[0] = c;
-	str[1] = '\0';
-	return (str);
-}
-
-static char *strip_quotes_forward(char *arg, int quote_char)
-{
-	int		i;
 	int		len;
-	char	*quote_str;
 
-	i = 0;
+	i++;
 	len = ft_strlen(arg);
 	while (i < len)
 	{
 		if (arg[i] == quote_char)
+			return (i);
+		i++;
+	}
+	return (i);
+}
+
+static char *strip_quotes(char *arg)
+{
+	int		i;
+	int		len;
+	int		quote_type;
+
+	i = 0;
+	len = ft_strlen(arg);
+	
+	while (i < len)
+	{
+		if (is_quote(arg[i]))
 		{
-			quote_str = char_to_string(quote_char);
-			arg = ft_str_remove(arg,  quote_str);
-			free(quote_str);
+			quote_type = is_quote(arg[i]);
+			arg = ft_str_remove_char(arg, i, quote_type);
 			i--;
+
+			i = next_quote_char(arg, i, quote_type);
+			
+			if (is_quote(arg[i]) == quote_type)
+				arg = ft_str_remove_char(arg, i, quote_type);
+			
+			i--;
+			len = ft_strlen(arg);
 		}
 		i++;
 	}
@@ -46,6 +59,6 @@ static char *strip_quotes_forward(char *arg, int quote_char)
 
 char	*strip_quote_for_type(char *arg, int quote_char)
 {
-	arg = strip_quotes_forward(arg, quote_char);
+	arg = strip_quotes(arg);
 	return (arg);
 }

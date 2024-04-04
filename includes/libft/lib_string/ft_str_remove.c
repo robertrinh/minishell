@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/17 11:11:34 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/29 21:41:29 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/04 20:02:20 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	locate_substring(char *base_input, const char *needle)
 	return (i);
 }
 
-static char	*buffer_trailing_string(char *base_input, int remove_len, int i)
+char	*buffer_trailing_string(char *base_input, int remove_len, int i)
 {
 	int		j;
 	char	*buffer;
@@ -45,7 +45,7 @@ static char	*buffer_trailing_string(char *base_input, int remove_len, int i)
 	return (buffer);
 }
 
-static char	*insert_buffer(char *base_input, char *buffer, int i)
+char	*insert_buffer(char *base_input, char *buffer, int i)
 {
 	int		j;
 
