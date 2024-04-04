@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/14 14:04:02 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/04 21:00:28 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/04 22:40:42 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static char	**alloc_envp(char **envp)
 		copy_envp[i] = ft_strdup(envp[i]); // TODO protect
 		i++;
 	}
+	copy_envp[i] = 0; // ? gives heap overflow??
 	return (copy_envp);
 }
 

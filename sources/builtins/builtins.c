@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/01 14:47:56 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/04 17:41:56 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/04 22:37:54 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ bool is_builtin(char *cmd_value)
 {
 	if (cmd_value == NULL)
 		return (false);
-	if (ft_strncmp(cmd_value, "echo", 5) == 0)
+	if (is_special_builtin(cmd_value))
+		return (true);
+	else if (ft_strncmp(cmd_value, "echo", 5) == 0)
 		return (true);
 	else if (ft_strncmp(cmd_value, "env", 4) == 0)
 		return (true);
@@ -55,10 +57,12 @@ bool is_builtin(char *cmd_value)
 }
 int	exec_builtin(t_cmd *cmd, t_shell *shell)
 {
+	if (is_special_builtin(cmd->value))
+		exit(0);
 	if (ft_strncmp(cmd->value, "echo", 5) == 0)
 		g_exit_code = echo(cmd);
 	else if (ft_strncmp(cmd->value, "env", 3) == 0)
-		g_exit_code = cd(cmd, shell);
+		g_exit_code = env(shell);
 	else if (ft_strncmp(cmd->value, "pwd", 7) == 0)
 		g_exit_code = pwd();
 	return (g_exit_code);
