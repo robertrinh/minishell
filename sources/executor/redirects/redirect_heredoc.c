@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   redirect_heredoc.c                                 :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/25 11:15:17 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/04 20:40:08 by robertrinh    ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   redirect_heredoc.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/25 11:15:17 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/04/05 15:29:35 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	perform_heredoc(int fd, t_redirect *heredoc)
 		{
 			if (line)
 				free(line);
-			return (0);
+			return (1);
 		}
 		line = ft_strjoin(line, "\n");
 		write(fd, line, ft_strlen(line));
@@ -60,7 +60,7 @@ int	setup_heredoc(t_redirect *heredoc)
 	if (pid == 0)
 	{
 		handle_signals(HEREDOC);
-		if (perform_heredoc(fd[WRITE], heredoc) == 0)
+		if (perform_heredoc(fd[WRITE], heredoc))
 			exit(0);
 	}
 	else if (pid > 0)

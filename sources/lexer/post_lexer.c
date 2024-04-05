@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   post_lexer.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/01/12 16:19:25 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/04/04 22:18:01 by robertrinh    ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   post_lexer.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/12 16:19:25 by qbeukelm          #+#    #+#             */
+/*   Updated: 2024/04/05 14:44:57 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static t_token	*skip_operators(t_token *current)
 
 static t_token	*assign_cmd_arg(t_token *current, int i)
 {
-	if (current->type == NONE && i == 0)
+	if (current->type == NONE || i == 0)
 		current->type = COMMAND;
 	else if (current->next)
 		current = current->next;
@@ -80,12 +80,16 @@ static bool	assign_lexer_types(t_token *tokens)
 	while (current)
 	{
 		if (current->type == NONE && is_special_type(current->type) == false)
+		{
+			i = 0;
 			current = assign_cmd_arg(current, i);
+		}
 		if (current->type == PIPE)
 		{
 			if (current->next)
 			{
 				current = skip_operators(current);
+				i = 0;
 				current = assign_cmd_arg(current, i);
 			}
 		}

@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   shell_init.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/14 14:04:02 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/04 22:40:42 by robertrinh    ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   shell_init.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/14 14:04:02 by qtrinh            #+#    #+#             */
+/*   Updated: 2024/04/05 15:21:57 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	count_substrings(char **strings)
-{
-	int	i;
-
-	i = 0;
-	while (strings[i])
-		i++;
-	return (i);
-}
 
 static char	**alloc_envp(char **envp)
 {
@@ -28,7 +18,7 @@ static char	**alloc_envp(char **envp)
 	char	**copy_envp;
 
 	i = 0;
-	copy_envp = safe_malloc(sizeof(char *) * count_substrings(envp));
+	copy_envp = safe_malloc(sizeof(char *) * env_size(envp) + 1);
 	while (envp[i])
 	{
 		copy_envp[i] = ft_strdup(envp[i]); // TODO protect

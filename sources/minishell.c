@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/04 16:44:15 by robertrinh    ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 13:13:49 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/04/05 15:52:40 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 int g_exit_code = 0;
 
-static bool	retrieve_command(t_shell *shell)
+static bool	retrieve_command(t_shell *shell, int original_stdin)
 {
 	char	*command;
 
+	dup2(original_stdin, STDIN_FILENO);
 	command = readline(CYELLOW "[minishell]: " RESET_COLOR);
 	if (command == NULL)
 	{
@@ -27,15 +28,19 @@ static bool	retrieve_command(t_shell *shell)
 	save_command(command, shell);
 	if (command)
 		add_history(command);
+		
+	// TODO free (command);
 	return (SUCCESS);
 }
 
 static bool	run(t_shell *shell)
 {
+	int original_stdin = dup(STDIN_FILENO);
+	
 	while (1)
 	{
 		handle_signals(PARENT);
-		retrieve_command(shell);
+		retrieve_command(shell, original_stdin);
 		if (shell->input[0] == '\0')
 		{
 			free(shell->input);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   execute_commands.c                                 :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/22 15:22:01 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/04 22:27:24 by robertrinh    ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   execute_commands.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/22 15:22:01 by qtrinh            #+#    #+#             */
+/*   Updated: 2024/04/05 15:07:12 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	execute_command(t_shell *shell, int i)
 	cmd_path = shell->cmd_table->cmds[i]->cmd_path;
 	formatted_cmd = shell->cmd_table->cmds[i]->formatted_cmd;
 	
-	printf("cmd_path is %s\n", cmd_path);
-	printf("formatted_cmd is %s\n", formatted_cmd[0]);
 	if (execve(cmd_path, formatted_cmd, shell->envp) == -1)
 	{
 		printf("execve failed\n"); // TODO protec

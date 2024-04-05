@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   single_command.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/04/04 22:35:26 by robertrinh    ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   single_command.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/02 14:28:14 by qbeukelm          #+#    #+#             */
+/*   Updated: 2024/04/05 15:15:00 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_validation	assign_out_redirects(t_cmd *cmd)
 	return (validation);
 }
 
-t_validation	child_process(t_shell *shell)
+void	child_process(t_shell *shell)
 {
 	if (assign_out_redirects(shell->cmd_table->cmds[0]) == SUCCESS)
 	{
@@ -33,18 +33,17 @@ t_validation	child_process(t_shell *shell)
 			prepare_command(shell, 0);
 			execute_command(shell, 0);
 		}
-		return (SUCCESS);
+		return ;
 	}
-	return (FAILURE);
+	return ;
 }
 
 int	single_command(t_shell *shell)
 {
-	t_validation	validation;
 	pid_t			pid;
 	int				exit_status;
 
-	// (void)validation;
+	exit_status = 0;
 	handle_signals(CHILD);
 	redirect_in_files(shell->cmd_table->cmds[0]);
 	pid = fork();
@@ -53,10 +52,10 @@ int	single_command(t_shell *shell)
 		// TODO exit
 	}
 	if (pid == 0)
-		validation = child_process(shell);
+		child_process(shell);
 	else if (pid > 0)
 		waitpid(pid, &exit_status, 0);
-	printf("validation is: %d\n", validation);
+
 	if (WIFEXITED(exit_status))
 		return (WEXITSTATUS(exit_status));
 	return(WEXITSTATUS(g_exit_code));
