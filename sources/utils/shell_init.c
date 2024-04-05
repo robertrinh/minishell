@@ -6,13 +6,13 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/14 14:04:02 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/03/28 15:01:17 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/04/04 22:40:42 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int		count_substrings(char **strings)
+static int	count_substrings(char **strings)
 {
 	int	i;
 
@@ -34,7 +34,7 @@ static char	**alloc_envp(char **envp)
 		copy_envp[i] = ft_strdup(envp[i]); // TODO protect
 		i++;
 	}
-	copy_envp[i] = 0;
+	copy_envp[i] = 0; // ? gives heap overflow??
 	return (copy_envp);
 }
 

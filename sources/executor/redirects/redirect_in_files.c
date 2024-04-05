@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 22:08:44 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/03 21:59:41 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/04 21:32:56 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,13 @@ static void dup_infile(t_cmd *cmd, t_in_files *ins, t_redirect_type type)
 	int		index;
 
 	index = count_files_for_type(cmd, type) - 1;
-	if (type == IN_APPEND)
-		dup_for_fd(ins->heredocs[index]);
-	else if (type == IN)
-		dup_for_fd(ins->infiles[index]);
+	if (index >= 0)
+	{
+		if (type == IN_APPEND)
+			dup_for_fd(ins->heredocs[index]);
+		else if (type == IN)
+			dup_for_fd(ins->infiles[index]);
+	}
 }
 
 t_validation	redirect_in_files(t_cmd *cmd)

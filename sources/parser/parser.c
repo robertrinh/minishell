@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/24 16:51:31 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/04 16:46:10 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ bool	build_cmds(t_parse *p)
 
 bool	parse(t_shell *shell)
 {
-	t_cmd	**cmds;
 	t_parse	*p;
 
 	should_print("\n\n========parser========\n", shell->print_output);

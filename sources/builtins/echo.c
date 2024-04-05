@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/07 14:45:13 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/03/20 19:10:14 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/04/04 17:37:42 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	print_echo(t_cmd *cmd, bool flag)
 		write(1, "\n", 1);
 }
 
-int	echo(t_cmd *cmd, t_shell *shell)
+int	echo(t_cmd *cmd)
 {
 	bool	flag;
 

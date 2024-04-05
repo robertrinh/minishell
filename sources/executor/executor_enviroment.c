@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 19:45:47 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/28 18:08:12 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/04/04 22:28:39 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ char	*get_path_for_cmd(char **env_paths, char *command)
 		temp_path = ft_strjoin(env_paths[i], "/"); // TODO protect + error
 		command_path = ft_strjoin(temp_path, command); // TODO protect + error
 		if (access(command_path, F_OK) == 0)
+		{
+			printf("acces is ok, command path is %s\n", command_path);
 			return (command_path);
+		}
 		i++;
 	}
 	return (NULL);

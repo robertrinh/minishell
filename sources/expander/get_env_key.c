@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/29 22:10:43 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/29 22:16:45 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/04 20:43:10 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static bool is_end_env_key(char c)
 	return (false);
 }
 
-static char *skip_multiple_expand_chars(char *arg, int i)
+static char *skip_multiple_expand_chars(char *arg, size_t i)
 {
 	int		j;
 	int		k;
@@ -49,7 +49,7 @@ static char *skip_multiple_expand_chars(char *arg, int i)
 	return (arg);
 }
 
-char	*get_env_key(char *arg, int i)
+char	*get_env_key(char *arg, size_t i)
 {
 	int		j;
 	char	*key;
@@ -61,7 +61,7 @@ char	*get_env_key(char *arg, int i)
 	
 	if (ft_strlen(arg) == i + 1)
 		return (arg);
-	
+
 	j = 0;
 	key = safe_malloc(sizeof(char *) * ft_strlen(arg) + 1);
 	while (arg[i])
