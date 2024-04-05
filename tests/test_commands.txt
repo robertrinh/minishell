@@ -59,7 +59,7 @@ echo "hello $TERM$NOARG more"
 echo $$$$$???
 echo 123$????
 echo hello$?
-echo hel'll"o"'
+echo hel'll"o"'						<-
 echo hello"more more"hello
 echo "hello $USER$TERM more"
 echo "hello $USER more"
@@ -67,6 +67,8 @@ echo hello$USER
 echo "hello $NOT_A_KEY"
 echo "my name is $USER and I use $TERM"
 echo "hello '$USER' more"
+echo ''"hello"
+echo ''"hello"''"there"
 
 
 === ERROR MESSAGES ===
