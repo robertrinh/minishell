@@ -1,16 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   builtins.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/03/01 14:47:56 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/04 22:37:54 by robertrinh    ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   builtins.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/01 14:47:56 by qtrinh            #+#    #+#             */
+/*   Updated: 2024/04/05 14:03:46 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+// static void init_builtin_commands()
+// {
+// 	t_builtin_entry	builtin_table[S_NUM_BUILTIN];
+
+// 	builtin_table[S_ECHO] = {{"echo", echo};
+// 		{"pwd", pwd},
+// 		{"export", export},
+// 		{"unset", unset},
+// 		{"env", env},
+// 		{"exit", exit_shell},
+// 	}
+// }
 
 bool	is_special_builtin(char *cmd_value)
 {

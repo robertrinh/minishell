@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/04 20:43:52 by robertrinh    ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/04/05 15:14:18 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ typedef struct	s_shell
 	int					single_quote;
 	int					double_quote;
 	bool				print_output;
+	// t_builtin_entry		builtin_table[];
 }	t_shell;
 
 typedef struct s_parse
@@ -276,11 +277,11 @@ int		new_process(t_shell *shell, int i, t_pipes *pipes);
 int		execute(t_shell *shell);
 
 // ----------------------------------- executor/builtins
-// typedef struct s_builtin_entry
-// {
-//     char	*name;
-//     int		(*function)(t_cmd*, t_shell*);
-// } t_builtin_entry;
+typedef struct s_builtin_entry
+{
+	char	*name;
+	int		(*function)(t_cmd*, t_shell*);
+}	t_builtin_entry;
 
 // builtins.c
 bool	is_special_builtin(char *cmd_value);
@@ -309,15 +310,6 @@ int		pwd(void);
 // unset.c
 int		unset(t_cmd *cmd, t_shell *shell);
 
-// static const t_builtin_entry builtin_table[] = {
-//     {"echo", echo},
-//     {"pwd", pwd},
-// 	{"export", export},
-// 	{"unset", unset},
-// 	{"env", env},
-// 	{"exit", exit_shell},
-// };
-
 // ----------------------------------- executor/command
 // execute_commands.c
 void	execute_command(t_shell *shell, int i);
@@ -327,8 +319,8 @@ int		execute_commands(t_shell *shell);
 void	open_redirects(t_cmd *cmd);
 
 // single_command.c
-int	single_command(t_shell *shell);
-t_validation	child_process(t_shell *shell);
+int		single_command(t_shell *shell);
+void	child_process(t_shell *shell);
 
 // ----------------------------------- executor/pipe
 // pipe_manager.c
