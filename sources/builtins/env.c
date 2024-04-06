@@ -6,13 +6,13 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/07 14:45:44 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/04/04 17:38:23 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/06 16:51:18 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	env(t_shell *shell)
+int	env(t_cmd *cmd, t_shell *shell)
 {
 	int		i;
 	char	**envp;

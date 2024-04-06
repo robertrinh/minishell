@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   single_command.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 14:28:14 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/04/05 15:15:00 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   single_command.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/04/06 16:41:11 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,13 @@ static t_validation	assign_out_redirects(t_cmd *cmd)
 
 void	child_process(t_shell *shell)
 {
+	t_cmd	*cmd;
+
+	cmd = shell->cmd_table->cmds[0];
 	if (assign_out_redirects(shell->cmd_table->cmds[0]) == SUCCESS)
 	{
-		if (is_builtin(shell->cmd_table->cmds[0]->value))
-			exec_builtin(shell->cmd_table->cmds[0], shell);
+		if (is_builtin(shell->builtin_child, cmd, B_NUM_CHILD))
+			exec_builtin(shell->builtin_child, cmd, shell, B_NUM_CHILD);
 		else
 		{
 			prepare_command(shell, 0);

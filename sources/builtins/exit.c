@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/03 09:41:20 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/04 17:41:40 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/06 16:51:24 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static bool	ft_isnumber(char *str)
 	return (true);
 }
 
-int	exit_shell(t_cmd *cmd)
+int	exit_shell(t_cmd *cmd, t_shell *shell)
 {
 	// ft_putstr_fd("exit\n", STDOUT_FILENO);
 	if (cmd->arg_count > 1)

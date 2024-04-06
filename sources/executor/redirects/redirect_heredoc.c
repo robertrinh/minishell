@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   redirect_heredoc.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/25 11:15:17 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/04/05 15:29:35 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   redirect_heredoc.c                                 :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/25 11:15:17 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/04/06 15:43:24 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	perform_heredoc(int fd, t_redirect *heredoc)
 
 	while (1)
 	{
-		line = readline(CYELLOW "> " RESET_COLOR);
+		line = readline(C_YELLOW "> " RESET_COLOR);
 		if (is_eof(line, heredoc->value) == true)
 		{
 			if (line)

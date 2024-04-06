@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:25:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/22 18:29:10 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/06 16:51:33 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,7 @@ static void	add_arg_to_env(t_shell *shell, char *arg)
 	}
 }
 
-// TODO add to test set ->	export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8 I=9 J=10
-int		export(t_cmd* cmd, t_shell *shell)
+int		export(t_cmd *cmd, t_shell *shell)
 {
 	int		i;
 
@@ -110,6 +109,8 @@ int		export(t_cmd* cmd, t_shell *shell)
 	{
 		if (is_valid_export_arg(cmd->args[i]))
 			add_arg_to_env(shell, cmd->args[i]);
+		// else
+		// 	show_error_message()
 		i++;
 	}
 

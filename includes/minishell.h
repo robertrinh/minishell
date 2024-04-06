@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/04/05 15:14:18 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/04/06 16:59:20 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@
 # define READ 0
 # define WRITE 1
 
-# define CYELLOW "\033[0;33m"
+# define C_YELLOW "\033[0;33m"
+# define C_RED "\x1B[31m"
 # define RESET_COLOR "\033[0m"
 
 # define BUFF_SIZE 1024
@@ -96,16 +97,22 @@ typedef enum e_redirect_type
 	REDIR_NONE,
 }	t_redirect_type;
 
-typedef enum e_builtin
+typedef enum e_main_builtin
 {
-	S_ECHO,
-	S_PWD,
-	S_EXPORT,
-	S_UNSET,
-	S_ENV,
-	S_EXIT,
-	S_NUM_BUILTIN
-} t_builtin;
+	B_EXIT,
+	B_CD,
+	B_EXPORT,
+	B_UNSET,
+	B_NUM_MAIN
+} t_main_builtin;
+
+typedef enum e_child_builtin
+{
+	B_ECHO,
+	B_ENV,
+	B_PWD,
+	B_NUM_CHILD
+} t_child_builtin;
 
 //===============================================================: Struct
 typedef struct s_split
@@ -162,6 +169,7 @@ typedef struct s_cmd_table
 	int			cmd_count;
 } t_cmd_table;
 
+typedef struct s_builtin t_builtin;
 typedef struct	s_shell
 {
 	t_token				*tokens;
@@ -171,7 +179,8 @@ typedef struct	s_shell
 	int					single_quote;
 	int					double_quote;
 	bool				print_output;
-	// t_builtin_entry		builtin_table[];
+	t_builtin			*builtin_main;
+	t_builtin			*builtin_child;
 }	t_shell;
 
 typedef struct s_parse
@@ -277,35 +286,35 @@ int		new_process(t_shell *shell, int i, t_pipes *pipes);
 int		execute(t_shell *shell);
 
 // ----------------------------------- executor/builtins
-typedef struct s_builtin_entry
+typedef struct s_builtin
 {
 	char	*name;
 	int		(*function)(t_cmd*, t_shell*);
-}	t_builtin_entry;
+}	t_builtin;
 
 // builtins.c
-bool	is_special_builtin(char *cmd_value);
-int		exec_special_builtin(t_cmd *cmd, t_shell *shell);
-bool	is_builtin(char *cmd_value);
-int		exec_builtin(t_cmd *cmd, t_shell *shell);
+void	init_main_builtins(t_shell *shell);
+void	init_child_builtins(t_shell *shell);
+bool	is_builtin(t_builtin *table, t_cmd *cmd, int num);
+int		exec_builtin(t_builtin *table, t_cmd *cmd, t_shell *shell, int num);
 
 // cd.c
 int		cd(t_cmd *cmd, t_shell *shell);
 
 // echo.c
-int		echo(t_cmd *cmd);
+int		echo(t_cmd *cmd, t_shell *shell);
 
 // env.c
-int		env(t_shell *shell);
+int		env(t_cmd *cmd, t_shell *shell);
 
 // exit.c
-int		exit_shell(t_cmd *cmd);
+int		exit_shell(t_cmd *cmd, t_shell *shell);
 
 // export.c
 int		export(t_cmd *cmd, t_shell *shell);
 
 // pwd.c
-int		pwd(void);
+int		pwd(t_cmd *cmd, t_shell *shell);
 
 // unset.c
 int		unset(t_cmd *cmd, t_shell *shell);
@@ -373,8 +382,6 @@ char	*get_env_key(char *arg, size_t i);
 
 //===============================================================: Utils
 // clean_exit.c
-t_validation 	show_error_message(t_error_messages error_code, t_message_colors color, const char *arg);
-int				exit_with_message(t_error_messages error_code, t_message_colors color, int exit_code);
 void			finish_lexer(t_shell *shell);
 
 // control_utils.c
@@ -385,6 +392,10 @@ char	*get_value_for_key(char **env, char *key);
 int		count_lines_from(char **env, int index);
 size_t	env_size(char **env);
 int		index_for_env_key(char **input_env, char *key);
+
+// error_messages.c
+int		show_error_message(const char *error, const char *color, const char *arg);
+int		exit_with_message(const char *error, const char *color, int exit_code);
 
 // function_protection.c
 void	*safe_malloc(size_t size);

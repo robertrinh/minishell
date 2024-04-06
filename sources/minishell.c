@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 13:13:49 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/04/05 15:52:40 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/04/06 15:43:10 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static bool	retrieve_command(t_shell *shell, int original_stdin)
 	char	*command;
 
 	dup2(original_stdin, STDIN_FILENO);
-	command = readline(CYELLOW "[minishell]: " RESET_COLOR);
+	command = readline(C_YELLOW "[minishell]: " RESET_COLOR);
 	if (command == NULL)
 	{
 		write(1, "readline NULL\n", 16);
