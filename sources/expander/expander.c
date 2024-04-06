@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/04 20:42:40 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/06 14:22:01 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,16 @@ static char	*expand_arg(char **env, char *arg, size_t i)
 	value = get_value_for_key(env, key);
 
 	if (key[0] == '?')
-		return (expand_exit_code(arg, key, i));
+		return (expand_exit_code(arg, key, i)); // <- Free key + value
 
 	key = ft_strjoin("$", key);
+
+	if (ft_strncmp(arg, key, (ft_strlen(key) + ft_strlen(arg)))  == 0)
+	{
+		arg = value;
+		return (arg); // <- Free key + value
+	}
+	
 	arg = ft_str_remove(arg, key);
 
 	if (arg && value)
