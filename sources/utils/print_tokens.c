@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/22 15:12:33 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/03/14 18:33:36 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/07 10:49:39 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,22 @@ static char	*type_to_string(t_token_type type)
 	}
 }
 
-void	print_tokens(t_token *tokens)
+t_validation	print_tokens(t_shell *shell)
 {
+	t_token		*tokens;
+
+	if (shell->print_output == false)
+		return (SUCCESS);
+	
 	printf("\n\n========lexer========\n");
+	
+	tokens = shell->tokens;
 	while (tokens)
 	{
 		printf("%s - \t %s \n", type_to_string(tokens->type), tokens->value);
 		tokens = tokens->next;
 	}
+	return (SUCCESS);
 }
 
 void	print_strings(char **strings)

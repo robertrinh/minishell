@@ -6,11 +6,25 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/17 15:59:08 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/04 16:45:05 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/06 17:56:38 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+t_split	*init_split(t_shell *shell, t_split *split)
+{
+	split->input = safe_malloc(sizeof(char) * ft_strlen(shell->input) + 1);
+	split->input = shell->input;
+	split->len = ft_strlen(shell->input);
+	split->i = 0;
+	split->i_check = 0;
+	split->count = 0;
+	split->i_buff = 0;
+	split->i_str = 0;
+	split->strings = 0;
+	return (split);
+}
 
 bool	is_white_space(char c)
 {

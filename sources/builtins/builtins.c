@@ -6,16 +6,16 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/01 14:47:56 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/06 16:58:49 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/07 11:39:25 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	init_main_builtins(t_shell *shell)
+t_shell	*init_main_builtins(t_shell *shell)
 {
 	int					i;
-	t_builtin			*builtin_table;
+	t_builtin			builtin_table[B_NUM_MAIN];
 
 	i = 0;
 	builtin_table[B_EXIT].name = "exit";
@@ -32,12 +32,13 @@ void	init_main_builtins(t_shell *shell)
 		shell->builtin_main[i] = builtin_table[i];
 		i++;
 	}
+	return (shell);
 }
 
-void	init_child_builtins(t_shell *shell)
+t_shell	*init_child_builtins(t_shell *shell)
 {
 	int					i;
-	t_builtin			*builtin_table;
+	t_builtin			builtin_table[B_NUM_CHILD];
 
 	i = 0;
 	builtin_table[B_ECHO].name = "echo";
@@ -52,6 +53,7 @@ void	init_child_builtins(t_shell *shell)
 		shell->builtin_child[i] = builtin_table[i];
 		i++;
 	}
+	return (shell);
 }
 
 bool	is_builtin(t_builtin *table, t_cmd *cmd, int num)

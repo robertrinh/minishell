@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/06 16:59:20 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/07 12:16:09 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ typedef struct	s_shell
 	int					single_quote;
 	int					double_quote;
 	bool				print_output;
+	int					original_stdin;
 	t_builtin			*builtin_main;
 	t_builtin			*builtin_child;
 }	t_shell;
@@ -201,16 +202,16 @@ typedef struct s_in_files
 
 //===============================================================: Main
 // shell_init.c
-t_shell	*shell_init(char **envp, char **argv);
-bool	save_command(char *input, t_shell *shell);
-t_split	*init_split(t_shell *shell, t_split *split);
+t_shell	*shell_pre_init(t_shell *shell, char **envp, char **argv);
+t_shell	*shell_run_init(t_shell *shell);
+bool	save_command(char *command, t_shell *shell);
 
 
 //===============================================================: Lexer
 // lexer.c
 t_token	*token_constructor(char *split_input, int i);
 int		tokens_builder_manager(t_shell *shell);
-int		lexer_manager(t_shell *shell);
+int		shell_lexer(t_shell *shell);
 
 // assign_type.c
 bool			assign_redirect_types(t_token *tokens);
@@ -232,19 +233,22 @@ void	buffer_quote(t_split *sp, int quote_type);
 
 
 //===============================================================: Lexer / Split
-// split.c
-char	**split(t_shell *shell);
+// allocate_strings.c
+char	**allocate_strings_split(t_split *sp);
+
+// split_utils.c
+t_split	*init_split(t_shell *shell, t_split *split);
 bool	is_white_space(char c);
 int		skip_whitespace(t_split *sp);
 int		check_operator(char c1, char c2);
 
-// allocate_strings.c
-char	**allocate_strings_split(t_split *sp);
+// split.c
+char	**split(t_shell *shell);
 
 
 //===============================================================: Parser
 // parser.c
-bool	parse(t_shell *shell);
+bool	shell_parser(t_shell *shell);
 
 // parser_cmd_arguments.c
 t_cmd	*construct_args(t_cmd *cmd, t_parse *p);
@@ -283,7 +287,7 @@ int		prepare_command(t_shell *shell, int i);
 int		new_process(t_shell *shell, int i, t_pipes *pipes);
 
 // executor.c
-int		execute(t_shell *shell);
+int		shell_execute(t_shell *shell);
 
 // ----------------------------------- executor/builtins
 typedef struct s_builtin
@@ -293,10 +297,10 @@ typedef struct s_builtin
 }	t_builtin;
 
 // builtins.c
-void	init_main_builtins(t_shell *shell);
-void	init_child_builtins(t_shell *shell);
-bool	is_builtin(t_builtin *table, t_cmd *cmd, int num);
-int		exec_builtin(t_builtin *table, t_cmd *cmd, t_shell *shell, int num);
+t_shell		*init_main_builtins(t_shell *shell);
+t_shell		*init_child_builtins(t_shell *shell);
+bool		is_builtin(t_builtin *table, t_cmd *cmd, int num);
+int			exec_builtin(t_builtin *table, t_cmd *cmd, t_shell *shell, int num);
 
 // cd.c
 int		cd(t_cmd *cmd, t_shell *shell);
@@ -382,7 +386,7 @@ char	*get_env_key(char *arg, size_t i);
 
 //===============================================================: Utils
 // clean_exit.c
-void			finish_lexer(t_shell *shell);
+void	shell_finish(t_shell *shell);
 
 // control_utils.c
 void 	ft_sleep(size_t count);
@@ -399,13 +403,15 @@ int		exit_with_message(const char *error, const char *color, int exit_code);
 
 // function_protection.c
 void	*safe_malloc(size_t size);
+void	*safe_calloc(size_t count, size_t size);
+char	*safe_strdup(const char *str);
 
 // print_cmds.c
 void		print_cmds(t_cmd_table *cmd_table);
 void 		should_print(char *s, bool should_print);
 
 // print_tokens.c
-void	print_tokens(t_token *tokens);
-void	print_strings(char **strings);
+t_validation	print_tokens(t_shell *shell);
+void			print_strings(char **strings);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/06 15:41:44 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/07 10:50:35 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ int	tokens_builder_manager(t_shell *shell)
 	return (SUCCESS);
 }
 
-int	lexer_manager(t_shell *shell)
+int	shell_lexer(t_shell *shell)
 {
 	if (validate_quotes(shell) == FAILURE)
 		return (show_error_message(E_UNMATCHED_QUOTE, C_RED, ""));
 	if (tokens_builder_manager(shell) == SUCCESS)
-		return (SUCCESS);
+		return (print_tokens(shell));
 	return (FAILURE);
 }

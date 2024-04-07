@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/06 15:43:10 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/07 12:16:37 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,57 +14,42 @@
 
 int g_exit_code = 0;
 
-static bool	retrieve_command(t_shell *shell, int original_stdin)
+static bool	shell_retrieve_command(t_shell *shell)
 {
 	char	*command;
 
-	dup2(original_stdin, STDIN_FILENO);
 	command = readline(C_YELLOW "[minishell]: " RESET_COLOR);
 	if (command == NULL)
-	{
-		write(1, "readline NULL\n", 16);
-		exit(0);
-	}
-	save_command(command, shell);
-	if (command)
-		add_history(command);
-		
-	// TODO free (command);
+		exit_with_message(E_READLINE_FAILURE, C_RED, g_exit_code);
+	save_command(command, shell); 	// TODO free command
 	return (SUCCESS);
 }
 
-static bool	run(t_shell *shell)
+static bool	shell_run(t_shell *shell)
 {
-	int original_stdin = dup(STDIN_FILENO);
-	
 	while (1)
 	{
-		handle_signals(PARENT);
-		retrieve_command(shell, original_stdin);
+		shell = shell_run_init(shell);
+		shell_retrieve_command(shell);
 		if (shell->input[0] == '\0')
 		{
-			free(shell->input);
+			shell_finish(shell);
 			continue ;
 		}
-		if (lexer_manager(shell) == SUCCESS)
-		{
-			finish_lexer(shell);
-			if (shell->print_output)
-				print_tokens(shell->tokens);
-		}
-		parse(shell);
-		execute(shell);
-		should_print("\n--------------------End--------------------\n\n", shell->print_output);
+		shell_lexer(shell);
+		shell_parser(shell);
+		shell_execute(shell);
+		shell_finish(shell);
 	}
 	return (SUCCESS);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_shell	*shell;
+	t_shell		*shell;
 
 	(void) argc;
-	shell = shell_init(envp, argv);
-	run(shell);
+	shell = shell_pre_init(shell, envp, argv);
+	shell_run(shell);
 	return (EXIT_SUCCESS);
 }

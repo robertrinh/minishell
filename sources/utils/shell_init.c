@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/14 14:04:02 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/06 16:47:03 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/07 12:15:54 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ static char	**alloc_envp(char **envp)
 	copy_envp = safe_malloc(sizeof(char *) * env_size(envp) + 1);
 	while (envp[i])
 	{
-		copy_envp[i] = ft_strdup(envp[i]); // TODO protect
+		copy_envp[i] = safe_strdup(envp[i]);
 		i++;
 	}
-	copy_envp[i] = 0; // ? gives heap overflow??
+	copy_envp[i] = 0;
 	return (copy_envp);
 }
 
@@ -36,43 +36,37 @@ static t_cmd_table *init_cmd_table(void)
 	return (cmd_table);
 }
 
-t_shell	*shell_init(char **envp, char **argv)
+bool	save_command(char *command, t_shell *shell)
 {
-	t_shell	*shell;
+	if (command)
+		add_history(command);
+	shell->input = safe_calloc(sizeof(char), ft_strlen(command) + 1);
+	shell->input = command;
+	return (SUCCESS);
+}
 
+t_shell *construct_shell(t_shell *shell, char **envp, char **argv)
+{
 	shell = safe_malloc(sizeof(t_shell));
 	shell->cmd_table = init_cmd_table();
 	shell->envp = alloc_envp(envp);
 	shell->print_output = false;
-	init_main_builtins(shell);
-	init_child_builtins(shell);
+	shell = init_main_builtins(shell);
+	shell = init_child_builtins(shell);
 	if (argv[1] && ft_strncmp(argv[1], PRINT_FLAG, 2) == 0)
 		shell->print_output = true;
 	return (shell);
 }
 
-bool	save_command(char *input, t_shell *shell)
+t_shell	*shell_pre_init(t_shell *shell, char **envp, char **argv)
 {
-	shell->input = ft_calloc(sizeof(char), ft_strlen(input) + 1);
-	if (shell->input == NULL)
-	{
-		// TODO clean_exit()
-		return (FAILURE);
-	}
-	shell->input = input;
-	return (SUCCESS);
+	shell = construct_shell(shell, envp, argv);
+	return (shell);
 }
 
-t_split	*init_split(t_shell *shell, t_split *split)
+t_shell	*shell_run_init(t_shell *shell)
 {
-	split->input = safe_malloc(sizeof(char) * ft_strlen(shell->input) + 1);
-	split->input = shell->input;
-	split->len = ft_strlen(shell->input);
-	split->i = 0;
-	split->i_check = 0;
-	split->count = 0;
-	split->i_buff = 0;
-	split->i_str = 0;
-	split->strings = 0;
-	return (split);
+	handle_signals(PARENT);
+	shell->original_stdin = dup(STDIN_FILENO);
+	return (shell);
 }

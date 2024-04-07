@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/06 14:22:01 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/07 13:02:08 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,23 @@ static char	*expand_arg(char **env, char *arg, size_t i)
 
 	if (ft_strlen(arg) == 1)
 		return (arg);
-	
+
 	key = get_env_key(arg, i);
 	ft_sleep(5000);
 	value = get_value_for_key(env, key);
+	
+	printf("KEY: %s\n", key);
+	printf("VAL: %s\n\n", value);
 
 	if (key[0] == '?')
-		return (expand_exit_code(arg, key, i)); // <- Free key + value
+		return (expand_exit_code(arg, key, i));
 
-	key = ft_strjoin("$", key);
-
-	if (ft_strncmp(arg, key, (ft_strlen(key) + ft_strlen(arg)))  == 0)
-	{
-		arg = value;
-		return (arg); // <- Free key + value
-	}
+	if (key[0] != EXPAND_CHAR)
+		key = ft_strjoin("$", key);
 	
+	if (ft_strncmp(arg, key, (ft_strlen(key) + ft_strlen(arg)))  == 0)
+		return (arg = value);
+
 	arg = ft_str_remove(arg, key);
 
 	if (arg && value)
@@ -69,7 +70,12 @@ static char	*expand_arg(char **env, char *arg, size_t i)
 	return (arg);
 }
 
-// TODO protect str_remove() & str_insert() 
+
+// !	export A=1 NEW=you B=2
+// !	echo "Hello $NEW, copy $A $B"
+
+// TODO protect str_remove() & str_insert()
+// TODO Free key + value at early return
 char	*will_expand(char **env, char *arg)
 {
 	size_t	i;

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/25 11:15:17 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/06 15:43:24 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/07 10:41:44 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static int	perform_heredoc(int fd, t_redirect *heredoc)
 	while (1)
 	{
 		line = readline(C_YELLOW "> " RESET_COLOR);
+		if (line == NULL)
+			exit_with_message(E_READLINE_FAILURE, C_RED, g_exit_code);
 		if (is_eof(line, heredoc->value) == true)
 		{
 			if (line)

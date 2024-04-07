@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:19:19 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/29 20:48:13 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/07 13:11:21 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char	*get_value_for_key(char **env, char *key)
 	int		i;
 
 	row_index = index_for_env_key(env, key);
+	printf("row index: %d\n", row_index);
 
 	if (row_index == -1)
 		return (NULL);
@@ -86,7 +87,7 @@ size_t	env_size(char **env)
 	temp = env;
     while (*temp != NULL) 
 	{
-        env_size += ft_strlen(*temp) + 1;
+        env_size += sizeof(char *) * ft_strlen(*temp) + 1;
         temp++;
     }
 	return (env_size);
@@ -103,6 +104,8 @@ int	index_for_env_key(char **input_env, char *key)
 
 	i = 0;
 	env = input_env;
+
+	printf("len: %d\n", ft_strlen(key));
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], key, ft_strlen(key)) == 0)
@@ -112,5 +115,6 @@ int	index_for_env_key(char **input_env, char *key)
 		}
 		i++;
 	}
+	printf("i %d\n", i);
 	return (-1);
 }

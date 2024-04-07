@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:25:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/06 16:51:33 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/07 12:19:05 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static size_t env_realloc_size(char **env, char *str)
 	size_t		new_size;
 
 	current_size = env_size(env);
-    new_size = current_size + (ft_strlen(str) + 1);
+    new_size = current_size + (sizeof(char *) * ft_strlen(str) + 1);
     return (new_size);
 }
 
@@ -86,6 +86,9 @@ static void	add_arg_to_env(t_shell *shell, char *arg)
 	if (insert_index == -1)
 	{
 		insert_index = index_for_env_key(shell->envp, "_");
+		if (insert_index == -1)
+			insert_index = 0; // TODO get last line
+
 		save_line = shell->envp[insert_index];
 		shell->envp[insert_index] = safe_malloc(ft_strlen(arg) + 1);
    		shell->envp[insert_index] = arg;
@@ -109,8 +112,8 @@ int		export(t_cmd *cmd, t_shell *shell)
 	{
 		if (is_valid_export_arg(cmd->args[i]))
 			add_arg_to_env(shell, cmd->args[i]);
-		// else
-		// 	show_error_message()
+		else
+			show_error_message(E_EXPORT, C_RED, cmd->args[i]);
 		i++;
 	}
 
