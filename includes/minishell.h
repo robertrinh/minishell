@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/08 07:44:53 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/08 15:21:17 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 // ===== [ libraries ] =====
 # include <stdio.h>
+# include <stdbool.h>
 # include <stdlib.h>
 # include <stdbool.h>
 # include <unistd.h>
@@ -34,6 +35,7 @@
 # define OPERATORS "<>|"
 # define REDIRECTS "<>"
 # define EXPAND_CHAR '$'
+# define EXPORT_DELIMITER '='
 # define D_QUOTE_CHAR 34
 # define S_QUOTE_CHAR 39
 

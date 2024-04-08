@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:25:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/07 12:19:05 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/08 15:29:39 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,38 +15,53 @@
 /*
 	Counts the occurances of the given delimiter character in the given string
 */
-static int	count_delimiters(char *arg_value, char delimiter)
+static int	count_delimiters(const char *arg, char delimiter)
 {
 	int 	i;
 	int		delimiter_count;
 
 	i = 0;
 	delimiter_count = 0;
-	while (arg_value[i])
+	while (arg[i])
 	{
-		if (arg_value[i] == delimiter)
+		if (arg[i] == delimiter)
 			delimiter_count++;
 		i++;
 	}
 	return (delimiter_count);
 }
 
-static bool is_valid_export_arg(char *arg)
+static bool	is_valid_export_key(const char *arg)
 {
-	int		delimiter_count;
+	int		i;
 
+	i = 0;
+	while (arg[i])
+	{
+		if (arg[i] == EXPORT_DELIMITER)
+			break ;
+		if (ft_isalpha(arg[i]) == false)
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+static bool is_valid_export_arg(const char *arg)
+{
 	if (arg == NULL)
 		return (false);
 
-	delimiter_count = count_delimiters(arg, '=');
+	if (count_delimiters(arg, EXPORT_DELIMITER) > 1)
+		return (false);
 
-	if (delimiter_count == 1)
-		return (true);
+	if (is_valid_export_key(arg) == false)
+		return (false);
 
-	return (false);
+	return (true);
 }
 
-static char	*env_key_from_arg(char *arg)
+static char	*env_key_from_arg(const char *arg)
 {
 	int		i;
 	char	*key;
@@ -116,6 +131,5 @@ int		export(t_cmd *cmd, t_shell *shell)
 			show_error_message(E_EXPORT, C_RED, cmd->args[i]);
 		i++;
 	}
-
 	return (0);
 }
