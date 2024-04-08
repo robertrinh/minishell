@@ -53,7 +53,7 @@ when aa is typed and you press ctrl-c -> still prints out aa, bash does not do t
 
 === EXPANDER ===
 echo $USER$PATH
-e'ch'o hello
+e'ch'o hello						<-
 echo "hello $TERM$NOARG more"
 echo $$$$$???
 echo 123$????
@@ -72,6 +72,10 @@ echo ''"hello"''"there"
 
 === BUILTINS ===
 export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8 I=9 J=10
+export A=1
+echo "hello $A $A"
+export A=1 NEW=you B=2
+echo "Hello $NEW, copy $A $B"
 
 
 === ERROR MESSAGES ===

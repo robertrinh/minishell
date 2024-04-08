@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/07 12:16:09 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/08 07:44:53 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -405,6 +405,7 @@ int		exit_with_message(const char *error, const char *color, int exit_code);
 void	*safe_malloc(size_t size);
 void	*safe_calloc(size_t count, size_t size);
 char	*safe_strdup(const char *str);
+char	*safe_strdup_from(const char *str, int i);
 
 // print_cmds.c
 void		print_cmds(t_cmd_table *cmd_table);

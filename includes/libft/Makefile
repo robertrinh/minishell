@@ -32,6 +32,7 @@ LIB_STRING = ft_strlcpy.c \
 			ft_strncmp.c \
 			ft_strnstr.c \
 			ft_strdup.c \
+			ft_strdup_from.c \
 			ft_strlen.c \
 			ft_substr.c \
 			ft_strjoin.c \

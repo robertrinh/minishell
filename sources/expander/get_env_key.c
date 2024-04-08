@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/29 22:10:43 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/07 12:53:04 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/08 07:45:16 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*get_env_key(char *arg, size_t i)
 	
 	if (ft_strlen(arg) == i + 1)
 	{
-		key = safe_strdup(arg);
+		key = safe_strdup_from(arg, i);
 		key = ft_str_remove_char(key, 0, EXPAND_CHAR);
 		return (key);
 	}
