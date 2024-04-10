@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/12/03 13:06:57 by quentinbeuk       #+#    #+#              #
-#    Updated: 2024/04/05 14:31:07 by qbeukelm         ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
+#                                                    +#+                       #
+#    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
+#    Updated: 2024/04/10 16:41:57 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,10 @@ RESET				:= \033[0m
 # ===== Sources =====
 SOURCES 				= minishell.c \
 
-SOURCES_LEXER 			= lexer.c \
-							assign_type.c \
-							post_lexer.c
+SOURCES_LEXER 			= assign_type.c \
+							lexer.c \
+							post_lexer.c \
+							validate_operators.c
 
 SOURCES_LEXER_SPLIT	 	= split.c \
 							split_utils.c \

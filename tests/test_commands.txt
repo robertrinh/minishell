@@ -82,3 +82,4 @@ echo "Hello $NEW, copy $A $B"
 echo >
 echo <<
 echo > |
+echo "bip | bip ; coyotte > < "

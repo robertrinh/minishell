@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/18 21:07:32 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/06 15:41:51 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/10 17:26:54 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static bool	contains_pipe(t_token *token)
 	return (false);
 }
 
-static bool contains_redirect(t_token *token)
+static bool contains_redirect(t_token_type type)
 {
-	if (token->type == REDIRECT)
+	if (type >= REDIRECT && type <= REDIR_OUT)
 		return (true);
 	return (false);
 }
@@ -35,7 +35,6 @@ static bool	check_pipes(t_token *tokens)
 	{
 		if (contains_pipe(current))
 		{
-			// next is nothing
 			if (current->next == NULL)
 				return (FAILURE);
 		}
@@ -47,13 +46,19 @@ static bool	check_pipes(t_token *tokens)
 static bool	check_redirects(t_token *tokens)
 {
 	t_token		*current;
+	char		*value;
 
 	current = tokens;
 	while (current)
 	{
-		if (contains_redirect(current))
+		if (contains_redirect(current->type))
 		{
 			if (current->next == NULL)
+				return (FAILURE);
+			value = current->next->value;
+			if (ft_strnstr(value, OPERATORS, ft_strlen(value) + 3))
+				return (FAILURE);
+			if (ft_strnstr(OPERATORS, value, ft_strlen(value) + 3))
 				return (FAILURE);
 		}
 		current = current->next;
@@ -66,8 +71,8 @@ bool	parser_checks(t_token *tokens)
 	if (tokens == NULL)
 		return (FAILURE);
 	if (check_pipes(tokens) == FAILURE)
-		return (show_error_message(E_UNMATCHED_PIPE, C_RED, ""));
+		return (show_error_message(E_PIPE, C_RED, "", X_PIPE));
 	if (check_redirects(tokens) == FAILURE)
-		return (show_error_message(E_UNMATCHED_REDIRECT, C_RED, ""));
+		return (show_error_message(E_REDIRECT, C_RED, "", X_REDIRECT));
 	return (SUCCESS);
 }

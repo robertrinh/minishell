@@ -6,13 +6,13 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/07 12:16:37 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/10 14:39:39 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int g_exit_code = 0;
+int g_exit_code = X_INIT;
 
 static bool	shell_retrieve_command(t_shell *shell)
 {
@@ -20,7 +20,7 @@ static bool	shell_retrieve_command(t_shell *shell)
 
 	command = readline(C_YELLOW "[minishell]: " RESET_COLOR);
 	if (command == NULL)
-		exit_with_message(E_READLINE_FAILURE, C_RED, g_exit_code);
+		exit_with_message(E_READLINE_FAILURE, C_RED, X_READLINE_FAILURE);
 	save_command(command, shell); 	// TODO free command
 	return (SUCCESS);
 }

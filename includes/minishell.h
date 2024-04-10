@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/08 15:21:17 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/10 16:55:21 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,18 +210,21 @@ bool	save_command(char *command, t_shell *shell);
 
 
 //===============================================================: Lexer
+// assign_type.c
+bool			assign_redirect_types(t_token *tokens);
+t_token_type	assign_type(char *value);
+
 // lexer.c
 t_token	*token_constructor(char *split_input, int i);
 int		tokens_builder_manager(t_shell *shell);
 int		shell_lexer(t_shell *shell);
 
-// assign_type.c
-bool			assign_redirect_types(t_token *tokens);
-t_token_type	assign_type(char *value);
-
 // post_lexer.c
 bool	post_lexer(t_token *tokens);
 bool	is_special_type(t_token_type type);
+
+// validate_operators.c
+t_validation	validate_operators(char *input);
 
 
 //===============================================================: Lexer / Quote
@@ -327,8 +330,8 @@ int		unset(t_cmd *cmd, t_shell *shell);
 
 // ----------------------------------- executor/command
 // execute_commands.c
-void	execute_command(t_shell *shell, int i);
-int		execute_commands(t_shell *shell);
+t_validation	execute_command(t_shell *shell, int i);
+int				execute_commands(t_shell *shell);
 
 // redirect_command.c
 void	open_redirects(t_cmd *cmd);
@@ -357,7 +360,7 @@ t_validation	redirect_in_files(t_cmd *cmd);
 
 
 // redirect_open.c
-int			safe_open(const char *path, t_redirect_type oflag, int mode);
+int			safe_open(char *path, t_redirect_type oflag, int mode);
 t_in_files	*open_in_files(t_cmd *cmd, t_in_files *ins, t_redirect_type type);
 
 // redirect_out_files.c
@@ -398,10 +401,6 @@ char	*get_value_for_key(char **env, char *key);
 int		count_lines_from(char **env, int index);
 size_t	env_size(char **env);
 int		index_for_env_key(char **input_env, char *key);
-
-// error_messages.c
-int		show_error_message(const char *error, const char *color, const char *arg);
-int		exit_with_message(const char *error, const char *color, int exit_code);
 
 // function_protection.c
 void	*safe_malloc(size_t size);
