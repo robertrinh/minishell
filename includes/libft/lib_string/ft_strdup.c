@@ -6,16 +6,18 @@
 /*   By: qbeukelm <qbeukelm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/12 10:05:38 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2022/12/02 11:54:21 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/08 07:43:40 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-// strdup allocates sufficient memory for a copy of the string
-// s1, does the copy and returns a pointer to it. If insufficient
-// memory is available, NULL is returned and errno is set to 
-// ENOMEM
+/*
+	strdup allocates sufficient memory for a copy of the string
+	s1, does the copy and returns a pointer to it. If insufficient
+	memory is available, NULL is returned and errno is set to 
+	ENOMEM
+*/
 
 // Assignment: Recreate Standard C library function strchr(3).
 // Paramaters: string pointed to by s, int c.

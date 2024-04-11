@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/02 14:17:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/29 20:19:00 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/10 14:44:16 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	signal_reset_prompt(int sig)
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
-		g_exit_code = 130; // ! exit code 130 on linux bash
+		g_exit_code = X_SIG_CTL_C; // ! exit code 130 on linux bash
 	}
 }
 
@@ -31,7 +31,7 @@ void	signal_ctrl_c(int sig)
 	if (sig == SIGINT)
 	{
 		write(1, "\n", 1);
-		g_exit_code = 130; // ! exit code 130 on mac bash
+		g_exit_code = X_SIG_CTL_C; // ! exit code 130 on mac bash
 	}
 }
 
@@ -42,7 +42,7 @@ void	signal_backslash(int sig)
 	{
 		//write(STDERR_FILENO, "Child signal\n", 14); // ? test regarding heredoc/child signals
 		write(STDERR_FILENO, "Quit\n", 5);
-		g_exit_code = 131; // ! exit code 131 on mac bash
+		g_exit_code = X_SIG_BACKSLASH; // ! exit code 131 on mac bash
 	}
 }
 
@@ -54,7 +54,7 @@ void	signal_heredoc(int sig)
 		rl_replace_line("", 0);
 		write(1, "\n", 1);
 		rl_on_new_line();
-		g_exit_code = 1;
+		g_exit_code = X_SIG_HEREDOC;
 		exit(g_exit_code); // ! exit code 1 on mac bash
 	}
 }

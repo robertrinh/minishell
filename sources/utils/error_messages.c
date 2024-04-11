@@ -6,28 +6,35 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:36:44 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/29 22:45:16 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/10 14:37:18 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/error_messages.h"
+#include "../../includes/minishell.h"
 
-// Definitions of variables
-const char* error_messages[] = {
-    "ERROR: unmatched quote", // ! Don't exit
-	"ERROR: unmatched pipe",
-	"ERROR: unmatched redirect",
-    "ERROR: malloc failure",
-	"ERROR: cound not open file:"
-};
+int	show_error_message(char *error, char *color, char *arg, int exit_code)
+{
+	char	*message;
 
-const char* color_codes[] = {
-    "\x1B[31m",  // RED
-    "\x1B[32m",  // GREEN
-    "\x1B[33m",  // YELLOW
-    "\x1B[34m"   // BLUE
-};
+	message = ft_strjoin(color, error);
+	message = ft_strjoin(message, arg);
+	message = ft_strjoin(message, RESET_COLOR);
+	message = ft_strjoin(message, "\n");
+	write(1, message, ft_strlen(message));
+	g_exit_code = exit_code;
+	return (FAILURE);
+}
 
-const char* RESET_COLOR = "\x1B[0m";
+int	exit_with_message(const char *error, const char *color, int exit_code)
+{
+	char	*message;
 
-//!global variables not allowed! should change this
+	message = ft_strjoin(color, error);
+	message = ft_strjoin(message, RESET_COLOR);
+	message = ft_strjoin(message, "\n");
+	write(1, message, ft_strlen(message));
+	g_exit_code = exit_code;
+	exit(g_exit_code);
+	return (FAILURE);
+}

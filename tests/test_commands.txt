@@ -47,19 +47,18 @@ cat | cat | cat | ls (bash does not wait for ls output, ours does + does not aut
 bugs:
 heredoc: ctrl-c gives a newline, not sure why
 heredoc: ctrl-\ activates quit whilst there is a SIG_IGN for that?
-
 grep aa <<EOF
 when aa is typed and you press ctrl-c -> still prints out aa, bash does not do that
 
 
 === EXPANDER ===
 echo $USER$PATH
-e'ch'o hello
+e'ch'o hello						<-
 echo "hello $TERM$NOARG more"
 echo $$$$$???
 echo 123$????
 echo hello$?
-echo hel'll"o"'						<-
+echo hel'll"o"'
 echo hello"more more"hello
 echo "hello $USER$TERM more"
 echo "hello $USER more"
@@ -71,7 +70,16 @@ echo ''"hello"
 echo ''"hello"''"there"
 
 
+=== BUILTINS ===
+export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8 I=9 J=10
+export A=1
+echo "hello $A $A"
+export A=1 NEW=you B=2
+echo "Hello $NEW, copy $A $B"
+
+
 === ERROR MESSAGES ===
 echo >
 echo <<
 echo > |
+echo "bip | bip ; coyotte > < "

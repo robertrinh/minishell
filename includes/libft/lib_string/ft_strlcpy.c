@@ -6,15 +6,17 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 11:39:19 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2022/12/02 11:54:34 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/08 07:40:15 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-// Copies up to dstsize - 1 characters from the string src to dst,
-// NULL-turminating the result if dstsize is not 0.
-//
+/*
+	Copies up to dstsize - 1 characters from the string src to dst,
+	NULL-turminating the result if dstsize is not 0.
+*/
+
 // Assignment: Recreate Standard C library function strlcpy(3).
 // Paramaters: string dst, string src, size destsize.
 // Return Value: The total length of the string it tried to create. in this case

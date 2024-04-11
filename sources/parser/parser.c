@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/04 16:46:10 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/07 10:52:13 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ bool	build_cmds(t_parse *p)
 	return (SUCCESS);
 }
 
-bool	parse(t_shell *shell)
+bool	shell_parser(t_shell *shell)
 {
 	t_parse	*p;
 

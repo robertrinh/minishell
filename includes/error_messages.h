@@ -6,37 +6,43 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/28 12:18:47 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/10 16:49:08 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERROR_MESSAGES_H
 # define ERROR_MESSAGES_H
 
-// Errors
-typedef enum e_error_messages
-{
-	ERROR_UNMATCHED_QUOTE,
-	ERROR_UNMATCHED_PIPE,
-	ERROR_UNMATCHED_REDIRECT,
-	ERROR_MALLOC,
-	ERROR_OPENING_FILE
-}	t_error_messages;
+// Show error message
+# define E_QUOTE				"unmatched quote."
+# define E_PIPE					"unmatched pipe."
+# define E_REDIRECT				"unmatched redirect."
+# define E_MALLOC				"malloc failure."
+# define E_READLINE_FAILURE		"readline failure."
+# define E_OPERATOR				"invalid operator."
+# define E_ENV_NOT_FOUND		"evniroment not found."
+# define E_OPENING_FILE			"cound not open file: "
+# define E_EXPORT				"export: not a valid identifier: "
+# define E_CMD					"execve: command not found: "
 
-// Colors
-typedef enum e_message_colors
-{
-	RED,
-	GREEN,
-	YELLOW,
-	BLUE,
-	NUM_COLORS
-}	t_message_colors;
+// Exit codes
+# define X_INIT					EXIT_SUCCESS
+# define X_QUOTE				EXIT_FAILURE
+# define X_PIPE					EXIT_FAILURE
+# define X_REDIRECT				EXIT_FAILURE
+# define X_MALLOC				EXIT_FAILURE
+# define X_READLINE_FAILURE		EXIT_FAILURE
+# define X_OPERATOR				EXIT_FAILURE
+# define X_OPENING_FILE			EXIT_FAILURE
+# define X_EXPORT				EXIT_FAILURE
+# define X_NEUMERIC_ERROR		2
+# define X_SIG_HEREDOC			1
+# define X_SIG_CTL_C			130
+# define X_SIG_BACKSLASH		131
+# define X_CMD					127
 
-// Variables
-extern const char *error_messages[];
-extern const char *color_codes[];
-extern const char *RESET_COLOR;
-//! global variable -> not allowed. need to change
+// error_messages.c
+int		show_error_message(char *error, char *color, char *arg, int exit_code);
+int		exit_with_message(const char *error, const char *color, int exit_code);
 
 #endif

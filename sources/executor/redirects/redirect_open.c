@@ -6,13 +6,13 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/23 15:04:57 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/03/28 21:30:28 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/10 14:45:58 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-int	safe_open(const char *path, t_redirect_type oflag, int mode)
+int	safe_open(char *path, t_redirect_type oflag, int mode)
 {
 	int		fd;
 
@@ -21,7 +21,7 @@ int	safe_open(const char *path, t_redirect_type oflag, int mode)
 	fd = STDIN_FILENO;
 	fd = open(path, oflag, mode);
 	if (fd == -1)
-		show_error_message(ERROR_OPENING_FILE, RED, path);
+		show_error_message(E_OPENING_FILE, C_RED, path, X_OPENING_FILE);
 	return (fd);
 }
 

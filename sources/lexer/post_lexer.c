@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   post_lexer.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 16:19:25 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/04/05 14:44:57 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   post_lexer.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/12 16:19:25 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/04/08 08:26:53 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,6 @@ static t_token	*skip_operators(t_token *current)
 	return (current);
 }
 
-static t_token	*assign_cmd_arg(t_token *current, int i)
-{
-	if (current->type == NONE || i == 0)
-		current->type = COMMAND;
-	else if (current->next)
-		current = current->next;
-	while (current)
-	{
-		if (current->type == NONE)
-			current->type = ARGUMENT;
-		if (is_special_type(current->type) == true)
-			return (current);
-		if (current->next)
-			current = current->next;
-		else
-			return (current);
-	}
-	return (current);
-}
-
 static t_token	*assign_argfile_args(t_token *current)
 {
 	current->type = ARGFILE;
@@ -70,6 +50,26 @@ static t_token	*assign_argfile_args(t_token *current)
 	return (current);
 }
 
+static t_token	*assign_cmd_arg(t_token *current, int i)
+{
+	if (current->type == NONE || i == 0)
+		current->type = COMMAND;
+	else if (current->next)
+		current = current->next;
+	while (current)
+	{
+		if (current->type == NONE || i > 0)
+			current->type = ARGUMENT;
+		if (is_special_type(current->type) == true)
+			return (current);
+		if (current->next)
+			current = current->next;
+		else
+			return (current);
+	}
+	return (current);
+}
+
 static bool	assign_lexer_types(t_token *tokens)
 {
 	int			i;
@@ -79,6 +79,11 @@ static bool	assign_lexer_types(t_token *tokens)
 	current = tokens;
 	while (current)
 	{
+		if (current->type == S_QUOTE || current->type == D_QUOTE)
+		{
+			i++;
+			current = assign_cmd_arg(current, i);
+		}
 		if (current->type == NONE && is_special_type(current->type) == false)
 		{
 			i = 0;
@@ -88,8 +93,8 @@ static bool	assign_lexer_types(t_token *tokens)
 		{
 			if (current->next)
 			{
-				current = skip_operators(current);
 				i = 0;
+				current = skip_operators(current);
 				current = assign_cmd_arg(current, i);
 			}
 		}

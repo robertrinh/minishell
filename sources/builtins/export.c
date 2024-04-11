@@ -6,47 +6,63 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:25:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/22 18:29:10 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/10 14:29:33 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+# define UNSERSCORE_VAR "_"
 
 /*
 	Counts the occurances of the given delimiter character in the given string
 */
-static int	count_delimiters(char *arg_value, char delimiter)
+static int	count_delimiters(const char *arg, char delimiter)
 {
 	int 	i;
 	int		delimiter_count;
 
 	i = 0;
 	delimiter_count = 0;
-	while (arg_value[i])
+	while (arg[i])
 	{
-		if (arg_value[i] == delimiter)
+		if (arg[i] == delimiter)
 			delimiter_count++;
 		i++;
 	}
 	return (delimiter_count);
 }
 
-static bool is_valid_export_arg(char *arg)
+static bool	is_valid_export_key(const char *arg)
 {
-	int		delimiter_count;
+	int		i;
 
+	i = 0;
+	while (arg[i])
+	{
+		if (arg[i] == EXPORT_DELIMITER)
+			break ;
+		if (ft_isalpha(arg[i]) == false)
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+static bool is_valid_export_arg(const char *arg)
+{
 	if (arg == NULL)
 		return (false);
 
-	delimiter_count = count_delimiters(arg, '=');
+	if (count_delimiters(arg, EXPORT_DELIMITER) > 1)
+		return (false);
 
-	if (delimiter_count == 1)
-		return (true);
+	if (is_valid_export_key(arg) == false)
+		return (false);
 
-	return (false);
+	return (true);
 }
 
-static char	*env_key_from_arg(char *arg)
+static char	*env_key_from_arg(const char *arg)
 {
 	int		i;
 	char	*key;
@@ -63,13 +79,16 @@ static char	*env_key_from_arg(char *arg)
 	return (NULL);
 }
 
+/*
+	Returns the size of env 
+*/
 static size_t env_realloc_size(char **env, char *str)
 {
     size_t		current_size;
 	size_t		new_size;
 
 	current_size = env_size(env);
-    new_size = current_size + (ft_strlen(str) + 1);
+    new_size = current_size + (sizeof(char *) * ft_strlen(str) + 1);
     return (new_size);
 }
 
@@ -85,7 +104,9 @@ static void	add_arg_to_env(t_shell *shell, char *arg)
     shell->envp = ft_realloc(shell->envp, env_realloc_size(shell->envp, arg));
 	if (insert_index == -1)
 	{
-		insert_index = index_for_env_key(shell->envp, "_");
+		insert_index = index_for_env_key(shell->envp, UNSERSCORE_VAR);
+		if (insert_index == -1)
+			insert_index = (count_lines_from(shell->envp, 0) - 1);
 		save_line = shell->envp[insert_index];
 		shell->envp[insert_index] = safe_malloc(ft_strlen(arg) + 1);
    		shell->envp[insert_index] = arg;
@@ -100,18 +121,20 @@ static void	add_arg_to_env(t_shell *shell, char *arg)
 	}
 }
 
-// TODO add to test set ->	export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8 I=9 J=10
-int		export(t_cmd* cmd, t_shell *shell)
+int		export(t_cmd *cmd, t_shell *shell)
 {
 	int		i;
 
 	i = 0;
+	if (cmd->args[i] == NULL)
+		return (show_error_message(E_EXPORT, C_RED, "", X_EXPORT));
 	while (i < cmd->arg_count)
 	{
 		if (is_valid_export_arg(cmd->args[i]))
 			add_arg_to_env(shell, cmd->args[i]);
+		else
+			show_error_message(E_EXPORT, C_RED, cmd->args[i], X_EXPORT);
 		i++;
 	}
-
 	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/04/05 15:14:18 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/04/10 16:55:21 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 // ===== [ libraries ] =====
 # include <stdio.h>
+# include <stdbool.h>
 # include <stdlib.h>
 # include <stdbool.h>
 # include <unistd.h>
@@ -34,13 +35,15 @@
 # define OPERATORS "<>|"
 # define REDIRECTS "<>"
 # define EXPAND_CHAR '$'
+# define EXPORT_DELIMITER '='
 # define D_QUOTE_CHAR 34
 # define S_QUOTE_CHAR 39
 
 # define READ 0
 # define WRITE 1
 
-# define CYELLOW "\033[0;33m"
+# define C_YELLOW "\033[0;33m"
+# define C_RED "\x1B[31m"
 # define RESET_COLOR "\033[0m"
 
 # define BUFF_SIZE 1024
@@ -96,16 +99,22 @@ typedef enum e_redirect_type
 	REDIR_NONE,
 }	t_redirect_type;
 
-typedef enum e_builtin
+typedef enum e_main_builtin
 {
-	S_ECHO,
-	S_PWD,
-	S_EXPORT,
-	S_UNSET,
-	S_ENV,
-	S_EXIT,
-	S_NUM_BUILTIN
-} t_builtin;
+	B_EXIT,
+	B_CD,
+	B_EXPORT,
+	B_UNSET,
+	B_NUM_MAIN
+} t_main_builtin;
+
+typedef enum e_child_builtin
+{
+	B_ECHO,
+	B_ENV,
+	B_PWD,
+	B_NUM_CHILD
+} t_child_builtin;
 
 //===============================================================: Struct
 typedef struct s_split
@@ -162,6 +171,7 @@ typedef struct s_cmd_table
 	int			cmd_count;
 } t_cmd_table;
 
+typedef struct s_builtin t_builtin;
 typedef struct	s_shell
 {
 	t_token				*tokens;
@@ -171,7 +181,9 @@ typedef struct	s_shell
 	int					single_quote;
 	int					double_quote;
 	bool				print_output;
-	// t_builtin_entry		builtin_table[];
+	int					original_stdin;
+	t_builtin			*builtin_main;
+	t_builtin			*builtin_child;
 }	t_shell;
 
 typedef struct s_parse
@@ -192,24 +204,27 @@ typedef struct s_in_files
 
 //===============================================================: Main
 // shell_init.c
-t_shell	*shell_init(char **envp, char **argv);
-bool	save_command(char *input, t_shell *shell);
-t_split	*init_split(t_shell *shell, t_split *split);
+t_shell	*shell_pre_init(t_shell *shell, char **envp, char **argv);
+t_shell	*shell_run_init(t_shell *shell);
+bool	save_command(char *command, t_shell *shell);
 
 
 //===============================================================: Lexer
-// lexer.c
-t_token	*token_constructor(char *split_input, int i);
-int		tokens_builder_manager(t_shell *shell);
-int		lexer_manager(t_shell *shell);
-
 // assign_type.c
 bool			assign_redirect_types(t_token *tokens);
 t_token_type	assign_type(char *value);
 
+// lexer.c
+t_token	*token_constructor(char *split_input, int i);
+int		tokens_builder_manager(t_shell *shell);
+int		shell_lexer(t_shell *shell);
+
 // post_lexer.c
 bool	post_lexer(t_token *tokens);
 bool	is_special_type(t_token_type type);
+
+// validate_operators.c
+t_validation	validate_operators(char *input);
 
 
 //===============================================================: Lexer / Quote
@@ -223,19 +238,22 @@ void	buffer_quote(t_split *sp, int quote_type);
 
 
 //===============================================================: Lexer / Split
-// split.c
-char	**split(t_shell *shell);
+// allocate_strings.c
+char	**allocate_strings_split(t_split *sp);
+
+// split_utils.c
+t_split	*init_split(t_shell *shell, t_split *split);
 bool	is_white_space(char c);
 int		skip_whitespace(t_split *sp);
 int		check_operator(char c1, char c2);
 
-// allocate_strings.c
-char	**allocate_strings_split(t_split *sp);
+// split.c
+char	**split(t_shell *shell);
 
 
 //===============================================================: Parser
 // parser.c
-bool	parse(t_shell *shell);
+bool	shell_parser(t_shell *shell);
 
 // parser_cmd_arguments.c
 t_cmd	*construct_args(t_cmd *cmd, t_parse *p);
@@ -274,46 +292,46 @@ int		prepare_command(t_shell *shell, int i);
 int		new_process(t_shell *shell, int i, t_pipes *pipes);
 
 // executor.c
-int		execute(t_shell *shell);
+int		shell_execute(t_shell *shell);
 
 // ----------------------------------- executor/builtins
-typedef struct s_builtin_entry
+typedef struct s_builtin
 {
 	char	*name;
 	int		(*function)(t_cmd*, t_shell*);
-}	t_builtin_entry;
+}	t_builtin;
 
 // builtins.c
-bool	is_special_builtin(char *cmd_value);
-int		exec_special_builtin(t_cmd *cmd, t_shell *shell);
-bool	is_builtin(char *cmd_value);
-int		exec_builtin(t_cmd *cmd, t_shell *shell);
+t_shell		*init_main_builtins(t_shell *shell);
+t_shell		*init_child_builtins(t_shell *shell);
+bool		is_builtin(t_builtin *table, t_cmd *cmd, int num);
+int			exec_builtin(t_builtin *table, t_cmd *cmd, t_shell *shell, int num);
 
 // cd.c
 int		cd(t_cmd *cmd, t_shell *shell);
 
 // echo.c
-int		echo(t_cmd *cmd);
+int		echo(t_cmd *cmd, t_shell *shell);
 
 // env.c
-int		env(t_shell *shell);
+int		env(t_cmd *cmd, t_shell *shell);
 
 // exit.c
-int		exit_shell(t_cmd *cmd);
+int		exit_shell(t_cmd *cmd, t_shell *shell);
 
 // export.c
 int		export(t_cmd *cmd, t_shell *shell);
 
 // pwd.c
-int		pwd(void);
+int		pwd(t_cmd *cmd, t_shell *shell);
 
 // unset.c
 int		unset(t_cmd *cmd, t_shell *shell);
 
 // ----------------------------------- executor/command
 // execute_commands.c
-void	execute_command(t_shell *shell, int i);
-int		execute_commands(t_shell *shell);
+t_validation	execute_command(t_shell *shell, int i);
+int				execute_commands(t_shell *shell);
 
 // redirect_command.c
 void	open_redirects(t_cmd *cmd);
@@ -342,7 +360,7 @@ t_validation	redirect_in_files(t_cmd *cmd);
 
 
 // redirect_open.c
-int			safe_open(const char *path, t_redirect_type oflag, int mode);
+int			safe_open(char *path, t_redirect_type oflag, int mode);
 t_in_files	*open_in_files(t_cmd *cmd, t_in_files *ins, t_redirect_type type);
 
 // redirect_out_files.c
@@ -373,9 +391,7 @@ char	*get_env_key(char *arg, size_t i);
 
 //===============================================================: Utils
 // clean_exit.c
-t_validation 	show_error_message(t_error_messages error_code, t_message_colors color, const char *arg);
-int				exit_with_message(t_error_messages error_code, t_message_colors color, int exit_code);
-void			finish_lexer(t_shell *shell);
+void	shell_finish(t_shell *shell);
 
 // control_utils.c
 void 	ft_sleep(size_t count);
@@ -388,13 +404,16 @@ int		index_for_env_key(char **input_env, char *key);
 
 // function_protection.c
 void	*safe_malloc(size_t size);
+void	*safe_calloc(size_t count, size_t size);
+char	*safe_strdup(const char *str);
+char	*safe_strdup_from(const char *str, int i);
 
 // print_cmds.c
 void		print_cmds(t_cmd_table *cmd_table);
 void 		should_print(char *s, bool should_print);
 
 // print_tokens.c
-void	print_tokens(t_token *tokens);
-void	print_strings(char **strings);
+t_validation	print_tokens(t_shell *shell);
+void			print_strings(char **strings);
 
 #endif

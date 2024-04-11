@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:19:19 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/29 20:48:13 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/10 14:07:00 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ size_t	env_size(char **env)
 	temp = env;
     while (*temp != NULL) 
 	{
-        env_size += ft_strlen(*temp) + 1;
+        env_size += sizeof(char *) * ft_strlen(*temp) + 1;
         temp++;
     }
 	return (env_size);
@@ -103,6 +103,7 @@ int	index_for_env_key(char **input_env, char *key)
 
 	i = 0;
 	env = input_env;
+
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], key, ft_strlen(key)) == 0)
