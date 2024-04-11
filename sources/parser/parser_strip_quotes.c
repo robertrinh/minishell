@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/24 09:51:56 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/11 13:37:10 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/04/11 18:03:42 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static int next_quote_char(char *arg, int i, int quote_char)
 
 static char *strip_quotes(char *arg)
 {
-	int		i;
-	int		len;
-	int		quote_type;
+	int	i;
+	int	len;
+	int	quote_type;
 
 	i = 0;
 	len = ft_strlen(arg);
@@ -42,12 +42,9 @@ static char *strip_quotes(char *arg)
 			quote_type = is_quote(arg[i]);
 			arg = ft_str_remove_char(arg, i, quote_type);
 			i--;
-
 			i = next_quote_char(arg, i, quote_type);
-			
 			if (is_quote(arg[i]) == quote_type)
 				arg = ft_str_remove_char(arg, i, quote_type);
-			
 			i--;
 			len = ft_strlen(arg);
 		}
@@ -56,7 +53,7 @@ static char *strip_quotes(char *arg)
 	return (arg);
 }
 
-char	*strip_quote_for_type(char *arg, int quote_char)
+char	*strip_quote_for_type(char *arg)
 {
 	arg = strip_quotes(arg);
 	return (arg);

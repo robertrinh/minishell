@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/02 14:17:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/11 15:07:43 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/04/11 17:59:34 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	signal_heredoc(int sig)
 	if (sig == SIGINT)
 	{
 		rl_replace_line("", 0);
-		write(1, "\n", 1);
+		// write(1, "\n", 1);
 		rl_on_new_line();
 		g_exit_code = X_SIG_HEREDOC;
 		exit(g_exit_code); // ! exit code 1 on mac bash

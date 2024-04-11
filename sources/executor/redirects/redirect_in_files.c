@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 22:08:44 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/11 15:13:08 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/04/11 17:54:30 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	dup_for_fd(int fd)
 
 static void	dup_infile(t_cmd *cmd, t_in_files *ins, t_redirect_type type)
 {
-	int		index;
+	int	index;
 
 	index = count_files_for_type(cmd, type) - 1;
 	if (index >= 0)
