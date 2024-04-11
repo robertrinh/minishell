@@ -6,13 +6,13 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/25 11:15:17 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/07 10:41:44 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/11 15:12:16 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static bool is_eof(char *line, char *eof)
+static bool	is_eof(char *line, char *eof)
 {
 	size_t	eof_len;
 
@@ -52,13 +52,11 @@ int	setup_heredoc(t_redirect *heredoc)
 	pid_t	pid;
 
 	pipe(fd); // TODO protect pipe
-
 	pid = fork();
 	if (pid == -1)
-	{ 
+	{
 		// TODO clean_exit
 	}
-
 	if (pid == 0)
 	{
 		handle_signals(HEREDOC);

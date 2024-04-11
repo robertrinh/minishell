@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/23 15:04:57 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/10 14:45:58 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/11 15:13:21 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ t_in_files	*open_in_files(t_cmd *cmd, t_in_files *ins, t_redirect_type type)
 
 	i = 0;
 	in_files = cmd->fd_in;
-
 	while (in_files)
 	{
 		if (in_files->type == type && type == IN_APPEND)

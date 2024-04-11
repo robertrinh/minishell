@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/04/10 16:41:57 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2024/04/11 15:05:30 by qtrinh        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ SOURCES_UTILS			= clean_exit.c \
 							print_tokens.c \
 							shell_init.c
 
-SOURCES_EXECUTOR		= executor_enviroment.c \
+SOURCES_EXECUTOR		= executor_environment.c \
 							executor_utils.c \
 							executor.c
 
@@ -125,7 +125,7 @@ LIBFT				= includes/libft
 
 # ===== Compile =====
 CC 					= cc -g
-CFLAGS 				= # -Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS 				= #-Wall -Werror -Wextra -g -fsanitize=address
 
 READLINE_LOC		=	~/.brew/opt/readline
 READLINE_LIB		=	-L $(READLINE_LOC)/lib -lreadline

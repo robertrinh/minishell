@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/04/06 16:41:11 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/11 14:57:31 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	child_process(t_shell *shell)
 			prepare_command(shell, 0);
 			execute_command(shell, 0);
 		}
-		return ;
 	}
 	return ;
 }
@@ -44,22 +43,23 @@ void	child_process(t_shell *shell)
 int	single_command(t_shell *shell)
 {
 	pid_t			pid;
-	int				exit_status;
+	int				status;
 
-	exit_status = 0;
+	status = 0;
 	handle_signals(CHILD);
 	redirect_in_files(shell->cmd_table->cmds[0]);
 	pid = fork();
 	if (pid == -1)
 	{
-		// TODO exit
+		// TODO exit / return with error message fork
 	}
 	if (pid == 0)
 		child_process(shell);
 	else if (pid > 0)
-		waitpid(pid, &exit_status, 0);
-
-	if (WIFEXITED(exit_status))
-		return (WEXITSTATUS(exit_status));
-	return(WEXITSTATUS(g_exit_code));
+	{
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			return (WEXITSTATUS(status));
+	}
+	return (g_exit_code);
 }

@@ -6,18 +6,17 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/02 19:16:50 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/04/07 10:52:37 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/11 15:07:30 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		shell_execute(t_shell *shell)
+int	shell_execute(t_shell *shell)
 {
 	t_cmd	*cmd;
 
 	should_print("\n\n========execute========\n", shell->print_output);
-
 	if (shell->cmd_table->cmd_count == 1)
 	{
 		cmd = shell->cmd_table->cmds[0];

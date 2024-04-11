@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/10 16:55:21 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/11 14:47:51 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,7 +289,7 @@ int		*fd_in_files(t_cmd *cmd);
 
 // executor_utils.c
 int		prepare_command(t_shell *shell, int i);
-int		new_process(t_shell *shell, int i, t_pipes *pipes);
+int		new_process(t_shell *shell, int i, t_pipes *pipes, t_cmd *cmd);
 
 // executor.c
 int		shell_execute(t_shell *shell);

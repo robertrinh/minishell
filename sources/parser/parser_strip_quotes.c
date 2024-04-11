@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/24 09:51:56 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/04 21:03:04 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/11 13:37:10 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static char *strip_quotes(char *arg)
 
 	i = 0;
 	len = ft_strlen(arg);
-	
 	while (i < len)
 	{
 		if (is_quote(arg[i]))
