@@ -6,13 +6,13 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/28 12:35:51 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/03 22:03:56 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/11 15:13:51 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static t_validation close_out_files(t_cmd *cmd)
+static t_validation	close_out_files(t_cmd *cmd)
 {
 	t_validation	validation;
 	t_redirect		*fd_curr;
@@ -65,9 +65,9 @@ t_validation	redirect_out(t_cmd *cmd)
 	else
 	{
 		dev_null_fd = open("/dev/null", get_open_flag_for_type(OUT));
-        if (dev_null_fd >= 0)
+		if (dev_null_fd >= 0)
 		{
-            dup2(dev_null_fd, STDOUT_FILENO);
+			dup2(dev_null_fd, STDOUT_FILENO);
 			cmd->fd_out->fd = dev_null_fd;
 		}
 	}

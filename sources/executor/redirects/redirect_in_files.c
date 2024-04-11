@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 22:08:44 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/04 21:32:56 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/11 17:54:30 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ static void	close_in_files(t_cmd *cmd, t_in_files *fds, t_redirect_type type)
 	}
 }
 
-static void dup_for_fd(int fd)
+static void	dup_for_fd(int fd)
 {
-	int		dev_null_fd;
+	int	dev_null_fd;
 
 	if (fd < 0)
 	{
@@ -54,9 +54,9 @@ static void dup_for_fd(int fd)
 		dup2(fd, STDIN_FILENO);
 }
 
-static void dup_infile(t_cmd *cmd, t_in_files *ins, t_redirect_type type)
+static void	dup_infile(t_cmd *cmd, t_in_files *ins, t_redirect_type type)
 {
-	int		index;
+	int	index;
 
 	index = count_files_for_type(cmd, type) - 1;
 	if (index >= 0)
@@ -75,10 +75,8 @@ t_validation	redirect_in_files(t_cmd *cmd)
 
 	ins = init_infiles(cmd);
 	last_type = last_infile_type(cmd);
-
 	ins = open_in_files(cmd, ins, IN_APPEND);
 	ins = open_in_files(cmd, ins, IN);
-	
 	if (last_type == IN_APPEND)
 		dup_infile(cmd, ins, IN_APPEND);
 	else if (last_type == IN)

@@ -6,13 +6,13 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 13:07:55 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/28 21:32:09 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/11 15:11:17 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-t_redirect_type last_infile_type(t_cmd *cmd)
+t_redirect_type	last_infile_type(t_cmd *cmd)
 {
 	t_redirect			*in_files;
 	t_redirect_type		type;
@@ -26,7 +26,7 @@ t_redirect_type last_infile_type(t_cmd *cmd)
 	return (type);
 }
 
-int		count_files_for_type(t_cmd *cmd, t_redirect_type type)
+int	count_files_for_type(t_cmd *cmd, t_redirect_type type)
 {
 	int			count;
 	t_redirect	*fd;
@@ -44,7 +44,7 @@ int		count_files_for_type(t_cmd *cmd, t_redirect_type type)
 	return (count);
 }
 
-size_t read_large_file(int fd, char ***buff)
+size_t	read_large_file(int fd, char ***buff)
 {
 	size_t		read_bytes;
 	size_t		buff_size;
@@ -54,7 +54,7 @@ size_t read_large_file(int fd, char ***buff)
 	buff_size = BUFF_SIZE;
 	*buff = safe_malloc(buff_size);
 	total_bytes = 0;
-    while ((read_bytes = read(fd, *buff + total_bytes, buff_size - total_bytes)) > 0)
+	while ((read_bytes = read(fd, *buff + total_bytes, buff_size - total_bytes)) > 0) // ! norm not allowed
 	{
 		total_bytes += read_bytes;
 		if (total_bytes >= buff_size)

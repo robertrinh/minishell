@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/08 07:50:06 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/11 13:47:02 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static char	*expand_arg(char **env, char *arg, size_t i)
 	key = get_env_key(arg, i);
 	ft_sleep(5000);
 	value = get_value_for_key(env, key);
-
 	if (key[0] == '?')
 		return (expand_exit_code(arg, key, i));
 

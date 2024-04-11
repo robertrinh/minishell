@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/10 16:55:21 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/11 18:06:22 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,7 +268,7 @@ bool	parser_checks(t_token *tokens);
 t_cmd	*construct_redirects(t_cmd *cmd, t_parse *p);
 
 // parser_strip_quotes.c
-char	*strip_quote_for_type(char *arg, int quote_char);
+char	*strip_quote_for_type(char *arg);
 
 // parser_utils.c
 t_parse		*init_parse(t_shell *shell);
@@ -289,7 +289,7 @@ int		*fd_in_files(t_cmd *cmd);
 
 // executor_utils.c
 int		prepare_command(t_shell *shell, int i);
-int		new_process(t_shell *shell, int i, t_pipes *pipes);
+int		new_process(t_shell *shell, int i, t_pipes *pipes, t_cmd *cmd);
 
 // executor.c
 int		shell_execute(t_shell *shell);

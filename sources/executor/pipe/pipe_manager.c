@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/29 13:17:01 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/03/28 17:30:12 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/11 15:08:59 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,12 @@ t_validation	dup_fds(t_pipes *pipes, t_cmd *cmd)
 	t_validation	validation;
 
 	validation = SUCCESS;
-
 	if (pipes->prev_pipe[READ] != -1)
 	{
-        close(pipes->prev_pipe[WRITE]);
-        dup2(pipes->prev_pipe[READ], STDIN_FILENO);
-        close(pipes->prev_pipe[READ]);
-    }
+		close(pipes->prev_pipe[WRITE]);
+		dup2(pipes->prev_pipe[READ], STDIN_FILENO);
+		close(pipes->prev_pipe[READ]);
+	}
 	if (pipes->curr_pipe[WRITE] != -1)
 	{
 		close(pipes->curr_pipe[READ]);
@@ -33,6 +32,5 @@ t_validation	dup_fds(t_pipes *pipes, t_cmd *cmd)
 			dup2(pipes->curr_pipe[WRITE], STDOUT_FILENO);
 		close(pipes->curr_pipe[WRITE]);
 	}
-
 	return (validation);
 }

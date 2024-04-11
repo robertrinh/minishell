@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/08 15:54:04 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/03/22 17:21:55 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/11 15:09:51 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ t_pipes	*init_pipes(void)
 	return (pipes);
 }
 
-int count_pipes(t_shell *shell)
+int	count_pipes(t_shell *shell)
 {
 	t_token		*current;
 	int			count;
-	
+
 	current = shell->tokens;
 	count = 0;
 	while (current)
@@ -42,21 +42,21 @@ int count_pipes(t_shell *shell)
 
 void	will_open_pipe(t_cmd_table *cmd_table, t_pipes *pipes, int i)
 {
-    if (i < cmd_table->cmd_count - 1)
-        pipe(pipes->curr_pipe); // TODO protect
+	if (i < cmd_table->cmd_count - 1)
+		pipe(pipes->curr_pipe); // TODO protect
 }
 
 void	will_close_pipes(t_pipes *pipes)
 {
-    if (pipes->prev_pipe[READ] != -1)
+	if (pipes->prev_pipe[READ] != -1)
 	{
-        close(pipes->prev_pipe[READ]);
-        close(pipes->prev_pipe[WRITE]);
+		close(pipes->prev_pipe[READ]);
+		close(pipes->prev_pipe[WRITE]);
 	}
 }
 
 void	iterate_pipes(t_pipes *pipes)
 {
-    pipes->prev_pipe[READ] = pipes->curr_pipe[READ];
-    pipes->prev_pipe[WRITE] = pipes->curr_pipe[WRITE];
+	pipes->prev_pipe[READ] = pipes->curr_pipe[READ];
+	pipes->prev_pipe[WRITE] = pipes->curr_pipe[WRITE];
 }

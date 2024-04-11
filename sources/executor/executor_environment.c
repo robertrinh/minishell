@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   executor_enviroment.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 19:45:47 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/04/05 15:07:28 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   executor_environment.c                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/22 19:45:47 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/04/11 15:14:08 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	**format_cmd(t_cmd *cmd)
 {
 	int			i;
 	char		**cmd_and_args;
-	
+
 	i = 0;
 	cmd_and_args = safe_malloc(sizeof(char *) * (cmd->arg_count + 2));
 	cmd_and_args[0] = cmd->value;
@@ -63,7 +63,6 @@ char	*ft_getenv(t_shell *shell, char *input)
 	}
 	return (NULL); //* Null in case path cannot be found @unset
 }
-
 
 char	**get_paths(t_shell *shell)
 {
