@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/11 15:14:46 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/04/14 14:00:53 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@
 # define E_READLINE_FAILURE		"readline failure."
 # define E_OPERATOR				"invalid operator."
 # define E_ENV_NOT_FOUND		"enviroment not found."
+# define E_FORK					"fork failure."
+# define E_PIPE_FAIL			"pipe failure."
 # define E_OPENING_FILE			"could not open file: "
 # define E_EXPORT				"export: not a valid identifier: "
 # define E_CMD					"execve: command not found: "
-# define E_FORK					"fork failure."
-# define E_PIPE_FAIL			"pipe failure."
+# define E_CMD_NOT_FOUND		"no such file or directory: "
 
 // Exit codes
 # define X_INIT					EXIT_SUCCESS

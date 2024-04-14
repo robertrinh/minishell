@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 15:22:01 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/11 15:03:59 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/04/14 14:20:59 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,21 @@ t_validation	execute_command(t_shell *shell, int i)
 
 int	execute_commands(t_shell *shell)
 {
-	int		i;
-	t_pipes	*pipes;
+	int			i;
+	t_pipes		*pipes;
+	char		*cmd_value;
 
 	i = 0;
 	pipes = init_pipes();
 	while (i < shell->cmd_table->cmd_count)
 	{
 		prepare_command(shell, i);
+		if (shell->cmd_table->cmds[i]->cmd_path == NULL)
+		{
+			cmd_value = shell->cmd_table->cmds[i]->value;
+			show_error_message(E_CMD_NOT_FOUND, C_RED, cmd_value, X_CMD);
+			return (g_exit_code);
+		}
 		if (shell->cmd_table->cmds[i]->fd_in)
 			redirect_in_files(shell->cmd_table->cmds[i]);
 		will_open_pipe(shell->cmd_table, pipes, i);
