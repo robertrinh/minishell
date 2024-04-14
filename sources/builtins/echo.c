@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/07 14:45:13 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/04/11 18:06:18 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/14 13:38:35 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	echo(t_cmd *cmd, t_shell *shell)
 {
 	bool	flag;
 
+	(void) shell;
 	flag = is_echo_flag(cmd);
 	if (flag && cmd->arg_count <= 1)
 		return (SUCCESS);
