@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/03 09:41:20 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/11 14:38:34 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/04/14 13:39:51 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ static bool	ft_isnumber(char *str)
 
 int	exit_shell(t_cmd *cmd, t_shell *shell)
 {
+
+	(void) shell;
 	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	if (cmd->arg_count > 1)
 		arg_error();

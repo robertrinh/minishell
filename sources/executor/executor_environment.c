@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 19:45:47 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/11 15:14:08 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/04/14 14:20:06 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ char	**format_cmd(t_cmd *cmd)
 	return (cmd_and_args);
 }
 
+/*
+	Returns the full path to the exicutable command. And NULL command is
+	not found.
+*/
 char	*get_path_for_cmd(char **env_paths, char *command)
 {
 	char	*temp_path;
@@ -47,6 +51,10 @@ char	*get_path_for_cmd(char **env_paths, char *command)
 	return (NULL);
 }
 
+/*
+	Returns the string value of the environment PATH variable following '='.
+	Or NULL if no PATH is found.
+*/
 char	*ft_getenv(t_shell *shell, char *input)
 {
 	char	**local_env;
@@ -61,24 +69,25 @@ char	*ft_getenv(t_shell *shell, char *input)
 			return (ft_substr(local_env[i], 5, ft_strlen(local_env[i])));
 		i++;
 	}
-	return (NULL); //* Null in case path cannot be found @unset
+	return (NULL);
 }
 
+/*
+	Returns and array of strings for values contained in the environment PATH 
+	variable following '=', and seperated by ':'. Or NULL if no PATH is found.
+*/
 char	**get_paths(t_shell *shell)
 {
 	char	*env_path;
 	char	**env_paths;
 
+	env_paths = NULL;
+	env_path = NULL;
 	env_path = ft_getenv(shell, "PATH");
-	// env_path = getenv("PATH");
 	if (env_path == NULL)
-	{
-		//TODO clean_exit()
-	}
+		return (NULL);
 	env_paths = ft_split(env_path, ':');
 	if (env_paths == NULL)
-	{
-		//TODO clean_exit()
-	}
+		return (NULL);
 	return (env_paths);
 }

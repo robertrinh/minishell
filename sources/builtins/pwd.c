@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/01 18:57:33 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/06 16:51:41 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/14 13:40:19 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	pwd(t_cmd *cmd, t_shell *shell)
 {
 	char	*buf;
 
+	(void) shell;
+	(void) cmd;
 	buf = getcwd(NULL, 0);
 	write(1, buf, ft_strlen(buf));
 	write(1, "\n", 1);
