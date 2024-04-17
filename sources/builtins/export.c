@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:25:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/10 14:29:33 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/17 17:45:10 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ static void	add_arg_to_env(t_shell *shell, char *arg)
 	}
 }
 
+// TODO error check -> not valid identifier
 int		export(t_cmd *cmd, t_shell *shell)
 {
 	int		i;

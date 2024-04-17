@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/28 14:31:20 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/06 16:50:49 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/17 17:16:57 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	cd(t_cmd *cmd, t_shell *shell)
 {
 	char	cwd[1024];
 	// char	**path;
-	
+
 	getcwd(cwd, 1024);
 	printf("cwd: %s\n", cwd);
 	if (cmd->arg_count == 0 || ft_strncmp(cmd->args[0], "~", 2) == 0)

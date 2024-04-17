@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/14 14:00:53 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/17 17:16:28 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 # define E_PIPE					"unmatched pipe."
 # define E_REDIRECT				"unmatched redirect."
 # define E_MALLOC				"malloc failure."
-# define E_READLINE_FAILURE		"readline failure."
+# define E_READLINE_FAILURE		"readline failure." // ! this needs to be exit -> bash behaviour when u press ctrl-D (ctrl-d = EOF descriptor)
 # define E_OPERATOR				"invalid operator."
-# define E_ENV_NOT_FOUND		"enviroment not found."
+# define E_ENV_NOT_FOUND		"environment not found."
 # define E_FORK					"fork failure."
 # define E_PIPE_FAIL			"pipe failure."
 # define E_OPENING_FILE			"could not open file: "
