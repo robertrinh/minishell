@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/07 14:45:44 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/04/14 13:39:05 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/17 17:55:23 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	env(t_cmd *cmd, t_shell *shell)
 {
 	int		i;
 
-	(void) shell;
-	(void) cmd;
+	(void)shell;
+	(void)cmd;
 	i = 0;
 	if (shell->envp == NULL)
 		return (show_error_message(E_ENV_NOT_FOUND, C_RED, "", X_EXPORT));

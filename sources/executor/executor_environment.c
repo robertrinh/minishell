@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 19:45:47 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/14 14:20:06 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/17 18:44:49 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,28 @@ char	*get_path_for_cmd(char **env_paths, char *command)
 	Returns the string value of the environment PATH variable following '='.
 	Or NULL if no PATH is found.
 */
+// ! 	every key has different len, should incorporate key + value!
 char	*ft_getenv(t_shell *shell, char *input)
 {
 	char	**local_env;
+	char	*path;
 	int	i;
 
 	local_env = shell->envp;
 	i = 0;
-
 	while (local_env[i])
 	{
 		if (ft_strncmp(local_env[i], input, ft_strlen(input + 1)) == 0)
-			return (ft_substr(local_env[i], 5, ft_strlen(local_env[i])));
+		{
+			printf("local_env is %s\n", local_env[i]);
+			path = ft_substr(local_env[i], 5, ft_strlen(local_env[i]));
+			if (path == NULL)
+			{
+				// TODO clean exit
+			}
+			printf("path is: %s\n", path);
+			return (path);
+		}
 		i++;
 	}
 	return (NULL);

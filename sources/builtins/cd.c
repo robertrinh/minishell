@@ -6,11 +6,25 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/28 14:31:20 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/17 17:16:57 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/17 18:29:52 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static bool	error_check(t_cmd *cmd, t_shell *shell)
+{
+	char	*path;
+
+	printf("gaat hier\n");
+	if (ft_strncmp(cmd->args[0], "-", 2) == 0)
+	{
+		path = ft_getenv(shell, "OLDPWD");
+		printf("path is %s\n", path);
+		return (FAILURE);
+	}
+	return (SUCCESS);
+}
 
 static void	set_home_directory(t_cmd *cmd, t_shell *shell)
 {
@@ -34,7 +48,8 @@ int	cd(t_cmd *cmd, t_shell *shell)
 	// char	**path;
 
 	getcwd(cwd, 1024);
-	printf("cwd: %s\n", cwd);
+	if (error_check(cmd, shell) == FAILURE)
+		printf("fail\n");
 	if (cmd->arg_count == 0 || ft_strncmp(cmd->args[0], "~", 2) == 0)
 		set_home_directory(cmd, shell);
 	if (chdir(cwd) == -1)
@@ -50,7 +65,8 @@ int	cd(t_cmd *cmd, t_shell *shell)
 // TODO absolute path
 // TODO accessable dir
 // TODO update OLDPWD + PWD in env
-// TODO cd - should show old_pwd
+// TODO cd - should show old_pwd --> OLDPWD not set error when no OLD yet
 // * cd with only relative or absolute path
+// ! ~ = /Users/robert aka $HOME
 // ? cd with no options? how far do we need to implement?
 // ? do we update the ENV from shell->envp or directly from the original?

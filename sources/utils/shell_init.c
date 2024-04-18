@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/14 14:04:02 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/07 12:15:54 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/17 18:02:08 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static char	**alloc_envp(char **envp)
 {
 	int		i;
 	char	**copy_envp;
+	char	**return_envp;
 
 	i = 0;
 	copy_envp = safe_malloc(sizeof(char *) * env_size(envp) + 1);

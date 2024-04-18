@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:25:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/17 17:45:10 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/17 17:53:52 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	count_delimiters(const char *arg, char delimiter)
 
 static bool	is_valid_export_key(const char *arg)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (arg[i])
@@ -52,13 +52,10 @@ static bool is_valid_export_arg(const char *arg)
 {
 	if (arg == NULL)
 		return (false);
-
 	if (count_delimiters(arg, EXPORT_DELIMITER) > 1)
 		return (false);
-
 	if (is_valid_export_key(arg) == false)
 		return (false);
-
 	return (true);
 }
 
@@ -68,7 +65,7 @@ static char	*env_key_from_arg(const char *arg)
 	char	*key;
 
 	i = 0;
-	key = malloc(sizeof(char *) * ft_strlen(arg));
+	key = safe_malloc(sizeof(char *) * ft_strlen(arg));
 	while (arg[i])
 	{
 		if (arg[i] == '=')
@@ -100,7 +97,7 @@ static void	add_arg_to_env(t_shell *shell, char *arg)
 
 	key = env_key_from_arg(arg);
 	insert_index = index_for_env_key(shell->envp, key);
-	free (key);
+	free(key);
     shell->envp = ft_realloc(shell->envp, env_realloc_size(shell->envp, arg));
 	if (insert_index == -1)
 	{
