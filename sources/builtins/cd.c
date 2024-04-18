@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/28 14:31:20 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/18 23:01:51 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/18 23:08:09 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ static void	update_env(t_shell *shell)
 	char	*pwd;
 	char	*buff;
 
-	i = index_for_env_key(shell->envp, "PWD");
-	j = index_for_env_key(shell->envp, "OLDPWD");
-	pwd = ft_substr(shell->envp[i], 0, 4);
-	oldpwd = ft_substr(shell->envp[j], 0, 7);
+	i = index_for_env_key(shell->envp, "OLDPWD");
+	j = index_for_env_key(shell->envp, "PWD");
+	oldpwd = ft_substr(shell->envp[i], 0, 7);
+	pwd = ft_substr(shell->envp[j], 0, 4);
 	buff = getcwd(NULL, 0);
-	shell->envp[j] = ft_strjoin(oldpwd, get_value_for_key(shell->envp, "PWD"));
-	shell->envp[i] = ft_strjoin(pwd, buff);
+	shell->envp[i] = ft_strjoin(oldpwd, get_value_for_key(shell->envp, "PWD"));
+	shell->envp[j] = ft_strjoin(pwd, buff);
 	free(oldpwd);
 	free(pwd);
 	free(buff);
