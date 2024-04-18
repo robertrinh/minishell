@@ -6,13 +6,13 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/28 14:31:20 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/18 22:43:12 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/18 23:01:51 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	update_env(t_cmd *cmd, t_shell *shell)
+static void	update_env(t_shell *shell)
 {
 	int		i;
 	int		j;
@@ -65,7 +65,7 @@ static char	*set_home_directory(t_cmd *cmd, t_shell *shell)
 	return (home_dir);
 }
 
-static bool	homedir_check(t_cmd *cmd, t_shell *shell)
+static bool	homedir_check(t_cmd *cmd)
 {
 	if (cmd->arg_count == 0)
 		return (true);
@@ -78,7 +78,7 @@ static char	*determine_path(t_cmd *cmd, t_shell *shell)
 {
 	char	*path;
 
-	if (homedir_check(cmd, shell) == true)
+	if (homedir_check(cmd) == true)
 	{
 		path = set_home_directory(cmd, shell);
 		return (path);
@@ -101,7 +101,7 @@ int	cd(t_cmd *cmd, t_shell *shell)
 	if (chdir(path) == -1)
 		return (show_error_message(E_NO_FILE_DIR, C_RED, cmd->value, 1));
 	else
-		update_env(cmd,shell);
+		update_env(shell);
 	free(path);
 	return (0);
 }
