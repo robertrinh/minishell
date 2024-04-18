@@ -6,67 +6,105 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/28 14:31:20 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/17 18:29:52 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/18 22:43:12 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static bool	error_check(t_cmd *cmd, t_shell *shell)
+static void	update_env(t_cmd *cmd, t_shell *shell)
+{
+	int		i;
+	int		j;
+	char	*oldpwd;
+	char	*pwd;
+	char	*buff;
+
+	i = index_for_env_key(shell->envp, "PWD");
+	j = index_for_env_key(shell->envp, "OLDPWD");
+	pwd = ft_substr(shell->envp[i], 0, 4);
+	oldpwd = ft_substr(shell->envp[j], 0, 7);
+	buff = getcwd(NULL, 0);
+	shell->envp[j] = ft_strjoin(oldpwd, get_value_for_key(shell->envp, "PWD"));
+	shell->envp[i] = ft_strjoin(pwd, buff);
+	free(oldpwd);
+	free(pwd);
+	free(buff);
+}
+
+static bool minus_flag_check(t_cmd *cmd, t_shell *shell)
 {
 	char	*path;
 
-	printf("gaat hier\n");
-	if (ft_strncmp(cmd->args[0], "-", 2) == 0)
+	if (cmd->args[0] == NULL)
+		return (true);
+	else if (ft_strncmp(cmd->args[0], "-", 2) == 0)
 	{
-		path = ft_getenv(shell, "OLDPWD");
-		printf("path is %s\n", path);
-		return (FAILURE);
+		path = get_value_for_key(shell->envp, "OLDPWD");
+		if (path == NULL)
+		{
+			show_error_message(": OLDPWD not set", C_RED, cmd->value, 1);
+			return (false);
+		}
+		ft_putendl_fd(path, STDOUT_FILENO);
+		return (false);
 	}
-	return (SUCCESS);
+	return (true);
 }
 
-static void	set_home_directory(t_cmd *cmd, t_shell *shell)
+static char	*set_home_directory(t_cmd *cmd, t_shell *shell)
 {
 	char	*home_dir;
 
-	home_dir = ft_getenv(shell, "HOME");
-	if (home_dir == NULL) // ! unset
+	home_dir = get_value_for_key(shell->envp, "HOME");
+	if (home_dir == NULL)
 	{
-		// TODO error + exit code for no home in env
+		show_error_message(": HOME not set", C_RED, cmd->value, 1);
+		return (NULL);
 	}
-	if (ft_strncmp(cmd->args[0], "~", 2) == 0)
+	return (home_dir);
+}
+
+static bool	homedir_check(t_cmd *cmd, t_shell *shell)
+{
+	if (cmd->arg_count == 0)
+		return (true);
+	else if (ft_strncmp(cmd->args[0], "~", 2) == 0)
+		return (true);
+	return (false);
+}
+
+static char	*determine_path(t_cmd *cmd, t_shell *shell)
+{
+	char	*path;
+
+	if (homedir_check(cmd, shell) == true)
 	{
-		home_dir = ft_strjoin(cmd->args[0], home_dir);
-		printf("home_dir is now: %s\n", home_dir); // ? needed if chdir here?
+		path = set_home_directory(cmd, shell);
+		return (path);
 	}
+	path = safe_strdup(cmd->args[0]);
+	return (path);
 }
 
 int	cd(t_cmd *cmd, t_shell *shell)
 {
-	char	cwd[1024];
-	// char	**path;
+	char	*path;
 
-	getcwd(cwd, 1024);
-	if (error_check(cmd, shell) == FAILURE)
-		printf("fail\n");
-	if (cmd->arg_count == 0 || ft_strncmp(cmd->args[0], "~", 2) == 0)
-		set_home_directory(cmd, shell);
-	if (chdir(cwd) == -1)
-	{
-		printf("chdir failed :(\n"); // TODO actual error
-		return (-1);
-	}
+	if (cmd->arg_count > 1)
+		return (0); // ? MAC bash: only execs first cd, ignores 2nd arg. so needed?
+	if (minus_flag_check(cmd, shell) == false)
+		return (0);
+	path = determine_path(cmd, shell);
+	if (path == NULL)
+		return (0);
+	if (chdir(path) == -1)
+		return (show_error_message(E_NO_FILE_DIR, C_RED, cmd->value, 1));
 	else
-		printf("chdir worked!\n"); 
+		update_env(cmd,shell);
+	free(path);
 	return (0);
 }
 
-// TODO absolute path
-// TODO accessable dir
-// TODO update OLDPWD + PWD in env
-// TODO cd - should show old_pwd --> OLDPWD not set error when no OLD yet
-// * cd with only relative or absolute path
-// ! ~ = /Users/robert aka $HOME
-// ? cd with no options? how far do we need to implement?
-// ? do we update the ENV from shell->envp or directly from the original?
+// TODO accessable dir --> needed here?
+

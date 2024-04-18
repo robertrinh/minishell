@@ -6,12 +6,12 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:25:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/17 17:53:52 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/18 21:47:59 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-# define UNSERSCORE_VAR "_"
+# define UNDERSCORE_VAR "_"
 
 /*
 	Counts the occurances of the given delimiter character in the given string
@@ -101,7 +101,7 @@ static void	add_arg_to_env(t_shell *shell, char *arg)
     shell->envp = ft_realloc(shell->envp, env_realloc_size(shell->envp, arg));
 	if (insert_index == -1)
 	{
-		insert_index = index_for_env_key(shell->envp, UNSERSCORE_VAR);
+		insert_index = index_for_env_key(shell->envp, UNDERSCORE_VAR);
 		if (insert_index == -1)
 			insert_index = (count_lines_from(shell->envp, 0) - 1);
 		save_line = shell->envp[insert_index];

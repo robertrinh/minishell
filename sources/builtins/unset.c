@@ -6,13 +6,13 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:02:51 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/17 17:45:03 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/18 14:19:51 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char **buffer_env_after_index(char **env, int index)
+static char	**buffer_env_after_index(char **env, int index)
 {
 	int		i;
 	int		buffer_len;

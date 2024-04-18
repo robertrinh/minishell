@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/04/14 14:20:51 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/18 13:58:25 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	child_process(t_shell *shell)
 			{
 				cmd_value = shell->cmd_table->cmds[0]->value;
 				show_error_message(E_CMD_NOT_FOUND, C_RED, cmd_value, X_CMD);
-				return ;
+				exit(g_exit_code);
 			}
 			execute_command(shell, 0);
 		}
