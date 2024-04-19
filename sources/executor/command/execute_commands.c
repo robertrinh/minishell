@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 15:22:01 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/14 14:20:59 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/18 23:02:49 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	execute_commands(t_shell *shell)
 		if (shell->cmd_table->cmds[i]->cmd_path == NULL)
 		{
 			cmd_value = shell->cmd_table->cmds[i]->value;
-			show_error_message(E_CMD_NOT_FOUND, C_RED, cmd_value, X_CMD);
+			show_error_message(E_NO_FILE_DIR, C_RED, cmd_value, X_CMD);
 			return (g_exit_code);
 		}
 		if (shell->cmd_table->cmds[i]->fd_in)

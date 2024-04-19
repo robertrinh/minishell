@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/14 14:00:53 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/18 21:48:09 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,26 @@
 # define E_PIPE					"unmatched pipe."
 # define E_REDIRECT				"unmatched redirect."
 # define E_MALLOC				"malloc failure."
-# define E_READLINE_FAILURE		"readline failure."
+# define E_EOF_DESCRIPTOR		"exit" // ! this needs to be exit -> bash behaviour when u press ctrl-D (ctrl-d = EOF descriptor)
 # define E_OPERATOR				"invalid operator."
-# define E_ENV_NOT_FOUND		"enviroment not found."
 # define E_FORK					"fork failure."
 # define E_PIPE_FAIL			"pipe failure."
-# define E_OPENING_FILE			"could not open file: "
-# define E_EXPORT				"export: not a valid identifier: "
-# define E_CMD					"execve: command not found: "
-# define E_CMD_NOT_FOUND		"no such file or directory: "
+# define E_OPENING_FILE			": could not open file"
+# define E_EXPORT				"export: not a valid identifier "
+# define E_CMD					": execve: command not found "
+# define E_NO_FILE_DIR			": No such file or directory "
 
 // Exit codes
 # define X_INIT					EXIT_SUCCESS
+# define X_EOF_DESCRIPTOR		EXIT_SUCCESS
 # define X_QUOTE				EXIT_FAILURE
 # define X_PIPE					EXIT_FAILURE
 # define X_REDIRECT				EXIT_FAILURE
 # define X_MALLOC				EXIT_FAILURE
-# define X_READLINE_FAILURE		EXIT_FAILURE
 # define X_OPERATOR				EXIT_FAILURE
 # define X_OPENING_FILE			EXIT_FAILURE
 # define X_EXPORT				EXIT_FAILURE
-# define X_NEUMERIC_ERROR		2
+# define X_NUMERIC_ERROR		2
 # define X_SIG_HEREDOC			1
 # define X_SIG_CTL_C			130
 # define X_SIG_BACKSLASH		131
