@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/22 21:34:08 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/22 21:38:17 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,16 @@
 # define E_PIPE					"unmatched pipe."
 # define E_REDIRECT				"unmatched redirect."
 # define E_MALLOC				"malloc failure."
-# define E_EOF_DESCRIPTOR		"exit" // ! this needs to be exit -> bash behaviour when u press ctrl-D (ctrl-d = EOF descriptor)
+# define E_EOF_DESCRIPTOR		"exit"
 # define E_OPERATOR				"invalid operator."
 # define E_FORK					"fork failure."
-# define E_PIPE_FAIL			"pipe failure."
-# define E_OPENING_FILE			": could not open file"
-# define E_EXPORT				"export: not a valid identifier "
-# define E_CMD					": execve: command not found "
-# define E_NO_FILE_DIR			": No such file or directory "
+# define E_EXPORT				"export: not a valid identifier: "
+# define E_CMD					"execve: command not found: "
+# define E_NO_FILE_DIR			"No such file or directory: "
 # define E_DUP					"dup failure."
 # define E_WAITPID				"waitpid failure."
 # define E_PIPE_FAIL			"pipe failure: "
 # define E_OPENING_FILE			"could not open file: "
-# define E_EXPORT				"export: not a valid identifier: "
-# define E_CMD					"execve: command not found: "
 # define E_CMD_NOT_FOUND		"no such file or directory: "
 
 // Exit codes

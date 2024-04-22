@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/22 21:09:40 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/22 21:24:46 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/22 21:39:13 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	execute_commands(t_shell *shell)
 {
 	int			i;
 	int			last_pid;
-	t_cmd		*cmd;
 	t_childs	childs;
 	int			return_value;
 
