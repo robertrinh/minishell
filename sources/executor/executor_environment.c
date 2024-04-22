@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 19:45:47 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/14 14:20:06 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/18 21:31:42 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**format_cmd(t_cmd *cmd)
 	cmd_and_args[0] = cmd->value;
 	while (i < cmd->arg_count)
 	{
-		cmd_and_args[i + 1] = ft_strdup(cmd->args[i]); // TODO protect
+		cmd_and_args[i + 1] = safe_strdup(cmd->args[i]);
 		i++;
 	}
 	cmd_and_args[i + 1] = 0;
@@ -52,27 +52,6 @@ char	*get_path_for_cmd(char **env_paths, char *command)
 }
 
 /*
-	Returns the string value of the environment PATH variable following '='.
-	Or NULL if no PATH is found.
-*/
-char	*ft_getenv(t_shell *shell, char *input)
-{
-	char	**local_env;
-	int	i;
-
-	local_env = shell->envp;
-	i = 0;
-
-	while (local_env[i])
-	{
-		if (ft_strncmp(local_env[i], input, ft_strlen(input + 1)) == 0)
-			return (ft_substr(local_env[i], 5, ft_strlen(local_env[i])));
-		i++;
-	}
-	return (NULL);
-}
-
-/*
 	Returns and array of strings for values contained in the environment PATH 
 	variable following '=', and seperated by ':'. Or NULL if no PATH is found.
 */
@@ -83,7 +62,7 @@ char	**get_paths(t_shell *shell)
 
 	env_paths = NULL;
 	env_path = NULL;
-	env_path = ft_getenv(shell, "PATH");
+	env_path = get_value_for_key(shell->envp, "PATH");
 	if (env_path == NULL)
 		return (NULL);
 	env_paths = ft_split(env_path, ':');

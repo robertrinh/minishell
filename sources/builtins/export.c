@@ -6,12 +6,12 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:25:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/10 14:29:33 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/18 21:47:59 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-# define UNSERSCORE_VAR "_"
+# define UNDERSCORE_VAR "_"
 
 /*
 	Counts the occurances of the given delimiter character in the given string
@@ -34,7 +34,7 @@ static int	count_delimiters(const char *arg, char delimiter)
 
 static bool	is_valid_export_key(const char *arg)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (arg[i])
@@ -52,13 +52,10 @@ static bool is_valid_export_arg(const char *arg)
 {
 	if (arg == NULL)
 		return (false);
-
 	if (count_delimiters(arg, EXPORT_DELIMITER) > 1)
 		return (false);
-
 	if (is_valid_export_key(arg) == false)
 		return (false);
-
 	return (true);
 }
 
@@ -68,7 +65,7 @@ static char	*env_key_from_arg(const char *arg)
 	char	*key;
 
 	i = 0;
-	key = malloc(sizeof(char *) * ft_strlen(arg));
+	key = safe_malloc(sizeof(char *) * ft_strlen(arg));
 	while (arg[i])
 	{
 		if (arg[i] == '=')
@@ -100,11 +97,11 @@ static void	add_arg_to_env(t_shell *shell, char *arg)
 
 	key = env_key_from_arg(arg);
 	insert_index = index_for_env_key(shell->envp, key);
-	free (key);
+	free(key);
     shell->envp = ft_realloc(shell->envp, env_realloc_size(shell->envp, arg));
 	if (insert_index == -1)
 	{
-		insert_index = index_for_env_key(shell->envp, UNSERSCORE_VAR);
+		insert_index = index_for_env_key(shell->envp, UNDERSCORE_VAR);
 		if (insert_index == -1)
 			insert_index = (count_lines_from(shell->envp, 0) - 1);
 		save_line = shell->envp[insert_index];
@@ -121,6 +118,7 @@ static void	add_arg_to_env(t_shell *shell, char *arg)
 	}
 }
 
+// TODO error check -> not valid identifier
 int		export(t_cmd *cmd, t_shell *shell)
 {
 	int		i;
