@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/14 14:00:53 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/15 16:29:10 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@
 # define E_OPERATOR				"invalid operator."
 # define E_ENV_NOT_FOUND		"enviroment not found."
 # define E_FORK					"fork failure."
-# define E_PIPE_FAIL			"pipe failure."
+# define E_DUP					"dup failure."
+# define E_WAITPID				"waitpid failure."
+# define E_PIPE_FAIL			"pipe failure: "
 # define E_OPENING_FILE			"could not open file: "
 # define E_EXPORT				"export: not a valid identifier: "
 # define E_CMD					"execve: command not found: "
@@ -32,6 +34,9 @@
 # define X_INIT					EXIT_SUCCESS
 # define X_QUOTE				EXIT_FAILURE
 # define X_PIPE					EXIT_FAILURE
+# define X_FORK					EXIT_FAILURE
+# define X_DUP					EXIT_FAILURE
+# define X_WAITPID				EXIT_FAILURE
 # define X_REDIRECT				EXIT_FAILURE
 # define X_MALLOC				EXIT_FAILURE
 # define X_READLINE_FAILURE		EXIT_FAILURE

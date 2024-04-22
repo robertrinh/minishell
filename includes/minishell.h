@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/11 18:06:22 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/22 21:28:22 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,11 +139,20 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+// Decrepit
 typedef struct s_pipes
 {
 	int		prev_pipe[2];
 	int		curr_pipe[2];
 } t_pipes;
+
+// New
+typedef struct s_childs
+{
+	int		child_count;
+	pid_t	child_pid;
+	int		pipe_fd[2][2];
+}	t_childs;
 
 typedef struct s_redirect
 {
@@ -328,7 +337,7 @@ int		pwd(t_cmd *cmd, t_shell *shell);
 // unset.c
 int		unset(t_cmd *cmd, t_shell *shell);
 
-// ----------------------------------- executor/command
+// ----------------------------------- executor/execute_command
 // execute_commands.c
 t_validation	execute_command(t_shell *shell, int i);
 int				execute_commands(t_shell *shell);
@@ -339,6 +348,22 @@ void	open_redirects(t_cmd *cmd);
 // single_command.c
 int		single_command(t_shell *shell);
 void	child_process(t_shell *shell);
+
+// ----------------------------------- executor/execute_commands
+// execute_commands.c
+int		execute_commands(t_shell *shell);
+
+// execute_pipe.c
+void	first_cmd(t_shell *shell, t_cmd *cmd, int pipe_out[2]);
+void	mid_cmd(t_shell *shell, t_cmd *cmd, int pipe_in, int pipe_out[2]);
+int		final_cmd(t_shell *shell, t_cmd *cmd, int pipe_in);
+
+// execute_piped_command.c
+t_validation	execute_piped_command(t_shell *shell, t_cmd *cmd);
+
+// execute_wait.c
+int		wait_for_last_cmd(int child_count, int last_pid);
+
 
 // ----------------------------------- executor/pipe
 // pipe_manager.c
