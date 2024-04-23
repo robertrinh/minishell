@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:36:44 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/18 21:34:03 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/23 20:57:55 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	show_error_message(char *error, char *color, char *arg, int exit_code)
 	char	*message;
 
 	message = ft_strjoin(color, "minishell: ");
-	message = ft_strjoin(message, arg);
 	message = ft_strjoin(message, error);
+	message = ft_strjoin(message, arg);
 	message = ft_strjoin(message, RESET_COLOR);
 	message = ft_strjoin(message, "\n");
 	write(2, message, ft_strlen(message));
