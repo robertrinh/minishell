@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/04/18 23:01:08 by robertrinh    ########   odam.nl          #
+#    Updated: 2024/04/22 21:35:00 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,8 +65,13 @@ SOURCES_BUILTINS		= builtins.c \
 								pwd.c \
 								unset.c
 
-SOURCES_EXECUTOR_COMMAND	= execute_commands.c \
+SOURCES_EXECUTOR_COMMAND	= execute_command.c \
 								single_command.c
+
+SOURCES_EXECUTOR_COMMANDS = execute_commands.c \
+								execute_pipe.c \
+								execute_piped_command.c \
+								execute_wait.c
 							
 SOURCES_EXECUTOR_PIPE	= pipe_manager.c \
 							pipe_utils.c
@@ -96,7 +101,8 @@ DIR_SOURCES_PARSER		= sources/parser
 DIR_SOURCES_UTILS		= sources/utils
 DIR_SOURCES_EXECUTOR	= sources/executor
 DIR_SOURCES_BUILTINS	= sources/builtins
-DIR_SOURCES_EXECUTOR_COMMAND = sources/executor/command
+DIR_SOURCES_EXECUTOR_COMMAND = sources/executor/execute_command
+DIR_SOURCES_EXECUTOR_COMMANDS = sources/executor/execute_commands
 DIR_SOURCES_EXECUTOR_PIPE = sources/executor/pipe
 DIR_SOURCES_EXECUTOR_REDIRECTS = sources/executor/redirects
 DIR_SOURCES_EXECUTOR_SIGNALS = sources/executor/signals
@@ -113,6 +119,7 @@ OBJ = $(addprefix $(DIR_OBJ)/, $(SOURCES:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_BUILTINS:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_COMMAND:.c=.o)) \
+	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_COMMANDS:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_PIPE:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_REDIRECTS:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR_SIGNALS:.c=.o)) \
@@ -166,6 +173,9 @@ $(DIR_OBJ)/%.o: $(DIR_SOURCES_BUILTINS)/%.c | $(DIR_OBJ)
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES_EXECUTOR_COMMAND)/%.c | $(DIR_OBJ)
+	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
+
+$(DIR_OBJ)/%.o: $(DIR_SOURCES_EXECUTOR_COMMANDS)/%.c | $(DIR_OBJ)
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES_EXECUTOR_PIPE)/%.c | $(DIR_OBJ)
