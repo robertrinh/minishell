@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/04/22 21:35:00 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2024/04/23 22:05:30 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,8 +73,7 @@ SOURCES_EXECUTOR_COMMANDS = execute_commands.c \
 								execute_piped_command.c \
 								execute_wait.c
 							
-SOURCES_EXECUTOR_PIPE	= pipe_manager.c \
-							pipe_utils.c
+SOURCES_EXECUTOR_PIPE	= pipe_utils.c
 
 SOURCES_EXECUTOR_REDIRECTS	= redirect_heredoc.c \
 								redirect_in_files.c \
@@ -85,8 +84,9 @@ SOURCES_EXECUTOR_REDIRECTS	= redirect_heredoc.c \
 
 SOURCES_EXECUTOR_SIGNALS	= signals.c
 
-SOURCES_EXPANDER		= expander.c \
-								get_env_key.c \
+SOURCES_EXPANDER		= expander_utils.c \
+								expander.c \
+								get_env_key.c
 
 
 # ===== Manage Directories =====
@@ -132,7 +132,7 @@ LIBFT				= includes/libft
 
 # ===== Compile =====
 CC 					= cc -g
-CFLAGS 				= -Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS 				= -Wall -Werror -Wextra # -g -fsanitize=address
 
 READLINE_LOC		=	~/.brew/opt/readline
 READLINE_LIB		=	-L $(READLINE_LOC)/lib -lreadline

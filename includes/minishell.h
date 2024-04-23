@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/22 21:35:11 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/23 22:00:32 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,14 +139,12 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-// Decrepit
-typedef struct s_pipes
+typedef struct s_env_utils
 {
-	int		prev_pipe[2];
-	int		curr_pipe[2];
-} t_pipes;
+	char	*key;
+	char	*value;
+} t_env_utils;
 
-// New
 typedef struct s_childs
 {
 	int		child_count;
@@ -298,7 +296,6 @@ int		*fd_in_files(t_cmd *cmd);
 
 // executor_utils.c
 int		prepare_command(t_shell *shell, int i);
-int		new_process(t_shell *shell, int i, t_pipes *pipes, t_cmd *cmd);
 
 // executor.c
 int		shell_execute(t_shell *shell);
@@ -366,15 +363,8 @@ int		wait_for_last_cmd(int child_count, int last_pid);
 
 
 // ----------------------------------- executor/pipe
-// pipe_manager.c
-t_validation	dup_fds(t_pipes *pipes, t_cmd *cmd);
-
 // pipe_utils.c
-t_pipes	*init_pipes(void);
 int		count_pipes(t_shell *shell);
-void	will_open_pipe(t_cmd_table *cmd_table, t_pipes *pipes, int i);
-void	will_close_pipes(t_pipes *pipes);
-void	iterate_pipes(t_pipes *pipes);
 
 // ----------------------------------- executor/redirects
 // redirect_heredoc
@@ -407,6 +397,13 @@ void	rl_replace_line(const char *text, int clear_undo);
 
 
 //===============================================================: Expander
+// expander_utils.c
+void free_env_values(char *key, char *value, t_env_utils *env_utils);
+int	count_expand(char *arg);
+bool is_arg_key(char *arg, char *key);
+char *expand_exit_code(char *arg, char *key, char *val, \
+	size_t i, t_env_utils *env_utils);
+
 // expander.c
 char	*will_expand(char **env, char *arg);
 
