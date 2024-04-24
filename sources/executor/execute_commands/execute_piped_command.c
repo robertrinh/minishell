@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/22 21:13:57 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/22 21:14:33 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/23 21:00:09 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ t_validation	execute_piped_command(t_shell *shell, t_cmd *cmd)
 		exec_builtin(shell->builtin_child, cmd, shell, B_NUM_CHILD);
 
 	else if (execve(cmd_path, formatted_cmd, shell->envp) == -1)
-		return (show_error_message(E_CMD, C_RED, cmd_value, X_CMD));
+	{
+		show_error_message(E_CMD, C_RED, cmd_value, X_CMD);
+		exit(g_exit_code);
+	}
 
 	return (SUCCESS);
 }

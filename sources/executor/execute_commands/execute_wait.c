@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/22 21:17:34 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/22 21:24:22 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/23 21:05:11 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,18 @@
 
 static int	handle_signal(int signal)
 {
-	if (signal > 0 && signal < 32)
-		ft_putstr_fd("Handle error", STDOUT_FILENO); // TODO handle signals
+	// if (signal > 0 && signal < 32)
+	// 	return (signal + 128);
 	return (signal + 128);
 }
 
+/*
+	Returns the signal of the last command, when exicution complete.
+
+	WIFSIGNALED:	check if child process terminated because it received a signal.
+	WIFEXITED:		check if child process terminated normally.
+	WTERMSIG:		gets signal number from the status returned by waitpid().
+*/
 int	wait_for_last_cmd(int child_count, int last_pid)
 {
 	int	i;
