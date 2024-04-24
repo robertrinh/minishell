@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/22 21:38:17 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/24 18:29:17 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define E_WAITPID				"waitpid failure."
 # define E_PIPE_FAIL			"pipe failure: "
 # define E_OPENING_FILE			"could not open file: "
-# define E_CMD_NOT_FOUND		"no such file or directory: "
+# define E_CMD_NOT_FOUND		"command not found: "
 
 // Exit codes
 # define X_INIT					EXIT_SUCCESS

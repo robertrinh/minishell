@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/29 22:10:43 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/08 07:45:16 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/24 19:31:35 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static char *skip_multiple_expand_chars(char *arg, size_t i)
 			j++;
 		}
 	}
+	free(buffer);
 	return (arg);
 }
 
@@ -56,17 +57,14 @@ char	*get_env_key(char *arg, size_t i)
 
 	i += 1;
 	arg = skip_multiple_expand_chars(arg, i);
-
 	if (arg[i] == '?')
 		return ("?");
-	
 	if (ft_strlen(arg) == i + 1)
 	{
 		key = safe_strdup_from(arg, i);
 		key = ft_str_remove_char(key, 0, EXPAND_CHAR);
 		return (key);
 	}
-
 	j = 0;
 	key = safe_malloc(sizeof(char *) * ft_strlen(arg) + 1);
 	while (arg[i])

@@ -6,25 +6,17 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/22 21:17:34 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/23 21:05:11 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/24 19:19:49 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
-
-static int	handle_signal(int signal)
-{
-	// if (signal > 0 && signal < 32)
-	// 	return (signal + 128);
-	return (signal + 128);
-}
 
 /*
 	Returns the signal of the last command, when exicution complete.
 
 	WIFSIGNALED:	check if child process terminated because it received a signal.
 	WIFEXITED:		check if child process terminated normally.
-	WTERMSIG:		gets signal number from the status returned by waitpid().
 */
 int	wait_for_last_cmd(int child_count, int last_pid)
 {
@@ -41,12 +33,10 @@ int	wait_for_last_cmd(int child_count, int last_pid)
 			show_error_message(E_WAITPID, C_RED, "", X_WAITPID);
 		if (waitpid_ret == last_pid)
 			last_status = status;
-		if (WIFEXITED(status) || WIFSIGNALED(status))
+		if (WIFEXITED(status))
 			i++;
 	}
 	if (WIFEXITED(last_status))
 		return (WEXITSTATUS(last_status));
-	else if (WIFSIGNALED(last_status))
-		return (handle_signal(WTERMSIG(last_status)));
 	return (-1);
 }

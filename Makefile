@@ -6,12 +6,9 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/04/23 22:05:30 by quentinbeuk   ########   odam.nl          #
-=======
-#    Updated: 2024/04/23 20:44:31 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2024/04/24 19:31:16 by qtrinh        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
-
 
 # ===== Colors =====
 BOLD				:= \033[1m
