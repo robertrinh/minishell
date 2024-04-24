@@ -6,71 +6,47 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/11 13:47:02 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/04/23 21:57:24 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	count_expand(char *arg)
+t_env_utils	*init_env_utils(char **env, char *arg, size_t i)
 {
-	int		i;
-	int		count;
+	t_env_utils		*env_utils;
 
-	i = 0;
-	count = 0;
-	while (arg[i])
-	{
-		if (arg[i] == EXPAND_CHAR)
-			count++;
-		i++;
-	}
-	return (count);
-}
-
-static char *expand_exit_code(char *arg, char *key, size_t i)
-{
-	key = ft_strjoin("$", key);
-	arg = ft_str_remove(arg, key);
-	arg = ft_str_insert(arg, ft_itoa(g_exit_code), i);
-	return (arg);
+	env_utils = safe_malloc(sizeof(t_env_utils));
+	env_utils->key = get_env_key(arg, i);
+	ft_sleep(5000);
+	env_utils->value = get_value_for_key(env, env_utils->key);
+	return (env_utils);
 }
 
 static char	*expand_arg(char **env, char *arg, size_t i)
 {
-	char	*key;
-	char	*value;
+	t_env_utils		*env_utils;
 
 	if (ft_strlen(arg) == 1)
 		return (arg);
-
-	key = get_env_key(arg, i);
-	ft_sleep(5000);
-	value = get_value_for_key(env, key);
-	if (key[0] == '?')
-		return (expand_exit_code(arg, key, i));
-
-	if (key[0] != EXPAND_CHAR)
-		key = ft_strjoin("$", key);
-	
-	if (arg && value)
+	env_utils = NULL;
+	env_utils = init_env_utils(env, arg, i);
+	if (env_utils->key[0] == '?')
+		return (expand_exit_code(arg, env_utils->key, env_utils->value, i, env_utils));
+	if (env_utils->key[0] != EXPAND_CHAR)
+		env_utils->key = ft_strjoin("$", env_utils->key);
+	if (arg && env_utils->value && is_arg_key(arg, env_utils->key))
 	{
-		if (ft_strncmp(arg, key, (ft_strlen(key) + ft_strlen(arg)))  == 0)
-			return (arg = value);
+		free_env_values(env_utils->key, env_utils->value, env_utils);
+		return (arg = env_utils->value);
 	}
-
-	arg = ft_str_remove(arg, key);
-
-	if (arg && value)
-		arg = ft_str_insert(arg, value, i);
-
-	free (value);
-	free (key);
+	arg = ft_str_remove(arg, env_utils->key);
+	if (arg && env_utils->value)
+		arg = ft_str_insert(arg, env_utils->value, i);
+	free_env_values(env_utils->key, env_utils->value, env_utils);
 	return (arg);
 }
 
-// TODO protect str_remove() & str_insert()
-// TODO Free key + value at early return
 char	*will_expand(char **env, char *arg)
 {
 	size_t	i;
