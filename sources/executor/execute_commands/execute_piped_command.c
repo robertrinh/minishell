@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/22 21:13:57 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/24 19:33:43 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/04/25 11:57:24 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@ t_validation	execute_piped_command(t_shell *shell, t_cmd *cmd)
 	cmd_value = cmd->value;
 	cmd_path = cmd->cmd_path;
 	formatted_cmd = cmd->formatted_cmd;
-
-	if (is_builtin(shell->builtin_main, cmd, B_NUM_MAIN))
-	{
-		printf("exec piped command");
-		exit(0);
-	}
 	if (is_builtin(shell->builtin_child, cmd, B_NUM_CHILD))
 		exec_builtin(shell->builtin_child, cmd, shell, B_NUM_CHILD);
 	else if (execve(cmd_path, formatted_cmd, shell->envp) == -1)

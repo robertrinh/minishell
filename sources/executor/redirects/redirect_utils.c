@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 13:07:55 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/11 15:11:17 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/04/25 17:26:34 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_redirect_type	last_infile_type(t_cmd *cmd)
 	t_redirect			*in_files;
 	t_redirect_type		type;
 
+	type = REDIR_NONE;
 	in_files = cmd->fd_in;
 	while (in_files)
 	{
@@ -64,5 +65,6 @@ size_t	read_large_file(int fd, char ***buff)
 			*buff = &temp;
 		}
 	}
+	// TODO error handle when read fails?
 	return (total_bytes);
 }

@@ -6,11 +6,30 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/05 14:17:27 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/04/04 21:06:22 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/25 14:36:04 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+static void	free_split(t_split *sp)
+{
+	// int	i;
+
+	// i = 0;
+	if (sp == NULL)
+		return ;
+	// if (sp->strings)
+	// {
+	// 	while (i < sp->count)
+	// 	{
+	// 		free(sp->strings[i]);
+	// 		i++;
+	// 	}
+	// 	free(sp->strings);
+	// }
+	free(sp);
+}
 
 static int	index_next_quote(t_split *sp, int quote_type)
 {
@@ -66,13 +85,14 @@ char	**split(t_shell *shell)
 	split = safe_malloc(sizeof(t_split));
 	split = init_split(shell, split);
 	split->count = count_substrings(split);
-	split->strings = ft_calloc(sizeof(char *), (split->count + 1));
+	split->strings = safe_calloc(sizeof(char *), (split->count + 1));
 	if (split->strings == NULL)
 	{
 		// TODO clean_exit()
 	}
 	split->strings = allocate_strings_split(split);
 	split_string = split->strings;
-	free(split);
+	free_split(split);
+	// ? seems we need to strdup the split_string -> by freeing split struct, split_string also is lost so no strings
 	return (split_string);
 }

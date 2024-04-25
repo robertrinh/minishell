@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/07 10:52:13 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/25 16:48:05 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ bool	shell_parser(t_shell *shell)
 	shell->cmd_table->cmds = p->cmds;
 	shell->cmd_table->cmd_count = p->cmd_count;
 	
-	free(p);
+	free(p); // TODO also free the values in struct?
 
 	parser_post_process(shell);
 

@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:02:51 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/18 14:19:51 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/25 17:30:19 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ int		unset(t_cmd* cmd, t_shell *shell)
 		i++;
 	}
 	new_size = env_size(shell->envp);
-	ft_realloc(shell->envp, new_size);
+	shell->envp = ft_realloc(shell->envp, new_size);
 	return (0);
 }

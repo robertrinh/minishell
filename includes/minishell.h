@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/24 17:02:05 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/04/25 16:27:31 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,6 @@ typedef struct s_cmd
 {
 	t_redirect	*fd_in;
 	t_redirect	*fd_out;
-	t_redirect	*fd_err;
 	char		*value;
 	char		**args;
 	char		**formatted_cmd;
@@ -415,6 +414,10 @@ char	*get_env_key(char *arg, size_t i);
 //===============================================================: Utils
 // clean_exit.c
 void	shell_finish(t_shell *shell);
+
+// clean_utils.c
+void	free_token(t_token *token);
+void	free_cmd(t_cmd *cmd);
 
 // control_utils.c
 void 	ft_sleep(size_t count);

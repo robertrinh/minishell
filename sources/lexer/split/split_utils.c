@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/17 15:59:08 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/06 17:56:38 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/25 12:43:51 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 t_split	*init_split(t_shell *shell, t_split *split)
 {
-	split->input = safe_malloc(sizeof(char) * ft_strlen(shell->input) + 1);
-	split->input = shell->input;
+	// split->input = safe_malloc(sizeof(char) * ft_strlen(shell->input) + 1);
+	// ft_strlcpy(split->input, shell->input, ft_strlen(shell->input) + 1);
+	split->input = safe_strdup(shell->input);
 	split->len = ft_strlen(shell->input);
 	split->i = 0;
 	split->i_check = 0;

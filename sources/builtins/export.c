@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:25:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/24 18:56:19 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/04/25 17:22:35 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,10 @@ static bool	is_valid_export_key(const char *arg)
 	while (arg[i])
 	{
 		if (arg[i] == EXPORT_DELIMITER)
-			break ;
-		if (ft_isalpha(arg[i]) == false)
-			return (false);
+			return (true);
 		i++;
 	}
-	return (true);
+	return (false);
 }
 
 static bool	is_valid_export_arg(const char *arg)
@@ -107,17 +105,13 @@ static void	add_arg_to_env(t_shell *shell, char *arg)
 		if (insert_index == -1)
 			insert_index = (count_lines_from(shell->envp, 0) - 1);
 		save_line = shell->envp[insert_index];
-		shell->envp[insert_index] = safe_malloc(ft_strlen(arg) + 1);
-		shell->envp[insert_index] = arg;
-		shell->envp[insert_index + 1] = safe_malloc(ft_strlen(save_line) + 1);
-		shell->envp[insert_index + 1] = save_line;
+		shell->envp[insert_index] = safe_strdup(arg);
+		shell->envp[insert_index + 1] = safe_strdup(save_line);
 		shell->envp[insert_index + 2] = NULL;
 	}
 	else
-	{
-		shell->envp[insert_index] = safe_malloc(ft_strlen(arg) + 1);
-		shell->envp[insert_index] = arg;
-	}
+		shell->envp[insert_index] = safe_strdup(arg);
+	// ? how to free malloc strdups in envp?
 }
 
 // TODO error check -> not valid identifier
@@ -131,11 +125,7 @@ int	export(t_cmd *cmd, t_shell *shell)
 	while (i < cmd->arg_count)
 	{
 			if (is_valid_export_arg(cmd->args[i]))
-			{
-				if (count_delimiters(cmd->args[i], EXPORT_DELIMITER) == 0)
-					return (0);
 				add_arg_to_env(shell, cmd->args[i]);
-			}
 			else
 				return (show_error_message(E_EXPORT, C_RED, cmd->args[i], 1));
 		i++;
