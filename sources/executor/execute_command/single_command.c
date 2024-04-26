@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 14:28:14 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/04/26 16:49:20 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:10:00 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	single_command(t_shell *shell)
 	else if (pid > 0)
 	{
 		waitpid(pid, &stat_loc, 0);
-		printf("stat_loc: %d\n", stat_loc);
 		if (WIFEXITED(stat_loc))
 			return (WEXITSTATUS(stat_loc));
 	}

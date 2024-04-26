@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 11:15:17 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/04/26 16:41:05 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:19:38 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	setup_heredoc(t_redirect *heredoc, int *stat_loc)
 	int		stat_loc_local = 0;
 
 	pipe(fd); // TODO protect pipe
+	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid == -1)
 	{
