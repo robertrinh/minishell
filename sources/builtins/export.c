@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   export.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/03/13 21:25:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/25 17:22:35 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/13 21:25:42 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/04/26 17:38:19 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static bool	is_valid_export_key(const char *arg)
 	{
 		if (arg[i] == EXPORT_DELIMITER)
 			return (true);
+		if (ft_isalpha(arg[i]) == false)
+			return (false);
 		i++;
 	}
 	return (false);
