@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/22 21:17:02 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/23 21:03:32 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/24 19:33:46 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	manage_execution(t_shell *shell, t_cmd *cmd)
 
 void	first_cmd(t_shell *shell, t_cmd *cmd, int pipe_out[2])
 {
-	int		fork_id;
+	int	fork_id;
 
 	signal(SIGINT, SIG_IGN);
 	fork_id = fork();
@@ -46,7 +46,7 @@ void	first_cmd(t_shell *shell, t_cmd *cmd, int pipe_out[2])
 
 void	mid_cmd(t_shell *shell, t_cmd *cmd, int pipe_in, int pipe_out[2])
 {
-	int		fork_id;
+	int	fork_id;
 
 	signal(SIGINT, SIG_IGN);
 	fork_id = fork();
@@ -71,7 +71,7 @@ void	mid_cmd(t_shell *shell, t_cmd *cmd, int pipe_in, int pipe_out[2])
 
 int	final_cmd(t_shell *shell, t_cmd *cmd, int pipe_in)
 {
-	int		fork_id;
+	int	fork_id;
 
 	signal(SIGINT, SIG_IGN);
 	fork_id = fork();

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/03 09:41:20 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/18 21:48:18 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/24 19:08:02 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,13 @@ static bool	ft_isnumber(char *str)
 
 int	exit_shell(t_cmd *cmd, t_shell *shell)
 {
-
 	(void) shell;
 	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	if (cmd->arg_count > 1)
+	{
 		arg_error();
+		return (EXIT_FAILURE);
+	}
 	if (cmd->arg_count == 1)
 	{
 		if (ft_isnumber(cmd->args[0]) == false || ft_strlen(cmd->args[0]) > 19)

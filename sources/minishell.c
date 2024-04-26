@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/18 13:53:53 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/25 17:49:07 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@ static bool	shell_retrieve_command(t_shell *shell)
 
 	command = readline(C_YELLOW "[minishell]: " RESET_COLOR);
 	if (command == NULL)
+	{
+		free(command);
 		exit_with_message(E_EOF_DESCRIPTOR, RESET_COLOR, X_EOF_DESCRIPTOR);
-	save_command(command, shell); 	// TODO free command
+	}
+	save_command(command, shell);
+	free(command);
 	return (SUCCESS);
 }
 
@@ -29,7 +33,8 @@ static bool	shell_run(t_shell *shell)
 {
 	while (1)
 	{
-		shell = shell_run_init(shell);
+		// shell = shell_run_init(shell);
+		handle_signals(PARENT);
 		shell_retrieve_command(shell);
 		if (shell->input[0] == '\0')
 		{
@@ -37,8 +42,8 @@ static bool	shell_run(t_shell *shell)
 			continue ;
 		}
 		shell_lexer(shell);
-		shell_parser(shell);
-		shell_execute(shell);
+		if (shell_parser(shell) == SUCCESS)
+			shell_execute(shell);
 		shell_finish(shell);
 	}
 	return (SUCCESS);

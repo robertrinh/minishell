@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/23 21:57:24 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/24 19:01:10 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ static char	*expand_arg(char **env, char *arg, size_t i)
 		env_utils->key = ft_strjoin("$", env_utils->key);
 	if (arg && env_utils->value && is_arg_key(arg, env_utils->key))
 	{
-		free_env_values(env_utils->key, env_utils->value, env_utils);
-		return (arg = env_utils->value);
+		arg = env_utils->value;
+		free_env_values(env_utils->key, NULL, env_utils); // ? how to free value after?
+		return (arg);
 	}
 	arg = ft_str_remove(arg, env_utils->key);
 	if (arg && env_utils->value)
@@ -57,7 +58,6 @@ char	*will_expand(char **env, char *arg)
 	expand_count = count_expand(arg);
 	if (expand_count == 0)
 		return (arg);
-	
 	i = 0;
 	while (arg[i])
 	{

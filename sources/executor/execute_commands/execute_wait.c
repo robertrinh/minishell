@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/22 21:17:34 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/23 21:05:11 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/25 12:03:56 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static int	handle_signal(int signal)
 
 	WIFSIGNALED:	check if child process terminated because it received a signal.
 	WIFEXITED:		check if child process terminated normally.
-	WTERMSIG:		gets signal number from the status returned by waitpid().
 */
 int	wait_for_last_cmd(int child_count, int last_pid)
 {

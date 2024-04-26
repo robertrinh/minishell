@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/25 22:22:42 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/02/29 14:02:36 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parser_utils.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/25 22:22:42 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/04/25 16:49:10 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,15 @@
 static t_cmd	**init_cmds(int cmd_count)
 {
 	t_cmd	**cmds;
+	// int		i;
 
+	// i = 0;
 	cmds = safe_malloc(sizeof(t_cmd) * (cmd_count + 1));
-
+	// while (i < cmd_count)
+	// {
+	// 	cmds[i] = NULL;
+	// 	i++;
+	// }
 	return (cmds);
 }
 
@@ -42,7 +48,6 @@ t_cmd	*allocate_cmd(void)
 	cmd = safe_malloc(sizeof(t_cmd));
 	cmd->fd_in = NULL;
 	cmd->fd_out = NULL;
-	cmd->fd_err = NULL;
 	return (cmd);
 }
 

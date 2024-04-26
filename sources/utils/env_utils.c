@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:19:19 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/17 17:51:21 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/04/25 17:45:54 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,9 @@ int		count_lines_from(char **env, int index)
 /*
 	Returns the size of the **envp in bytes
 */
+// ! valgrind error: Conditional jump or move depends on uninitialised value(s)
+// !			    at 0x404324: env_size (env_utils.c:85)
+// ! when inputting unset PATH
 size_t	env_size(char **env)
 {
 	size_t		env_size;
@@ -84,7 +87,7 @@ size_t	env_size(char **env)
 	temp = env;
     while (*temp != NULL) 
 	{
-        env_size += sizeof(char *) * ft_strlen(*temp) + 1;
+        env_size += ft_strlen(*temp) + 1;
         temp++;
     }
 	return (env_size);

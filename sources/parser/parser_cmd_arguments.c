@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 10:14:19 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/24 16:43:52 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/25 14:08:56 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,17 @@ static int	count_args(t_parse *p)
 static char	**allocate_args(t_parse *p)
 {
 	char	**args;
+	int		arg_count;
+	int		i;
 
+	i = 0;
+	arg_count = count_args(p);
 	args = safe_malloc(sizeof(char *) * (count_args(p) + 1));
-
+	while (i <= arg_count)
+	{
+		args[i] = NULL;
+		i++;
+	}
 	return (args);
 }
 

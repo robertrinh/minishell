@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/23 21:54:16 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/23 21:58:50 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/04/24 17:43:05 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ char *expand_exit_code(char *arg, char *key, char *val, \
 	key = ft_strjoin("$", key);
 	arg = ft_str_remove(arg, key);
 	arg = ft_str_insert(arg, ft_itoa(g_exit_code), i);
-	free_env_values (key, val, env_utils);
+	free_env_values(key, val, env_utils);
 	return (arg);
 }
