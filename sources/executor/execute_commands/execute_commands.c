@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 21:09:40 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/04/26 14:51:50 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:09:49 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,17 @@ static int execute_cmd_for(t_shell *shell, int i, t_childs *childs)
 {
 	int			last_cmd;
 	t_cmd		*cmd;
+	int			stat_loc;
 
+	stat_loc = 0;
 	last_cmd = is_last_cmd(shell->cmd_table->cmd_count, i);
 	cmd = shell->cmd_table->cmds[i];
 	if (cmd->fd_in)
-		redirect_in_files(cmd, NULL);
+		redirect_in_files(cmd, &stat_loc);
+	if (stat_loc >= 1)
+		stat_loc = 1;
+	if (WIFSIGNALED(stat_loc))
+		return(-1);
 	prepare_command(shell, i);
 	return (pipe_commands(shell, cmd, childs, last_cmd));
 }
@@ -78,6 +84,8 @@ int	execute_commands(t_shell *shell)
 	while (i < shell->cmd_table->cmd_count)
 	{
 		last_pid = execute_cmd_for(shell, i, &childs);
+		if (last_pid < 0)
+			return (g_exit_code);
 		childs.child_count++;
 		i++;
 	}

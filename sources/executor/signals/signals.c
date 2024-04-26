@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   signals.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/03/02 14:17:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/23 21:02:02 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/02 14:17:42 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/04/26 17:28:52 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,12 @@ void	signal_heredoc(int sig)
 {
 	if (sig == SIGINT)
 	{
-		rl_replace_line("", 0);
-		rl_on_new_line();
+		write(1, "\n", 1);
 		g_exit_code = X_SIG_HEREDOC;
 		exit(g_exit_code);
 	}
 }
 
-//TODO signals reset after heredoc?
 void	handle_signals(t_signal signal_process)
 {
 	struct termios	termios_struct;
