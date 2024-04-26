@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   execute_commands.c                                 :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/04/22 21:09:40 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/22 21:39:13 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   execute_commands.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/22 21:09:40 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/04/26 14:51:50 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int execute_cmd_for(t_shell *shell, int i, t_childs *childs)
 	last_cmd = is_last_cmd(shell->cmd_table->cmd_count, i);
 	cmd = shell->cmd_table->cmds[i];
 	if (cmd->fd_in)
-		redirect_in_files(cmd);
+		redirect_in_files(cmd, NULL);
 	prepare_command(shell, i);
 	return (pipe_commands(shell, cmd, childs, last_cmd));
 }

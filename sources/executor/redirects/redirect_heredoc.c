@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   redirect_heredoc.c                                 :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/25 11:15:17 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/18 14:04:02 by robertrinh    ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   redirect_heredoc.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/25 11:15:17 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/04/26 16:41:05 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,11 @@ static int	perform_heredoc(int fd, t_redirect *heredoc)
 	return (0);
 }
 
-int	setup_heredoc(t_redirect *heredoc)
+int	setup_heredoc(t_redirect *heredoc, int *stat_loc)
 {
 	int		fd[2];
 	pid_t	pid;
+	int		stat_loc_local = 0;
 
 	pipe(fd); // TODO protect pipe
 	pid = fork();
@@ -66,7 +67,8 @@ int	setup_heredoc(t_redirect *heredoc)
 	else if (pid > 0)
 	{
 		close(fd[WRITE]);
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &stat_loc_local, 0);
+		*stat_loc = stat_loc_local;
 	}
 	return (fd[READ]);
 }

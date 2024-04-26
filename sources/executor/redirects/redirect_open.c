@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   redirect_open.c                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/23 15:04:57 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/11 15:13:21 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   redirect_open.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/23 15:04:57 by qtrinh            #+#    #+#             */
+/*   Updated: 2024/04/26 16:40:57 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	safe_open(char *path, t_redirect_type oflag, int mode)
 	return (fd);
 }
 
-t_in_files	*open_in_files(t_cmd *cmd, t_in_files *ins, t_redirect_type type)
+t_in_files	*open_in_files(t_cmd *cmd, t_in_files *ins, t_redirect_type type, \
+	int *stat_loc)
 {
 	int			i;
 	t_redirect	*in_files;
@@ -36,7 +37,7 @@ t_in_files	*open_in_files(t_cmd *cmd, t_in_files *ins, t_redirect_type type)
 	{
 		if (in_files->type == type && type == IN_APPEND)
 		{
-			ins->heredocs[i] = setup_heredoc(in_files);
+			ins->heredocs[i] = setup_heredoc(in_files, stat_loc);
 			i++;
 		}
 		if (in_files->type == type && type == IN)

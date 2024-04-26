@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
-#                                                    +#+                       #
-#    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/04/25 16:12:30 by qtrinh        ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/12/03 13:06:57 by quentinbeuk       #+#    #+#              #
+#    Updated: 2024/04/26 14:40:28 by qbeukelm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -132,7 +132,7 @@ LIBFT				= includes/libft
 
 # ===== Compile =====
 CC 					= cc -g
-CFLAGS 				= -Wall -Werror -Wextra # -g -fsanitize=address
+CFLAGS 				= # -Wall -Werror -Wextra -g -fsanitize=address
 
 READLINE_LOC		=	~/.brew/opt/readline
 READLINE_LIB		=	-L $(READLINE_LOC)/lib -lreadline
