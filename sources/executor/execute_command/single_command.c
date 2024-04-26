@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   single_command.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/04/24 18:43:39 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   single_command.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/02 14:28:14 by qbeukelm          #+#    #+#             */
+/*   Updated: 2024/04/26 16:44:20 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,15 @@ void	child_process(t_shell *shell)
 int	single_command(t_shell *shell)
 {
 	pid_t			pid;
-	int				status;
+	int				stat_loc;
 
-	status = 0;
+	stat_loc = 0;
 	handle_signals(CHILD);
-	redirect_in_files(shell->cmd_table->cmds[0]);
+	redirect_in_files(shell->cmd_table->cmds[0], &stat_loc);
+	if (stat_loc >= 1)
+		stat_loc = 1;
+	if (WIFSIGNALED(stat_loc))
+		return (g_exit_code);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -63,9 +67,10 @@ int	single_command(t_shell *shell)
 		child_process(shell);
 	else if (pid > 0)
 	{
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			return (WEXITSTATUS(status));
+		waitpid(pid, &stat_loc, 0);
+		printf("stat_loc: %d\n", stat_loc);
+		if (WIFEXITED(stat_loc))
+			return (WEXITSTATUS(stat_loc));
 	}
 	return (g_exit_code);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/25 16:27:31 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/04/26 15:16:34 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -368,15 +368,16 @@ int		count_pipes(t_shell *shell);
 
 // ----------------------------------- executor/redirects
 // redirect_heredoc
-int		setup_heredoc(t_redirect *heredoc);
+int	setup_heredoc(t_redirect *heredoc, int *stat_loc);
 
 // redirect_in_files.c
-t_validation	redirect_in_files(t_cmd *cmd);
+t_validation	redirect_in_files(t_cmd *cmd, int *stat_loc);
 
 
 // redirect_open.c
 int			safe_open(char *path, t_redirect_type oflag, int mode);
-t_in_files	*open_in_files(t_cmd *cmd, t_in_files *ins, t_redirect_type type);
+t_in_files	*open_in_files(t_cmd *cmd, t_in_files *ins, t_redirect_type type, \
+	int *stat_loc);
 
 // redirect_out_files.c
 t_validation 	redirect_out(t_cmd *cmd);

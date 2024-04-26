@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   redirect_in_files.c                                :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/24 22:08:44 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/11 17:54:30 by robertrinh    ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   redirect_in_files.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/24 22:08:44 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/04/26 16:40:54 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,15 @@ static void	dup_infile(t_cmd *cmd, t_in_files *ins, t_redirect_type type)
 	}
 }
 
-t_validation	redirect_in_files(t_cmd *cmd)
+t_validation	redirect_in_files(t_cmd *cmd, int *stat_loc)
 {
 	t_redirect_type		last_type;
 	t_in_files			*ins;
 
 	ins = init_infiles(cmd);
 	last_type = last_infile_type(cmd);
-	ins = open_in_files(cmd, ins, IN_APPEND);
-	ins = open_in_files(cmd, ins, IN);
+	ins = open_in_files(cmd, ins, IN_APPEND, stat_loc);
+	ins = open_in_files(cmd, ins, IN, NULL);
 	if (last_type == IN_APPEND)
 		dup_infile(cmd, ins, IN_APPEND);
 	else if (last_type == IN)
