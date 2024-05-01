@@ -85,3 +85,9 @@ echo >
 echo <<
 echo > |
 echo "bip | bip ; coyotte > < "
+
+
+=== EXIT ===
+env | export 1
+env | exit
+exit | wc
