@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   execute_wait.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/22 21:17:34 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/04/26 17:10:05 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   execute_wait.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/04/22 21:17:34 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/05/01 21:49:05 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ int	wait_for_last_cmd(int child_count, int last_pid)
 	while (i < child_count)
 	{
 		waitpid_ret = waitpid(-1, &status, 0);
-		if (waitpid_ret < 0)
-			show_error_message(E_WAITPID, C_RED, "", X_WAITPID);
 		if (waitpid_ret == last_pid)
 			last_status = status;
 		if (WIFEXITED(status) || WIFSIGNALED(status))
