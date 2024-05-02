@@ -6,11 +6,13 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/22 21:17:02 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/01 21:58:22 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/02 16:27:40 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+// TODO close protection if fail
 
 static void	manage_execution(t_shell *shell, t_cmd *cmd)
 {

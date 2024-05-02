@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:19:19 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/02 15:30:04 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/02 15:37:22 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ char	*get_value_for_key(char **env, char *key)
 {
 	int		row_index;
 	int		i;
-	char	*buffered_env_value;
-	char	*env_value;
 
 	row_index = index_for_env_key(env, key);
 	if (row_index == -1)

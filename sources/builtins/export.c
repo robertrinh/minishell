@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:25:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/02 14:58:25 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/02 16:24:15 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,7 @@ static void	add_arg_to_env(t_shell *shell, char *arg)
 		shell->envp[insert_index + 2] = NULL;
 	}
 	else
-	{
-		free(shell->envp[insert_index]);
 		shell->envp[insert_index] = safe_strdup(arg);
-	}
 	// ? how to free malloc strdups in envp?
 }
 

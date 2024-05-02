@@ -6,12 +6,26 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:36:44 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/02 14:26:31 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/02 16:22:19 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/error_messages.h"
 #include "../../includes/minishell.h"
+
+void	arg_error(void)
+{
+	g_exit_code = EXIT_FAILURE;
+	ft_putstr_fd("minishell: exit: too many arguments\n", STDERR_FILENO);
+}
+
+void	numeric_error(char *str)
+{
+	g_exit_code = X_NUMERIC_ERROR;
+	ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
+}
 
 int	show_error_message(char *error, char *color, char *arg, int exit_code)
 {

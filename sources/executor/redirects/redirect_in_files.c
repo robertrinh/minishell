@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   redirect_in_files.c                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/24 22:08:44 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/04/26 16:40:54 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   redirect_in_files.c                                :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/24 22:08:44 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/05/02 16:36:57 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,14 @@ static void	dup_for_fd(int fd)
 		dev_null_fd = open("/dev/null", get_open_flag_for_type(OUT));
 		if (dev_null_fd >= 0)
 		{
-			dup2(dev_null_fd, STDIN_FILENO);
+			if (dup2(dev_null_fd, STDIN_FILENO) < 0)
+				show_error_message(E_DUP, C_RED, "", X_DUP);
 			close (dev_null_fd);
 		}
 	}
 	else
-		dup2(fd, STDIN_FILENO);
+		if (dup2(fd, STDIN_FILENO) < 0)
+			show_error_message(E_DUP, C_RED, "", X_DUP);
 }
 
 static void	dup_infile(t_cmd *cmd, t_in_files *ins, t_redirect_type type)
@@ -83,6 +85,6 @@ t_validation	redirect_in_files(t_cmd *cmd, int *stat_loc)
 		dup_infile(cmd, ins, IN);
 	close_in_files(cmd, ins, IN_APPEND);
 	close_in_files(cmd, ins, IN);
-	free (ins);
+	free(ins); // TODO clean up ins->heredoc + ins->infiles?
 	return (SUCCESS);
 }

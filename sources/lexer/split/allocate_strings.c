@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/07 13:01:10 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/25 14:48:40 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/02 15:48:32 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ static char	**allocate_substrings(t_split *sp)
 {
 	if (sp->i_buff > 0)
 	{
-		// sp->strings[sp->i_str] = ft_calloc(sizeof(char), (ft_strlen(sp->buffer) + 1));
-		// ft_strlcpy(sp->strings[sp->i_str], sp->buffer, (ft_strlen(sp->buffer) + 1));
 		sp->strings[sp->i_str] = safe_strdup(sp->buffer);
 		sp->i_str++;
 	}

@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 19:43:07 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/02 14:41:51 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/02 15:59:46 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	prepare_command(t_shell *shell, int i)
 		}
 		cmd->formatted_cmd = format_cmd(cmd);
 		cmd_path = get_path_for_cmd(env_paths, cmd->value);
+		free_2d_array(env_paths);
 		cmd->cmd_path = cmd_path;
 	}
 	return (SUCCESS);

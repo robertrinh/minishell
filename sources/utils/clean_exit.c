@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/07 12:29:05 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/25 17:49:31 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/02 16:21:04 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,22 @@ static void	lexer_finish(t_shell *shell)
 {
 	shell->single_quote = 0;
 	shell->double_quote = 0;
+}
+
+void	free_2d_array(char **array)
+{
+	int	i;
+
+	if (array)
+	{
+		i = 0;
+		while (array[i])
+		{
+			free(array[i]);
+			i++;
+		}
+		free (array);
+	}
 }
 
 void	shell_finish(t_shell *shell)

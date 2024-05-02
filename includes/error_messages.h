@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/24 18:29:17 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/02 16:23:00 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define E_OPERATOR				"invalid operator."
 # define E_FORK					"fork failure."
 # define E_EXPORT				"export: not a valid identifier: "
-# define E_CMD					"execve: command not found: "
+# define E_EXECVE				"execve failed"
 # define E_NO_FILE_DIR			"No such file or directory: "
 # define E_DUP					"dup failure."
 # define E_WAITPID				"waitpid failure."
@@ -43,13 +43,16 @@
 # define X_OPERATOR				EXIT_FAILURE
 # define X_OPENING_FILE			EXIT_FAILURE
 # define X_EXPORT				EXIT_FAILURE
+# define X_EXECVE				EXIT_FAILURE
 # define X_NUMERIC_ERROR		2
-# define X_SIG_HEREDOC			1
-# define X_SIG_CTL_C			130
+# define X_SIG_HEREDOC			130
+# define X_SIG_CTRL_C			130
 # define X_SIG_BACKSLASH		131
 # define X_CMD					127
 
 // error_messages.c
+void	arg_error(void);
+void	numeric_error(char *str);
 int		show_error_message(char *error, char *color, char *arg, int exit_code);
 int		exit_with_message(const char *error, const char *color, int exit_code);
 

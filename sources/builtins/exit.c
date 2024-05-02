@@ -6,27 +6,11 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/03 09:41:20 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/01 21:55:08 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/02 16:23:12 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// TODO Move error messages to error_messages.h
-static void	arg_error(void)
-{
-	g_exit_code = EXIT_FAILURE;
-	ft_putstr_fd("minishell: exit: too many arguments\n", STDERR_FILENO);
-}
-
-// TODO Move error messages to error_messages.h
-static void	numeric_error(char *str)
-{
-	g_exit_code = X_NUMERIC_ERROR;
-	ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
-	ft_putstr_fd(str, STDERR_FILENO);
-	ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
-}
 
 static bool	ft_isnumber(char *str)
 {
