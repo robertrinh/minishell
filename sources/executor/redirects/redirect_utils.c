@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 13:07:55 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/02 16:18:49 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/02 16:45:43 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ size_t	read_large_file(int fd, char ***buff)
 		}
 	}
 	// TODO error handle when read fails?
+	// TODO free *buff
 	return (total_bytes);
 }
