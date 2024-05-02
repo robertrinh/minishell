@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/01 21:30:20 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/02 14:27:48 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ int	main(int argc, char **argv, char **envp)
 	shell = NULL;
 	shell = shell_pre_init(shell, envp, argv);
 	shell_run(shell);
+	// ? how to clean up pre-allocated memory from shell_pre_init? f.e. free after exit?
 	return (EXIT_SUCCESS);
 }

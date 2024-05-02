@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 21:25:42 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/04/26 17:38:19 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   export.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/03/13 21:25:42 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/05/02 14:58:25 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static size_t	env_realloc_size(char **env, char *str)
 	size_t	new_size;
 
 	current_size = env_size(env);
-	new_size = current_size + (sizeof(char *) * ft_strlen(str) + 1);
+	new_size = current_size + ft_strlen(str) + 1;
 	return (new_size);
 }
 
@@ -112,11 +112,13 @@ static void	add_arg_to_env(t_shell *shell, char *arg)
 		shell->envp[insert_index + 2] = NULL;
 	}
 	else
+	{
+		free(shell->envp[insert_index]);
 		shell->envp[insert_index] = safe_strdup(arg);
+	}
 	// ? how to free malloc strdups in envp?
 }
 
-// TODO error check -> not valid identifier
 int	export(t_cmd *cmd, t_shell *shell)
 {
 	int		i;
