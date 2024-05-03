@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:36:44 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/02 16:22:19 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/03 15:13:11 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	arg_error(void)
 
 void	numeric_error(char *str)
 {
-	g_exit_code = X_NUMERIC_ERROR;
+	g_exit_code = X_NUMERIC_ERR;
 	ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
 	ft_putstr_fd(str, STDERR_FILENO);
 	ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);

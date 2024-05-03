@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/28 14:31:20 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/05/02 15:34:03 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/03 16:55:06 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	update_env(t_shell *shell)
 	free(buff);
 }
 
-static bool minus_flag_check(t_cmd *cmd, t_shell *shell)
+static bool	minus_flag_check(t_cmd *cmd, t_shell *shell)
 {
 	char	*path;
 
@@ -108,4 +108,3 @@ int	cd(t_cmd *cmd, t_shell *shell)
 }
 
 // TODO accessable dir --> needed here?
-

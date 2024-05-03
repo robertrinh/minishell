@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/03 09:41:20 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/02 16:23:12 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/03 16:49:50 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,11 @@ int	exit_shell(t_cmd *cmd, t_shell *shell)
 	if (shell->cmd_table->cmd_count == 1)
 		ft_putstr_fd("exit\n", STDOUT_FILENO);
 	if (cmd->arg_count > 1)
-	{
-		arg_error();
-		return (EXIT_FAILURE);
-	}
+		return (show_error_message(E_ARG_ERR, C_RED, "", X_ARG_ERR));
 	if (cmd->arg_count == 1)
 	{
 		if (ft_isnumber(cmd->args[0]) == false || ft_strlen(cmd->args[0]) > 19)
-			numeric_error(cmd->args[0]);
+			exit_with_message(E_NUMERIC_ERR, RESET_COLOR, X_NUMERIC_ERR);
 		else
 			g_exit_code = ft_atoi(cmd->args[0]) % 256;
 	}

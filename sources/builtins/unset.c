@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:02:51 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/02 16:18:27 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/03 16:55:41 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	remove_line_from_env(char **env, char *key)
 
 // TODO error checks -> not a valid identifier
 // TODO add to test set ->	unset HOME PATH SHELL USER PWD TERM ZSH
-int		unset(t_cmd* cmd, t_shell *shell)
+int	unset(t_cmd* cmd, t_shell *shell)
 {
 	int		i;
 	int		new_size;

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/02 16:23:00 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/03 16:58:32 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,15 @@
 # define E_OPERATOR				"invalid operator."
 # define E_FORK					"fork failure."
 # define E_EXPORT				"export: not a valid identifier: "
-# define E_EXECVE				"execve failed"
+# define E_EXECVE				"execve: command not found: "
 # define E_NO_FILE_DIR			"No such file or directory: "
 # define E_DUP					"dup failure."
 # define E_WAITPID				"waitpid failure."
 # define E_PIPE_FAIL			"pipe failure: "
 # define E_OPENING_FILE			"could not open file: "
 # define E_CMD_NOT_FOUND		"command not found: "
+# define E_NUMERIC_ERR			"exit: numeric argument required"
+# define E_ARG_ERR				"exit: too many arguments"
 
 // Exit codes
 # define X_INIT					EXIT_SUCCESS
@@ -44,7 +46,8 @@
 # define X_OPENING_FILE			EXIT_FAILURE
 # define X_EXPORT				EXIT_FAILURE
 # define X_EXECVE				EXIT_FAILURE
-# define X_NUMERIC_ERROR		2
+# define X_ARG_ERR				EXIT_FAILURE
+# define X_NUMERIC_ERR			2
 # define X_SIG_HEREDOC			130
 # define X_SIG_CTRL_C			130
 # define X_SIG_BACKSLASH		131
