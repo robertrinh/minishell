@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 19:43:07 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/02 15:59:46 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/03 17:19:34 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ int	prepare_command(t_shell *shell, int i)
 
 	cmd = shell->cmd_table->cmds[i];
 	if (access(cmd->value, X_OK | F_OK) == 0)
+	{
 		cmd->cmd_path = safe_strdup(cmd->value);
+		cmd->formatted_cmd = format_cmd(cmd);
+	}
 	else
 	{
 		env_paths = get_paths(shell);
