@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 19:45:47 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/18 21:31:42 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/05/02 15:27:53 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**format_cmd(t_cmd *cmd)
 }
 
 /*
-	Returns the full path to the exicutable command. And NULL command is
+	Returns the full path to the executable command. And NULL command is
 	not found.
 */
 char	*get_path_for_cmd(char **env_paths, char *command)
@@ -42,10 +42,15 @@ char	*get_path_for_cmd(char **env_paths, char *command)
 	i = 0;
 	while (env_paths[i])
 	{
-		temp_path = ft_strjoin(env_paths[i], "/"); // TODO protect + error
-		command_path = ft_strjoin(temp_path, command); // TODO protect + error
+		temp_path = ft_strjoin(env_paths[i], "/");
+		command_path = ft_strjoin(temp_path, command); 
 		if (access(command_path, F_OK) == 0)
+		{
+			free(temp_path);
 			return (command_path);
+		}
+		free(temp_path);
+		free(command_path);
 		i++;
 	}
 	return (NULL);
@@ -68,5 +73,6 @@ char	**get_paths(t_shell *shell)
 	env_paths = ft_split(env_path, ':');
 	if (env_paths == NULL)
 		return (NULL);
+	free(env_path);
 	return (env_paths);
 }

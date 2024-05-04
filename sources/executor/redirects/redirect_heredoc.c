@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   redirect_heredoc.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/25 11:15:17 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/04/26 17:19:38 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   redirect_heredoc.c                                 :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/25 11:15:17 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/05/02 16:34:18 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	setup_heredoc(t_redirect *heredoc, int *stat_loc)
 	pid_t	pid;
 	int		stat_loc_local = 0;
 
-	pipe(fd); // TODO protect pipe
+	if (pipe(fd) < 0)
+		show_error_message(E_PIPE_FAIL, C_RED, "", X_PIPE);
 	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid == -1)

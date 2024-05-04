@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/14 14:04:02 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/05/01 21:37:59 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/02 14:29:44 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ bool	save_command(char *command, t_shell *shell)
 	if (command)
 		add_history(command);
 	shell->input = safe_strdup(command);
-	// shell->input = safe_calloc(sizeof(char), ft_strlen(command) + 1);
-	// shell->input = command;
 	return (SUCCESS);
 }
 

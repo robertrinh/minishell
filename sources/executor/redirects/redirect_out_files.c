@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/28 12:35:51 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/11 15:13:51 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/02 16:36:37 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,17 @@ t_validation	redirect_out(t_cmd *cmd)
 
 	fd = open_out_files(cmd);
 	if (fd > 0)
-		dup2(fd, STDOUT_FILENO);
+	{
+		if (dup2(fd, STDOUT_FILENO) < 0)
+			show_error_message(E_DUP, C_RED, "", X_DUP);
+	}
 	else
 	{
 		dev_null_fd = open("/dev/null", get_open_flag_for_type(OUT));
 		if (dev_null_fd >= 0)
 		{
-			dup2(dev_null_fd, STDOUT_FILENO);
+			if (dup2(dev_null_fd, STDOUT_FILENO) < 0)
+				show_error_message(E_DUP, C_RED, "", X_DUP);
 			cmd->fd_out->fd = dev_null_fd;
 		}
 	}

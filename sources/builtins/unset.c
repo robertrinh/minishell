@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:02:51 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/25 17:30:19 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/03 16:55:41 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ static char	**buffer_env_after_index(char **env, int index)
 	buffer = (char **)safe_malloc(sizeof(char *) * buffer_len);
 	while (env[index])
 	{
-		buffer[i] = safe_malloc(sizeof(char *) * ft_strlen(env[index]));
-		buffer[i] = env[index];
+		buffer[i] = safe_strdup(env[index]);
 		i++;
 		index++;
 	}
@@ -49,18 +48,21 @@ static void	remove_line_from_env(char **env, char *key)
 {
 	int		remove_index;
 	char	**buffer;
+	int		i;
 
+	i = 0;
 	remove_index = index_for_env_key(env, key);
 	if (remove_index >= 0)
 	{
 		buffer = buffer_env_after_index(env, (remove_index + 1));
 		insert_env_buffer(env, buffer, remove_index);
+		free_2d_array(buffer); // * double check if correct free!
 	}
 }
 
 // TODO error checks -> not a valid identifier
 // TODO add to test set ->	unset HOME PATH SHELL USER PWD TERM ZSH
-int		unset(t_cmd* cmd, t_shell *shell)
+int	unset(t_cmd* cmd, t_shell *shell)
 {
 	int		i;
 	int		new_size;

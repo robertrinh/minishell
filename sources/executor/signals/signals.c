@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/02 14:17:42 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/04/26 17:28:52 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   signals.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/03/02 14:17:42 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/05/02 16:07:48 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	signal_reset_prompt(int sig)
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
-		g_exit_code = X_SIG_CTL_C;
+		g_exit_code = X_SIG_CTRL_C;
 	}
 }
 
@@ -37,7 +37,7 @@ void	signal_ctrl_c(int sig)
 		rl_replace_line("", 0);
 		write(1, "\n", 1);
 		rl_on_new_line();
-		g_exit_code = X_SIG_CTL_C;
+		g_exit_code = X_SIG_CTRL_C;
 	}
 }
 

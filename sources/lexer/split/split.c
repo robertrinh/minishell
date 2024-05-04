@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/05 14:17:27 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/04/25 14:36:04 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/02 16:40:54 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ char	**split(t_shell *shell)
 	split->strings = safe_calloc(sizeof(char *), (split->count + 1));
 	if (split->strings == NULL)
 	{
+		free(split);
+		return (NULL);
 		// TODO clean_exit()
 	}
 	split->strings = allocate_strings_split(split);
