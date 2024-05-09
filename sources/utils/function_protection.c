@@ -6,12 +6,25 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/29 13:21:05 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/05/03 16:47:20 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/09 15:58:41 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/error_messages.h"
 #include "../../includes/minishell.h"
+
+void	*safe_strjoin(const char *s1, const char *s2)
+{
+	void	*ptr;
+
+	ptr = ft_strjoin(s1, s2);
+	if (ptr == NULL)
+	{
+		g_exit_code = EXIT_FAILURE;
+		exit_with_message(E_MALLOC, C_RED, g_exit_code);
+	}
+	return (ptr);
+}
 
 void	*safe_malloc(size_t size)
 {

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/02 15:59:11 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/09 15:55:52 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -431,6 +431,7 @@ size_t	env_size(char **env);
 int		index_for_env_key(char **input_env, char *key);
 
 // function_protection.c
+void	*safe_strjoin(const char *s1, const char *s2);
 void	*safe_malloc(size_t size);
 void	*safe_calloc(size_t count, size_t size);
 char	*safe_strdup(const char *str);
