@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/03 16:58:32 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/10 16:31:24 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@
 void	arg_error(void);
 void	numeric_error(char *str);
 int		show_error_message(char *error, char *color, char *arg, int exit_code);
-int		exit_with_message(const char *error, const char *color, int exit_code);
+int		exit_with_message(char *error, char *color, int exit_code);
 
 #endif

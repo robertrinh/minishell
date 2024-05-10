@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/09 15:55:52 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/05/10 17:45:37 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ typedef struct s_split
 	int			i_str;
 	int			count;
 	char		buffer[1000];
-	char const	*input;
+	char		*input;
 	char		**strings;
 }	t_split;
 
@@ -255,7 +255,8 @@ int		skip_whitespace(t_split *sp);
 int		check_operator(char c1, char c2);
 
 // split.c
-char	**split(t_shell *shell);
+void	free_split(t_split *sp);
+char	**split(t_split *split);
 
 
 //===============================================================: Parser
@@ -415,6 +416,7 @@ char	*get_env_key(char *arg, size_t i);
 //===============================================================: Utils
 // clean_exit.c
 void	free_2d_array(char **array);
+void	free_shell(t_shell *shell, bool will_exit);
 void	shell_finish(t_shell *shell);
 
 // clean_utils.c

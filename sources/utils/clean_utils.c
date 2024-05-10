@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/25 15:59:15 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/25 17:08:15 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/10 18:13:41 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,14 @@ void	free_cmd(t_cmd *cmd)
 	// ! free cmd value not needed. tokens value already cleared
 }
 
-void	free_token(t_token *token)
-{
-	if (!token)
-		return ;
-	if (token->value)
-		free(token->value);
-	free(token);
-}
+	// void	free_token(t_token *token)
+	// {
+	// 	if (!token)
+	// 		return ;
+	// 	if (token->value)
+	// 	{
+	// 		free(token->value);
+	// 		token->value = NULL;
+	// 	}
+	// 	free(token);
+	// }

@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:02:51 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/07 18:50:04 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/05/10 17:13:12 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	remove_line_from_env(char **env, char *key)
 	{
 		buffer = buffer_env_after_index(env, (remove_index + 1));
 		insert_env_buffer(env, buffer, remove_index);
-		free_2d_array(buffer); // * double check if correct free!
+		// free_2d_array(buffer); // * double check if correct free!
 	}
 }
 

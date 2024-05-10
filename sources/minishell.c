@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/03 16:57:57 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/10 17:11:22 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static bool	shell_retrieve_command(t_shell *shell)
 	if (command == NULL)
 	{
 		free(command);
+		free_shell(shell, true);
 		exit_with_message(E_EOF_DESCRIPTOR, RESET_COLOR, X_EOF_DESCRIPTOR);
 	}
 	save_command(command, shell);
