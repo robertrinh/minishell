@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/28 14:31:20 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/05/03 16:55:06 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/09 15:59:25 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,23 @@ static void	update_env(t_shell *shell)
 	char	*pwd;
 	char	*buff;
 
-	i = index_for_env_key(shell->envp, "OLDPWD");
-	j = index_for_env_key(shell->envp, "PWD");
-	oldpwd = ft_substr(shell->envp[i], 0, 7);
-	pwd = ft_substr(shell->envp[j], 0, 4);
 	buff = getcwd(NULL, 0);
-	shell->envp[i] = ft_strjoin(oldpwd, get_value_for_key(shell->envp, "PWD"));
-	shell->envp[j] = ft_strjoin(pwd, buff);
-	free(oldpwd);
-	free(pwd);
+	oldpwd = get_value_for_key(shell->envp, "OLDPWD");
+	if (oldpwd != NULL)
+	{
+		i = index_for_env_key(shell->envp, "OLDPWD");
+		free(shell->envp[i]);
+		shell->envp[i] = safe_strjoin("OLDPWD=", oldpwd);
+		free(oldpwd);
+	}
+	pwd = get_value_for_key(shell->envp, "PWD");
+	if (pwd != NULL)
+	{
+		j = index_for_env_key(shell->envp, "PWD");
+		free(shell->envp[j]);
+		shell->envp[j] = safe_strjoin("PWD=", buff);
+		free(pwd);
+	}
 	free(buff);
 }
 
@@ -43,7 +51,7 @@ static bool	minus_flag_check(t_cmd *cmd, t_shell *shell)
 		path = get_value_for_key(shell->envp, "OLDPWD");
 		if (path == NULL)
 		{
-			show_error_message(": OLDPWD not set", C_RED, cmd->value, 1);
+			show_error_message("OLDPWD not set: ", C_RED, cmd->value, 1);
 			return (false);
 		}
 		ft_putendl_fd(path, STDOUT_FILENO);

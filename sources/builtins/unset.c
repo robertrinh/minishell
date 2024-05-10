@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:02:51 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/03 16:55:41 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/07 18:50:04 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,7 @@ static void	remove_line_from_env(char **env, char *key)
 {
 	int		remove_index;
 	char	**buffer;
-	int		i;
 
-	i = 0;
 	remove_index = index_for_env_key(env, key);
 	if (remove_index >= 0)
 	{

@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/05/02 15:09:44 by qtrinh        ########   odam.nl          #
+#    Updated: 2024/05/09 16:02:12 by robertrinh    ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -134,9 +134,13 @@ LIBFT				= includes/libft
 CC 					= cc
 CFLAGS 				= -Wall -Werror -Wextra #-g -fsanitize=address
 
-READLINE_LOC		=	~/.brew/opt/readline
-READLINE_LIB		=	-L $(READLINE_LOC)/lib -lreadline
+READLINE_LOC		=	/usr/lib/aarch64-linux-gnu/libreadline.so
+READLINE_LIB		=	-L $(READLINE_LOC) -lreadline
 READLINE_INCLUDE	=	-I includes -I $(READLINE_LOC)/include
+
+#READLINE_LOC		=	~/.brew/opt/readline
+#READLINE_LIB		=	-L $(READLINE_LOC)/lib -lreadline
+#READLINE_INCLUDE	=	-I includes -I $(READLINE_LOC)/include
 
 # ===== Rules =====
 all: $(NAME_EXECUTABLE)
@@ -145,7 +149,7 @@ $(NAME_EXECUTABLE): $(OBJ)
 	@echo "$(BLUE)\nMaking LIBFT ...\n$(RESET)"
 	@$(MAKE) -C $(LIBFT) >/dev/null
 	@echo "$(BLUE)Making MINISHELL ...\n$(RESET)"
-	@$(CC) $(CFLAGS) $(READLINE_LIB) $^ $(LIBFT)/libft.a -o $(NAME_EXECUTABLE)
+	@$(CC) $(CFLAGS) $^ $(READLINE_LIB) $(LIBFT)/libft.a -o $(NAME_EXECUTABLE)
 	@echo "$(GREEN)Compiled all!\n$(RESET)"
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES)/%.c | $(DIR_OBJ)
