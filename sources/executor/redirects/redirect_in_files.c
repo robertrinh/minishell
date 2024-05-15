@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 22:08:44 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/02 16:36:57 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/15 17:35:16 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,6 @@ t_validation	redirect_in_files(t_cmd *cmd, int *stat_loc)
 		dup_infile(cmd, ins, IN);
 	close_in_files(cmd, ins, IN_APPEND);
 	close_in_files(cmd, ins, IN);
-	free(ins); // TODO clean up ins->heredoc + ins->infiles?
+	free_ins(ins);
 	return (SUCCESS);
 }

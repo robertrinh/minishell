@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 10:14:19 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/25 14:08:56 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/15 17:01:43 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_cmd	*construct_args(t_cmd *cmd, t_parse *p)
 	{
 		if (is_type_arg(current->type))
 		{
-			cmd->args[i] = ft_strdup(current->value);
+			cmd->args[i] = safe_strdup(current->value);
 			i++;
 		}
 		if (current->type == PIPE)

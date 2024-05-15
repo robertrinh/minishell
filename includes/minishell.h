@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/10 17:45:37 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/15 17:37:25 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -388,6 +388,7 @@ t_redirect	*file_type(t_cmd *cmd, t_redirect_type type);
 int			get_open_flag_for_type(t_redirect_type type);
 
 // redirect_utils.c
+void			free_ins(t_in_files *ins);
 t_redirect_type last_infile_type(t_cmd *cmd);
 int				count_files_for_type(t_cmd *cmd, t_redirect_type type);
 size_t			read_large_file(int fd, char ***buff);

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/25 22:22:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/25 16:49:10 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/15 17:47:23 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 static t_cmd	**init_cmds(int cmd_count)
 {
 	t_cmd	**cmds;
-	// int		i;
+	int		i;
 
-	// i = 0;
+	i = 0;
 	cmds = safe_malloc(sizeof(t_cmd) * (cmd_count + 1));
-	// while (i < cmd_count)
-	// {
-	// 	cmds[i] = NULL;
-	// 	i++;
-	// }
+	while (i < cmd_count)
+	{
+		cmds[i] = NULL;
+		i++;
+	}
 	return (cmds);
 }
 
