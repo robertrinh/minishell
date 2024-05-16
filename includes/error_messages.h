@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/10 16:31:24 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/16 17:58:09 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define E_CMD_NOT_FOUND		"command not found: "
 # define E_NUMERIC_ERR			"exit: numeric argument required"
 # define E_ARG_ERR				"exit: too many arguments"
+# define E_CD					"cd: too many arguments"
 
 // Exit codes
 # define X_INIT					EXIT_SUCCESS
@@ -47,6 +48,7 @@
 # define X_EXPORT				EXIT_FAILURE
 # define X_EXECVE				EXIT_FAILURE
 # define X_ARG_ERR				EXIT_FAILURE
+# define X_CD					EXIT_FAILURE
 # define X_NUMERIC_ERR			2
 # define X_SIG_HEREDOC			130
 # define X_SIG_CTRL_C			130

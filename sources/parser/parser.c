@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/15 17:53:52 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/16 15:52:35 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,25 @@
 // 	parser->cmds[parser->i]->fd_in = NULL;
 // 	parser->cmds = NULL;
 // 	free(parser);
+// }
+
+// static void	free_redirect(t_redirect *redirect)
+// {
+// 	t_redirect *current;
+// 	t_redirect *next;
+
+// 	current = redirect;
+// 	while (current)
+// 	{
+// 		next = current->next;
+// 		if (current->value)
+// 		{
+// 			free(current->value);
+// 			current->value = NULL;
+// 		}
+// 		free(current);
+// 		current = current->next;	
+// 	}
 // }
 
 static t_cmd	*construct_command(t_cmd *cmd, t_parse *p)
@@ -80,7 +99,6 @@ bool	shell_parser(t_shell *shell)
 
 	parser_post_process(shell);
 
-	// free_parser_struct(p);
 	p->cmds = NULL;
 	free(p); // TODO also free the values in struct?
 	if (shell->print_output)

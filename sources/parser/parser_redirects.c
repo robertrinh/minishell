@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/21 20:55:56 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/25 16:29:49 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/16 15:40:47 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_redirect	*construct_redirect_file(t_token *token)
 
 	file = safe_malloc(sizeof(t_redirect));
 	if (token->next)
-		file->value = token->next->value;
+		file->value = safe_strdup(token->next->value);
 	file->fd = 0;
 	file->type = assign_file_type(token->value);
 	file->next = NULL;

@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/28 14:31:20 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/05/10 16:41:24 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/16 18:20:38 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,16 @@ static void	update_env(t_shell *shell)
 	char	*buff;
 
 	buff = getcwd(NULL, 0);
-	oldpwd = get_value_for_key(shell->envp, "OLDPWD");
+	oldpwd = get_value_for_key(shell->envp, "PWD");
 	if (oldpwd != NULL)
 	{
 		i = index_for_env_key(shell->envp, "OLDPWD");
+		if (i != -1)
+		{
 		free(shell->envp[i]);
 		shell->envp[i] = safe_strjoin("OLDPWD=", oldpwd);
 		free(oldpwd);
+		}
 	}
 	pwd = get_value_for_key(shell->envp, "PWD");
 	if (pwd != NULL)
@@ -52,6 +55,7 @@ static bool	minus_flag_check(t_cmd *cmd, t_shell *shell)
 		if (path == NULL)
 		{
 			show_error_message("OLDPWD not set: ", C_RED, cmd->value, 1);
+			free(path);
 			return (false);
 		}
 		ft_putendl_fd(path, STDOUT_FILENO);
@@ -68,7 +72,7 @@ static char	*set_home_directory(t_cmd *cmd, t_shell *shell)
 	home_dir = get_value_for_key(shell->envp, "HOME");
 	if (home_dir == NULL)
 	{
-		show_error_message(": HOME not set", C_RED, cmd->value, 1);
+		show_error_message("HOME not set: ", C_RED, cmd->value, 1);
 		return (NULL);
 	}
 	return (home_dir);
@@ -101,7 +105,7 @@ int	cd(t_cmd *cmd, t_shell *shell)
 	char	*path;
 
 	if (cmd->arg_count > 1)
-		return (0); // ? MAC bash: only execs first cd, ignores 2nd arg. so needed?
+		return (show_error_message(E_CD, C_RED, "", X_CD));
 	if (minus_flag_check(cmd, shell) == false)
 		return (0);
 	path = determine_path(cmd, shell);

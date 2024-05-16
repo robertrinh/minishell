@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/25 15:59:15 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/05/15 16:17:06 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/16 15:54:43 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,6 @@ void	free_cmd(t_cmd *cmd)
 		cmd->cmd_path = NULL;
 	}
 	free(cmd);
-	// * free cmd->fd's
-	// * free args
-	// * free formatted cmd
-	// * free cmd_path
-	// ! free cmd value not needed. tokens value already cleared
 }
 
 	void	free_token(t_token *token)
