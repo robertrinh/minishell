@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/03 16:58:32 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 12:19:45 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@
 # define E_CMD_NOT_FOUND		"command not found: "
 # define E_NUMERIC_ERR			"exit: numeric argument required"
 # define E_ARG_ERR				"exit: too many arguments"
+# define E_CD					"cd: too many arguments"
 
 // Exit codes
+// TODO Generic exit code
 # define X_INIT					EXIT_SUCCESS
 # define X_EOF_DESCRIPTOR		EXIT_SUCCESS
 # define X_QUOTE				EXIT_FAILURE
@@ -47,6 +49,7 @@
 # define X_EXPORT				EXIT_FAILURE
 # define X_EXECVE				EXIT_FAILURE
 # define X_ARG_ERR				EXIT_FAILURE
+# define X_CD					EXIT_FAILURE
 # define X_NUMERIC_ERR			2
 # define X_SIG_HEREDOC			130
 # define X_SIG_CTRL_C			130
@@ -57,6 +60,6 @@
 void	arg_error(void);
 void	numeric_error(char *str);
 int		show_error_message(char *error, char *color, char *arg, int exit_code);
-int		exit_with_message(const char *error, const char *color, int exit_code);
+int		exit_with_message(char *error, char *color, int exit_code);
 
 #endif

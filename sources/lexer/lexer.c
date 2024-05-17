@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/10 16:44:21 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/10 17:44:56 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ t_token	*token_constructor(char *split_input, int i)
 
 	token = safe_malloc(sizeof(t_token));
 	token->len = ft_strlen(split_input);
-	token->value = split_input;
+	token->value = safe_strdup(split_input);
 	token->type = assign_type(token->value);
 	token->next = NULL;
 	token->i = i;
 	return (token);
 }
 
-static t_token	*tokenize_command(t_shell *shell, t_token *tokens_head)
+static t_token	*tokenize_command(t_token *tokens_head, t_split *sp)
 {
 	int		i;
 	char	**split_input;
@@ -40,7 +40,7 @@ static t_token	*tokenize_command(t_shell *shell, t_token *tokens_head)
 	t_token	*new;
 
 	i = 0;
-	split_input = split(shell);
+	split_input = split(sp);
 	current = NULL;
 	while (split_input[i])
 	{
@@ -57,18 +57,21 @@ static t_token	*tokenize_command(t_shell *shell, t_token *tokens_head)
 		}
 		i++;
 	}
+	free_split(sp);
 	return (tokens_head);
 }
 
 int	tokens_builder_manager(t_shell *shell)
 {
 	t_token	*tokens_head;
+	t_split		*split;
 
+	split = safe_malloc(sizeof(t_split));
+	split = init_split(shell, split);
 	tokens_head = NULL;
-	tokens_head = tokenize_command(shell, tokens_head);
+	tokens_head = tokenize_command(tokens_head, split);
 	shell->tokens = tokens_head;
 	post_lexer(shell->tokens);
-
 	return (SUCCESS);
 }
 

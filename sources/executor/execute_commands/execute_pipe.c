@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/22 21:17:02 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/02 16:27:40 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 12:23:36 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	first_cmd(t_shell *shell, t_cmd *cmd, int pipe_out[2])
 		close(pipe_out[WRITE]);
 		close(pipe_out[READ]);
 
-		// TODO execute
 		manage_execution(shell, cmd);
 	}
 	close(pipe_out[WRITE]);
@@ -64,7 +63,6 @@ void	mid_cmd(t_shell *shell, t_cmd *cmd, int pipe_in, int pipe_out[2])
 		close(pipe_out[WRITE]);
 		close(pipe_out[READ]);
 
-		// TODO execute
 		manage_execution(shell, cmd);
 	}
 	close(pipe_in);
@@ -86,7 +84,6 @@ int	final_cmd(t_shell *shell, t_cmd *cmd, int pipe_in)
 			show_error_message(E_DUP, C_RED, cmd->value, X_DUP);
 		close(pipe_in);
 
-		// TODO execute
 		manage_execution(shell, cmd);
 	}
 	close(pipe_in);

@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/23 21:54:16 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/24 17:43:05 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/15 17:05:26 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool is_arg_key(char *arg, char *key)
 char *expand_exit_code(char *arg, char *key, char *val, \
 	size_t i, t_env_utils *env_utils)
 {
-	key = ft_strjoin("$", key);
+	key = safe_strjoin("$", key);
 	arg = ft_str_remove(arg, key);
 	arg = ft_str_insert(arg, ft_itoa(g_exit_code), i);
 	free_env_values(key, val, env_utils);

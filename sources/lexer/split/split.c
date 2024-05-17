@@ -6,28 +6,34 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/05 14:17:27 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/05/02 16:40:54 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/16 16:02:15 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static void	free_split(t_split *sp)
+void	free_split(t_split *sp)
 {
-	// int	i;
+	int	i;
 
-	// i = 0;
+	i = 0;
 	if (sp == NULL)
 		return ;
-	// if (sp->strings)
-	// {
-	// 	while (i < sp->count)
-	// 	{
-	// 		free(sp->strings[i]);
-	// 		i++;
-	// 	}
-	// 	free(sp->strings);
-	// }
+	if (sp->input)
+	{
+		free(sp->input);
+		sp->input = NULL;
+	}
+	if (sp->strings)
+	{
+		while (i < sp->count)
+		{
+			free(sp->strings[i]);
+			sp->strings[i] = NULL;
+			i++;
+		}
+		free(sp->strings);
+	}
 	free(sp);
 }
 
@@ -77,24 +83,19 @@ static int	count_substrings(t_split *sp)
 	return (sp->count);
 }
 
-char	**split(t_shell *shell)
+char	**split(t_split *split)
 {
-	t_split		*split;
-	char		**split_string;
+	char	**split_string;
 
-	split = safe_malloc(sizeof(t_split));
-	split = init_split(shell, split);
 	split->count = count_substrings(split);
 	split->strings = safe_calloc(sizeof(char *), (split->count + 1));
 	if (split->strings == NULL)
 	{
-		free(split);
+		free_split(split);
+		show_error_message(E_MALLOC, C_RED, "split", X_MALLOC);
 		return (NULL);
-		// TODO clean_exit()
 	}
 	split->strings = allocate_strings_split(split);
 	split_string = split->strings;
-	free_split(split);
-	// ? seems we need to strdup the split_string -> by freeing split struct, split_string also is lost so no strings
 	return (split_string);
 }

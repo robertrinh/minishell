@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   error_messages.c                                   :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/01/15 20:36:44 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/03 15:13:11 by qtrinh        ########   odam.nl         */
+/*   Created: 2024/05/10 17:49:51 by qtrinh        #+#    #+#                 */
+/*   Updated: 2024/05/10 17:55:50 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,41 +16,35 @@
 void	arg_error(void)
 {
 	g_exit_code = EXIT_FAILURE;
-	ft_putstr_fd("minishell: exit: too many arguments\n", STDERR_FILENO);
+	write(STDERR_FILENO, "minishell: exit: too many arguments\n", 37);
 }
 
 void	numeric_error(char *str)
 {
 	g_exit_code = X_NUMERIC_ERR;
-	ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
-	ft_putstr_fd(str, STDERR_FILENO);
-	ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
+	write(STDERR_FILENO, "minishell: exit: ", 18);
+	write(STDERR_FILENO, str, ft_strlen(str));
+	write(STDERR_FILENO, ": numeric argument required\n", 29);
 }
 
 int	show_error_message(char *error, char *color, char *arg, int exit_code)
 {
-	char	*message;
-
-	message = ft_strjoin(color, "minishell: ");
-	message = ft_strjoin(message, error);
-	message = ft_strjoin(message, arg);
-	message = ft_strjoin(message, RESET_COLOR);
-	message = ft_strjoin(message, "\n");
-	write(2, message, ft_strlen(message));
-	free(message);
+	write(STDERR_FILENO, color, ft_strlen(color));
+    write(STDERR_FILENO, "minishell: ", 12);
+    write(STDERR_FILENO, error, ft_strlen(error));
+    write(STDERR_FILENO, arg, ft_strlen(arg));
+    write(STDERR_FILENO, RESET_COLOR, ft_strlen(RESET_COLOR));
+    write(STDERR_FILENO, "\n", 1);
 	g_exit_code = exit_code;
 	return (FAILURE);
 }
 
-int	exit_with_message(const char *error, const char *color, int exit_code)
+int	exit_with_message(char *error, char *color, int exit_code)
 {
-	char	*message;
-
-	message = ft_strjoin(color, error);
-	message = ft_strjoin(message, RESET_COLOR);
-	message = ft_strjoin(message, "\n");
-	write(2, message, ft_strlen(message));
-	free(message);
+	write(STDERR_FILENO, color, ft_strlen(color));
+	write(STDERR_FILENO, error, ft_strlen(error));
+	write(STDERR_FILENO, RESET_COLOR, ft_strlen(RESET_COLOR));
+	write(STDERR_FILENO, "\n", 1);
 	g_exit_code = exit_code;
 	exit(g_exit_code);
 }

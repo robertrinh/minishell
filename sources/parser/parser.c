@@ -6,11 +6,40 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/25 16:48:05 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 12:25:18 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+// static void	free_parser_struct(t_parse *parser)
+// {
+// 	if (!parser)
+// 		return ;
+	
+// 	parser->cmds[parser->i]->fd_in = NULL;
+// 	parser->cmds = NULL;
+// 	free(parser);
+// }
+
+// static void	free_redirect(t_redirect *redirect)
+// {
+// 	t_redirect *current;
+// 	t_redirect *next;
+
+// 	current = redirect;
+// 	while (current)
+// 	{
+// 		next = current->next;
+// 		if (current->value)
+// 		{
+// 			free(current->value);
+// 			current->value = NULL;
+// 		}
+// 		free(current);
+// 		current = current->next;	
+// 	}
+// }
 
 static t_cmd	*construct_command(t_cmd *cmd, t_parse *p)
 {
@@ -65,11 +94,13 @@ bool	shell_parser(t_shell *shell)
 
 	shell->cmd_table->cmds = p->cmds;
 	shell->cmd_table->cmd_count = p->cmd_count;
-	
-	free(p); // TODO also free the values in struct?
+
+	// TODO #58 free redirect struct
 
 	parser_post_process(shell);
 
+	p->cmds = NULL;
+	free(p); // TODO also free the values in struct?
 	if (shell->print_output)
 		print_cmds(shell->cmd_table);
 	return (SUCCESS);

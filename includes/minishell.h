@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/09 15:55:52 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/05/17 13:28:18 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ typedef struct s_split
 	int			i_str;
 	int			count;
 	char		buffer[1000];
-	char const	*input;
+	char		*input;
 	char		**strings;
 }	t_split;
 
@@ -255,7 +255,8 @@ int		skip_whitespace(t_split *sp);
 int		check_operator(char c1, char c2);
 
 // split.c
-char	**split(t_shell *shell);
+void	free_split(t_split *sp);
+char	**split(t_split *split);
 
 
 //===============================================================: Parser
@@ -368,7 +369,7 @@ int		count_pipes(t_shell *shell);
 
 // ----------------------------------- executor/redirects
 // redirect_heredoc
-int	setup_heredoc(t_redirect *heredoc, int *stat_loc);
+int		setup_heredoc(t_redirect *heredoc, int *stat_loc);
 
 // redirect_in_files.c
 t_validation	redirect_in_files(t_cmd *cmd, int *stat_loc);
@@ -387,9 +388,9 @@ t_redirect	*file_type(t_cmd *cmd, t_redirect_type type);
 int			get_open_flag_for_type(t_redirect_type type);
 
 // redirect_utils.c
+void			free_ins(t_in_files *ins);
 t_redirect_type last_infile_type(t_cmd *cmd);
 int				count_files_for_type(t_cmd *cmd, t_redirect_type type);
-size_t			read_large_file(int fd, char ***buff);
 
 // ----------------------------------- executor/signals
 // signals.c
@@ -399,10 +400,10 @@ void	rl_replace_line(const char *text, int clear_undo);
 
 //===============================================================: Expander
 // expander_utils.c
-void free_env_values(char *key, char *value, t_env_utils *env_utils);
-int	count_expand(char *arg);
-bool is_arg_key(char *arg, char *key);
-char *expand_exit_code(char *arg, char *key, char *val, \
+void	free_env_values(char *key, char *value, t_env_utils *env_utils);
+int		count_expand(char *arg);
+bool	is_arg_key(char *arg, char *key);
+char 	*expand_exit_code(char *arg, char *key, char *val, \
 	size_t i, t_env_utils *env_utils);
 
 // expander.c
@@ -415,6 +416,7 @@ char	*get_env_key(char *arg, size_t i);
 //===============================================================: Utils
 // clean_exit.c
 void	free_2d_array(char **array);
+void	free_shell(t_shell *shell, bool will_exit);
 void	shell_finish(t_shell *shell);
 
 // clean_utils.c
