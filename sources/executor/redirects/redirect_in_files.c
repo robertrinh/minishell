@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 22:08:44 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/15 17:35:16 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 14:17:10 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ static void	dup_for_fd(int fd)
 		if (dev_null_fd >= 0)
 		{
 			if (dup2(dev_null_fd, STDIN_FILENO) < 0)
-				show_error_message(E_DUP, C_RED, "", X_DUP);
+				show_error_message(E_DUP, C_RED, "", X_FAILURE);
 			close (dev_null_fd);
 		}
 	}
 	else
 		if (dup2(fd, STDIN_FILENO) < 0)
-			show_error_message(E_DUP, C_RED, "", X_DUP);
+			show_error_message(E_DUP, C_RED, "", X_FAILURE);
 }
 
 static void	dup_infile(t_cmd *cmd, t_in_files *ins, t_redirect_type type)

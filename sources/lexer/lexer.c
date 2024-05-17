@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/10 17:44:56 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 14:04:26 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ int	tokens_builder_manager(t_shell *shell)
 int	shell_lexer(t_shell *shell)
 {
 	if (validate_operators(shell->input) == FAILURE)
-		return (show_error_message(E_OPERATOR, C_RED, "", X_OPERATOR));
+		return (show_error_message(E_OPERATOR, C_RED, "", X_FAILURE));
 	if (validate_quotes(shell) == FAILURE)
-		return (show_error_message(E_QUOTE, C_RED, "", X_QUOTE));
+		return (show_error_message(E_QUOTE, C_RED, "", X_FAILURE));
 	if (tokens_builder_manager(shell) == SUCCESS)
 		return (print_tokens(shell));
 	return (FAILURE);

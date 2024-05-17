@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   execute_commands.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/22 21:09:40 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/04/26 17:09:49 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   execute_commands.c                                 :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/04/22 21:09:40 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/05/17 14:10:21 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int pipe_commands(t_shell *shell, t_cmd *cmd, t_childs *childs, bool is_l
 	{
 		// Create a new pipe
 		if (pipe(childs->pipe_fd[flip]) < 0)
-			show_error_message(E_PIPE_FAIL, C_RED, cmd->value, X_PIPE);
+			show_error_message(E_PIPE_FAIL, C_RED, cmd->value, X_FAILURE);
 	}
 	if (childs->child_count == 0)
 	{

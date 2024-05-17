@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 12:19:45 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 14:20:32 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,7 @@
 # define E_CD					"cd: too many arguments"
 
 // Exit codes
-// TODO Generic exit code
-# define X_INIT					EXIT_SUCCESS
-# define X_EOF_DESCRIPTOR		EXIT_SUCCESS
-# define X_QUOTE				EXIT_FAILURE
-# define X_PIPE					EXIT_FAILURE
-# define X_FORK					EXIT_FAILURE
-# define X_DUP					EXIT_FAILURE
-# define X_WAITPID				EXIT_FAILURE
-# define X_REDIRECT				EXIT_FAILURE
-# define X_MALLOC				EXIT_FAILURE
-# define X_OPERATOR				EXIT_FAILURE
-# define X_OPENING_FILE			EXIT_FAILURE
-# define X_EXPORT				EXIT_FAILURE
-# define X_EXECVE				EXIT_FAILURE
-# define X_ARG_ERR				EXIT_FAILURE
-# define X_CD					EXIT_FAILURE
+# define X_FAILURE				EXIT_FAILURE
 # define X_NUMERIC_ERR			2
 # define X_SIG_HEREDOC			130
 # define X_SIG_CTRL_C			130

@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/28 12:35:51 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/02 16:36:37 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 14:17:39 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_validation	redirect_out(t_cmd *cmd)
 	if (fd > 0)
 	{
 		if (dup2(fd, STDOUT_FILENO) < 0)
-			show_error_message(E_DUP, C_RED, "", X_DUP);
+			show_error_message(E_DUP, C_RED, "", X_FAILURE);
 	}
 	else
 	{
@@ -71,7 +71,7 @@ t_validation	redirect_out(t_cmd *cmd)
 		if (dev_null_fd >= 0)
 		{
 			if (dup2(dev_null_fd, STDOUT_FILENO) < 0)
-				show_error_message(E_DUP, C_RED, "", X_DUP);
+				show_error_message(E_DUP, C_RED, "", X_FAILURE);
 			cmd->fd_out->fd = dev_null_fd;
 		}
 	}

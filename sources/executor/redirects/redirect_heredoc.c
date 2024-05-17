@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/25 11:15:17 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/02 16:34:18 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 14:14:32 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,11 @@ int	setup_heredoc(t_redirect *heredoc, int *stat_loc)
 	int		stat_loc_local = 0;
 
 	if (pipe(fd) < 0)
-		show_error_message(E_PIPE_FAIL, C_RED, "", X_PIPE);
+		show_error_message(E_PIPE_FAIL, C_RED, "", X_FAILURE);
 	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid == -1)
-	{
-		// TODO clean_exit
-	}
+		exit_with_message(E_FORK, C_RED, X_FAILURE);
 	if (pid == 0)
 	{
 		handle_signals(HEREDOC);
