@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 14:20:32 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 16:53:45 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@
 # define E_EXPORT				"export: not a valid identifier: "
 # define E_EXECVE				"execve: command not found: "
 # define E_NO_FILE_DIR			"No such file or directory: "
-# define E_DUP					"dup failure."
+# define E_DUP					"dup failure: "
 # define E_WAITPID				"waitpid failure."
 # define E_PIPE_FAIL			"pipe failure: "
+# define E_CLOSE				"close failure"
 # define E_OPENING_FILE			"could not open file: "
 # define E_CMD_NOT_FOUND		"command not found: "
 # define E_NUMERIC_ERR			"exit: numeric argument required"

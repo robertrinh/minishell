@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/22 21:09:40 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 14:10:21 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 16:59:15 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,40 +19,28 @@ static int	is_last_cmd(int cmd_count, int i)
 	return (false);
 }
 
-static int pipe_commands(t_shell *shell, t_cmd *cmd, t_childs *childs, bool is_last_cmd)
+static int	pipe_commands(t_shell *shell, t_cmd *cmd, t_childs *childs, bool is_last_cmd)
 {
 	int				last_pid;
-	static int		flip = 0; 
+	static int		flip = 0;
 
 	last_pid = 0;
-
 	if (is_last_cmd == false)
 	{
-		// Create a new pipe
 		if (pipe(childs->pipe_fd[flip]) < 0)
-			show_error_message(E_PIPE_FAIL, C_RED, cmd->value, X_FAILURE);
+			exit_with_message(E_PIPE_FAIL, C_RED, X_FAILURE);
 	}
 	if (childs->child_count == 0)
-	{
-		// First command
 		first_cmd(shell, cmd, childs->pipe_fd[flip]);
-	}
 	else if (is_last_cmd)
-	{
-		// Last command
 		last_pid = final_cmd(shell, cmd, childs->pipe_fd[!flip][0]);
-	}
 	else
-	{
-		// Middle command
 		mid_cmd(shell, cmd, childs->pipe_fd[!flip][0], childs->pipe_fd[flip]);
-	}
-
 	flip = !flip;
 	return (last_pid);
 }
 
-static int execute_cmd_for(t_shell *shell, int i, t_childs *childs)
+static int	execute_cmd_for(t_shell *shell, int i, t_childs *childs)
 {
 	int			last_cmd;
 	t_cmd		*cmd;
@@ -66,7 +54,7 @@ static int execute_cmd_for(t_shell *shell, int i, t_childs *childs)
 	if (stat_loc >= 1)
 		stat_loc = 1;
 	if (WIFSIGNALED(stat_loc))
-		return(-1);
+		return (-1);
 	prepare_command(shell, i);
 	return (pipe_commands(shell, cmd, childs, last_cmd));
 }

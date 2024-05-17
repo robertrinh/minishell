@@ -6,11 +6,22 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 19:43:07 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 14:21:00 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 17:09:33 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+bool	close_fds(int fd1, int fd2, int fd3)
+{
+    if (fd1 != -1 && close(fd1) < 0)
+		return (FAILURE);
+    if (fd2 != -1 && close(fd2) < 0)
+		return (FAILURE);
+    if (fd3 != -1 && close(fd3) < 0)
+		return (FAILURE);
+    return (SUCCESS);
+}
 
 static bool	absolute_check(t_cmd *cmd)
 {

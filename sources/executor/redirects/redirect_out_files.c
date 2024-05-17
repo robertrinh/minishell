@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/28 12:35:51 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 14:17:39 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 17:19:15 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static t_validation	close_out_files(t_cmd *cmd)
 	{
 		if (fd_curr->fd == -1)
 			validation = FAILURE;
-		close(fd_curr->fd);
+		if (close_fds(fd_curr->fd, -1, -1) == false)
+			show_error_message(E_CLOSE, C_RED, "fd_out", X_FAILURE);
 		fd_curr = fd_curr->next;
 	}
 	return (validation);
@@ -77,3 +78,4 @@ t_validation	redirect_out(t_cmd *cmd)
 	}
 	return (close_out_files(cmd));
 }
+
