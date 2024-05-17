@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 13:07:55 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/15 17:35:38 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 12:24:23 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,29 +58,4 @@ int	count_files_for_type(t_cmd *cmd, t_redirect_type type)
 		fd = fd->next;
 	}
 	return (count);
-}
-
-size_t	read_large_file(int fd, char ***buff)
-{
-	size_t		read_bytes;
-	size_t		buff_size;
-	size_t		total_bytes;
-	char		*temp;
-
-	buff_size = BUFF_SIZE;
-	*buff = safe_malloc(buff_size);
-	total_bytes = 0;
-	while ((read_bytes = read(fd, *buff + total_bytes, buff_size - total_bytes)) > 0) // ! norm not allowed
-	{
-		total_bytes += read_bytes;
-		if (total_bytes >= buff_size)
-		{
-			buff_size *= 2;
-			temp = ft_realloc(*buff, buff_size);
-			*buff = &temp;
-		}
-	}
-	// TODO error handle when read fails?
-	// TODO free *buff
-	return (total_bytes);
 }

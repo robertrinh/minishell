@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/16 17:58:09 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 12:19:45 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define E_CD					"cd: too many arguments"
 
 // Exit codes
+// TODO Generic exit code
 # define X_INIT					EXIT_SUCCESS
 # define X_EOF_DESCRIPTOR		EXIT_SUCCESS
 # define X_QUOTE				EXIT_FAILURE

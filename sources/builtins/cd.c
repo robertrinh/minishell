@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/28 14:31:20 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/05/16 18:20:38 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 12:21:12 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,3 @@ int	cd(t_cmd *cmd, t_shell *shell)
 	free(path);
 	return (0);
 }
-
-// TODO accessable dir --> needed here?

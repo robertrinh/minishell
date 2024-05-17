@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/16 15:52:35 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 12:25:18 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ bool	shell_parser(t_shell *shell)
 	shell->cmd_table->cmds = p->cmds;
 	shell->cmd_table->cmd_count = p->cmd_count;
 
-	// TODO free redirect struct malloc
+	// TODO #58 free redirect struct
 
 	parser_post_process(shell);
 

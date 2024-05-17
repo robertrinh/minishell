@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/15 17:37:25 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 13:28:18 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -369,7 +369,7 @@ int		count_pipes(t_shell *shell);
 
 // ----------------------------------- executor/redirects
 // redirect_heredoc
-int	setup_heredoc(t_redirect *heredoc, int *stat_loc);
+int		setup_heredoc(t_redirect *heredoc, int *stat_loc);
 
 // redirect_in_files.c
 t_validation	redirect_in_files(t_cmd *cmd, int *stat_loc);
@@ -391,7 +391,6 @@ int			get_open_flag_for_type(t_redirect_type type);
 void			free_ins(t_in_files *ins);
 t_redirect_type last_infile_type(t_cmd *cmd);
 int				count_files_for_type(t_cmd *cmd, t_redirect_type type);
-size_t			read_large_file(int fd, char ***buff);
 
 // ----------------------------------- executor/signals
 // signals.c
@@ -401,10 +400,10 @@ void	rl_replace_line(const char *text, int clear_undo);
 
 //===============================================================: Expander
 // expander_utils.c
-void free_env_values(char *key, char *value, t_env_utils *env_utils);
-int	count_expand(char *arg);
-bool is_arg_key(char *arg, char *key);
-char *expand_exit_code(char *arg, char *key, char *val, \
+void	free_env_values(char *key, char *value, t_env_utils *env_utils);
+int		count_expand(char *arg);
+bool	is_arg_key(char *arg, char *key);
+char 	*expand_exit_code(char *arg, char *key, char *val, \
 	size_t i, t_env_utils *env_utils);
 
 // expander.c

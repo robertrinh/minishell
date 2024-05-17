@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/21 20:55:56 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/16 15:40:47 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 12:25:00 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static t_redirect	*redirects_for_type(t_parse *p, t_token_type type)
 			break ;
 		current = current->next;
 	}
-	// TODO free redirect struct
+	// TODO #58 free redirect struct
 	return (files_head);
 }
 

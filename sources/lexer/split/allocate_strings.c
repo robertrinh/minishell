@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/07 13:01:10 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/02 15:48:32 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 12:29:54 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static char	**allocate_substrings(t_split *sp)
 	return (sp->strings);
 }
 
+// TODO #94 Norm allocate_strings_split
 char	**allocate_strings_split(t_split *sp)
 {
 	sp->i = 0;
