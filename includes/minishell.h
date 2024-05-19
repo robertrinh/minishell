@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 13:28:18 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 17:09:46 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,7 +256,7 @@ int		check_operator(char c1, char c2);
 
 // split.c
 void	free_split(t_split *sp);
-char	**split(t_split *split);
+t_split	*split(t_shell *shell);
 
 
 //===============================================================: Parser
@@ -296,6 +296,7 @@ char	**get_paths(t_shell *shell);
 int		*fd_in_files(t_cmd *cmd);
 
 // executor_utils.c
+bool	close_fds(int fd1, int fd2, int fd3);
 int		prepare_command(t_shell *shell, int i);
 
 // executor.c

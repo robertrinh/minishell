@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 22:08:44 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/15 17:35:16 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 17:17:45 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,15 @@ static void	close_in_files(t_cmd *cmd, t_in_files *fds, t_redirect_type type)
 	while (count - 1 >= 0)
 	{
 		if (type == IN_APPEND)
-			close(fds->heredocs[count - 1]);
+		{
+			if (close_fds(fds->heredocs[count - 1], -1, -1) == false)
+				show_error_message(E_CLOSE, C_RED, ": IN_APPEND", X_FAILURE);
+		}
 		if (type == IN)
-			close(fds->infiles[count - 1]);
+		{
+			if (close_fds(fds->infiles[count - 1], -1, -1) == false)
+				show_error_message(E_CLOSE, C_RED, ": IN", X_FAILURE);
+		}
 		count--;
 	}
 }
@@ -47,13 +53,18 @@ static void	dup_for_fd(int fd)
 		if (dev_null_fd >= 0)
 		{
 			if (dup2(dev_null_fd, STDIN_FILENO) < 0)
-				show_error_message(E_DUP, C_RED, "", X_DUP);
-			close (dev_null_fd);
+			{
+				show_error_message(E_DUP, C_RED, "dup2 dev_null_fd", X_FAILURE); // ? exit or just show error message?
+				if (close_fds(dev_null_fd, -1, -1) == false)
+					show_error_message(E_CLOSE, C_RED, "dup for fd", X_FAILURE);
+			}
+			if (close_fds(dev_null_fd, -1, -1) == false)
+				show_error_message(E_CLOSE, C_RED, "dup for fd", X_FAILURE); // ? exit or just show error message?
 		}
 	}
 	else
 		if (dup2(fd, STDIN_FILENO) < 0)
-			show_error_message(E_DUP, C_RED, "", X_DUP);
+			show_error_message(E_DUP, C_RED, "", X_FAILURE); // ? exit or just show error message?
 }
 
 static void	dup_infile(t_cmd *cmd, t_in_files *ins, t_redirect_type type)

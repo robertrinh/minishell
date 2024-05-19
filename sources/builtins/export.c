@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:25:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 12:08:14 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 14:09:15 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	export(t_cmd *cmd, t_shell *shell)
 
 	i = 0;
 	if (cmd->args[i] == NULL)
-		return (show_error_message(E_EXPORT, C_RED, "", X_EXPORT));
+		return (show_error_message(E_EXPORT, C_RED, "", X_FAILURE));
 	while (i < cmd->arg_count)
 	{
 		if (is_valid_export_arg(cmd->args[i]))

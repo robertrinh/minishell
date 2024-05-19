@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   redirect_open.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/23 15:04:57 by qtrinh            #+#    #+#             */
-/*   Updated: 2024/04/26 16:40:57 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   redirect_open.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/23 15:04:57 by qtrinh        #+#    #+#                 */
+/*   Updated: 2024/05/17 14:17:22 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	safe_open(char *path, t_redirect_type oflag, int mode)
 	fd = STDIN_FILENO;
 	fd = open(path, oflag, mode);
 	if (fd == -1)
-		show_error_message(E_OPENING_FILE, C_RED, path, X_OPENING_FILE);
+		show_error_message(E_OPENING_FILE, C_RED, path, X_FAILURE);
 	return (fd);
 }
 
