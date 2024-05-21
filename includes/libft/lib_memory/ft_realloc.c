@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 19:13:47 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/02 15:07:59 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 12:02:20 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	*ft_realloc(void *ptr, size_t size)
 		return (malloc(size));
 	if (!size)
 		return (ptr);
-	new_ptr = malloc(size);
+	new_ptr = malloc(size + 1);
 	if (new_ptr == NULL)
 		return (NULL);
 	ft_memcpy(new_ptr, ptr, size);

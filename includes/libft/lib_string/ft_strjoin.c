@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/12 10:07:47 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2022/12/02 11:54:25 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/10 16:24:05 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,23 @@ char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	i;
 	size_t	j;
-	size_t	total_length;
-	char	*p;
+	char	*str;
 
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!str)
+		return (NULL);
 	i = 0;
 	j = 0;
-	total_length = ft_strlen(s1) + ft_strlen(s2);
-	p = malloc((total_length + 1) * sizeof(char));
-	if (p == NULL)
-		return (NULL);
-	while (i <= total_length)
+	while (s1[i])
 	{
-		if (i < ft_strlen(s1))
-			p[i] = s1[i];
-		if (i >= ft_strlen(s1) && i <= total_length)
-		{
-			p[i] = s2[j];
-			j++;
-		}
+		str[i] = s1[i];
 		i++;
 	}
-	if (p == NULL)
-		return (NULL);
-	return (p);
+	while (s2[j])
+	{
+		str[i + j] = s2[j];
+		j++;
+	}
+	str[i + j] = '\0';
+	return (str);
 }

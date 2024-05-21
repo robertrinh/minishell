@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/03 16:58:32 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 16:53:45 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,18 @@
 # define E_EXPORT				"export: not a valid identifier: "
 # define E_EXECVE				"execve: command not found: "
 # define E_NO_FILE_DIR			"No such file or directory: "
-# define E_DUP					"dup failure."
+# define E_DUP					"dup failure: "
 # define E_WAITPID				"waitpid failure."
 # define E_PIPE_FAIL			"pipe failure: "
+# define E_CLOSE				"close failure"
 # define E_OPENING_FILE			"could not open file: "
 # define E_CMD_NOT_FOUND		"command not found: "
 # define E_NUMERIC_ERR			"exit: numeric argument required"
 # define E_ARG_ERR				"exit: too many arguments"
+# define E_CD					"cd: too many arguments"
 
 // Exit codes
-# define X_INIT					EXIT_SUCCESS
-# define X_EOF_DESCRIPTOR		EXIT_SUCCESS
-# define X_QUOTE				EXIT_FAILURE
-# define X_PIPE					EXIT_FAILURE
-# define X_FORK					EXIT_FAILURE
-# define X_DUP					EXIT_FAILURE
-# define X_WAITPID				EXIT_FAILURE
-# define X_REDIRECT				EXIT_FAILURE
-# define X_MALLOC				EXIT_FAILURE
-# define X_OPERATOR				EXIT_FAILURE
-# define X_OPENING_FILE			EXIT_FAILURE
-# define X_EXPORT				EXIT_FAILURE
-# define X_EXECVE				EXIT_FAILURE
-# define X_ARG_ERR				EXIT_FAILURE
+# define X_FAILURE				EXIT_FAILURE
 # define X_NUMERIC_ERR			2
 # define X_SIG_HEREDOC			130
 # define X_SIG_CTRL_C			130
@@ -57,6 +46,6 @@
 void	arg_error(void);
 void	numeric_error(char *str);
 int		show_error_message(char *error, char *color, char *arg, int exit_code);
-int		exit_with_message(const char *error, const char *color, int exit_code);
+int		exit_with_message(char *error, char *color, int exit_code);
 
 #endif

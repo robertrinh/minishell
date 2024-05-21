@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/14 14:04:02 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/05/02 14:29:44 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/16 15:00:24 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static t_cmd_table *init_cmd_table(void)
 	t_cmd_table		*cmd_table;
 
 	cmd_table = safe_malloc(sizeof(t_cmd_table));
+	cmd_table->cmd_count = 0;
+	cmd_table->cmds = NULL;
 	return (cmd_table);
 }
 
@@ -47,6 +49,8 @@ bool	save_command(char *command, t_shell *shell)
 t_shell *construct_shell(t_shell *shell, char **envp, char **argv)
 {
 	shell = safe_malloc(sizeof(t_shell));
+	shell->input = NULL;
+	shell->tokens = NULL;
 	shell->cmd_table = init_cmd_table();
 	shell->envp = alloc_envp(envp);
 	shell->original_stdin = dup(STDIN_FILENO);

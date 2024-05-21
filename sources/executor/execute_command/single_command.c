@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   single_command.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 14:28:14 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/04/26 17:10:00 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   single_command.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/05/17 14:10:11 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,8 @@ int	single_command(t_shell *shell)
 		return (g_exit_code);
 	handle_signals(CHILD);
 	pid = fork();
-	if (pid == -1)
-	{
-		// TODO exit / return with error message fork
-	}
+	if (pid < 0)
+		exit_with_message(E_FORK, C_RED, X_FAILURE);
 	if (pid == 0)
 		child_process(shell);
 	else if (pid > 0)

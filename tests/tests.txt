@@ -26,8 +26,6 @@ echo "hello" >input.txt (quotes expansion, needs work)
 cat README.md >> output.txt | grep "a"
 grep aa << EOF | wc > out
 
-bugs:
-cat <README.md | wc (gives 0 0 0, bash gives 4 4 19)
 
 
 == VALID PIPES ==

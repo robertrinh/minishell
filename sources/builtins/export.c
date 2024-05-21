@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:25:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/03 16:54:16 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 14:09:15 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ static void	add_arg_to_env(t_shell *shell, char *arg)
 	shell->envp = ft_realloc(shell->envp, env_realloc_size(shell->envp, arg));
 	if (insert_index == -1)
 	{
+		// TODO split in subfunction 
 		insert_index = index_for_env_key(shell->envp, UNDERSCORE_VAR);
 		if (insert_index == -1)
 			insert_index = (count_lines_from(shell->envp, 0) - 1);
@@ -113,7 +114,7 @@ static void	add_arg_to_env(t_shell *shell, char *arg)
 	}
 	else
 		shell->envp[insert_index] = safe_strdup(arg);
-	// ? how to free malloc strdups in envp?
+	// TODO free insert_index before strdup
 }
 
 int	export(t_cmd *cmd, t_shell *shell)
@@ -122,7 +123,7 @@ int	export(t_cmd *cmd, t_shell *shell)
 
 	i = 0;
 	if (cmd->args[i] == NULL)
-		return (show_error_message(E_EXPORT, C_RED, "", X_EXPORT));
+		return (show_error_message(E_EXPORT, C_RED, "", X_FAILURE));
 	while (i < cmd->arg_count)
 	{
 		if (is_valid_export_arg(cmd->args[i]))

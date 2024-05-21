@@ -6,13 +6,13 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/03 16:57:57 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/17 15:05:56 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int g_exit_code = X_INIT;
+int g_exit_code = 0;
 
 static bool	shell_retrieve_command(t_shell *shell)
 {
@@ -22,7 +22,8 @@ static bool	shell_retrieve_command(t_shell *shell)
 	if (command == NULL)
 	{
 		free(command);
-		exit_with_message(E_EOF_DESCRIPTOR, RESET_COLOR, X_EOF_DESCRIPTOR);
+		free_shell(shell, true);
+		exit_with_message(E_EOF_DESCRIPTOR, RESET_COLOR, EXIT_SUCCESS);
 	}
 	save_command(command, shell);
 	free(command);

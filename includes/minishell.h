@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/16 08:07:22 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/21 21:42:58 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ typedef struct s_split
 	int			i_str;
 	int			count;
 	char		buffer[1000];
-	char const	*input;
+	char		*input;
 	char		**strings;
 }	t_split;
 
@@ -255,7 +255,8 @@ int		skip_whitespace(t_split *sp);
 int		check_operator(char c1, char c2);
 
 // split.c
-char	**split(t_shell *shell);
+void	free_split(t_split *sp);
+t_split	*split(t_shell *shell);
 
 
 //===============================================================: Parser
@@ -295,6 +296,7 @@ char	**get_paths(t_shell *shell);
 int		*fd_in_files(t_cmd *cmd);
 
 // executor_utils.c
+bool	close_fds(int fd1, int fd2, int fd3);
 int		prepare_command(t_shell *shell, int i);
 
 // executor.c
@@ -368,7 +370,7 @@ int		count_pipes(t_shell *shell);
 
 // ----------------------------------- executor/redirects
 // redirect_heredoc
-int	setup_heredoc(t_redirect *heredoc, int *stat_loc);
+int		setup_heredoc(t_redirect *heredoc, int *stat_loc);
 
 // redirect_in_files.c
 t_validation	redirect_in_files(t_cmd *cmd, int *stat_loc);
@@ -387,9 +389,9 @@ t_redirect	*file_type(t_cmd *cmd, t_redirect_type type);
 int			get_open_flag_for_type(t_redirect_type type);
 
 // redirect_utils.c
+void			free_ins(t_in_files *ins);
 t_redirect_type last_infile_type(t_cmd *cmd);
 int				count_files_for_type(t_cmd *cmd, t_redirect_type type);
-size_t			read_large_file(int fd, char ***buff);
 
 // ----------------------------------- executor/signals
 // signals.c
@@ -399,10 +401,10 @@ void	rl_replace_line(const char *text, int clear_undo);
 
 //===============================================================: Expander
 // expander_utils.c
-void free_env_values(char *key, char *value, t_env_utils *env_utils);
-int	count_expand(char *arg);
-bool is_arg_key(char *arg, char *key);
-char *expand_exit_code(char *arg, char *key, char *val, \
+void	free_env_values(char *key, char *value, t_env_utils *env_utils);
+int		count_expand(char *arg);
+bool	is_arg_key(char *arg, char *key);
+char 	*expand_exit_code(char *arg, char *key, char *val, \
 	size_t i, t_env_utils *env_utils);
 
 // expander.c
@@ -415,6 +417,7 @@ char	*get_env_key(char *arg, size_t i);
 //===============================================================: Utils
 // clean_exit.c
 void	free_2d_array(char **array);
+void	free_shell(t_shell *shell, bool will_exit);
 void	shell_finish(t_shell *shell);
 
 // clean_utils.c
