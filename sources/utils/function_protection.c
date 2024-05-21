@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/29 13:21:05 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/05/09 15:58:41 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/05/11 20:44:40 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	*safe_malloc(size_t size)
 	if (ptr == NULL)
 	{
 		// TODO correct exit code?
+		free (ptr);
 		g_exit_code = EXIT_FAILURE;
 		exit_with_message(E_MALLOC, C_RED, g_exit_code);
 	}
