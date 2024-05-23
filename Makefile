@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/05/17 17:23:38 by qtrinh        ########   odam.nl          #
+#    Updated: 2024/05/21 21:42:23 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -134,13 +134,18 @@ LIBFT				= includes/libft
 CC 					= cc
 CFLAGS 				= -Wall -Werror -Wextra -g #-fsanitize=address
 
-READLINE_LOC		=	/usr/lib/aarch64-linux-gnu/libreadline.so
-READLINE_LIB		=	-L $(READLINE_LOC) -lreadline
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+	READLINE_LOC = /usr/lib/aarch64-linux-gnu/libreadline.so
+	READLINE_LIB = -L $(READLINE_LOC) -lreadline
+endif
+ifeq ($(UNAME_S),Darwin)
+	READLINE_LOC = ~/.brew/opt/readline
+	READLINE_LIB = -L $(READLINE_LOC)/lib -lreadline
+endif
+
 READLINE_INCLUDE	=	-I includes -I $(READLINE_LOC)/include
 
-#READLINE_LOC		=	~/.brew/opt/readline
-#READLINE_LIB		=	-L $(READLINE_LOC)/lib -lreadline
-#READLINE_INCLUDE	=	-I includes -I $(READLINE_LOC)/include
 
 # ===== Rules =====
 all: $(NAME_EXECUTABLE)
@@ -149,7 +154,7 @@ $(NAME_EXECUTABLE): $(OBJ)
 	@echo "$(BLUE)\nMaking LIBFT ...\n$(RESET)"
 	@$(MAKE) -C $(LIBFT) >/dev/null
 	@echo "$(BLUE)Making MINISHELL ...\n$(RESET)"
-	@$(CC) $(CFLAGS) $^ $(READLINE_LIB) $(LIBFT)/libft.a -o $(NAME_EXECUTABLE)
+	@$(CC) $(CFLAGS) $(READLINE_LIB) $^ $(LIBFT)/libft.a -o $(NAME_EXECUTABLE)
 	@echo "$(GREEN)Compiled all!\n$(RESET)"
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES)/%.c | $(DIR_OBJ)

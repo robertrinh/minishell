@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/07 13:01:10 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 12:29:54 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/21 21:43:16 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,41 @@ static char	**allocate_substrings(t_split *sp)
 	return (sp->strings);
 }
 
-// TODO #94 Norm allocate_strings_split
+char	**allocate_strings_split(t_split *sp)
+{
+	sp->i = 0;
+	while (sp->i < sp->len)
+	{
+		if (sp->i_buff)
+			return (false);
+		sp->buffer[sp->i_buff] = sp->input[sp->i];
+		sp->i += check_operator(sp->input[sp->i], sp->input[sp->i + 1]);
+		sp->i_buff++;
+		return (false);
+	}
+	return (true);
+}
+
+t_split	*handle_substrings(t_split *sp)
+{
+	while (sp->i < sp->len)
+	{
+		if (is_quote(sp->input[sp->i]) != 0)
+		{
+			buffer_quote(sp, is_quote(sp->input[sp->i]));
+			break ;
+		}
+		if (is_white_space(sp->input[sp->i]))
+			break ;
+		if (check_operators_substring(sp) == false)
+			break ;
+		sp->buffer[sp->i_buff] = sp->input[sp->i];
+		sp->i++;
+		sp->i_buff++;
+	}
+	return (sp);
+}
+
 char	**allocate_strings_split(t_split *sp)
 {
 	sp->i = 0;
@@ -43,38 +77,7 @@ char	**allocate_strings_split(t_split *sp)
 	{
 		sp->i = skip_whitespace(sp);
 		sp->i_buff = 0;
-		while (sp->i < sp->len)
-		{
-			if (is_quote(sp->input[sp->i]) != 0)
-			{
-				buffer_quote(sp, is_quote(sp->input[sp->i]));
-				break ;
-			}
-			if (is_white_space(sp->input[sp->i]))
-				break ;
-			if (check_operator(sp->input[sp->i], sp->input[sp->i + 1]) == 2)
-			{
-				if (sp->i_buff)
-					break ;
-				sp->buffer[sp->i_buff] = sp->input[sp->i];
-				sp->buffer[sp->i_buff + 1] = sp->input[sp->i + 1];
-				sp->i += check_operator(sp->input[sp->i], sp->input[sp->i + 1]);
-				sp->i_buff += 2;
-				break ;
-			}
-			else if (check_operator(sp->input[sp->i], sp->input[sp->i + 1]) == 1)
-			{
-				if (sp->i_buff)
-					break ;
-				sp->buffer[sp->i_buff] = sp->input[sp->i];
-				sp->i += check_operator(sp->input[sp->i], sp->input[sp->i + 1]);
-				sp->i_buff++;
-				break ;
-			}
-			sp->buffer[sp->i_buff] = sp->input[sp->i];
-			sp->i++;
-			sp->i_buff++;
-		}
+		sp = handle_substrings(sp);
 		sp->buffer[sp->i_buff] = 0;
 		sp->strings = allocate_substrings(sp);
 	}
