@@ -6,18 +6,11 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 16:12:22 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/23 18:42:05 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static bool	is_token(t_token *tokens_head)
-{
-	if (tokens_head == NULL)
-		return (false);
-	return (true);
-}
 
 t_token	*token_constructor(char *split_input, int i)
 {
@@ -25,7 +18,12 @@ t_token	*token_constructor(char *split_input, int i)
 
 	token = safe_malloc(sizeof(t_token));
 	token->len = ft_strlen(split_input);
-	token->value = safe_strdup(split_input);
+	token->value = ft_strdup(split_input);
+	if (token->value == NULL)
+	{
+		show_error_message(E_MALLOC, C_RED, "safe_strdup()", X_FAILURE);
+		return (NULL);
+	}
 	token->type = assign_type(token->value);
 	token->next = NULL;
 	token->i = i;
@@ -41,11 +39,20 @@ static t_token	*tokenize_command(t_token *tokens_head, t_shell *shell)
 
 	i = 0;
 	split_struct = split(shell);
+	if (split_struct == NULL)
+		return (NULL);
 	current = NULL;
 	while (split_struct->strings[i])
 	{
 		new = token_constructor(split_struct->strings[i], i);
-		if (is_token(current) == false)
+		if (new == NULL)
+		{
+			// free (new->value);
+			// free (new);
+			free_split(split_struct);
+			return (FAILURE);
+		}
+		if (current == NULL)
 		{
 			current = new;
 			tokens_head = current;
@@ -67,6 +74,8 @@ int	tokens_builder_manager(t_shell *shell)
 
 	tokens_head = NULL;
 	tokens_head = tokenize_command(tokens_head, shell);
+	if (tokens_head == NULL)
+		return (FAILURE);
 	shell->tokens = tokens_head;
 	post_lexer(shell->tokens);
 	return (SUCCESS);

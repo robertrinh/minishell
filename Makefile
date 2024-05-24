@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/05/21 21:42:23 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2024/05/23 16:17:23 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,14 +42,14 @@ SOURCES_PARSER			=  parser_checks.c \
 							parser_utils.c \
 							parser.c
 
-SOURCES_UTILS			= clean_exit.c \
-							clean_utils.c \
-							control_utils.c \
+SOURCES_UTILS			= control_utils.c \
 							env_utils.c \
 							error_messages.c \
 							function_protection.c \
 							print_cmds.c \
 							print_tokens.c \
+							shell_finish_utils.c \
+							shell_finish.c \
 							shell_init.c
 
 SOURCES_EXECUTOR		= executor_environment.c \
@@ -154,7 +154,7 @@ $(NAME_EXECUTABLE): $(OBJ)
 	@echo "$(BLUE)\nMaking LIBFT ...\n$(RESET)"
 	@$(MAKE) -C $(LIBFT) >/dev/null
 	@echo "$(BLUE)Making MINISHELL ...\n$(RESET)"
-	@$(CC) $(CFLAGS) $(READLINE_LIB) $^ $(LIBFT)/libft.a -o $(NAME_EXECUTABLE)
+	@$(CC) $(CFLAGS) $^ $(READLINE_LIB) $(LIBFT)/libft.a -o $(NAME_EXECUTABLE)
 	@echo "$(GREEN)Compiled all!\n$(RESET)"
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES)/%.c | $(DIR_OBJ)

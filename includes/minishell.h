@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/21 21:42:58 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/23 18:26:32 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ typedef struct s_split
 	int			i_buff;
 	int			i_str;
 	int			count;
-	char		buffer[1000];
+	char		buffer[BUFF_SIZE];
 	char		*input;
 	char		**strings;
 }	t_split;
@@ -437,7 +437,7 @@ int		index_for_env_key(char **input_env, char *key);
 void	*safe_strjoin(const char *s1, const char *s2);
 void	*safe_malloc(size_t size);
 void	*safe_calloc(size_t count, size_t size);
-char	*safe_strdup(const char *str);
+char	*safe_strdup(char *str);
 char	*safe_strdup_from(const char *str, int i);
 
 // print_cmds.c

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   clean_utils.c                                      :+:    :+:            */
+/*   shell_finish_utils.c                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
+/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/04/25 15:59:15 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/05/17 16:24:37 by qtrinh        ########   odam.nl         */
+/*   Created: 2024/05/23 16:15:41 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/05/23 18:44:51 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,14 @@ void	free_cmd(t_cmd *cmd)
 	free(cmd);
 }
 
-	void	free_token(t_token *token)
+void	free_token(t_token *token)
+{
+	if (token == NULL)
+		return ;
+	if (token->value)
 	{
-		if (!token)
-			return ;
-		// if (token->value)
-		// {
-		// 	free(token->value);
-		// 	token->value = NULL;
-		// }
-		token->type = NONE; // ? needed?
-		free(token);
+		free(token->value);
+		token->value = NULL;
 	}
+	free(token);
+}

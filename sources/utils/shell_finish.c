@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   clean_exit.c                                       :+:    :+:            */
+/*   shell_finish.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/01/07 12:29:05 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 16:15:15 by qtrinh        ########   odam.nl         */
+/*   Created: 2024/05/23 16:15:55 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/05/23 18:43:52 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void free_cmd_table(t_cmd_table *cmd_table)
 
 static void	free_shell_struct(t_shell *shell)
 {
-	printf("only after exit \n"); // * delete later
+	printf("only after exit \n"); // TODO delete later
 	if (!shell)
 		return ;
 	if (shell->cmd_table)

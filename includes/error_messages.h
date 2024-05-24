@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 16:53:45 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/23 16:27:00 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define E_QUOTE				"unmatched quote."
 # define E_PIPE					"unmatched pipe."
 # define E_REDIRECT				"unmatched redirect."
-# define E_MALLOC				"malloc failure."
+# define E_MALLOC				"malloc: failed to malloc."
 # define E_EOF_DESCRIPTOR		"exit"
 # define E_OPERATOR				"invalid operator."
 # define E_FORK					"fork failure."

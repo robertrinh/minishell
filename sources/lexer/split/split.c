@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/05 14:17:27 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/05/17 16:34:51 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/23 17:56:07 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	index_next_quote(t_split *sp, int quote_type)
 
 static void	process_substring(t_split *sp)
 {
-	while (sp->i < sp->len) // Check last char
+	while (sp->i < sp->len)
 	{
 		if (is_white_space(sp->input[sp->i]))
 			break ;

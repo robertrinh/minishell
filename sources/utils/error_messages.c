@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/10 17:49:51 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/05/10 17:55:50 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/23 16:18:40 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,5 @@ int	exit_with_message(char *error, char *color, int exit_code)
 	write(STDERR_FILENO, "\n", 1);
 	g_exit_code = exit_code;
 	exit(g_exit_code);
+	return (FAILURE);
 }
