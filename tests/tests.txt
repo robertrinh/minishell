@@ -1,11 +1,11 @@
 === ONLY PIPES ===
 
-cat "README.md" "Makefile" | wc -w
+cat README.md Makefile | wc -w
 cat Makefile || wc
 
 
 === ONLY REDIRECTS ===
-cat tasks.md > grep "a"
+cat tasks.md > grep "a"						<- ERROR
 cat << EOF > output.txt
 'EOF' / "..."
 grep aa << EOF
@@ -50,6 +50,7 @@ when aa is typed and you press ctrl-c -> still prints out aa, bash does not do t
 
 
 === EXPANDER ===
+cat "README.md" "Makefile" | wc -w			<- ERROR
 echo $USER$PATH
 e'ch'o hello
 echo "hello $TERM$NOARG more"

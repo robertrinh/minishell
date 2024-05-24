@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 19:13:47 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 12:02:20 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/24 14:40:49 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,5 @@ void	*ft_realloc(void *ptr, size_t size)
 	if (new_ptr == NULL)
 		return (NULL);
 	ft_memcpy(new_ptr, ptr, size);
-	free(ptr);
 	return (new_ptr);
 }

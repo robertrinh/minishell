@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 10:14:19 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/15 17:01:43 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/24 13:51:15 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static char	**allocate_args(t_parse *p)
 	return (args);
 }
 
+//!			cat tasks.md > grep "a"
 t_cmd	*construct_args(t_cmd *cmd, t_parse *p)
 {
 	int			i;
