@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/23 16:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/23 18:44:51 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/24 13:21:20 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,42 @@ static void	free_args_format_cmd(t_cmd *cmd)
 	if (cmd->args)
 	{
 		i = 0;
-		while (cmd->args[i])
+		while (i < cmd->arg_count)
 		{
-			free(cmd->args[i]);
+			if (cmd->args[i])
+				free(cmd->args[i]);
 			cmd->args[i] = NULL;
 			i++;
 		}
 		free(cmd->args);
+		cmd->args = NULL;
 	}
-	if (cmd->formatted_cmd)
+	if (cmd->cmd_and_args)
 	{
 		i = 0;
-		while (cmd->formatted_cmd[i])
+		while (i <= cmd->arg_count)
 		{
-			free(cmd->formatted_cmd[i]);
-			cmd->formatted_cmd[i] = NULL;
+			if (cmd->cmd_and_args[i])
+				free(cmd->cmd_and_args[i]);
+			cmd->cmd_and_args[i] = NULL;
 			i++;
 		}
-		free(cmd->formatted_cmd);
+		free(cmd->cmd_and_args);
+		cmd->cmd_and_args = NULL;
 	}
+}
+
+void	free_token(t_token *token)
+{
+	if (token == NULL)
+		return ;
+	if (token->value)
+	{
+		free(token->value);
+		token->value = NULL;
+	}
+	free(token);
+	token = NULL;
 }
 
 void	free_cmd(t_cmd *cmd)
@@ -69,14 +86,3 @@ void	free_cmd(t_cmd *cmd)
 	free(cmd);
 }
 
-void	free_token(t_token *token)
-{
-	if (token == NULL)
-		return ;
-	if (token->value)
-	{
-		free(token->value);
-		token->value = NULL;
-	}
-	free(token);
-}

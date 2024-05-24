@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/23 18:26:32 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/24 10:11:08 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ typedef struct s_cmd
 	t_redirect	*fd_out;
 	char		*value;
 	char		**args;
-	char		**formatted_cmd;
+	char		**cmd_and_args;
 	char		*cmd_path;
 	int			arg_count;
 }	t_cmd;

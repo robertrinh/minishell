@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 19:45:47 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/15 16:36:16 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/24 13:20:26 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	**format_cmd(t_cmd *cmd)
 
 	i = 0;
 	cmd_and_args = safe_malloc(sizeof(char *) * (cmd->arg_count + 2));
-	cmd_and_args[0] = cmd->value;
+	cmd_and_args[0] = safe_strdup(cmd->value);
 	while (i < cmd->arg_count)
 	{
 		cmd_and_args[i + 1] = safe_strdup(cmd->args[i]);
@@ -43,13 +43,14 @@ char	*get_path_for_cmd(char **env_paths, char *command)
 	while (env_paths[i])
 	{
 		temp_path = ft_strjoin(env_paths[i], "/");
-		command_path = ft_strjoin(temp_path, command); 
-		if (access(command_path, F_OK) == 0)
-		{
-			free(temp_path);
-			return (command_path);
-		}
+		if (temp_path == NULL)
+			return (NULL);
+		command_path = ft_strjoin(temp_path, command);
 		free(temp_path);
+		if (command_path == NULL)
+			return (NULL);
+		if (access(command_path, F_OK) == 0)
+			return (command_path);
 		free(command_path);
 		i++;
 	}

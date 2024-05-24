@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/23 18:42:05 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/24 10:53:24 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ static t_token	*tokenize_command(t_token *tokens_head, t_shell *shell)
 		new = token_constructor(split_struct->strings[i], i);
 		if (new == NULL)
 		{
-			// free (new->value);
-			// free (new);
 			free_split(split_struct);
 			return (FAILURE);
 		}
