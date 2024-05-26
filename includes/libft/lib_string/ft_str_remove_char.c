@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/04 19:56:47 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/04 20:06:24 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/26 14:10:21 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,11 @@ char	*ft_str_remove_char(char *str, int i, char c)
 
 	if (str[i] != c)
 		return (str);
-
 	buffer = buffer_trailing_string(str, 1, i);
 	if (buffer == NULL)
 		return (NULL);
-	
 	str = insert_buffer(str, buffer, i);
 	free (buffer);
-
-	ft_realloc(str, ft_strlen(str));
+	str = ft_realloc(str, ft_strlen(str));
 	return (str);
 }

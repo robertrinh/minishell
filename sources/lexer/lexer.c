@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/24 10:53:24 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/25 20:01:14 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_token	*token_constructor(char *split_input, int i)
 	t_token	*token;
 
 	token = safe_malloc(sizeof(t_token));
+	if (token == NULL)
+		return (NULL);
 	token->len = ft_strlen(split_input);
 	token->value = ft_strdup(split_input);
 	if (token->value == NULL)
@@ -42,13 +44,14 @@ static t_token	*tokenize_command(t_token *tokens_head, t_shell *shell)
 	if (split_struct == NULL)
 		return (NULL);
 	current = NULL;
+	new = NULL;
 	while (split_struct->strings[i])
 	{
 		new = token_constructor(split_struct->strings[i], i);
 		if (new == NULL)
 		{
 			free_split(split_struct);
-			return (FAILURE);
+			return (NULL);
 		}
 		if (current == NULL)
 		{

@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/29 22:10:43 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/24 19:31:35 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/25 23:34:30 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ static char *skip_multiple_expand_chars(char *arg, size_t i)
 			if (arg[j] != EXPAND_CHAR)
 			{
 				buffer[k] = '\0';
-				return (ft_str_remove(arg, buffer));
+				arg = ft_str_remove(arg, buffer);
+				free (buffer);
+				return (arg);
 			}
 			buffer[k] = arg[j];
 			k++;
@@ -58,7 +60,10 @@ char	*get_env_key(char *arg, size_t i)
 	i += 1;
 	arg = skip_multiple_expand_chars(arg, i);
 	if (arg[i] == '?')
+	{
+		free (arg);
 		return ("?");
+	}
 	if (ft_strlen(arg) == i + 1)
 	{
 		key = safe_strdup_from(arg, i);

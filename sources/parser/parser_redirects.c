@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/21 20:55:56 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 12:25:00 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/26 13:33:41 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ static t_redirect	*construct_redirect_file(t_token *token)
 {
 	t_redirect	*file;
 
+	file = NULL;
 	file = safe_malloc(sizeof(t_redirect));
+	if (file == NULL)
+        return (NULL);
 	if (token->next)
 		file->value = safe_strdup(token->next->value);
 	file->fd = 0;
@@ -38,7 +41,7 @@ static t_redirect	*construct_redirect_file(t_token *token)
 	return (file);
 }
 
-static t_redirect	*construct_redirect_files(t_redirect *files, t_token *current)
+static t_redirect	*append_redirect(t_redirect *files, t_token *current)
 {
 	files->next = construct_redirect_file(current);
 	files = files->next;
@@ -57,6 +60,8 @@ static bool		should_add_files(t_token_type current_type, t_token_type type)
 	return (false);
 }
 
+//!		cat tasks.md > grep "a"
+// TODO #58 free redirect struct
 static t_redirect	*redirects_for_type(t_parse *p, t_token_type type)
 {
 	t_redirect	*files;
@@ -76,13 +81,12 @@ static t_redirect	*redirects_for_type(t_parse *p, t_token_type type)
 				files_head = files;
 			}
 			else
-				files = construct_redirect_files(files, current);
+				files = append_redirect(files, current);
 		}
 		if (current->type == PIPE)
 			break ;
 		current = current->next;
 	}
-	// TODO #58 free redirect struct
 	return (files_head);
 }
 

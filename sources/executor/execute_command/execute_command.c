@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/22 21:21:55 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/24 10:11:38 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/25 15:18:09 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ t_validation	execute_command(t_shell *shell, int i)
 	if (execve(cmd_path, cmd_and_args, shell->envp) == -1)
 	{
 		show_error_message(E_EXECVE, C_RED, cmd_value, X_FAILURE);
-		exit(g_exit_code);
+		// ! exit(g_exit_code);
+		return (FAILURE);
 	}
 	return (SUCCESS);
 }

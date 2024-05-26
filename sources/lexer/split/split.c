@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/05 14:17:27 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/05/23 17:56:07 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/25 15:13:47 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ void	free_split(t_split *sp)
 			i++;
 		}
 		free(sp->strings);
+		sp->strings = NULL;
 	}
 	free(sp);
+	sp = NULL;
 }
 
 static int	index_next_quote(t_split *sp, int quote_type)
@@ -98,5 +100,7 @@ t_split	*split(t_shell *shell)
 		return (NULL);
 	}
 	split->strings = allocate_strings_split(split);
+	if (split->strings == NULL)
+		return (NULL);
 	return (split);
 }

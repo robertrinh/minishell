@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/24 13:46:23 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/25 19:34:46 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,13 @@ bool	build_cmds(t_parse *p)
 	return (SUCCESS);
 }
 
+// TODO also free the values in struct?
+void	free_parse(t_parse *p)
+{
+	free (p);
+}
+
+// TODO #58 free redirect struct
 bool	shell_parser(t_shell *shell)
 {
 	t_parse	*p;
@@ -95,12 +102,11 @@ bool	shell_parser(t_shell *shell)
 	shell->cmd_table->cmds = p->cmds;
 	shell->cmd_table->cmd_count = p->cmd_count;
 
-	// TODO #58 free redirect struct
-
 	parser_post_process(shell);
 
 	p->cmds = NULL;
-	free(p); // TODO also free the values in struct?
+	free_parse(p);
+
 	if (shell->print_output)
 		print_cmds(shell->cmd_table);
 	return (SUCCESS);

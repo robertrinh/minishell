@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/23 16:48:13 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/25 20:03:26 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ int	main(int argc, char **argv, char **envp)
 	shell = NULL;
 	shell = shell_pre_init(shell, envp, argv);
 	shell_run(shell);
+	// free_shell(shell, true);
 	return (EXIT_SUCCESS);
 }

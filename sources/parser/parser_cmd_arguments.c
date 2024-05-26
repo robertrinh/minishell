@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 10:14:19 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/24 13:51:15 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/25 13:00:37 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,27 @@ static char	**allocate_args(t_parse *p)
 }
 
 //!			cat tasks.md > grep "a"
+//!			'EOF' / "..."
 t_cmd	*construct_args(t_cmd *cmd, t_parse *p)
 {
 	int			i;
 	t_token		*current;
 
 	i = 0;
-	current = p->tokens_c;
+	current = p->tokens_c; // ! 		<-
 	cmd->args = allocate_args(p);
 	while (current)
 	{
 		if (is_type_arg(current->type))
 		{
 			cmd->args[i] = safe_strdup(current->value);
+			if (cmd->args[i] == NULL)
+			{
+                while (i > 0)
+                    free(cmd->args[--i]);
+                free(cmd->args);
+                return (NULL);
+            }
 			i++;
 		}
 		if (current->type == PIPE)
