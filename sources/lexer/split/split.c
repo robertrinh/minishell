@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/05 14:17:27 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/05/17 16:34:51 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/27 18:14:02 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ static int	index_next_quote(t_split *sp, int quote_type)
 	while (sp->i < sp->len)
 	{
 		if (is_quote(sp->input[sp->i]) == quote_type)
+		{
+			sp->i++;
 			return (SUCCESS);
+		}
 		sp->i++;
 	}
 	return (FAILURE);
@@ -50,23 +53,29 @@ static int	index_next_quote(t_split *sp, int quote_type)
 
 static void	process_substring(t_split *sp)
 {
+	int	op_check;
+	
 	while (sp->i < sp->len) // Check last char
 	{
+		op_check = check_operator(sp->input[sp->i], sp->input[sp->i + 1]);
 		if (is_white_space(sp->input[sp->i]))
 			break ;
-		if (check_operator(sp->input[sp->i], sp->input[sp->i + 1]))
+		if (op_check == 2)
 		{
-			if (check_operator(sp->input[sp->i], sp->input[sp->i + 1]) == 2)
-			{
-				sp->i += check_operator(sp->input[sp->i], sp->input[sp->i + 1]);
-				sp->count++;
-				break ;
-			}
+			sp->i += 2;
 			sp->count++;
+			return ;
+		}
+		else if (op_check == 1)
+		{
+			sp->i++;
+			sp->count++;
+			return ;
 		}
 		else if (is_quote(sp->input[sp->i]))
-			index_next_quote(sp, is_quote(sp->input[sp->i]));
-		sp->i++;
+            index_next_quote(sp, is_quote(sp->input[sp->i]));
+		else
+			sp->i++;
 	}
 }
 
@@ -75,6 +84,8 @@ static int	count_substrings(t_split *sp)
 	while (sp->i < sp->len)
 	{
 		sp->i = skip_whitespace(sp);
+		if (sp->i >= sp->len)
+			break;
 		sp->i_check = sp->i;
 		process_substring(sp);
 		if (sp->i > sp->i_check)
