@@ -20,7 +20,7 @@ cat <Makefile
 
 
 === ONLY PIPES
-cat | cat | cat | ls
+cat | cat | cat | ls 
 
 
 === PIPES AND REDIRECTS ===
