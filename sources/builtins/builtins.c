@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/01 14:47:56 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/04/24 18:39:39 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/26 11:41:12 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ t_shell	*init_main_builtins(t_shell *shell)
 
 t_shell	*init_child_builtins(t_shell *shell)
 {
-	int					i;
-	t_builtin			builtin_table[B_NUM_CHILD];
+	int			i;
+	t_builtin	builtin_table[B_NUM_CHILD];
 
 	i = 0;
 	builtin_table[B_ECHO].name = "echo";
@@ -58,13 +58,18 @@ t_shell	*init_child_builtins(t_shell *shell)
 
 bool	is_builtin(t_builtin *table, t_cmd *cmd, int num)
 {
-	int	i;
-	int	len;
+	int		i;
+	size_t	len;
 
 	i = 0;
 	while (i < num)
 	{
 		len = ft_strlen(table[i].name);
+		if (len != ft_strlen(cmd->value))
+		{
+			i++;
+			continue ;
+		}
 		if (ft_strncmp(cmd->value, table[i].name, len) == 0)
 			return (true);
 		i++;

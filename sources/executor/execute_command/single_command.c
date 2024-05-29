@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/05/17 14:10:11 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/25 15:19:06 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_validation	assign_out_redirects(t_cmd *cmd)
 	return (validation);
 }
 
-void	child_process(t_shell *shell)
+t_validation	child_process(t_shell *shell)
 {
 	t_cmd	*cmd;
 	char	*cmd_value;
@@ -41,9 +41,10 @@ void	child_process(t_shell *shell)
 				show_error_message(E_CMD_NOT_FOUND, C_RED, cmd_value, X_CMD);
 				exit(g_exit_code);
 			}
-			execute_command(shell, 0);
+			return (execute_command(shell, 0));
 		}
 	}
+	return (FAILURE);
 }
 
 int	single_command(t_shell *shell)

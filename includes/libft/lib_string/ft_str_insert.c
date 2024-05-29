@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/17 10:13:25 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/24 13:23:32 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/26 00:22:28 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ char	*ft_str_insert(char *base, char *insert, int i)
 		return (NULL);
 	buffer = buffer_trailing_string(base, i);
 	if (buffer == NULL)
+	{
+		free (base);
 		return (NULL);
+	}
 	base = insert_substring(base, insert, i);
 	base = ft_strjoin(base, buffer);
 	free (buffer);

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 10:13:21 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/23 22:04:37 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/24 15:44:02 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static t_cmd	*process_args(char **env, t_cmd *cmd)
 	return (cmd);
 }
 
+//!					'EOF' / "..."
 static t_cmd	*process_cmd(char **env, t_cmd *cmd)
 {
 	if (contains_quote(cmd->value) == S_QUOTE_CHAR)

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/07 13:01:10 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/27 22:10:03 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/05/29 15:51:22 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	clear_buffer(t_split *sp)
 	int	i;
 
 	i = 0;
-	while (i <= sp->len)
+	while (i < BUFF_SIZE)
 	{
 		sp->buffer[i] = 0;
 		i++;
@@ -74,6 +74,11 @@ t_split	*handle_substrings(t_split *sp)
 		sp->buffer[sp->i_buff] = sp->input[sp->i];
 		sp->i++;
 		sp->i_buff++;
+		if (sp->i >= BUFF_SIZE - 2 || sp->i_buff >= BUFF_SIZE - 2)
+		{
+			show_error_message(E_OVERFLOW, C_RED, "", X_FAILURE);
+			return (NULL);
+		}
 	}
 	return (sp);
 }
@@ -86,6 +91,8 @@ char	**allocate_strings_split(t_split *sp)
 		sp->i = skip_whitespace(sp);
 		sp->i_buff = 0;
 		sp = handle_substrings(sp);
+		if (sp == NULL)
+			return (NULL);
 		sp->buffer[sp->i_buff] = 0;
 		sp->strings = allocate_substrings(sp);
 	}
