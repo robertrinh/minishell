@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/24 09:51:56 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/11 18:03:42 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/05/24 16:00:33 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,28 +29,38 @@ static int next_quote_char(char *arg, int i, int quote_char)
 
 static char *strip_quotes(char *arg)
 {
-	int	i;
-	int	len;
-	int	quote_type;
+    int i;
+    int len;
+    int quote_type;
+    char *new_arg;
 
 	i = 0;
-	len = ft_strlen(arg);
-	while (i < len)
-	{
-		if (is_quote(arg[i]))
-		{
-			quote_type = is_quote(arg[i]);
-			arg = ft_str_remove_char(arg, i, quote_type);
-			i--;
-			i = next_quote_char(arg, i, quote_type);
-			if (is_quote(arg[i]) == quote_type)
-				arg = ft_str_remove_char(arg, i, quote_type);
-			i--;
-			len = ft_strlen(arg);
-		}
-		i++;
-	}
-	return (arg);
+    len = ft_strlen(arg);
+    while (i < len)
+    {
+        if (is_quote(arg[i]))
+        {
+            quote_type = is_quote(arg[i]);
+            new_arg = ft_str_remove_char(arg, i, quote_type);
+            if (new_arg == NULL)
+                return (NULL);
+            arg = new_arg;
+            i--;
+            i = next_quote_char(arg, i, quote_type);
+            if (is_quote(arg[i]) == quote_type)
+            {
+                new_arg = ft_str_remove_char(arg, i, quote_type);
+                if (new_arg == NULL)
+                    return (NULL);
+                free(arg);
+                arg = new_arg;
+            }
+            i--;
+            len = ft_strlen(arg);
+        }
+        i++;
+    }
+    return (arg);
 }
 
 char	*strip_quote_for_type(char *arg)

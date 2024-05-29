@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/29 13:21:05 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/05/11 20:44:40 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/25 15:04:39 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,15 @@ void	*safe_malloc(size_t size)
 {
 	void	*ptr;
 
+	ptr = NULL;
 	ptr = malloc(size);
 	if (ptr == NULL)
 	{
 		// TODO correct exit code?
 		free (ptr);
 		g_exit_code = EXIT_FAILURE;
-		exit_with_message(E_MALLOC, C_RED, g_exit_code);
+		// exit_with_message(E_MALLOC, C_RED, g_exit_code);
+		show_error_message(E_MALLOC, C_RED, "safe_malloc()", X_FAILURE);
 	}
 	return (ptr);
 }
@@ -55,16 +57,20 @@ void	*safe_calloc(size_t count, size_t size)
 	return (ptr);
 }
 
-char	*safe_strdup(const char *str)
+char	*safe_strdup(char *str)
 {
 	char	*p;
 
+	if (str == NULL)
+		return (str);
 	p = ft_strdup(str);
 	if (p == NULL)
 	{
 		// TODO correct exit code?
 		g_exit_code = EXIT_FAILURE;
-		exit_with_message(E_MALLOC, C_RED, g_exit_code);
+		// exit_with_message(E_MALLOC, C_RED, g_exit_code);
+		show_error_message(E_MALLOC, C_RED, "safe_strdup()", X_FAILURE);
+		return (NULL);
 	}
 	return (p);
 }

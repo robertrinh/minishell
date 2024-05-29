@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:25:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 14:09:15 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/23 17:21:14 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ static void	add_arg_to_env(t_shell *shell, char *arg)
 	char	*save_line;
 	char	*key;
 
+	key = NULL;
 	key = env_key_from_arg(arg);
 	insert_index = index_for_env_key(shell->envp, key);
 	free(key);

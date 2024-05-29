@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   clean_exit.c                                       :+:    :+:            */
+/*   shell_finish.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/01/07 12:29:05 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 16:15:15 by qtrinh        ########   odam.nl         */
+/*   Created: 2024/05/23 16:15:55 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/05/25 20:52:26 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	free_tokens(t_token *tokens_head)
+static void	lexer_finish(t_shell *shell)
 {
-	t_token	*current;
-	t_token	*next;
-
-	current = tokens_head;
-	while (current)
-	{
-		next = current->next;
-		free_token(current);
-		current = next;
-	}
+	shell->single_quote = 0;
+	shell->double_quote = 0;
 }
 
 static void free_cmd_table(t_cmd_table *cmd_table)
@@ -45,7 +37,7 @@ static void free_cmd_table(t_cmd_table *cmd_table)
 
 static void	free_shell_struct(t_shell *shell)
 {
-	printf("only after exit \n"); // * delete later
+	printf("only after exit \n"); // TODO delete later
 	if (!shell)
 		return ;
 	if (shell->cmd_table)
@@ -89,29 +81,7 @@ void	free_shell(t_shell *shell, bool close_shell)
 		free_shell_struct(shell);
 }
 
-static void	lexer_finish(t_shell *shell)
-{
-	shell->single_quote = 0;
-	shell->double_quote = 0;
-}
-
-void	free_2d_array(char **array)
-{
-	int	i;
-
-	if (array)
-	{
-		i = 0;
-		while (array[i])
-		{
-			free(array[i]);
-			array[i] = NULL;
-			i++;
-		}
-		free(array);
-	}
-}
-
+// free (cmd_path);
 void	shell_finish(t_shell *shell)
 {
 	lexer_finish(shell);

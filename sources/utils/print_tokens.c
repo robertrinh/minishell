@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/22 15:12:33 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/04/07 10:49:39 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/26 14:00:26 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,30 @@
 
 static char	*type_to_string(t_token_type type)
 {
-	switch (type)
-	{
-		case COMMAND:
-			return ("command  ");
-		case ARGUMENT:
-			return ("argument ");
-		case PIPE:
-			return ("pipe     ");
-		case REDIRECT:
-			return ("redirect ");
-		case REDIR_IN:
-			return ("in       ");
-		case REDIR_IN_APPEND:
-			return ("in_append");
-		case REDIR_OUT:
-			return ("out      ");
-		case END_OF_FILE:
-			return ("eof      ");
-		case S_QUOTE:
-			return ("s_quote  ");
-		case D_QUOTE:
-			return ("d_quote  ");
-		case ARGFILE:
-			return ("argfile  ");
-		default:
-			return ("none     ");
-	}
+	if (type == COMMAND)
+		return ("command  ");
+	if (type == ARGUMENT)
+		return ("argument ");
+	if (type == PIPE)
+		return ("pipe     ");
+	if (type == REDIRECT)
+		return ("redirect ");
+	if (type == REDIR_IN)
+		return ("in       ");
+	if (type == REDIR_IN_APPEND)
+		return ("in_append");
+	if (type == REDIR_OUT)
+		return ("out      ");
+	if (type == END_OF_FILE)
+		return ("eof      ");
+	if (type == S_QUOTE)
+		return ("s_quote  ");
+	if (type == D_QUOTE)
+		return ("d_quote  ");
+	if (type == ARGFILE)
+		return ("argfile  ");
+	if (type == NONE)
+		return ("none     ");
 }
 
 t_validation	print_tokens(t_shell *shell)
@@ -49,13 +46,14 @@ t_validation	print_tokens(t_shell *shell)
 
 	if (shell->print_output == false)
 		return (SUCCESS);
-	
-	printf("\n\n========lexer========\n");
-	
+	ft_putstr_fd("\n\n========lexer========\n", STDOUT_FILENO);
 	tokens = shell->tokens;
 	while (tokens)
 	{
-		printf("%s - \t %s \n", type_to_string(tokens->type), tokens->value);
+		ft_putstr_fd(type_to_string(tokens->type), STDOUT_FILENO);
+		ft_putstr_fd(" - \t ", STDOUT_FILENO);
+		ft_putstr_fd(tokens->value, STDOUT_FILENO);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 		tokens = tokens->next;
 	}
 	return (SUCCESS);
@@ -68,7 +66,8 @@ void	print_strings(char **strings)
 	i = 0;
 	while (strings[i])
 	{
-		printf("%s\n", strings[i]);
+		ft_putstr_fd(strings[i], STDOUT_FILENO);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 15:05:56 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/25 20:03:26 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,11 @@ static bool	shell_run(t_shell *shell)
 			shell_finish(shell);
 			continue ;
 		}
-		shell_lexer(shell);
+		if (shell_lexer(shell) == FAILURE)
+		{
+			shell_finish(shell);
+			continue ;
+		}
 		if (shell_parser(shell) == SUCCESS)
 			shell_execute(shell);
 		shell_finish(shell);
@@ -57,5 +61,6 @@ int	main(int argc, char **argv, char **envp)
 	shell = NULL;
 	shell = shell_pre_init(shell, envp, argv);
 	shell_run(shell);
+	// free_shell(shell, true);
 	return (EXIT_SUCCESS);
 }

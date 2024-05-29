@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/17 11:11:34 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/06 14:12:17 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/26 14:17:04 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,16 @@ char	*insert_buffer(char *base_input, char *buffer, int i)
 	return (base_input);
 }
 
+/*
+	TODO: #58 What if base = NULL?
+
+	Return:
+		if BASE = REMOVE
+			return "". Overwrites with new pointer?
+		
+		if NOTHING to buffer
+			return realloc string
+*/
 char	*ft_str_remove(char *base_input, const char *remove)
 {
 	int		i;
@@ -70,22 +80,15 @@ char	*ft_str_remove(char *base_input, const char *remove)
 	needle = ft_strnstr(base_input, remove, ft_strlen(base_input));
 	remove_len = ft_strlen(remove);
 	i = locate_substring(base_input, needle);
-	
-	// Base == Remove
 	if (ft_strncmp(base_input, remove, ft_strlen(base_input)) == 0)
 		return ("");
-
-	// Nothing to buffer
 	if ((size_t)(i + remove_len) == ft_strlen(base_input))
 		return (ft_realloc(base_input, (ft_strlen(base_input) - remove_len)));
-
 	buffer = buffer_trailing_string(base_input, remove_len, i);
 	if (buffer == NULL)
 		return (NULL);
-
 	base_input = insert_buffer(base_input, buffer, i);
 	free(buffer);
-
-	ft_realloc(base_input, ft_strlen(base_input));
+	base_input = ft_realloc(base_input, ft_strlen(base_input));
 	return (base_input);
 }

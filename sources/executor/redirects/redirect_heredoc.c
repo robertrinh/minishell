@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/25 11:15:17 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 17:22:29 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/26 12:56:53 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	setup_heredoc(t_redirect *heredoc, int *stat_loc)
 	else if (pid > 0)
 	{
 		if (close_fds(fd[WRITE], -1, -1) == false)
-				exit_with_message(E_CLOSE, C_RED, X_FAILURE);
+			exit_with_message(E_CLOSE, C_RED, X_FAILURE);
 		waitpid(pid, &stat_loc_local, 0);
 		*stat_loc = stat_loc_local;
 	}

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/21 21:42:58 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/25 15:50:11 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@
 # define READ 0
 # define WRITE 1
 
-# define C_YELLOW "\033[0;33m"
-# define C_RED "\x1B[31m"
+# define C_YELLOW "\033[1;33m"
+# define C_RED "\x1B[1;31m"
 # define RESET_COLOR "\033[0m"
 
-# define BUFF_SIZE 1024
+# define BUFF_SIZE 4096
 # define PRINT_FLAG "-p"
 
 //===============================================================: Global
@@ -126,7 +126,7 @@ typedef struct s_split
 	int			i_buff;
 	int			i_str;
 	int			count;
-	char		buffer[1000];
+	char		buffer[BUFF_SIZE];
 	char		*input;
 	char		**strings;
 }	t_split;
@@ -167,7 +167,7 @@ typedef struct s_cmd
 	t_redirect	*fd_out;
 	char		*value;
 	char		**args;
-	char		**formatted_cmd;
+	char		**cmd_and_args;
 	char		*cmd_path;
 	int			arg_count;
 }	t_cmd;
@@ -346,7 +346,7 @@ void	open_redirects(t_cmd *cmd);
 
 // single_command.c
 int		single_command(t_shell *shell);
-void	child_process(t_shell *shell);
+t_validation	child_process(t_shell *shell);
 
 // ----------------------------------- executor/execute_commands
 // execute_commands.c
@@ -415,13 +415,13 @@ char	*get_env_key(char *arg, size_t i);
 
 
 //===============================================================: Utils
-// clean_exit.c
-void	free_2d_array(char **array);
+// shell_finish.c
 void	free_shell(t_shell *shell, bool will_exit);
 void	shell_finish(t_shell *shell);
 
-// clean_utils.c
-void	free_token(t_token *token);
+// shel_finish_utils.c
+void	free_2d_array(char **array);
+void	free_tokens(t_token *token);
 void	free_cmd(t_cmd *cmd);
 
 // control_utils.c
@@ -437,7 +437,7 @@ int		index_for_env_key(char **input_env, char *key);
 void	*safe_strjoin(const char *s1, const char *s2);
 void	*safe_malloc(size_t size);
 void	*safe_calloc(size_t count, size_t size);
-char	*safe_strdup(const char *str);
+char	*safe_strdup(char *str);
 char	*safe_strdup_from(const char *str, int i);
 
 // print_cmds.c
