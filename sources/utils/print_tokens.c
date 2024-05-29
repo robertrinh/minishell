@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/22 15:12:33 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/05/26 14:00:26 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/29 16:22:41 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static char	*type_to_string(t_token_type type)
 		return ("argfile  ");
 	if (type == NONE)
 		return ("none     ");
+	return (NULL);
 }
 
 t_validation	print_tokens(t_shell *shell)

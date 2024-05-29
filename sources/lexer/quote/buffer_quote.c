@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 21:58:11 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/03/24 09:30:39 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/27 22:06:11 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,15 @@ int	is_quote(char c)
 void	buffer_quote(t_split *sp, int quote_type)
 {
 	add_char_to_buff(sp);
-	while (sp->i <= sp->len)
+	while (sp->i < sp->len)
 	{
 		if (is_quote(sp->input[sp->i]) == quote_type)
 		{
-			while (sp->i <= sp->len)
+			while (sp->i < sp->len)
 			{
 				if (is_white_space(sp->input[sp->i]))
+					return ;
+				else if (check_operator(sp->input[sp->i], 0))
 					return ;
 				add_char_to_buff(sp);
 			}

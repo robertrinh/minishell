@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/07 13:01:10 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/25 14:28:43 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/29 15:51:22 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char	**allocate_substrings(t_split *sp)
 	return (sp->strings);
 }
 
-bool check_operators_substring(t_split *sp)
+bool	check_operators_substring(t_split *sp)
 {
 	if (check_operator(sp->input[sp->i], sp->input[sp->i + 1]) == 2)
 	{
@@ -43,7 +43,7 @@ bool check_operators_substring(t_split *sp)
 			return (false);
 		sp->buffer[sp->i_buff] = sp->input[sp->i];
 		sp->buffer[sp->i_buff + 1] = sp->input[sp->i + 1];
-		sp->i += check_operator(sp->input[sp->i], sp->input[sp->i + 1]);
+		sp->i += 2;
 		sp->i_buff += 2;
 		return (false);
 	}
@@ -52,7 +52,7 @@ bool check_operators_substring(t_split *sp)
 		if (sp->i_buff)
 			return (false);
 		sp->buffer[sp->i_buff] = sp->input[sp->i];
-		sp->i += check_operator(sp->input[sp->i], sp->input[sp->i + 1]);
+		sp->i++;
 		sp->i_buff++;
 		return (false);
 	}
@@ -68,9 +68,8 @@ t_split	*handle_substrings(t_split *sp)
 			buffer_quote(sp, is_quote(sp->input[sp->i]));
 			break ;
 		}
-		if (is_white_space(sp->input[sp->i]))
-			break ;
-		if (check_operators_substring(sp) == false)
+		if (is_white_space(sp->input[sp->i]) ||
+			check_operators_substring(sp) == false)
 			break ;
 		sp->buffer[sp->i_buff] = sp->input[sp->i];
 		sp->i++;
