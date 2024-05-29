@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/12 16:19:25 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/05/29 16:29:29 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/05/29 17:41:06 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,11 @@ static t_token	*assign_cmd_arg(t_token *current, int i)
 		if (current->type == NONE || i > 0)
 		{
 			current->type = ARGUMENT;
-			current = current->next;
+			if (current->next)
+			{
+				if (is_special_type(current->type) == true)
+				current = current->next;
+			}
 		}
 		if (is_special_type(current->type) == true)
 			return (current);
