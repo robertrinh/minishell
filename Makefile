@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/05/26 13:21:14 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2024/05/29 16:22:21 by robertrinh    ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -132,7 +132,7 @@ LIBFT				= includes/libft
 
 # ===== Compile =====
 CC 					= cc
-CFLAGS 				= #-Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS 				= -Wall -Werror -Wextra -g #-fsanitize=address
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
