@@ -20,7 +20,10 @@ cat <Makefile
 
 
 === ONLY PIPES
-cat | cat | cat | ls 
+cat | cat | cat | ls
+c"at" README.md |wc
+cat README.md|wc
+cat "README.md"|wc
 
 
 === PIPES AND REDIRECTS ===
