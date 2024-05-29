@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/12 16:19:25 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/05/29 17:41:06 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/05/29 18:06:49 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,9 @@ static bool	assign_lexer_types(t_token *tokens)
 	current = tokens;
 	while (current)
 	{
-		if (current->type == S_QUOTE || current->type == D_QUOTE)
-		{
-			i++;
+		if ((current->type == NONE && is_special_type(current->type) == false) ||
+			(current->type == S_QUOTE || current->type == D_QUOTE))
 			current = assign_cmd_arg(current, i);
-		}
-		if (current->type == NONE && is_special_type(current->type) == false)
-		{
-			i = 0;
-			current = assign_cmd_arg(current, i);
-		}
 		if (current->type == PIPE)
 		{
 			if (current->next)

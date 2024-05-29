@@ -1,15 +1,15 @@
 === ONLY PIPES ===
 
 cat README.md Makefile | wc -w
-cat Makefile || wc
 
 
 === ONLY REDIRECTS ===
 <<EOF<<EOF2<<EOF3 << cat							[!] SEG
-cat tasks.md > grep "a"								[!] Valgrind LEAK
-cat << EOF > output.txt								[!] Valgrind LEAK
-echo hello											[!] Valgrind LEAK
+>>test												[!] SEG
+>hai												[!] SEG
+cat tasks.md > grep "a"								[!] Valgrind LEAK (after exit)
 'EOF' / "..."										[!] Valgrind LEAK
+cat << EOF > output.txt								
 grep aa << EOF
 echo hello to this >> input.txt 
 cat README.md > input.txt
@@ -37,7 +37,7 @@ grep aa << EOF < README.md | wc
 cat README.md >> output.txt | grep "a"
 grep aa << EOF | wc > out
 grep aa << EOF | wc | wc -w >> OUTPUT
-
+ls>output.txt|wc
 
 === EXPANDER ===
 cat "README.md" "Makefile" | wc -w
@@ -60,6 +60,8 @@ echo ''"hello"
 echo ''"hello"''"there"
 export ch=ch
 echo e"$ch"o										[!] Valgrind LEAK
+"ls"
+c''at'' "README.md"| wc
 
 
 === BUILTINS ===
@@ -76,6 +78,7 @@ echo >
 echo <<
 echo > |
 echo "bip | bip ; coyotte > < "
+cat Makefile || wc
 
 
 === SIGNALS ===
