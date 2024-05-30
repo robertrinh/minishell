@@ -6,42 +6,11 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/28 14:31:20 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/05/24 14:43:42 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/30 17:29:16 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static void	update_env(t_shell *shell)
-{
-	int		i;
-	int		j;
-	char	*oldpwd;
-	char	*pwd;
-	char	*buff;
-
-	buff = getcwd(NULL, 0);
-	oldpwd = get_value_for_key(shell->envp, "PWD");
-	if (oldpwd != NULL)
-	{
-		i = index_for_env_key(shell->envp, "OLDPWD");
-		if (i != -1)
-		{
-		free(shell->envp[i]);
-		shell->envp[i] = safe_strjoin("OLDPWD=", oldpwd);
-		free(oldpwd);
-		}
-	}
-	pwd = get_value_for_key(shell->envp, "PWD");
-	if (pwd != NULL)
-	{
-		j = index_for_env_key(shell->envp, "PWD");
-		free(shell->envp[j]);
-		shell->envp[j] = safe_strjoin("PWD=", buff);
-		free(pwd);
-	}
-	free(buff);
-}
 
 static bool	minus_flag_check(t_cmd *cmd, t_shell *shell)
 {
@@ -55,12 +24,10 @@ static bool	minus_flag_check(t_cmd *cmd, t_shell *shell)
 		if (path == NULL)
 		{
 			show_error_message("OLDPWD not set: ", C_RED, cmd->value, 1);
-			free(path);
-			return (false);
+			return (free(path), false);
 		}
 		ft_putendl_fd(path, STDOUT_FILENO);
-		free(path);
-		return (false);
+		return (free(path), false);
 	}
 	return (true);
 }
@@ -97,6 +64,8 @@ static char	*determine_path(t_cmd *cmd, t_shell *shell)
 		return (path);
 	}
 	path = safe_strdup(cmd->args[0]);
+	if (path == NULL)
+		return (NULL);
 	return (path);
 }
 
@@ -112,9 +81,11 @@ int	cd(t_cmd *cmd, t_shell *shell)
 	if (path == NULL)
 		return (X_FAILURE);
 	if (chdir(path) == -1)
-		return (show_error_message(E_NO_FILE_DIR, C_RED, cmd->value, 1));
+	{
+		free(path);
+		return (show_error_message(E_NO_FILE_DIR, C_RED, cmd->args[0], 1));
+	}
 	else
 		update_env(shell);
-	free(path);
-	return (EXIT_SUCCESS);
+	return (free(path), EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/25 15:50:11 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/30 16:14:08 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,6 +314,9 @@ t_shell		*init_main_builtins(t_shell *shell);
 t_shell		*init_child_builtins(t_shell *shell);
 bool		is_builtin(t_builtin *table, t_cmd *cmd, int num);
 int			exec_builtin(t_builtin *table, t_cmd *cmd, t_shell *shell, int num);
+
+// cd_utils.c
+void	update_env(t_shell *shell);
 
 // cd.c
 int		cd(t_cmd *cmd, t_shell *shell);
