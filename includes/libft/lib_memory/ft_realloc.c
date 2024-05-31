@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 19:13:47 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/26 14:06:50 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/31 16:10:20 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	*ft_realloc(void *ptr, size_t size)
 		return (ptr);
 	}
 	if (!size)
-		return (ptr);
+		return (free(ptr), NULL);
 	new_ptr = malloc(size + 1);
 	if (new_ptr == NULL)
 		return (NULL);
