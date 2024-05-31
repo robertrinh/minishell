@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:02:51 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/31 13:06:49 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/31 17:10:28 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void	remove_line_from_env(char **env, const char *var)
 	len = ft_strlen(var);
 	while (env[i])
 	{
-		if (ft_strncmp(env[i], var, len) == 0 &&
-			env[i][len] == '=')
+		if (ft_strncmp(env[i], var, len) == 0
+			&& env[i][len] == '=')
 		{
 			free(env[i]);
 			while (env[i + 1])
@@ -37,7 +37,7 @@ static void	remove_line_from_env(char **env, const char *var)
 	}
 }
 
-int	unset(t_cmd* cmd, t_shell *shell)
+int	unset(t_cmd *cmd, t_shell *shell)
 {
 	int	i;
 
