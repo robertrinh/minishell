@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/30 16:14:08 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/05/31 17:00:11 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -329,6 +329,9 @@ int		env(t_cmd *cmd, t_shell *shell);
 
 // exit.c
 int		exit_shell(t_cmd *cmd, t_shell *shell);
+
+// export_utils.c
+bool	is_valid_export_arg(const char *arg);
 
 // export.c
 int		export(t_cmd *cmd, t_shell *shell);

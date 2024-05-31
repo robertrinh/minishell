@@ -6,60 +6,11 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:25:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/23 17:21:14 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/05/31 17:06:34 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#define UNDERSCORE_VAR "_"
-
-/*
-	Counts the occurances of the given delimiter character in the given string
-*/
-static int	count_delimiters(const char *arg, char delimiter)
-{
-	int	i;
-	int	delimiter_count;
-
-	i = 0;
-	delimiter_count = 0;
-	while (arg[i])
-	{
-		if (arg[i] == delimiter)
-			delimiter_count++;
-		i++;
-	}
-	return (delimiter_count);
-}
-
-static bool	is_valid_export_key(const char *arg)
-{
-	int	i;
-
-	i = 0;
-	while (arg[i])
-	{
-		if (arg[i] == EXPORT_DELIMITER)
-			return (true);
-		if (ft_isalpha(arg[i]) == false)
-			return (false);
-		i++;
-	}
-	return (false);
-}
-
-static bool	is_valid_export_arg(const char *arg)
-{
-	if (arg == NULL)
-		return (false);
-	if (ft_strncmp(arg, "=", 1) == 0)
-		return (false);
-	if (count_delimiters(arg, EXPORT_DELIMITER) > 1)
-		return (false);
-	if (is_valid_export_key(arg) == false)
-		return (false);
-	return (true);
-}
 
 static char	*env_key_from_arg(const char *arg)
 {
@@ -71,56 +22,62 @@ static char	*env_key_from_arg(const char *arg)
 	while (arg[i])
 	{
 		if (arg[i] == '=')
+		{
+			key[i] = '\0';
 			return (key);
+		}
 		key[i] = arg[i];
 		i++;
 	}
 	return (NULL);
 }
 
-/*
-	Returns the size of env 
-*/
-static size_t	env_realloc_size(char **env, char *str)
+static void	add_new_arg(t_shell *shell, char *arg)
 {
-	size_t	current_size;
-	size_t	new_size;
+	int		count;
+	int		i;
+	char	**new_env;
 
-	current_size = env_size(env);
-	new_size = current_size + ft_strlen(str) + 1;
-	return (new_size);
+	i = 0;
+	count = count_lines_from(shell->envp, 0);
+	new_env = ft_realloc(shell->envp, (count + 2) * sizeof(char *));
+	if (new_env == NULL)
+	{
+		show_error_message(E_MALLOC, C_RED, "", X_FAILURE);
+		return ;
+	}
+	while (shell->envp[i])
+	{
+		new_env[i] = safe_strdup(shell->envp[i]);
+		free(shell->envp[i]);
+		i++;
+	}
+	free(shell->envp);
+	new_env[count] = safe_strdup(arg);
+	new_env[count + 1] = NULL;
+	shell->envp = new_env;
 }
 
 static void	add_arg_to_env(t_shell *shell, char *arg)
 {
 	int		insert_index;
-	char	*save_line;
 	char	*key;
 
-	key = NULL;
 	key = env_key_from_arg(arg);
 	insert_index = index_for_env_key(shell->envp, key);
-	free(key);
-	shell->envp = ft_realloc(shell->envp, env_realloc_size(shell->envp, arg));
-	if (insert_index == -1)
+	if (insert_index != -1)
 	{
-		// TODO split in subfunction 
-		insert_index = index_for_env_key(shell->envp, UNDERSCORE_VAR);
-		if (insert_index == -1)
-			insert_index = (count_lines_from(shell->envp, 0) - 1);
-		save_line = shell->envp[insert_index];
+		free(shell->envp[insert_index]);
 		shell->envp[insert_index] = safe_strdup(arg);
-		shell->envp[insert_index + 1] = safe_strdup(save_line);
-		shell->envp[insert_index + 2] = NULL;
 	}
 	else
-		shell->envp[insert_index] = safe_strdup(arg);
-	// TODO free insert_index before strdup
+		add_new_arg(shell, arg);
+	free(key);
 }
 
 int	export(t_cmd *cmd, t_shell *shell)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	if (cmd->args[i] == NULL)

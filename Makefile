@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/05/30 16:13:12 by qtrinh        ########   odam.nl          #
+#    Updated: 2024/05/31 16:59:00 by qtrinh        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ SOURCES_BUILTINS		= builtins.c \
 								echo.c \
 								env.c \
 								exit.c \
+								export_utils.c \
 								export.c \
 								pwd.c \
 								unset.c
