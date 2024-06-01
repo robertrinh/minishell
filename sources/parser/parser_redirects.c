@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/21 20:55:56 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/01 14:33:48 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/01 15:59:15 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static t_redirect	*construct_redirect_file(t_token *token)
 	file->fd = 0;
 	file->type = assign_file_type(token->value);
 	file->next = NULL;
+	printf("mallocing redirect file at: %p\n", file); // TODO delete later
 	return (file);
 }
 

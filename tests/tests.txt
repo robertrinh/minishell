@@ -30,12 +30,12 @@ cat "README.md"|wc
 cat Makefile | grep pr | head -n 5 | hello			
 cat README.md | wc
 cat README.md | wc -w | wc
-echo hello world | wc > outfile.txt >> outfile.txt
-echo hello | wc > outfile.txt
-grep aa << EOF | wc
+echo hello world | wc > outfile.txt >> outfile.txt	
+echo hello | wc > outfile.txt						
+grep aa << EOF | wc									[!] Valgrind LEAK
 grep aa << EOF < README.md | wc
 cat README.md >> output.txt | grep "a"
-grep aa << EOF | wc > out
+grep aa << EOF | wc > out							[!] Valgrind LEAK
 grep aa << EOF | wc | wc -w >> OUTPUT
 
 

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/31 17:00:11 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/01 16:08:00 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -421,15 +421,6 @@ char	*get_env_key(char *arg, size_t i);
 
 
 //===============================================================: Utils
-// shell_finish.c
-void	free_shell(t_shell *shell, bool will_exit);
-void	shell_finish(t_shell *shell);
-
-// shel_finish_utils.c
-void	free_2d_array(char **array);
-void	free_tokens(t_token *token);
-void	free_cmd(t_cmd *cmd);
-
 // control_utils.c
 void 	ft_sleep(size_t count);
 
@@ -453,5 +444,17 @@ void 		should_print(char *s, bool should_print);
 // print_tokens.c
 t_validation	print_tokens(t_shell *shell);
 void			print_strings(char **strings);
+
+// shell_finish_cmd.c
+void	free_cmd(t_cmd *cmd);
+
+// shell_finish_utils.c
+void	free_2d_array(char **array);
+void	free_tokens(t_token *token);
+void	free_cmd(t_cmd *cmd);
+
+// shell_finish.c
+void	free_shell(t_shell *shell, bool will_exit);
+void	shell_finish(t_shell *shell);
 
 #endif

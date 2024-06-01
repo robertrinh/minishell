@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/05/31 16:59:00 by qtrinh        ########   odam.nl          #
+#    Updated: 2024/06/01 16:05:56 by qtrinh        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SOURCES_UTILS			= control_utils.c \
 							function_protection.c \
 							print_cmds.c \
 							print_tokens.c \
+							shell_finish_cmd.c \
 							shell_finish_utils.c \
 							shell_finish.c \
 							shell_init.c
