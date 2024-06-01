@@ -5,7 +5,7 @@ cat Makefile || wc
 
 
 === ONLY REDIRECTS ===
-<<EOF<<EOF2<<EOF3 << cat							[!] SEG
+<<EOF<<EOF2<<EOF3 << cat							[!] incorrect error code
 cat README.md > grep "a"								
 cat << EOF > output.txt								[!] Valgrind LEAK (readline leak)
 echo mate > hello									
@@ -78,7 +78,7 @@ unset PWD
 unset HOME PATH SHELL USER PWD TERM ZSH
 
 === ERROR MESSAGES ===
-<<EOF												[!] SEG
+<<EOF												[!] incorrect error code
 echo >
 echo <<
 echo > |
