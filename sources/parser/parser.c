@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/01 16:04:00 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/01 16:16:12 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ bool	build_cmds(t_parse *p)
 	return (SUCCESS);
 }
 
-// TODO #58 free redirect struct
 bool	shell_parser(t_shell *shell)
 {
 	t_parse	*p;
@@ -71,4 +70,3 @@ bool	shell_parser(t_shell *shell)
 		print_cmds(shell->cmd_table);
 	return (SUCCESS);
 }
-
