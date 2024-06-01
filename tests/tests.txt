@@ -6,9 +6,9 @@ cat Makefile || wc
 
 === ONLY REDIRECTS ===
 <<EOF<<EOF2<<EOF3 << cat							[!] SEG
-cat tasks.md > grep "a"								[!] Valgrind LEAK
-cat << EOF > output.txt								[!] Valgrind LEAK
-echo mate > hello									[!] Valgrind LEAK
+cat README.md > grep "a"								
+cat << EOF > output.txt								[!] Valgrind LEAK (readline leak)
+echo mate > hello									
 'EOF' / "..."										[!] Valgrind LEAK
 grep aa << EOF
 echo hello to this >> input.txt 
@@ -27,9 +27,9 @@ cat "README.md"|wc
 
 
 === PIPES AND REDIRECTS ===
-cat Makefile | grep pr | head -n 5 | hello
-cat tasks.md | wc
-cat tasks.md | wc -w | wc
+cat Makefile | grep pr | head -n 5 | hello			
+cat README.md | wc
+cat README.md | wc -w | wc
 echo hello world | wc > outfile.txt >> outfile.txt
 echo hello | wc > outfile.txt
 grep aa << EOF | wc
@@ -60,6 +60,8 @@ echo ''"hello"
 echo ''"hello"''"there"
 export ch=ch
 echo e"$ch"o										[!] Valgrind LEAK
+echo "hello $USER"$TERM" more"						[!] incorrect ($TERM should not expand)
+echo "hello $USER'$TERM' more"						[!] incorrect ($TERM should not expand)
 
 
 === BUILTINS ===

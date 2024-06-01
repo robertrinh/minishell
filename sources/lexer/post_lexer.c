@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/12 16:19:25 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/05/29 18:06:49 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/06/01 14:30:39 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ static bool	assign_lexer_types(t_token *tokens)
 	current = tokens;
 	while (current)
 	{
-		if ((current->type == NONE && is_special_type(current->type) == false) ||
-			(current->type == S_QUOTE || current->type == D_QUOTE))
+		if ((current->type == NONE && is_special_type(current->type) == false) 
+			|| (current->type == S_QUOTE || current->type == D_QUOTE))
 			current = assign_cmd_arg(current, i);
 		if (current->type == PIPE)
 		{
@@ -96,6 +96,7 @@ static bool	assign_lexer_types(t_token *tokens)
 				i = 0;
 				current = skip_operators(current);
 				current = assign_cmd_arg(current, i);
+				continue ;
 			}
 		}
 		if (current->type == REDIRECT)
