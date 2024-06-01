@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/23 16:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/01 16:00:45 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/01 16:13:05 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static void	free_token(t_token *token)
 	token = NULL;
 }
 
-void free_tokens(t_token *token)
+void	free_tokens(t_token *token)
 {
-	t_token *next;
+	t_token	*next;
 
 	next = NULL;
 	if (token == NULL)

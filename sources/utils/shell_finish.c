@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/23 16:15:55 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/25 20:52:26 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/01 16:14:12 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	lexer_finish(t_shell *shell)
 	shell->double_quote = 0;
 }
 
-static void free_cmd_table(t_cmd_table *cmd_table)
+static void	free_cmd_table(t_cmd_table *cmd_table)
 {
 	int	i;
 

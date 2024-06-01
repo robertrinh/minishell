@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/01 16:00:19 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/06/01 16:02:42 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/01 16:13:49 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	free_cmd_fd(t_redirect *head)
 	}
 }
 
-static void free_args_format(t_cmd *cmd, int i)
+static void	free_args_format(t_cmd *cmd, int i)
 {
 	i = 0;
 	while (i <= cmd->arg_count)
@@ -70,7 +70,6 @@ void	free_cmd(t_cmd *cmd)
 {
 	if (!cmd)
 		return ;
-	
 	free_args_format_cmd(cmd);
 	if (cmd->fd_in)
 		free_cmd_fd(cmd->fd_in);
