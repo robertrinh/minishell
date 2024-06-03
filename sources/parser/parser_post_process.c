@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 10:13:21 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/24 15:44:02 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/01 16:18:52 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_cmd	*process_args(char **env, t_cmd *cmd)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (i < cmd->arg_count)
@@ -36,6 +36,8 @@ static t_cmd	*process_args(char **env, t_cmd *cmd)
 //!					'EOF' / "..."
 static t_cmd	*process_cmd(char **env, t_cmd *cmd)
 {
+	if (cmd->value == NULL)
+		return (cmd);
 	if (contains_quote(cmd->value) == S_QUOTE_CHAR)
 	{
 		cmd->value = will_expand(env, cmd->value);
@@ -51,7 +53,7 @@ static t_cmd	*process_cmd(char **env, t_cmd *cmd)
 
 int		parser_post_process(t_shell *shell)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (i < shell->cmd_table->cmd_count)

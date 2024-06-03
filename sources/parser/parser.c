@@ -6,40 +6,11 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/25 19:34:46 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/01 16:16:12 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// static void	free_parser_struct(t_parse *parser)
-// {
-// 	if (!parser)
-// 		return ;
-	
-// 	parser->cmds[parser->i]->fd_in = NULL;
-// 	parser->cmds = NULL;
-// 	free(parser);
-// }
-
-// static void	free_redirect(t_redirect *redirect)
-// {
-// 	t_redirect *current;
-// 	t_redirect *next;
-
-// 	current = redirect;
-// 	while (current)
-// 	{
-// 		next = current->next;
-// 		if (current->value)
-// 		{
-// 			free(current->value);
-// 			current->value = NULL;
-// 		}
-// 		free(current);
-// 		current = current->next;	
-// 	}
-// }
 
 static t_cmd	*construct_command(t_cmd *cmd, t_parse *p)
 {
@@ -81,13 +52,6 @@ bool	build_cmds(t_parse *p)
 	return (SUCCESS);
 }
 
-// TODO also free the values in struct?
-void	free_parse(t_parse *p)
-{
-	free (p);
-}
-
-// TODO #58 free redirect struct
 bool	shell_parser(t_shell *shell)
 {
 	t_parse	*p;
@@ -95,20 +59,14 @@ bool	shell_parser(t_shell *shell)
 	should_print("\n\n========parser========\n", shell->print_output);
 	if (parser_checks(shell->tokens) == FAILURE)
 		return (FAILURE);
-
 	p = init_parse(shell);
 	build_cmds(p);
-
 	shell->cmd_table->cmds = p->cmds;
 	shell->cmd_table->cmd_count = p->cmd_count;
-
 	parser_post_process(shell);
-
 	p->cmds = NULL;
-	free_parse(p);
-
+	free(p);
 	if (shell->print_output)
 		print_cmds(shell->cmd_table);
 	return (SUCCESS);
 }
-
