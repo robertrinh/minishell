@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   single_command.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/05/25 15:19:06 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   single_command.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/02 14:28:14 by qbeukelm          #+#    #+#             */
+/*   Updated: 2024/06/07 14:18:12 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,31 @@ static t_validation	assign_out_redirects(t_cmd *cmd)
 	return (validation);
 }
 
+void	should_exit_no_command(t_cmd *cmd)
+{
+	if (ft_strncmp(cmd->cmd_path, CMD_NOT_FOUND_STR, 1) == 0)
+	{
+		show_error_message(E_CMD_NOT_FOUND, C_RED, cmd->value, X_CMD);
+		g_exit_code = 0;
+		exit(g_exit_code);
+	}
+	else if (cmd->cmd_path == NULL)
+	{
+		g_exit_code = 0;
+		exit(g_exit_code);
+	}
+}
+
 t_validation	child_process(t_shell *shell)
 {
-	t_cmd	*cmd;
-	char	*cmd_value;
-
-	cmd = shell->cmd_table->cmds[0];
 	if (assign_out_redirects(shell->cmd_table->cmds[0]) == SUCCESS)
 	{
-		if (is_builtin(shell->builtin_child, cmd, B_NUM_CHILD))
-			exec_builtin(shell->builtin_child, cmd, shell, B_NUM_CHILD);
+		if (is_builtin(shell->builtin_child, shell->cmd_table->cmds[0], B_NUM_CHILD))
+			exec_builtin(shell->builtin_child, shell->cmd_table->cmds[0], shell, B_NUM_CHILD);
 		else
 		{
 			prepare_command(shell, 0);
-			if (shell->cmd_table->cmds[0]->cmd_path == NULL)
-			{
-				cmd_value = shell->cmd_table->cmds[0]->value;
-				show_error_message(E_CMD_NOT_FOUND, C_RED, cmd_value, X_CMD);
-				exit(g_exit_code);
-			}
+			should_exit_no_command(shell->cmd_table->cmds[0]);
 			return (execute_command(shell, 0));
 		}
 	}
@@ -53,7 +59,8 @@ int	single_command(t_shell *shell)
 	int				stat_loc;
 
 	stat_loc = 0;
-	redirect_in_files(shell->cmd_table->cmds[0], &stat_loc);
+	if (redirect_in_files(shell->cmd_table->cmds[0], &stat_loc) == SUCCESS)
+		g_exit_code = 0;
 	if (stat_loc >= 1)
 		stat_loc = 1;
 	if (WIFSIGNALED(stat_loc))

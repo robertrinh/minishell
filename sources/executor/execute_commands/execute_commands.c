@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   execute_commands.c                                 :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/04/22 21:09:40 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 16:59:15 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   execute_commands.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/22 21:09:40 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/06/07 12:09:01 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static int	execute_cmd_for(t_shell *shell, int i, t_childs *childs)
 	last_cmd = is_last_cmd(shell->cmd_table->cmd_count, i);
 	cmd = shell->cmd_table->cmds[i];
 	if (cmd->fd_in)
-		redirect_in_files(cmd, &stat_loc);
+		if (redirect_in_files(cmd, &stat_loc) == SUCCESS)
+			g_exit_code = 0;
 	if (stat_loc >= 1)
 		stat_loc = 1;
 	if (WIFSIGNALED(stat_loc))

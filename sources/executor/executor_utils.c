@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   executor_utils.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/22 19:43:07 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/25 21:57:37 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   executor_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/22 19:43:07 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/06/07 14:33:01 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	prepare_command(t_shell *shell, int i)
 	char	*cmd_path;
 	t_cmd	*cmd;
 
+	cmd_path = NULL;
 	cmd = shell->cmd_table->cmds[i];
 	if (absolute_check(cmd) == SUCCESS)
 		return (SUCCESS);
@@ -54,10 +55,10 @@ int	prepare_command(t_shell *shell, int i)
 	free_2d_array(env_paths);
 	if (cmd_path == NULL)
 	{
-		cmd->cmd_path = NULL;
+		cmd->cmd_path = cmd_path;
 		return (FAILURE);
 	}
 	cmd->cmd_path = safe_strdup(cmd_path);
-	free (cmd_path); //! < Move to shell free
+	free (cmd_path);
 	return (SUCCESS);
 }

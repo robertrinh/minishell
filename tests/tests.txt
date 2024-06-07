@@ -100,5 +100,7 @@ exit | wc
 
 
 === TODAY ===
-<<EOF												[!] incorrect error code
+cmd not found then									Check for single and more commands
+<<a | wc											[!] SEG
 echo 123$????										[!] Incorrect output
+#118
