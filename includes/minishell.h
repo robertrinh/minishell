@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/06/07 14:32:12 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/06/07 14:38:50 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define EXPORT_DELIMITER '='
 # define D_QUOTE_CHAR 34
 # define S_QUOTE_CHAR 39
+# define CMD_NOT_FOUND_STR "?"
 
 # define READ 0
 # define WRITE 1
