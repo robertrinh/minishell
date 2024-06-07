@@ -6,7 +6,7 @@ cat Makefile || wc
 
 === ONLY REDIRECTS ===
 <<EOF<<EOF2<<EOF3 << cat							[!] incorrect error code
-cat README.md > grep "a"								
+cat README.md > grep "a"							[!] cat: a: no such file
 cat << EOF > output.txt								[!] Valgrind LEAK (readline leak)
 echo mate > hello									
 'EOF' / "..."										[!] Valgrind LEAK
@@ -30,7 +30,7 @@ cat "README.md"|wc
 cat Makefile | grep pr | head -n 5 | hello			
 cat README.md | wc
 cat README.md | wc -w | wc
-echo hello world | wc > outfile.txt >> outfile.txt	
+echo hello world | wc > outfile.txt >> outfile.txt	[!] Append not working
 echo hello | wc > outfile.txt						
 grep aa << EOF | wc									[!] Valgrind LEAK
 grep aa << EOF < README.md | wc
@@ -46,8 +46,8 @@ e'ch'o hello
 echo "hello $TERM$NOARG more"
 echo $$$$$???										[!] Valgrind ERROR
 echo $?												[!] ERROR
-echo 123$????
-echo hello$?
+echo 123$????										[!] Incorrect output
+echo hello$?										[!] Incorrect output
 echo hel'll"o"'
 echo hello"more more"hello
 echo "hello $USER$TERM more"
@@ -82,7 +82,7 @@ unset HOME PATH SHELL USER PWD TERM ZSH
 echo >
 echo <<
 echo > |
-echo "bip | bip ; coyotte > < "
+echo "bip | bip ; coyotte > < "						[!] Incorrect output
 
 
 === SIGNALS ===
