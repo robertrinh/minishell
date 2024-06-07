@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 13:13:52 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/06/07 11:54:10 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/06/07 12:03:27 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_token	*token_constructor(char *split_input, int i)
 		return (NULL);
 	}
 	token->type = assign_type(token->value);
-	printf("Constructor: %s, %d\n", token->value, token->type);
 	token->next = NULL;
 	token->i = i;
 	return (token);
@@ -70,7 +69,6 @@ static t_token	*tokenize_command(t_token *tokens_head, t_shell *shell)
 	return (tokens_head);
 }
 
-// echo "bip | bip ; coyotte > < "
 int	tokens_builder_manager(t_shell *shell)
 {
 	t_token	*tokens_head;

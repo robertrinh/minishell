@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 09:57:10 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/03/21 15:05:40 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/06/07 12:20:07 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@
 size_t	ft_strlen(const char *s)
 {
 	size_t	i;
-
+	
 	i = 0;
+	if (s == NULL)
+		return (i);
 	while (s[i] != '\0')
 		i++;
 	return (i);

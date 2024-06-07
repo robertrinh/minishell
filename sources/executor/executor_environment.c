@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   executor_environment.c                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/22 19:45:47 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/24 13:20:26 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   executor_environment.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/22 19:45:47 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/06/07 14:25:46 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,26 @@ char	**format_cmd(t_cmd *cmd)
 }
 
 /*
-	Returns the full path to the executable command. And NULL command is
-	not found.
+	Returns the full path to the executable command. 
+	Returns CMD_NOT_FOUND_STR "?" for command not found. And returns NULL 
+	when there is no command.
 */
+static char *get_path_error_string(void)
+{
+	char *str = malloc(2);
+	str[0] = '?';
+	str[1] = '\0';
+	return (str);
+}
+
 char	*get_path_for_cmd(char **env_paths, char *command)
 {
 	char	*temp_path;
 	char	*command_path;
 	int		i;
-
+	
+	if (command == NULL)
+		return (NULL);
 	i = 0;
 	while (env_paths[i])
 	{
@@ -54,7 +65,7 @@ char	*get_path_for_cmd(char **env_paths, char *command)
 		free(command_path);
 		i++;
 	}
-	return (NULL);
+	return (get_path_error_string());
 }
 
 /*
