@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   get_env_key.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/03/29 22:10:43 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/25 23:34:30 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   get_env_key.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/29 22:10:43 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/06/07 15:11:38 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,8 @@ char	*get_env_key(char *arg, size_t i)
 
 	i += 1;
 	arg = skip_multiple_expand_chars(arg, i);
-	if (arg[i] == '?')
-	{
-		free (arg);
+	if (arg[i])
 		return ("?");
-	}
 	if (ft_strlen(arg) == i + 1)
 	{
 		key = safe_strdup_from(arg, i);

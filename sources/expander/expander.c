@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   expander.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/26 13:33:34 by quentinbeuk   ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   expander.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/16 11:15:41 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/06/07 15:12:52 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static char	*expand_arg(char **env, char *arg, size_t i)
 	}
 	if (env_utils->key[0] != EXPAND_CHAR)
 		env_utils->key = ft_strjoin("$", env_utils->key);
+
 	if (arg && env_utils->value && is_arg_key(arg, env_utils->key))
 	{
 		arg = env_utils->value;

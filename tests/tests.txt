@@ -5,7 +5,7 @@ cat Makefile || wc
 
 
 === ONLY REDIRECTS ===
-<<EOF<<EOF2<<EOF3 << cat							[!] incorrect error code
+<<EOF<<EOF2<<EOF3 << cat							
 cat README.md > grep "a"
 cat << EOF > output.txt								[!] Valgrind LEAK (readline leak)
 echo mate > hello									
@@ -46,8 +46,8 @@ e'ch'o hello
 echo "hello $TERM$NOARG more"
 echo $$$$$???										[!] Valgrind ERROR
 echo $?
-echo 123$????										[!] Incorrect output
-echo hello$?										[!] Incorrect output
+echo 123$????										
+echo hello$?										
 echo hel'll"o"'
 echo hello"more more"hello
 echo "hello $USER$TERM more"
@@ -78,11 +78,11 @@ unset PWD
 unset HOME PATH SHELL USER PWD TERM ZSH
 
 === ERROR MESSAGES ===
-<<EOF												[!] incorrect error code
+<<EOF
 echo >
 echo <<
 echo > |
-echo "bip | bip ; coyotte > < "						[!] Incorrect output (unmatched REDIRECT)
+echo "bip | bip ; coyotte > < "
 
 
 === SIGNALS ===
@@ -98,9 +98,3 @@ env | exit
 exit | wc
 
 
-
-=== TODAY ===
-cmd not found then									Check for single and more commands
-<<a | wc											[!] SEG
-echo 123$????										[!] Incorrect output
-#118
