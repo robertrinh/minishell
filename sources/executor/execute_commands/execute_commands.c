@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 21:09:40 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/06/07 12:09:01 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:04:41 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ static int	execute_cmd_for(t_shell *shell, int i, t_childs *childs)
 	if (stat_loc >= 1)
 		stat_loc = 1;
 	if (WIFSIGNALED(stat_loc))
+	{
+		g_exit_code = X_SIG_HEREDOC;
 		return (-1);
+	}
 	prepare_command(shell, i);
 	return (pipe_commands(shell, cmd, childs, last_cmd));
 }
