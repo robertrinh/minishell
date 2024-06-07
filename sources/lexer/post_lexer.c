@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   post_lexer.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/01/12 16:19:25 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/06/01 14:30:39 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   post_lexer.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/12 16:19:25 by qbeukelm          #+#    #+#             */
+/*   Updated: 2024/06/07 10:50:34 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,13 @@ static bool	assign_lexer_types(t_token *tokens)
 	current = tokens;
 	while (current)
 	{
-		if ((current->type == NONE && is_special_type(current->type) == false) 
-			|| (current->type == S_QUOTE || current->type == D_QUOTE))
+		if ((current->type == NONE && is_special_type(current->type) == false))
 			current = assign_cmd_arg(current, i);
+
+		if (current->type == COMMAND && current->next != NULL)
+			if (current->next->type == D_QUOTE || current->next->type == S_QUOTE)
+				current = assign_cmd_arg(current->next, i++);	
+		
 		if (current->type == PIPE)
 		{
 			if (current->next)

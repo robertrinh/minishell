@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   shell_finish_cmd.c                                 :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/06/01 16:00:19 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/06/01 16:13:49 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   shell_finish_cmd.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/01 16:00:19 by qtrinh            #+#    #+#             */
+/*   Updated: 2024/06/07 10:49:50 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	free_cmd_fd(t_redirect *head)
 	{
 		temp = head;
 		head = head->next;
-		printf("freeing redirect fd at: %p\n", temp); // TODO delete later
 		free(temp);
 	}
 }
@@ -41,8 +40,6 @@ static void	free_args_format(t_cmd *cmd, int i)
 	cmd->cmd_and_args = NULL;
 }
 
-//!			cat tasks.md > grep "a"
-//!			'EOF' / "..."
 static void	free_args_format_cmd(t_cmd *cmd)
 {
 	int	i;
