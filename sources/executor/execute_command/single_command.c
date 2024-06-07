@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 14:28:14 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/06/07 14:39:22 by qbeukelm         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:02:40 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	single_command(t_shell *shell)
 	if (stat_loc >= 1)
 		stat_loc = 1;
 	if (WIFSIGNALED(stat_loc))
-		return (g_exit_code);
+		return (g_exit_code = X_SIG_HEREDOC);
 	handle_signals(CHILD);
 	pid = fork();
 	if (pid < 0)
