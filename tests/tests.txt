@@ -6,7 +6,7 @@ cat Makefile || wc
 
 === ONLY REDIRECTS ===
 <<EOF<<EOF2<<EOF3 << cat							[!] incorrect error code
-cat README.md > grep "a"							[!] cat: a: no such file
+cat README.md > grep "a"
 cat << EOF > output.txt								[!] Valgrind LEAK (readline leak)
 echo mate > hello									
 'EOF' / "..."										[!] Valgrind LEAK
@@ -30,7 +30,7 @@ cat "README.md"|wc
 cat Makefile | grep pr | head -n 5 | hello			
 cat README.md | wc
 cat README.md | wc -w | wc
-echo hello world | wc > outfile.txt >> outfile.txt	[!] Append not working
+echo hello world | wc > outfile.txt >> outfile.txt
 echo hello | wc > outfile.txt						
 grep aa << EOF | wc									[!] Valgrind LEAK
 grep aa << EOF < README.md | wc
@@ -45,7 +45,7 @@ echo $USER$PATH
 e'ch'o hello
 echo "hello $TERM$NOARG more"
 echo $$$$$???										[!] Valgrind ERROR
-echo $?												[!] ERROR
+echo $?
 echo 123$????										[!] Incorrect output
 echo hello$?										[!] Incorrect output
 echo hel'll"o"'
@@ -60,12 +60,12 @@ echo ''"hello"
 echo ''"hello"''"there"
 export ch=ch
 echo e"$ch"o										[!] Valgrind LEAK
-echo "hello $USER"$TERM" more"						[!] incorrect ($TERM should not expand)
-echo "hello $USER'$TERM' more"						[!] incorrect ($TERM should not expand)
+echo "hello $USER"$TERM" more"
+echo "hello $USER'$TERM' more"
 
 
 === BUILTINS ===
-export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8 I=9 J=10		[!] ERROR (only once when multiple is called. second time is none)
+export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8 I=9 J=10		[!] Valgrind (only once when multiple is called. second time is none)
 export =
 export @
 export 1											
@@ -82,7 +82,7 @@ unset HOME PATH SHELL USER PWD TERM ZSH
 echo >
 echo <<
 echo > |
-echo "bip | bip ; coyotte > < "						[!] Incorrect output
+echo "bip | bip ; coyotte > < "						[!] Incorrect output (unmatched REDIRECT)
 
 
 === SIGNALS ===
@@ -96,3 +96,9 @@ when aa is typed and you press ctrl-c -> still prints out aa, bash does not do t
 env | export 1
 env | exit
 exit | wc
+
+
+
+=== TODAY ===
+<<EOF												[!] incorrect error code
+echo 123$????										[!] Incorrect output
