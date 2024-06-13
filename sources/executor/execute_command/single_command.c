@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   single_command.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 14:28:14 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/06/07 16:02:40 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   single_command.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/06/13 10:53:05 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	should_exit_no_command(t_cmd *cmd)
 	if (ft_strncmp(cmd->cmd_path, CMD_NOT_FOUND_STR, 1) == 0)
 	{
 		show_error_message(E_CMD_NOT_FOUND, C_RED, cmd->value, X_CMD);
-		g_exit_code = 0;
 		exit(g_exit_code);
 	}
 	else if (cmd->cmd_path == NULL)
@@ -39,14 +38,17 @@ void	should_exit_no_command(t_cmd *cmd)
 
 t_validation	child_process(t_shell *shell)
 {
-	if (assign_out_redirects(shell->cmd_table->cmds[0]) == SUCCESS)
+	t_cmd	*cmd;
+
+	cmd = shell->cmd_table->cmds[0];
+	if (assign_out_redirects(cmd) == SUCCESS)
 	{
-		if (is_builtin(shell->builtin_child, shell->cmd_table->cmds[0], B_NUM_CHILD))
-			exec_builtin(shell->builtin_child, shell->cmd_table->cmds[0], shell, B_NUM_CHILD);
+		if (is_builtin(shell->builtin_child, cmd, B_NUM_CHILD))
+			exec_builtin(shell->builtin_child, cmd, shell, B_NUM_CHILD);
 		else
 		{
 			prepare_command(shell, 0);
-			should_exit_no_command(shell->cmd_table->cmds[0]);
+			should_exit_no_command(cmd);
 			return (execute_command(shell, 0));
 		}
 	}
