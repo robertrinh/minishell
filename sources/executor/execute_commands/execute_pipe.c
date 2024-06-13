@@ -6,13 +6,11 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/22 21:17:02 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 17:10:04 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/13 15:42:20 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
-
-// TODO close protection if fail
 
 static void	manage_execution(t_shell *shell, t_cmd *cmd)
 {
@@ -43,7 +41,7 @@ void	first_cmd(t_shell *shell, t_cmd *cmd, int pipe_out[2])
 			exit(g_exit_code);
 		}
 		if (close_fds(pipe_out[WRITE], pipe_out[READ], -1) == false)
-				exit_with_message(E_CLOSE, C_RED, X_FAILURE);
+			exit_with_message(E_CLOSE, C_RED, X_FAILURE);
 		manage_execution(shell, cmd);
 	}
 	if (close_fds(pipe_out[WRITE], -1, -1) == false)
@@ -63,14 +61,14 @@ void	mid_cmd(t_shell *shell, t_cmd *cmd, int pipe_in, int pipe_out[2])
 	{
 		if (dup2(pipe_out[WRITE], STDOUT_FILENO) < 0 || \
 			dup2(pipe_in, STDIN_FILENO) < 0)
-			{
-				show_error_message(E_DUP, C_RED, cmd->value, X_FAILURE);
-            	if (close_fds(pipe_out[WRITE], pipe_in, -1) == false)
-              	  exit_with_message(E_CLOSE, C_RED, X_FAILURE);
-            	exit(g_exit_code);	
-			}
-		if (close_fds(pipe_in, pipe_out[WRITE], pipe_out[READ]) == false)
+		{
+			show_error_message(E_DUP, C_RED, cmd->value, X_FAILURE);
+			if (close_fds(pipe_out[WRITE], pipe_in, -1) == false)
 				exit_with_message(E_CLOSE, C_RED, X_FAILURE);
+			exit(g_exit_code);
+		}
+		if (close_fds(pipe_in, pipe_out[WRITE], pipe_out[READ]) == false)
+			exit_with_message(E_CLOSE, C_RED, X_FAILURE);
 		manage_execution(shell, cmd);
 	}
 	if (close_fds(pipe_in, pipe_out[WRITE], -1) == false)
@@ -93,7 +91,7 @@ int	final_cmd(t_shell *shell, t_cmd *cmd, int pipe_in)
 			show_error_message(E_DUP, C_RED, cmd->value, X_FAILURE);
 			if (close_fds(pipe_in, -1, -1) == false)
 				exit_with_message(E_CLOSE, C_RED, X_FAILURE);
-            exit(g_exit_code);
+			exit(g_exit_code);
 		}
 		if (close_fds(pipe_in, -1, -1) == false)
 			exit_with_message(E_CLOSE, C_RED, X_FAILURE);

@@ -1,78 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   post_lexer.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 16:19:25 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/06/07 10:50:34 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   post_lexer.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/12 16:19:25 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/06/13 15:59:11 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	is_special_type(t_token_type type)
+static t_token	*handle_pipe(t_token *current, int *i)
 {
-	if (type == PIPE || type == REDIRECT)
-		return (true);
-	return (false);
-}
-
-static t_token	*skip_operators(t_token *current)
-{
-	while (current)
+	if (current->next)
 	{
-		if (is_special_type(current->type) == false)
-			return (current);
-		if (current->next)
-			current = current->next;
-		else
-			return (current);
+		*i = 0;
+		current = skip_operators(current);
+		current = assign_cmd_arg(current, *i);
 	}
 	return (current);
 }
 
-static t_token	*assign_argfile_args(t_token *current)
+static t_token	*handle_redirect(t_token *current)
 {
-	current->type = ARGFILE;
-	while (current)
+	if (current->next)
 	{
-		if (is_special_type(current->type) == true)
-			return (current);
-		if (current->type == NONE)
-			current->type = ARGUMENT;
-		if (current->next)
-			current = current->next;
-		else
-			return (current);
-	}
-	return (current);
-}
-
-static t_token	*assign_cmd_arg(t_token *current, int i)
-{
-	if (current->type == NONE || i == 0)
-		current->type = COMMAND;
-	else if (current->next)
-		current = current->next;
-	while (current)
-	{
-		if (current->type == NONE || i > 0)
-		{
-			current->type = ARGUMENT;
-			if (current->next)
-			{
-				if (is_special_type(current->type) == true)
-				current = current->next;
-			}
-		}
-		if (is_special_type(current->type) == true)
-			return (current);
-		if (current->next)
-			current = current->next;
-		else
-			return (current);
+		current = skip_operators(current);
+		current = assign_argfile_args(current);
 	}
 	return (current);
 }
@@ -80,40 +36,29 @@ static t_token	*assign_cmd_arg(t_token *current, int i)
 static bool	assign_lexer_types(t_token *tokens)
 {
 	int			i;
-	t_token		*current;
+	t_token		*curr;
 
 	i = 0;
-	current = tokens;
-	while (current)
+	curr = tokens;
+	while (curr)
 	{
-		if ((current->type == NONE && is_special_type(current->type) == false))
-			current = assign_cmd_arg(current, i);
-
-		if (current->type == COMMAND && current->next != NULL)
-			if (current->next->type == D_QUOTE || current->next->type == S_QUOTE)
-				current = assign_cmd_arg(current->next, i++);	
-		
-		if (current->type == PIPE)
+		if ((curr->type == NONE && is_special_type(curr->type) == false))
+			curr = assign_cmd_arg(curr, i);
+		if (curr->type == COMMAND && curr->next != NULL)
+			if (curr->next->type == D_QUOTE || curr->next->type == S_QUOTE)
+				curr = assign_cmd_arg(curr->next, i++);
+		if (curr->type == PIPE)
 		{
-			if (current->next)
-			{
-				i = 0;
-				current = skip_operators(current);
-				current = assign_cmd_arg(current, i);
-				continue ;
-			}
+			curr = handle_pipe(curr, &i);
+			continue ;
 		}
-		if (current->type == REDIRECT)
+		if (curr->type == REDIRECT)
 		{
-			if (current->next)
-			{
-				current = skip_operators(current);
-				current = assign_argfile_args(current);
-				continue ;
-			}
+			curr = handle_redirect(curr);
+			continue ;
 		}
 		i++;
-		current = current->next;
+		curr = curr->next;
 	}
 	return (SUCCESS);
 }

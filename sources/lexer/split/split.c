@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/05 14:17:27 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/05/29 15:51:51 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/06/13 16:24:55 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ static int	index_next_quote(t_split *sp, int quote_type)
 static void	process_substring(t_split *sp)
 {
 	int	op_check;
-	
-	while (sp->i < sp->len) // Check last char
+
+	while (sp->i < sp->len)
 	{
 		op_check = check_operator(sp->input[sp->i], sp->input[sp->i + 1]);
 		if (is_white_space(sp->input[sp->i]))
@@ -75,7 +75,7 @@ static void	process_substring(t_split *sp)
 			return ;
 		}
 		else if (is_quote(sp->input[sp->i]))
-            index_next_quote(sp, is_quote(sp->input[sp->i]));
+			index_next_quote(sp, is_quote(sp->input[sp->i]));
 		else
 			sp->i++;
 	}
@@ -87,7 +87,7 @@ static int	count_substrings(t_split *sp)
 	{
 		sp->i = skip_whitespace(sp);
 		if (sp->i >= sp->len)
-			break;
+			break ;
 		sp->i_check = sp->i;
 		process_substring(sp);
 		if (sp->i > sp->i_check)
@@ -99,7 +99,7 @@ static int	count_substrings(t_split *sp)
 t_split	*split(t_shell *shell)
 {
 	t_split	*split;
-	
+
 	split = safe_malloc(sizeof(t_split));
 	split = init_split(shell, split);
 	split->count = count_substrings(split);

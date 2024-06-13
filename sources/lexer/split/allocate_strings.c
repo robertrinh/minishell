@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/07 13:01:10 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/29 15:51:22 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/06/13 16:24:01 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ t_split	*handle_substrings(t_split *sp)
 			buffer_quote(sp, is_quote(sp->input[sp->i]));
 			break ;
 		}
-		if (is_white_space(sp->input[sp->i]) ||
-			check_operators_substring(sp) == false)
+		if (is_white_space(sp->input[sp->i])
+			|| check_operators_substring(sp) == false)
 			break ;
 		sp->buffer[sp->i_buff] = sp->input[sp->i];
 		sp->i++;

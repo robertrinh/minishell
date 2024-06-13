@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 22:08:44 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 17:17:45 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/13 15:29:54 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 t_in_files	*init_infiles(t_cmd *cmd)
 {
-	t_in_files			*ins;
+	t_in_files	*ins;
 
 	ins = safe_malloc(sizeof(t_in_files));
-	ins->heredocs = safe_malloc(sizeof(int *) * count_files_for_type(cmd, IN_APPEND));
-	ins->infiles = safe_malloc(sizeof(int *) * count_files_for_type(cmd, IN));
+	ins->heredocs = safe_malloc(sizeof(int *) * count_files(cmd, IN_APPEND));
+	ins->infiles = safe_malloc(sizeof(int *) * count_files(cmd, IN));
 	return (ins);
 }
 
@@ -26,7 +26,7 @@ static void	close_in_files(t_cmd *cmd, t_in_files *fds, t_redirect_type type)
 {
 	int		count;
 
-	count = count_files_for_type(cmd, type);
+	count = count_files(cmd, type);
 	while (count - 1 >= 0)
 	{
 		if (type == IN_APPEND)
@@ -49,7 +49,7 @@ static void	dup_for_fd(int fd)
 
 	if (fd < 0)
 	{
-		dev_null_fd = open("/dev/null", get_open_flag_for_type(OUT));
+		dev_null_fd = open("/dev/null", get_open_flag(OUT));
 		if (dev_null_fd >= 0)
 		{
 			if (dup2(dev_null_fd, STDIN_FILENO) < 0)
@@ -71,7 +71,7 @@ static void	dup_infile(t_cmd *cmd, t_in_files *ins, t_redirect_type type)
 {
 	int	index;
 
-	index = count_files_for_type(cmd, type) - 1;
+	index = count_files(cmd, type) - 1;
 	if (index >= 0)
 	{
 		if (type == IN_APPEND)

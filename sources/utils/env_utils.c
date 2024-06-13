@@ -6,13 +6,13 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:19:19 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/26 12:41:06 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/13 16:39:06 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char *buffer_env_value(char *env_row, char *key, int i)
+static char	*buffer_env_value(char *env_row, char *key, int i)
 {
 	char	*value;
 	int		j;
@@ -59,7 +59,7 @@ char	*get_value_for_key(char **env, char *key)
 /*
 	Given starting index, returns the count of remaining lines in env
 */
-int		count_lines_from(char **env, int index)
+int	count_lines_from(char **env, int index)
 {
 	int	count;
 
@@ -75,23 +75,20 @@ int		count_lines_from(char **env, int index)
 /*
 	Returns the size of the **envp in bytes
 */
-// ! valgrind error: Conditional jump or move depends on uninitialised value(s)
-// !			    at 0x404324: env_size (env_utils.c:85)
-// ! when inputting unset PATH
 size_t	env_size(char **env)
 {
-	size_t		env_size;
-    char		**temp;
+	size_t	env_size;
+	char	**temp;
 
 	if (env == NULL)
 		return (0);
 	env_size = 0;
 	temp = env;
-    while (*temp != NULL) 
+	while (*temp != NULL)
 	{
-        env_size += ft_strlen(*temp) + 1;
-        temp++;
-    }
+		env_size += ft_strlen(*temp) + 1;
+		temp++;
+	}
 	return (env_size);
 }
 

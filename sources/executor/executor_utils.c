@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   executor_utils.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 19:43:07 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/06/07 14:33:01 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   executor_utils.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/22 19:43:07 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/06/13 15:21:04 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 bool	close_fds(int fd1, int fd2, int fd3)
 {
-    if (fd1 != -1 && close(fd1) < 0)
+	if (fd1 != -1 && close(fd1) < 0)
 		return (FAILURE);
-    if (fd2 != -1 && close(fd2) < 0)
+	if (fd2 != -1 && close(fd2) < 0)
 		return (FAILURE);
-    if (fd3 != -1 && close(fd3) < 0)
+	if (fd3 != -1 && close(fd3) < 0)
 		return (FAILURE);
-    return (SUCCESS);
+	return (SUCCESS);
 }
 
 static bool	absolute_check(t_cmd *cmd)

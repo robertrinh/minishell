@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   assign_type.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 14:27:34 by qbeukelm          #+#    #+#             */
-/*   Updated: 2024/06/07 11:57:05 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   assign_type.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/01/12 14:27:34 by qbeukelm      #+#    #+#                 */
+/*   Updated: 2024/06/13 15:58:05 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static t_token_type	assign_redirect_type(char *value)
 	return (REDIRECT);
 }
 
-static t_token_type assign_quote_type(char *value)
+static t_token_type	assign_quote_type(char *value)
 {
 	int		i;
 
@@ -57,7 +57,7 @@ static t_token_type assign_quote_type(char *value)
 
 bool	assign_redirect_types(t_token *tokens)
 {
-	t_token *current;
+	t_token	*current;
 
 	current = tokens;
 	while (current)

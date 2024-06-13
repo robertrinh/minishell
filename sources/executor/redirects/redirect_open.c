@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/23 15:04:57 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/06/13 11:37:04 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/06/13 15:38:53 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,25 @@ t_in_files	*open_in_files(t_cmd *cmd, t_in_files *ins, t_redirect_type type, \
 	int *stat_loc)
 {
 	int			i;
-	t_redirect	*in_files;
+	t_redirect	*in;
 
 	i = 0;
-	in_files = cmd->fd_in;
-	while (in_files)
+	in = cmd->fd_in;
+	while (in)
 	{
-		if (in_files->type == type && type == IN_APPEND)
+		if (in->type == type && type == IN_APPEND)
 		{
-			ins->heredocs[i] = setup_heredoc(in_files, stat_loc);
+			ins->heredocs[i] = setup_heredoc(in, stat_loc);
 			i++;
 		}
-		if (in_files->type == type && type == IN)
+		if (in->type == type && type == IN)
 		{
-			ins->infiles[i] = safe_open(in_files->value, get_open_flag_for_type(IN), 0);
+			ins->infiles[i] = safe_open(in->value, get_open_flag(IN), 0);
 			i++;
 		}
-		if (in_files->next == NULL)
+		if (in->next == NULL)
 			break ;
-		in_files = in_files->next;
+		in = in->next;
 	}
 	return (ins);
 }

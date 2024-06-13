@@ -6,13 +6,13 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/29 21:56:32 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/04 16:46:46 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/06/13 16:35:20 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void ft_sleep(size_t count)
+void	ft_sleep(size_t count)
 {
 	size_t	i;
 	size_t	j;

@@ -6,7 +6,7 @@
 #    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/06/01 16:05:56 by qtrinh        ########   odam.nl          #
+#    Updated: 2024/06/13 16:36:36 by qtrinh        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SOURCES 				= minishell.c \
 
 SOURCES_LEXER 			= assign_type.c \
 							lexer.c \
+							post_lexer_utils.c \
 							post_lexer.c \
 							validate_operators.c
 
@@ -37,6 +38,7 @@ SOURCES_LEXER_QUOTE		= quote.c \
 SOURCES_PARSER			=  parser_checks.c \
 							parser_cmd_arguments.c \
 							parser_post_process.c \
+							parser_redirects_utils.c \
 							parser_redirects.c \
 							parser_strip_quotes.c \
 							parser_utils.c \
