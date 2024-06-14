@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/22 21:17:34 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/14 15:09:39 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/14 16:25:41 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	wait_for_last_cmd(int child_count, int last_pid)
 		return (WEXITSTATUS(last_status));
 	else if (WIFSIGNALED(last_status))
 	{
-		g_exit_code = signal + 128;
+		g_exit_code = WTERMSIG(last_status) + 128;
 		return (g_exit_code);
 	}
 	return (-1);

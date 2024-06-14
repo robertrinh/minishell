@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 22:08:44 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/13 15:29:54 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/14 16:14:24 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,17 @@ static void	dup_for_fd(int fd)
 		{
 			if (dup2(dev_null_fd, STDIN_FILENO) < 0)
 			{
-				show_error_message(E_DUP, C_RED, "dup2 dev_null_fd", X_FAILURE); // ? exit or just show error message?
+				show_error_message(E_DUP, C_RED, "dup2 dev_null_fd", X_FAILURE);
 				if (close_fds(dev_null_fd, -1, -1) == false)
 					show_error_message(E_CLOSE, C_RED, "dup for fd", X_FAILURE);
 			}
 			if (close_fds(dev_null_fd, -1, -1) == false)
-				show_error_message(E_CLOSE, C_RED, "dup for fd", X_FAILURE); // ? exit or just show error message?
+				show_error_message(E_CLOSE, C_RED, "dup for fd", X_FAILURE);
 		}
 	}
 	else
 		if (dup2(fd, STDIN_FILENO) < 0)
-			show_error_message(E_DUP, C_RED, "", X_FAILURE); // ? exit or just show error message?
+			show_error_message(E_DUP, C_RED, "", X_FAILURE);
 }
 
 static void	dup_infile(t_cmd *cmd, t_in_files *ins, t_redirect_type type)

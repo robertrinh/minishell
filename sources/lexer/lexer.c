@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/13 16:19:59 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/14 16:32:07 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,20 @@ t_token	*token_constructor(char *split_input, int i)
 	return (token);
 }
 
+static void	assign_token(t_token **head, t_token **current, t_token *new)
+{
+	if (*current == NULL)
+	{
+		*current = new;
+		*head = new;
+	}
+	else
+	{
+		(*current)->next = new;
+		*current = new;
+	}
+}
+
 static t_token	*tokenize_command(t_token *tokens_head, t_shell *shell)
 {
 	int		i;
@@ -50,16 +64,7 @@ static t_token	*tokenize_command(t_token *tokens_head, t_shell *shell)
 		new = token_constructor(split_struct->strings[i], i);
 		if (new == NULL)
 			return (free_split(split_struct), NULL);
-		if (current == NULL)
-		{
-			current = new;
-			tokens_head = current;
-		}
-		else
-		{
-			current->next = new;
-			current = current->next;
-		}
+		assign_token(&tokens_head, &current, new);
 		i++;
 	}
 	free_split(split_struct);

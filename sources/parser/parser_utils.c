@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/25 22:22:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/25 19:36:26 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/14 16:15:03 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ t_token	*locate_current_token(t_parse *p)
 	if (p->current_pipe == 0)
 		return (p->tokens_r);
 	else
-		return (p->tokens_c = locate_pipe_n(p->tokens_r, (p->current_pipe - 1))-> next);
+		return (p->tokens_c = locate_pipe_n(p->tokens_r, \
+				(p->current_pipe - 1))-> next);
 }

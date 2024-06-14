@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/21 21:33:51 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/26 13:57:05 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/14 16:15:33 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	print_cmd(t_cmd **cmds, int i)
 		ft_putstr_fd("\t", STDOUT_FILENO);
 		ft_putstr_fd(cmds[i]->args[j], STDOUT_FILENO);
 		ft_putstr_fd("\n", STDOUT_FILENO);
-        j++;
+		j++;
 	}
 	print_redirects(cmds[i]);
 	ft_putstr_fd("--\n", STDOUT_FILENO);
