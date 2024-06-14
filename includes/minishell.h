@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/14 15:06:10 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/14 16:24:07 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ typedef enum e_child_builtin
 }	t_child_builtin;
 
 //===============================================================: Struct
+
 typedef struct s_split
 {
 	int			len;
@@ -178,10 +179,8 @@ typedef struct s_cmd_table
 	int			cmd_count;
 }	t_cmd_table;
 
-typedef struct s_builtin
-{
-}	t_builtin;
-
+typedef struct s_builtin \
+	t_builtin;
 typedef struct s_shell
 {
 	t_token				*tokens;
@@ -224,18 +223,18 @@ t_token_type	assign_type(char *value);
 
 // lexer_utils.c
 bool			is_special_type(t_token_type type);
-t_token	*skip_operators(t_token *current);
-t_token	*assign_argfile_args(t_token *current);
-t_token	*assign_cmd_arg(t_token *current, int i);
+t_token			*skip_operators(t_token *current);
+t_token			*assign_argfile_args(t_token *current);
+t_token			*assign_cmd_arg(t_token *current, int i);
 
 // lexer.c
-t_token	*token_constructor(char *split_input, int i);
-int		tokens_builder_manager(t_shell *shell);
-int		shell_lexer(t_shell *shell);
+t_token			*token_constructor(char *split_input, int i);
+int				tokens_builder_manager(t_shell *shell);
+int				shell_lexer(t_shell *shell);
 
 // post_lexer.c
-bool	post_lexer(t_token *tokens);
-bool	is_special_type(t_token_type type);
+bool			post_lexer(t_token *tokens);
+bool			is_special_type(t_token_type type);
 
 // validate_operators.c
 t_validation	validate_operators(char *input);
@@ -243,71 +242,71 @@ t_validation	validate_operators(char *input);
 //===============================================================: Lexer / Quote
 // quotes.c
 t_validation	validate_quotes(t_shell *shell);
-int		contains_quote(const char *str);
+int				contains_quote(const char *str);
 
 // buffer_quote.c
-int		is_quote(char c);
-void	buffer_quote(t_split *sp, int quote_type);
+int				is_quote(char c);
+void			buffer_quote(t_split *sp, int quote_type);
 
 //===============================================================: Lexer / Split
 // allocate_strings.c
-char	**allocate_strings_split(t_split *sp);
+char			**allocate_strings_split(t_split *sp);
 
 // split_utils.c
-t_split	*init_split(t_shell *shell, t_split *split);
-bool	is_white_space(char c);
-int		skip_whitespace(t_split *sp);
-int		check_operator(char c1, char c2);
+t_split			*init_split(t_shell *shell, t_split *split);
+bool			is_white_space(char c);
+int				skip_whitespace(t_split *sp);
+int				check_operator(char c1, char c2);
 
 // split.c
-void	free_split(t_split *sp);
-t_split	*split(t_shell *shell);
+void			free_split(t_split *sp);
+t_split			*split(t_shell *shell);
 
 //===============================================================: Parser
 // parser.c
-bool	shell_parser(t_shell *shell);
+bool			shell_parser(t_shell *shell);
 
 // parser_cmd_arguments.c
-t_cmd	*construct_args(t_cmd *cmd, t_parse *p);
+t_cmd			*construct_args(t_cmd *cmd, t_parse *p);
 
 // parser_post_process.c
-int		parser_post_process(t_shell *shell);
+int				parser_post_process(t_shell *shell);
 
 // parser_checks.c
-bool	parser_checks(t_token *tokens);
+bool			parser_checks(t_token *tokens);
 
 // parser_redirects_utils.c
 t_redirect_type	assign_file_type(char *value);
-bool	should_add_files(t_token_type current_type, t_token_type type);
+bool			should_add_files(t_token_type current_type, t_token_type type);
 
 // parser_redirects.c
-t_cmd	*construct_redirects(t_cmd *cmd, t_parse *p);
+t_cmd			*construct_redirects(t_cmd *cmd, t_parse *p);
 
 // parser_strip_quotes.c
-char	*strip_quote_for_type(char *arg);
+char			*strip_quote_for_type(char *arg);
 
 // parser_utils.c
-t_parse		*init_parse(t_shell *shell);
-t_cmd		*allocate_cmd(void);
-t_token		*locate_current_token(t_parse *p);
-t_token		*locate_pipe_n(t_token *tokens_root, int pipe_count);
+t_parse			*init_parse(t_shell *shell);
+t_cmd			*allocate_cmd(void);
+t_token			*locate_current_token(t_parse *p);
+t_token			*locate_pipe_n(t_token *tokens_root, int pipe_count);
 
 //===============================================================: Executor
 // executor_enviroment.c
-char	**format_cmd(t_cmd *cmd);
-char	*get_path_for_cmd(char **env_paths, char *command);
-char	*ft_getenv(t_shell *shell, char *input);
-char	**get_paths(t_shell *shell);
+char			**format_cmd(t_cmd *cmd);
+char			*get_path_for_cmd(char **env_paths, char *command);
+char			*ft_getenv(t_shell *shell, char *input);
+char			**get_paths(t_shell *shell);
 
 // executor_redirect.c
-int		*fd_in_files(t_cmd *cmd);
+int				*fd_in_files(t_cmd *cmd);
 
 // executor_utils.c
-bool	close_fds(int fd1, int fd2, int fd3);
-int		prepare_command(t_shell *shell, int i);
+bool			close_fds(int fd1, int fd2, int fd3);
+int				prepare_command(t_shell *shell, int i);
 
 // executor.c
-int		shell_execute(t_shell *shell);
+int				shell_execute(t_shell *shell);
 
 // ----------------------------------- executor/builtins
 typedef struct s_builtin
@@ -317,37 +316,38 @@ typedef struct s_builtin
 }	t_builtin;
 
 // builtins.c
-t_shell		*init_main_builtins(t_shell *shell);
-t_shell		*init_child_builtins(t_shell *shell);
-bool		is_builtin(t_builtin *table, t_cmd *cmd, int num);
-int			exec_builtin(t_builtin *table, t_cmd *cmd, t_shell *shell, int num);
+t_shell			*init_main_builtins(t_shell *shell);
+t_shell			*init_child_builtins(t_shell *shell);
+bool			is_builtin(t_builtin *table, t_cmd *cmd, int num);
+int				exec_builtin(t_builtin *table, t_cmd *cmd, \
+				t_shell *shell, int num);
 
 // cd_utils.c
-void	update_env(t_shell *shell);
+void			update_env(t_shell *shell);
 
 // cd.c
-int		cd(t_cmd *cmd, t_shell *shell);
+int				cd(t_cmd *cmd, t_shell *shell);
 
 // echo.c
-int		echo(t_cmd *cmd, t_shell *shell);
+int				echo(t_cmd *cmd, t_shell *shell);
 
 // env.c
-int		env(t_cmd *cmd, t_shell *shell);
+int				env(t_cmd *cmd, t_shell *shell);
 
 // exit.c
-int		exit_shell(t_cmd *cmd, t_shell *shell);
+int				exit_shell(t_cmd *cmd, t_shell *shell);
 
 // export_utils.c
-bool	is_valid_export_arg(const char *arg);
+bool			is_valid_export_arg(const char *arg);
 
 // export.c
-int		export(t_cmd *cmd, t_shell *shell);
+int				export(t_cmd *cmd, t_shell *shell);
 
 // pwd.c
-int		pwd(t_cmd *cmd, t_shell *shell);
+int				pwd(t_cmd *cmd, t_shell *shell);
 
 // unset.c
-int		unset(t_cmd *cmd, t_shell *shell);
+int				unset(t_cmd *cmd, t_shell *shell);
 
 // ----------------------------------- executor/execute_command
 // execute_commands.c
@@ -355,49 +355,51 @@ t_validation	execute_command(t_shell *shell, int i);
 int				execute_commands(t_shell *shell);
 
 // redirect_command.c
-void	open_redirects(t_cmd *cmd);
+void			open_redirects(t_cmd *cmd);
 
 // single_command.c
-int		single_command(t_shell *shell);
+int				single_command(t_shell *shell);
 t_validation	child_process(t_shell *shell);
 
 // ----------------------------------- executor/execute_commands
 // execute_commands.c
-int		execute_commands(t_shell *shell);
+int				execute_commands(t_shell *shell);
 
 // execute_pipe.c
-void	first_cmd(t_shell *shell, t_cmd *cmd, int pipe_out[2]);
-void	mid_cmd(t_shell *shell, t_cmd *cmd, int pipe_in, int pipe_out[2]);
-int		final_cmd(t_shell *shell, t_cmd *cmd, int pipe_in);
+void			first_cmd(t_shell *shell, t_cmd *cmd, \
+					int pipe_out[2]);
+void			mid_cmd(t_shell *shell, t_cmd *cmd, \
+					int pipe_in, int pipe_out[2]);
+int				final_cmd(t_shell *shell, t_cmd *cmd, int pipe_in);
 
 // execute_piped_command.c
 t_validation	execute_piped_command(t_shell *shell, t_cmd *cmd);
 
 // execute_wait.c
-int		wait_for_last_cmd(int child_count, int last_pid);
+int				wait_for_last_cmd(int child_count, int last_pid);
 
 // ----------------------------------- executor/pipe
 // pipe_utils.c
-int		count_pipes(t_shell *shell);
+int				count_pipes(t_shell *shell);
 
 // ----------------------------------- executor/redirects
 // redirect_heredoc
-int		setup_heredoc(t_redirect *heredoc, int *stat_loc);
+int				setup_heredoc(t_redirect *heredoc, int *stat_loc);
 
 // redirect_in_files.c
 t_validation	redirect_in_files(t_cmd *cmd, int *stat_loc);
 
 // redirect_open.c
-int			safe_open(char *path, t_redirect_type oflag, int mode);
-t_in_files	*open_in_files(t_cmd *cmd, t_in_files *ins, t_redirect_type type, \
-	int *stat_loc);
+int				safe_open(char *path, t_redirect_type oflag, int mode);
+t_in_files		*open_in_files(t_cmd *cmd, t_in_files *ins, \
+					t_redirect_type type, int *stat_loc);
 
 // redirect_out_files.c
 t_validation	redirect_out(t_cmd *cmd);
 
 // redirect_types.c
-t_redirect	*file_type(t_cmd *cmd, t_redirect_type type);
-int			get_open_flag(t_redirect_type type);
+t_redirect		*file_type(t_cmd *cmd, t_redirect_type type);
+int				get_open_flag(t_redirect_type type);
 
 // redirect_utils.c
 void			free_ins(t_in_files *ins);
@@ -406,58 +408,58 @@ int				count_files(t_cmd *cmd, t_redirect_type type);
 
 // ----------------------------------- executor/signals
 // signals.c
-void	handle_signals(t_signal signal_process);
-void	rl_replace_line(const char *text, int clear_undo);
+void			handle_signals(t_signal signal_process);
+void			rl_replace_line(const char *text, int clear_undo);
 
 //===============================================================: Expander
 // expander_utils.c
-void	free_env_values(char *key, char *value, t_env_utils *env_utils);
-int		count_expand(char *arg);
-bool	is_arg_key(char *arg, char *key);
-char	*expand_exit_code(char *arg, char *key, char *val, \
-	size_t i, t_env_utils *env_utils);
+void			free_env_values(char *key, char *value, t_env_utils *env_utils);
+int				count_expand(char *arg);
+bool			is_arg_key(char *arg, char *key);
+char			*expand_exit_code(char *arg, char *key, char *val, \
+					size_t i, t_env_utils *env_utils);
 
 // expander.c
-char	*will_expand(char **env, char *arg);
+char			*will_expand(char **env, char *arg);
 
 // get_env_key.c
-char	*get_env_key(char *arg, size_t i);
+char			*get_env_key(char *arg, size_t i);
 
 //===============================================================: Utils
 // control_utils.c
-void	ft_sleep(size_t count);
+void			ft_sleep(size_t count);
 
 // env_utils.c
-char	*get_value_for_key(char **env, char *key);
-int		count_lines_from(char **env, int index);
-size_t	env_size(char **env);
-int		index_for_env_key(char **input_env, char *key);
+char			*get_value_for_key(char **env, char *key);
+int				count_lines_from(char **env, int index);
+size_t			env_size(char **env);
+int				index_for_env_key(char **input_env, char *key);
 
 // function_protection.c
-void	*safe_strjoin(const char *s1, const char *s2);
-void	*safe_malloc(size_t size);
-void	*safe_calloc(size_t count, size_t size);
-char	*safe_strdup(char *str);
-char	*safe_strdup_from(const char *str, int i);
+void			*safe_strjoin(const char *s1, const char *s2);
+void			*safe_malloc(size_t size);
+void			*safe_calloc(size_t count, size_t size);
+char			*safe_strdup(char *str);
+char			*safe_strdup_from(const char *str, int i);
 
 // print_cmds.c
-void		print_cmds(t_cmd_table *cmd_table);
-void		should_print(char *s, bool should_print);
+void			print_cmds(t_cmd_table *cmd_table);
+void			should_print(char *s, bool should_print);
 
 // print_tokens.c
 t_validation	print_tokens(t_shell *shell);
 void			print_strings(char **strings);
 
 // shell_finish_cmd.c
-void	free_cmd(t_cmd *cmd);
+void			free_cmd(t_cmd *cmd);
 
 // shell_finish_utils.c
-void	free_2d_array(char **array);
-void	free_tokens(t_token *token);
-void	free_cmd(t_cmd *cmd);
+void			free_2d_array(char **array);
+void			free_tokens(t_token *token);
+void			free_cmd(t_cmd *cmd);
 
 // shell_finish.c
-void	free_shell(t_shell *shell, bool will_exit);
-void	shell_finish(t_shell *shell);
+void			free_shell(t_shell *shell, bool will_exit);
+void			shell_finish(t_shell *shell);
 
 #endif
