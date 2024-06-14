@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   executor_environment.c                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 19:45:47 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/06/07 14:38:28 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   executor_environment.c                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/22 19:45:47 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/06/13 15:20:38 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,11 @@ char	**format_cmd(t_cmd *cmd)
 	Returns CMD_NOT_FOUND_STR "?" for command not found. And returns NULL 
 	when there is no command.
 */
-static char *get_path_error_string(void)
+static char	*get_path_error_string(void)
 {
-	char *str = malloc(2);
+	char	*str;
+
+	str = malloc(2);
 	str[0] = '?';
 	str[1] = '\0';
 	return (str);
@@ -47,7 +49,7 @@ char	*get_path_for_cmd(char **env_paths, char *command)
 	char	*temp_path;
 	char	*command_path;
 	int		i;
-	
+
 	if (command == NULL)
 		return (NULL);
 	i = 0;

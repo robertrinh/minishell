@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 13:08:29 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/11 15:10:06 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/13 15:24:27 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_redirect	*file_type(t_cmd *cmd, t_redirect_type type)
 	return (NULL);
 }
 
-int	get_open_flag_for_type(t_redirect_type type)
+int	get_open_flag(t_redirect_type type)
 {
 	if (type == IN)
 		return (O_RDONLY);

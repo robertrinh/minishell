@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/10 16:39:24 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/04/10 17:23:54 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/13 15:45:14 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static bool	validate_pipe_operators(char *input, int len)
 	return (true);
 }
 
-static bool validate_redirect_operators(char *input, int len)
+static bool	validate_redirect_operators(char *input, int len)
 {
 	int		i;
 	int		subsequent_count;

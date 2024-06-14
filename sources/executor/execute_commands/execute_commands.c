@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   execute_commands.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/22 21:09:40 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/06/07 16:04:41 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   execute_commands.c                                 :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/04/22 21:09:40 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/06/13 15:44:19 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,28 @@ static int	is_last_cmd(int cmd_count, int i)
 	return (false);
 }
 
-static int	pipe_commands(t_shell *shell, t_cmd *cmd, t_childs *childs, bool is_last_cmd)
+static int	pipe_commands(t_shell *sh, t_cmd *cmd, t_childs *ch, bool last_cmd)
 {
 	int				last_pid;
 	static int		flip = 0;
 
 	last_pid = 0;
-	if (is_last_cmd == false)
+	if (last_cmd == false)
 	{
-		if (pipe(childs->pipe_fd[flip]) < 0)
+		if (pipe(ch->pipe_fd[flip]) < 0)
 			exit_with_message(E_PIPE_FAIL, C_RED, X_FAILURE);
 	}
-	if (childs->child_count == 0)
-		first_cmd(shell, cmd, childs->pipe_fd[flip]);
-	else if (is_last_cmd)
-		last_pid = final_cmd(shell, cmd, childs->pipe_fd[!flip][0]);
+	if (ch->child_count == 0)
+		first_cmd(sh, cmd, ch->pipe_fd[flip]);
+	else if (last_cmd)
+		last_pid = final_cmd(sh, cmd, ch->pipe_fd[!flip][0]);
 	else
-		mid_cmd(shell, cmd, childs->pipe_fd[!flip][0], childs->pipe_fd[flip]);
+		mid_cmd(sh, cmd, ch->pipe_fd[!flip][0], ch->pipe_fd[flip]);
 	flip = !flip;
 	return (last_pid);
 }
 
-static int	execute_cmd_for(t_shell *shell, int i, t_childs *childs)
+static int	execute_cmd_for(t_shell *shell, int i, t_childs *ch)
 {
 	int			last_cmd;
 	t_cmd		*cmd;
@@ -60,27 +60,27 @@ static int	execute_cmd_for(t_shell *shell, int i, t_childs *childs)
 		return (-1);
 	}
 	prepare_command(shell, i);
-	return (pipe_commands(shell, cmd, childs, last_cmd));
+	return (pipe_commands(shell, cmd, ch, last_cmd));
 }
 
 int	execute_commands(t_shell *shell)
 {
 	int			i;
 	int			last_pid;
-	t_childs	childs;
+	t_childs	ch;
 	int			return_value;
 
 	i = 0;
 	last_pid = 0;
-	childs.child_count = 0;
+	ch.child_count = 0;
 	while (i < shell->cmd_table->cmd_count)
 	{
-		last_pid = execute_cmd_for(shell, i, &childs);
+		last_pid = execute_cmd_for(shell, i, &ch);
 		if (last_pid < 0)
 			return (g_exit_code);
-		childs.child_count++;
+		ch.child_count++;
 		i++;
 	}
-	return_value = wait_for_last_cmd(childs.child_count, last_pid);
+	return_value = wait_for_last_cmd(ch.child_count, last_pid);
 	return (return_value);
 }

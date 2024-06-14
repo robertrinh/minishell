@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   shell_init.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/14 14:04:02 by qtrinh            #+#    #+#             */
-/*   Updated: 2024/06/07 10:17:26 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   shell_init.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/14 14:04:02 by qtrinh        #+#    #+#                 */
+/*   Updated: 2024/06/13 16:36:49 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ static char	**alloc_envp(char **envp)
 	return (copy_envp);
 }
 
-static t_cmd_table *init_cmd_table(void)
+static t_cmd_table	*init_cmd_table(void)
 {
-	t_cmd_table		*cmd_table;
+	t_cmd_table	*cmd_table;
 
 	cmd_table = safe_malloc(sizeof(t_cmd_table));
 	cmd_table->cmd_count = 0;
@@ -46,7 +46,7 @@ bool	save_command(char *command, t_shell *shell)
 	return (SUCCESS);
 }
 
-t_shell *construct_shell(t_shell *shell, char **envp, char **argv)
+t_shell	*construct_shell(t_shell *shell, char **envp, char **argv)
 {
 	shell = safe_malloc(sizeof(t_shell));
 	shell->input = NULL;
@@ -63,11 +63,5 @@ t_shell *construct_shell(t_shell *shell, char **envp, char **argv)
 t_shell	*shell_pre_init(t_shell *shell, char **envp, char **argv)
 {
 	shell = construct_shell(shell, envp, argv);
-	return (shell);
-}
-
-t_shell	*shell_run_init(t_shell *shell)
-{
-	handle_signals(PARENT);
 	return (shell);
 }

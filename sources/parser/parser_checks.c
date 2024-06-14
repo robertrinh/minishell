@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/18 21:07:32 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 14:07:38 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/13 16:25:21 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static bool	contains_pipe(t_token *token)
 	return (false);
 }
 
-static bool contains_redirect(t_token_type type)
+static bool	contains_redirect(t_token_type type)
 {
 	if (type >= REDIRECT && type <= REDIR_OUT)
 		return (true);

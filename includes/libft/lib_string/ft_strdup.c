@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/12 10:05:38 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/05/23 17:40:54 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/13 15:19:17 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ char	*ft_strdup(const char *str)
 		return (NULL);
 	if (ft_strlcpy(p, str, str_len) >= str_len)
 	{
-        free(p);
-        return (NULL);
-    }
+		free(p);
+		return (NULL);
+	}
 	return (p);
 }

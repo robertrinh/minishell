@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 10:13:21 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/01 16:18:52 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/13 16:29:06 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,17 @@ static t_cmd	*process_cmd(char **env, t_cmd *cmd)
 	return (cmd);
 }
 
-int		parser_post_process(t_shell *shell)
+int	parser_post_process(t_shell *shell)
 {
-	int	i;
+	int		i;
+	t_cmd	*cmd;
 
 	i = 0;
+	cmd = shell->cmd_table->cmds[i];
 	while (i < shell->cmd_table->cmd_count)
 	{
-		shell->cmd_table->cmds[i] = process_cmd(shell->envp, shell->cmd_table->cmds[i]);
-		shell->cmd_table->cmds[i] = process_args(shell->envp, shell->cmd_table->cmds[i]);
+		cmd = process_cmd(shell->envp, cmd);
+		cmd = process_args(shell->envp, cmd);
 		i++;
 	}
 	return (0);

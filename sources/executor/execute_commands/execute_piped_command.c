@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   execute_piped_command.c                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/22 21:13:57 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/06/07 12:26:03 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   execute_piped_command.c                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/04/22 21:13:57 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/06/13 15:44:33 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ t_validation	execute_piped_command(t_shell *shell, t_cmd *cmd)
 	cmd_value = cmd->value;
 	cmd_path = cmd->cmd_path;
 	cmd_and_args = cmd->cmd_and_args;
-
 	if (is_builtin(shell->builtin_child, cmd, B_NUM_CHILD))
 		exec_builtin(shell->builtin_child, cmd, shell, B_NUM_CHILD);
-
 	if (cmd_path == NULL)
 		exit(g_exit_code);
 	else if (execve(cmd_path, cmd_and_args, shell->envp) == -1)

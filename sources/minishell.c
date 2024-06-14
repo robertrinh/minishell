@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 13:13:49 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/06/07 14:15:22 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/06/13 16:41:40 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int g_exit_code = 0;
+int	g_exit_code = 0;
 
-static t_validation is_valid_input(t_shell *shell)
+static t_validation	is_valid_input(t_shell *shell)
 {
 	if (shell->input[0] == '\0')
 		return (FAILURE);
@@ -41,7 +41,7 @@ static bool	shell_run(t_shell *shell)
 {
 	while (1)
 	{
-		shell = shell_run_init(shell);
+		handle_signals(PARENT);
 		shell_retrieve_command(shell);
 		if (is_valid_input(shell))
 			if (shell_lexer(shell))
@@ -60,6 +60,5 @@ int	main(int argc, char **argv, char **envp)
 	shell = NULL;
 	shell = shell_pre_init(shell, envp, argv);
 	shell_run(shell);
-	// free_shell(shell, true);
 	return (EXIT_SUCCESS);
 }

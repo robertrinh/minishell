@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 13:13:52 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/06/07 12:03:27 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   lexer.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/06/13 16:19:59 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ t_token	*token_constructor(char *split_input, int i)
 	if (token == NULL)
 		return (NULL);
 	token->len = ft_strlen(split_input);
-	token->value = ft_strdup(split_input);
+	token->value = safe_strdup(split_input);
 	if (token->value == NULL)
 	{
-		show_error_message(E_MALLOC, C_RED, "safe_strdup()", X_FAILURE);
+		show_error_message(E_MALLOC, C_RED, "safe_strdup token", X_FAILURE);
 		return (NULL);
 	}
 	token->type = assign_type(token->value);
@@ -49,10 +49,7 @@ static t_token	*tokenize_command(t_token *tokens_head, t_shell *shell)
 	{
 		new = token_constructor(split_struct->strings[i], i);
 		if (new == NULL)
-		{
-			free_split(split_struct);
-			return (NULL);
-		}
+			return (free_split(split_struct), NULL);
 		if (current == NULL)
 		{
 			current = new;

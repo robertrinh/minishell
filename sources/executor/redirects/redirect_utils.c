@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 13:07:55 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 12:24:23 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/13 15:29:39 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_redirect_type	last_infile_type(t_cmd *cmd)
 	return (type);
 }
 
-int	count_files_for_type(t_cmd *cmd, t_redirect_type type)
+int	count_files(t_cmd *cmd, t_redirect_type type)
 {
 	int			count;
 	t_redirect	*fd;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   redirect_out_files.c                               :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/03/28 12:35:51 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/13 11:36:34 by robertrinh    ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   redirect_out_files.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/28 12:35:51 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/06/14 14:35:11 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	open_out_files(t_cmd *cmd)
 	curr = cmd->fd_out;
 	while (curr)
 	{
-		curr->fd = safe_open(curr->value, get_open_flag_for_type(curr->type), 0644);
+		curr->fd = safe_open(curr->value, get_open_flag(curr->type), 0644);
 		if (curr->fd == -1)
 			break ;
 		if (curr->next == NULL)
@@ -68,7 +68,7 @@ t_validation	redirect_out(t_cmd *cmd)
 	}
 	else
 	{
-		dev_null_fd = open("/dev/null", get_open_flag_for_type(OUT));
+		dev_null_fd = open("/dev/null", get_open_flag(OUT));
 		if (dev_null_fd >= 0)
 		{
 			if (dup2(dev_null_fd, STDOUT_FILENO) < 0)
@@ -78,4 +78,3 @@ t_validation	redirect_out(t_cmd *cmd)
 	}
 	return (close_out_files(cmd));
 }
-
