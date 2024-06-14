@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/25 14:22:47 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/13 10:26:10 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define E_PIPE_FAIL			"pipe failure: "
 # define E_CLOSE				"close failure"
 # define E_OPENING_FILE			"could not open file: "
+# define E_DENY					"Permission denied: "
 # define E_CMD_NOT_FOUND		"command not found: "
 # define E_NUMERIC_ERR			"exit: numeric argument required"
 # define E_ARG_ERR				"exit: too many arguments"

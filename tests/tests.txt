@@ -83,6 +83,8 @@ echo >
 echo <<
 echo > |
 echo "bip | bip ; coyotte > < "
+echo hello > input.txt and then chmod 000
+echo this >> input.txt
 
 
 === SIGNALS ===
