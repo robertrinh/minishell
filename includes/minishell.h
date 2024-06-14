@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/13 16:37:01 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/14 15:06:10 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,9 @@ typedef struct s_cmd_table
 	int			cmd_count;
 }	t_cmd_table;
 
-typedef struct s_builtin	t_builtin;
+typedef struct s_builtin
+{
+}	t_builtin;
 
 typedef struct s_shell
 {
@@ -212,16 +214,16 @@ typedef struct s_in_files
 
 //===============================================================: Main
 // shell_init.c
-t_shell	*shell_pre_init(t_shell *shell, char **envp, char **argv);
-bool	save_command(char *command, t_shell *shell);
+t_shell			*shell_pre_init(t_shell *shell, char **envp, char **argv);
+bool			save_command(char *command, t_shell *shell);
 
 //===============================================================: Lexer
 // assign_type.c
-bool	assign_redirect_types(t_token *tokens);
+bool			assign_redirect_types(t_token *tokens);
 t_token_type	assign_type(char *value);
 
 // lexer_utils.c
-bool	is_special_type(t_token_type type);
+bool			is_special_type(t_token_type type);
 t_token	*skip_operators(t_token *current);
 t_token	*assign_argfile_args(t_token *current);
 t_token	*assign_cmd_arg(t_token *current, int i);

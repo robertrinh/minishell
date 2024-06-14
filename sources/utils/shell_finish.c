@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   shell_finish.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/23 16:15:55 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/06/07 10:50:40 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   shell_finish.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/05/23 16:15:55 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/06/14 15:00:46 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ void	shell_finish(t_shell *shell)
 		show_error_message(E_DUP, C_RED, "", X_FAILURE);
 		return ;
 	}
-	should_print("\n--------------------End--------------------\n\n", shell->print_output);
+	should_print("\n--------------------End--------------------\n\n", \
+		shell->print_output);
 }
