@@ -6,18 +6,11 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/22 21:17:34 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/13 15:40:53 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/14 15:09:39 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
-
-static int	handle_signal(int signal)
-{
-	// if (signal > 0 && signal < 32)
-	// 	return (signal + 128);
-	return (signal + 128);
-}
 
 /*
 	Returns the signal of the last command, when execution is complete.
@@ -44,6 +37,9 @@ int	wait_for_last_cmd(int child_count, int last_pid)
 	if (WIFEXITED(last_status))
 		return (WEXITSTATUS(last_status));
 	else if (WIFSIGNALED(last_status))
-		return (handle_signal(WTERMSIG(last_status)));
+	{
+		g_exit_code = signal + 128;
+		return (g_exit_code);
+	}
 	return (-1);
 }
