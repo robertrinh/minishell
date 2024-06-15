@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/15 17:28:44 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/15 19:05:16 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,6 @@ typedef enum e_validation
 	FAILURE,
 	SUCCESS
 }	t_validation;
-
-typedef enum e_direction
-{
-	LEFT,
-	RIGHT
-}	t_direction;
 
 typedef enum e_signal
 {
@@ -142,12 +136,6 @@ typedef struct s_token
 	char			*value;
 	struct s_token	*next;
 }	t_token;
-
-typedef struct s_env_utils
-{
-	char	*key;
-	char	*value;
-}	t_env_utils;
 
 typedef struct s_childs
 {
@@ -416,7 +404,6 @@ void			rl_replace_line(const char *text, int clear_undo);
 
 //===============================================================: Expander
 // expander_utils.c
-void			free_env_values(char *key, char *value, t_env_utils *env_utils);
 int				count_expand(char *arg);
 bool			is_arg_key(char *arg, char *key);
 char			*expand_exit_code(char *arg, char *key, size_t i);

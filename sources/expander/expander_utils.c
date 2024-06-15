@@ -6,22 +6,12 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/23 21:54:16 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/15 17:23:36 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/15 19:05:10 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/libft/lib_vector/vector.h"
-
-void free_env_values(char *key, char *value, t_env_utils *env_utils)
-{
-	if (key != NULL)
-		free (key);
-	if (value != NULL)
-		free (value);
-	if (env_utils != NULL)
-		free (env_utils);
-}
 
 int	count_expand(char *arg)
 {

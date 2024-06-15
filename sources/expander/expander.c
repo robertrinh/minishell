@@ -6,23 +6,12 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/15 18:35:47 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/15 19:04:34 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/libft/lib_vector/vector.h"
-
-t_env_utils	*init_env_utils(char **env, char *arg, size_t i)
-{
-	t_env_utils		*env_utils;
-
-	env_utils = safe_malloc(sizeof(t_env_utils));
-	env_utils->key = get_env_key(arg, i);
-	ft_sleep(PROCESS_SLEEP_TIME);
-	env_utils->value = get_value_for_key(env, env_utils->key);
-	return (env_utils);
-}
 
 static char *expand_arg(char **env, char *arg, size_t i)
 {
