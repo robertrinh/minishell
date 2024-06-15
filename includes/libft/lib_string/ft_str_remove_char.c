@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/04 19:56:47 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/15 15:28:52 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/15 15:33:59 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,18 @@ static bool insert_buffer(char *base_input, unsigned int i, t_vec *vec, \
 }
 
 
+/**
+ * Function to remove a specified character from a string at a given index,
+ * and return the modified string. If the character at the given index is
+ * not the specified character, the original string is returned. This function
+ * uses vectors.
+ *
+ * @param str The input string.
+ * @param i The index at which to check and potentially remove the character.
+ * @param c The character to be removed if found at the specified index.
+ * @return The modified string with the character removed, or the original
+ *         string if the character at the index is not the specified character.
+ */
 char	*ft_str_remove_char(char *str, int i, char c)
 {
 	t_vec 	vec;

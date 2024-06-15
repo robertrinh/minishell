@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/16 11:15:41 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/06/07 15:12:52 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   expander.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/06/15 16:22:38 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_env_utils	*init_env_utils(char **env, char *arg, size_t i)
 
 	env_utils = safe_malloc(sizeof(t_env_utils));
 	env_utils->key = get_env_key(arg, i);
-	ft_sleep(5000);
+	ft_sleep(PROCESS_SLEEP_TIME);
 	env_utils->value = get_value_for_key(env, env_utils->key);
 	return (env_utils);
 }
@@ -33,7 +33,7 @@ static char	*expand_arg(char **env, char *arg, size_t i)
 	env_utils = init_env_utils(env, arg, i);
 	if (env_utils->key[0] == '?')
 	{
-		arg = expand_exit_code(arg, env_utils->key, env_utils->value, i, env_utils);
+		arg = expand_exit_code(arg, env_utils->key, i);
 		return (arg);
 	}
 	if (env_utils->key[0] != EXPAND_CHAR)
@@ -42,7 +42,7 @@ static char	*expand_arg(char **env, char *arg, size_t i)
 	if (arg && env_utils->value && is_arg_key(arg, env_utils->key))
 	{
 		arg = env_utils->value;
-		free_env_values(env_utils->key, NULL, env_utils); // TODO: how to free value after?
+		free_env_values(env_utils->key, NULL, env_utils);
 		return (arg);
 	}
 	arg = ft_str_remove(arg, env_utils->key);

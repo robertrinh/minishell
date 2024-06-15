@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/15 13:06:53 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/15 16:21:47 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define RESET_COLOR "\033[0m"
 
 # define BUFF_SIZE 4096
+# define PROCESS_SLEEP_TIME 5000
 # define PRINT_FLAG "-p"
 
 //===============================================================: Global
@@ -417,8 +418,7 @@ void			rl_replace_line(const char *text, int clear_undo);
 void			free_env_values(char *key, char *value, t_env_utils *env_utils);
 int				count_expand(char *arg);
 bool			is_arg_key(char *arg, char *key);
-char			*expand_exit_code(char *arg, char *key, char *val, \
-					size_t i, t_env_utils *env_utils);
+char			*expand_exit_code(char *arg, char *key, size_t i);
 
 // expander.c
 char			*will_expand(char **env, char *arg);
