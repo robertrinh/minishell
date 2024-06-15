@@ -78,6 +78,7 @@ cd Deskto (invalid dir)
 unset PWD											
 unset HOME PATH SHELL USER PWD TERM ZSH
 
+
 === ERROR MESSAGES ===
 <<EOF
 echo >

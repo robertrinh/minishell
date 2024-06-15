@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/17 10:13:25 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/15 19:20:44 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/15 19:47:32 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*ft_str_insert(char *base, char *insert, int i)
 	if (ft_vec_init(&vec_base, ft_strlen(base)) == false)
 		return (NULL);
 	int j = 0;
-	while (j <= 0)
+	while (j < i)
 	{
 		ft_vec_push(&vec_base, base[j]);
 		j++;

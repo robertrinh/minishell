@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/15 19:04:34 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/15 19:50:32 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char *expand_arg(char **env, char *arg, size_t i)
 	else
 		new_key = ft_strdup(key);
 	free(key);
-
+	
 	// Romove key from arg
 	result = ft_str_remove(arg, new_key);
 	free (new_key);
@@ -71,9 +71,9 @@ static char *expand_arg(char **env, char *arg, size_t i)
 	if (result && val)
 	{
 		new_result = ft_str_insert(result, val, i);
-		free (val);
 		free (result);
 	}
+	free (val);
 
 	// Result
 	ft_vec_push_str(&vec_val, new_result);
