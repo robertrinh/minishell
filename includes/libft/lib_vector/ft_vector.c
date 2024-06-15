@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/15 12:37:13 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/15 16:09:32 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/15 17:00:43 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ bool ft_vec_push_str(t_vec *v, const char *str)
 
 
 /**
- * ft_get_str - Converts the vector to a null-terminated string.
+ * ft_vec_to_str - Converts the vector to a null-terminated string.
  * @v: The vector to be converted.
  * 
  * This function adds a null terminator to the end of the vector data,
@@ -138,7 +138,7 @@ bool ft_vec_push_str(t_vec *v, const char *str)
  * Return: A pointer to the newly allocated null-terminated string, or NULL
  * if memory allocation fails.
 */
-char	*ft_get_str(t_vec *v) 
+char	*ft_vec_to_str(t_vec *v) 
 {
 	char	*tmp;
 

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/15 16:21:47 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/15 17:28:44 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define OPERATORS "<>|"
 # define REDIRECTS "<>"
 # define EXPAND_CHAR '$'
+# define EXIT_CODE_CHAR '?'
 # define EXPORT_DELIMITER '='
 # define D_QUOTE_CHAR 34
 # define S_QUOTE_CHAR 39

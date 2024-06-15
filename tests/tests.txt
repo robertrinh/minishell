@@ -40,6 +40,7 @@ grep aa << EOF | wc | wc -w >> OUTPUT
 
 
 === EXPANDER ===
+echo "hello"										[!] Valgrind LEAK
 cat "README.md" "Makefile" | wc -w
 echo $USER$PATH
 e'ch'o hello
