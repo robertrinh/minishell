@@ -6,7 +6,7 @@
 #    By: quentinbeukelman <quentinbeukelman@stud      +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/04/15 13:49:48 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/04/15 14:00:40 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2024/06/15 12:46:18 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,8 @@ LIB_STRING = ft_strlcpy.c \
 			ft_str_remove.c \
 			ft_str_remove_char.c \
 
+LIB_VECTOR = ft_vector.c \
+
 LIB_APPLY = ft_strmapi.c \
 			ft_striteri.c \
 
@@ -92,6 +94,7 @@ DIR_LIB_CHECK = lib_check
 DIR_LIB_CONVERT = lib_convert
 DIR_LIB_MEMORY = lib_memory
 DIR_LIB_STRING = lib_string
+DIR_LIB_VECTOR = lib_vector
 DIR_LIB_APPLY = lib_apply
 DIR_LIB_FILE_DESCRIPTOR = lib_file_descriptor
 DIR_LIB_LINKED_LIST = lib_linked_list
@@ -104,6 +107,7 @@ $(O_LIB_CHECK): $(DIR_OBJ)/$(DIR_LIB_CHECK)/%.o: $(DIR_LIB_CHECK)/%.c
 $(O_LIB_CONVERT): $(DIR_OBJ)/$(DIR_LIB_CONVERT)/%.o: $(DIR_LIB_CONVERT)/%.c
 $(O_LIB_MEMORY): $(DIR_OBJ)/$(DIR_LIB_MEMORY)/%.o: $(DIR_LIB_MEMORY)/%.c
 $(O_LIB_STRING): $(DIR_OBJ)/$(DIR_LIB_STRING)/%.o: $(DIR_LIB_STRING)/%.c
+$(O_LIB_VECTOR): $(DIR_OBJ)/$(DIR_LIB_VECTOR)/%.o: $(DIR_LIB_VECTOR)/%.c
 $(O_LIB_APPLY): $(DIR_OBJ)/$(DIR_LIB_APPLY)/%.o: $(DIR_LIB_APPLY)/%.c
 $(O_LIB_FILE_DESCRIPTOR): $(DIR_OBJ)/$(DIR_LIB_FILE_DESCRIPTOR)/%.o: $(DIR_LIB_FILE_DESCRIPTOR)/%.c
 $(O_LIB_LINKED_LIST): $(DIR_OBJ)/$(DIR_LIB_LINKED_LIST)/%.o: $(DIR_LIB_LINKED_LIST)/%.c
@@ -116,6 +120,7 @@ O_LIB_CHECK = $(LIB_CHECK:%.c=$(DIR_OBJ)/$(DIR_LIB_CHECK)/%.o)
 O_LIB_CONVERT = $(LIB_CONVERT:%.c=$(DIR_OBJ)/$(DIR_LIB_CONVERT)/%.o)
 O_LIB_MEMORY = $(LIB_MEMORY:%.c=$(DIR_OBJ)/$(DIR_LIB_MEMORY)/%.o)
 O_LIB_STRING = $(LIB_STRING:%.c=$(DIR_OBJ)/$(DIR_LIB_STRING)/%.o)
+O_LIB_VECTOR = $(LIB_VECTOR:%.c=$(DIR_OBJ)/$(DIR_LIB_VECTOR)/%.o)
 O_LIB_APPLY = $(LIB_APPLY:%.c=$(DIR_OBJ)/$(DIR_LIB_APPLY)/%.o)
 O_LIB_FILE_DESCRIPTOR = $(LIB_FILE_DESCRIPTOR:%.c=$(DIR_OBJ)/$(DIR_LIB_FILE_DESCRIPTOR)/%.o)
 O_LIB_LINKED_LIST = $(LIB_LINKED_LIST:%.c=$(DIR_OBJ)/$(DIR_LIB_LINKED_LIST)/%.o)
@@ -140,6 +145,11 @@ $(DIR_OBJ)/$(DIR_LIB_MEMORY)/%.o: $(DIR_LIB_MEMORY)/%.c
 	$(COMPILE_MESSAGE)
 
 $(DIR_OBJ)/$(DIR_LIB_STRING)/%.o: $(DIR_LIB_STRING)/%.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -I $(INC) -c $< -o $@
+	$(COMPILE_MESSAGE)
+
+$(DIR_OBJ)/$(DIR_LIB_VECTOR)/%.o: $(DIR_LIB_VECTOR)/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -I $(INC) -c $< -o $@
 	$(COMPILE_MESSAGE)
