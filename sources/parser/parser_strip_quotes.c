@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/24 09:51:56 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/15 17:33:45 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/15 18:52:20 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,8 @@ char	*new_strip_quotes(char *arg)
 			quote_type = is_quote(arg[i]);
 			new_arg = ft_str_remove_char(arg, i, quote_type);
 			if (new_arg == NULL)
-			{
-				printf("Remove char Failed\n");
 				return (NULL);
-			}
+
 			arg = new_arg;
 			i--;
 			i = next_quote_char(arg, i, quote_type);

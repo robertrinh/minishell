@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/15 12:37:13 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/15 17:00:43 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/15 18:48:46 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_free_vector(t_vec *v)
 			free(v->data);
 			v->data = NULL;
 		}
-		free(v);
+		// free(v);
 	}
 }
 

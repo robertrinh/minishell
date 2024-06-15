@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/04 19:56:47 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/15 17:35:25 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/15 18:55:57 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static bool insert_buffer(char *base_input, unsigned int i, t_vec *vec, \
 	return (true);
 }
 
-
 /**
  * Function to remove a specified character from a string at a given index,
  * and return the modified string. If the character at the given index is
@@ -78,7 +77,6 @@ char	*ft_str_remove_char(char *str, int i, char c)
 {
 	t_vec 	vec;
 	t_vec 	vec_buffer;
-	char 	*result;
 
 	// Check first char is quote
 	if (str[i] != c)
@@ -98,10 +96,9 @@ char	*ft_str_remove_char(char *str, int i, char c)
 	if (insert_buffer(str, i, &vec, &vec_buffer) == false)
 		return (NULL);
 	
-	// Get the final string and free the main vector
-	result = ft_vec_to_str(&vec);
+	if (vec_buffer.data)
+		ft_free_vector(&vec_buffer);
 
-	// ! ft_free_vector(&vec_buffer);
-	
-	return (result);
+	// Get the final string and free the main vector
+	return (ft_vec_to_str(&vec));
 }
