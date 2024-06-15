@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/15 12:37:13 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/15 12:51:08 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/15 14:38:24 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ bool	ft_vec_push(t_vec *v, char c)
 {
 	if (v->len == v->capacity) 
 	{
-		if (!vec_resize(v))
+		if (!ft_vec_resize(v))
 			return (false);
 	}
 	v->data[v->len] = c;
@@ -111,11 +111,11 @@ bool	ft_vec_push(t_vec *v, char c)
  * Return: A pointer to the newly allocated null-terminated string, or NULL
  * if memory allocation fails.
 */
-char	ft_*get_str(t_vec *v) 
+char	*ft_get_str(t_vec *v) 
 {
 	char	*tmp;
 
-	if (!vec_push(v, '\0')) 
+	if (!ft_vec_push(v, '\0')) 
 		return (NULL);
 	tmp = malloc(sizeof(char) * v->len);
 	if (!tmp)

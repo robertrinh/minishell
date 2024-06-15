@@ -6,7 +6,7 @@
 #    By: quentinbeukelman <quentinbeukelman@stud      +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/04/15 13:49:48 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/06/15 12:46:18 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2024/06/15 14:44:35 by quentinbeuk   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ LIB_STRING = ft_strlcpy.c \
 			ft_str_remove.c \
 			ft_str_remove_char.c \
 
-LIB_VECTOR = ft_vector.c \
+LIB_VECTOR = ft_vector.c
 
 LIB_APPLY = ft_strmapi.c \
 			ft_striteri.c \
@@ -183,7 +183,7 @@ $(DIR_OBJ)/$(DIR_LIB_PRINTF)/%.o: $(DIR_LIB_PRINTF)/%.c
 # ===== Rules =====
 all: $(NAME)
 
-$(NAME): $(O_LIB_CHECK) $(O_LIB_CONVERT) $(O_LIB_MEMORY) $(O_LIB_STRING) $(O_LIB_APPLY) $(O_LIB_FILE_DESCRIPTOR) $(O_LIB_LINKED_LIST) $(O_LIB_GET_NEXT_LINE) $(O_LIB_PRINTF)
+$(NAME): $(O_LIB_CHECK) $(O_LIB_CONVERT) $(O_LIB_MEMORY) $(O_LIB_STRING) $(O_LIB_VECTOR) $(O_LIB_VECTOR) $(O_LIB_APPLY) $(O_LIB_FILE_DESCRIPTOR) $(O_LIB_LINKED_LIST) $(O_LIB_GET_NEXT_LINE) $(O_LIB_PRINTF)
 	@$(AR) rcs $@ $^
 	@ranlib $@
 

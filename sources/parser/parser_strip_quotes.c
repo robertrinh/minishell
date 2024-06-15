@@ -6,11 +6,12 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/24 09:51:56 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/13 16:31:02 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/15 14:33:16 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include "../../includes/libft/lib_vector/vector.h"
 
 static int	next_quote_char(char *arg, int i, int quote_char)
 {
@@ -27,7 +28,7 @@ static int	next_quote_char(char *arg, int i, int quote_char)
 	return (i);
 }
 
-static char	*strip_quotes(char *arg)
+char	*new_strip_quotes(char *arg)
 {
 	int		i;
 	int		len;
@@ -43,7 +44,10 @@ static char	*strip_quotes(char *arg)
 			quote_type = is_quote(arg[i]);
 			new_arg = ft_str_remove_char(arg, i, quote_type);
 			if (new_arg == NULL)
+			{
+				printf("Remove char Failed\n");
 				return (NULL);
+			}
 			arg = new_arg;
 			i--;
 			i = next_quote_char(arg, i, quote_type);
@@ -60,11 +64,5 @@ static char	*strip_quotes(char *arg)
 		}
 		i++;
 	}
-	return (arg);
-}
-
-char	*strip_quote_for_type(char *arg)
-{
-	arg = strip_quotes(arg);
 	return (arg);
 }
