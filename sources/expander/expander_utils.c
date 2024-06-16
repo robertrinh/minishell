@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/23 21:54:16 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/15 19:05:10 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/16 12:43:17 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char *expand_exit_code(char *arg, char *key, size_t i)
 	t_vec	vec_arg;
 
 	key = safe_strjoin("$", key);
-	printf("arg: %s, key: %s\n", arg, key);
 	arg = ft_str_remove(arg, key);
 	exit_code_string = ft_itoa(g_exit_code);
 

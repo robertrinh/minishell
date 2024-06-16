@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/15 19:50:32 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/16 12:41:38 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@
 static char *expand_arg(char **env, char *arg, size_t i)
 {
 	t_vec	vec_val;
-	char	*key;
-	char	*val;
-	char	*result;
+    char *key = NULL;
+    char *val = NULL;
+    char *result = NULL;
+    char *new_key = NULL;
+    char *new_result = NULL;
 
 	if (ft_vec_init(&vec_val, ft_strlen(arg)) == false)
 		return (NULL);
@@ -31,6 +33,7 @@ static char *expand_arg(char **env, char *arg, size_t i)
 	}
 
 	// Get KEY + VAL
+	arg = skip_multiple_expand_chars(arg, i + 1);
 	key = get_env_key(arg, i);
 	ft_sleep(PROCESS_SLEEP_TIME);
 	val = get_value_for_key(env, key);
@@ -41,13 +44,11 @@ static char *expand_arg(char **env, char *arg, size_t i)
 		result = expand_exit_code(arg, key, i);
 		ft_vec_push_str(&vec_val, result);		
 		free (result);
-		free (key);
 		free (val);
 		return (ft_vec_to_str(&vec_val));
 	}
 
 	// Append dollar sign to key
-	char *new_key = NULL;
 	if (key[0] != EXPAND_CHAR)
 		new_key = ft_strjoin("$", key);
 	else
@@ -67,7 +68,6 @@ static char *expand_arg(char **env, char *arg, size_t i)
 	}
 
 	// Insert the value
-	char *new_result = NULL;
 	if (result && val)
 	{
 		new_result = ft_str_insert(result, val, i);
@@ -78,6 +78,7 @@ static char *expand_arg(char **env, char *arg, size_t i)
 	// Result
 	ft_vec_push_str(&vec_val, new_result);
 	free (new_result);
+	free (arg);
 	return (ft_vec_to_str(&vec_val));
 }
 

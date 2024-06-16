@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/23 16:15:55 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/14 15:00:46 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/16 11:14:53 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	free_cmd_table(t_cmd_table *cmd_table)
 		i++;
 	}
 	free(cmd_table->cmds);
+	cmd_table->cmd_count = 0;
 	cmd_table->cmds = NULL;
 }
 

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/29 22:10:43 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/15 17:28:56 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/16 12:42:09 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static bool is_end_env_key(char c)
 	return (false);
 }
 
-static char *skip_multiple_expand_chars(char *arg, size_t i)
+char *skip_multiple_expand_chars(char *arg, size_t i)
 {
 	int		j;
 	int		k;
@@ -58,7 +58,6 @@ char	*get_env_key(char *arg, size_t i)
 	char	*key;
 
 	i += 1;
-	arg = skip_multiple_expand_chars(arg, i);
 	if (arg[i] == EXIT_CODE_CHAR)
 		return ("?");
 	if (ft_strlen(arg) == i + 1)

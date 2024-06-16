@@ -6,17 +6,17 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/15 12:37:13 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/15 18:48:46 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/16 11:22:55 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
 
 /**
- * ft_free_vector - Frees the memory allocated for the vector.
+ * ft_vec_free - Frees the memory allocated for the vector.
  * @v: The vector to be freed.
 */
-void	ft_free_vector(t_vec *v)
+void	ft_vec_free(t_vec *v)
 {
 	if (v)
 	{

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/15 19:05:16 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/16 12:37:22 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -412,6 +412,7 @@ char			*expand_exit_code(char *arg, char *key, size_t i);
 char			*will_expand(char **env, char *arg);
 
 // get_env_key.c
+char			*skip_multiple_expand_chars(char *arg, size_t i);
 char			*get_env_key(char *arg, size_t i);
 
 //===============================================================: Utils

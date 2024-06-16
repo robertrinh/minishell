@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/04 19:56:47 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/15 18:55:57 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/16 11:21:19 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	*ft_str_remove_char(char *str, int i, char c)
 		return (NULL);
 	
 	if (vec_buffer.data)
-		ft_free_vector(&vec_buffer);
+		ft_vec_free(&vec_buffer);
 
 	// Get the final string and free the main vector
 	return (ft_vec_to_str(&vec));

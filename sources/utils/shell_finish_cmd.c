@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   shell_finish_cmd.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/01 16:00:19 by qtrinh            #+#    #+#             */
-/*   Updated: 2024/06/07 10:49:50 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   shell_finish_cmd.c                                 :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/06/01 16:00:19 by qtrinh        #+#    #+#                 */
+/*   Updated: 2024/06/15 20:02:56 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	free_args_format_cmd(t_cmd *cmd)
 	if (cmd->args)
 	{
 		i = 0;
-		while (i < cmd->arg_count)
+		while (i <= cmd->arg_count)
 		{
 			if (cmd->args[i])
 			{
