@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/14 16:24:07 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/16 12:37:22 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define OPERATORS "<>|"
 # define REDIRECTS "<>"
 # define EXPAND_CHAR '$'
+# define EXIT_CODE_CHAR '?'
 # define EXPORT_DELIMITER '='
 # define D_QUOTE_CHAR 34
 # define S_QUOTE_CHAR 39
@@ -48,6 +49,7 @@
 # define RESET_COLOR "\033[0m"
 
 # define BUFF_SIZE 4096
+# define PROCESS_SLEEP_TIME 5000
 # define PRINT_FLAG "-p"
 
 //===============================================================: Global
@@ -59,12 +61,6 @@ typedef enum e_validation
 	FAILURE,
 	SUCCESS
 }	t_validation;
-
-typedef enum e_direction
-{
-	LEFT,
-	RIGHT
-}	t_direction;
 
 typedef enum e_signal
 {
@@ -140,12 +136,6 @@ typedef struct s_token
 	char			*value;
 	struct s_token	*next;
 }	t_token;
-
-typedef struct s_env_utils
-{
-	char	*key;
-	char	*value;
-}	t_env_utils;
 
 typedef struct s_childs
 {
@@ -283,6 +273,7 @@ bool			should_add_files(t_token_type current_type, t_token_type type);
 t_cmd			*construct_redirects(t_cmd *cmd, t_parse *p);
 
 // parser_strip_quotes.c
+char			*new_strip_quotes(char *arg);
 char			*strip_quote_for_type(char *arg);
 
 // parser_utils.c
@@ -413,16 +404,15 @@ void			rl_replace_line(const char *text, int clear_undo);
 
 //===============================================================: Expander
 // expander_utils.c
-void			free_env_values(char *key, char *value, t_env_utils *env_utils);
 int				count_expand(char *arg);
 bool			is_arg_key(char *arg, char *key);
-char			*expand_exit_code(char *arg, char *key, char *val, \
-					size_t i, t_env_utils *env_utils);
+char			*expand_exit_code(char *arg, char *key, size_t i);
 
 // expander.c
 char			*will_expand(char **env, char *arg);
 
 // get_env_key.c
+char			*skip_multiple_expand_chars(char *arg, size_t i);
 char			*get_env_key(char *arg, size_t i);
 
 //===============================================================: Utils

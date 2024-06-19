@@ -1,55 +1,85 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/16 11:15:41 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/06/07 15:12:52 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   expander.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/06/16 12:41:38 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include "../../includes/libft/lib_vector/vector.h"
 
-t_env_utils	*init_env_utils(char **env, char *arg, size_t i)
+static char *expand_arg(char **env, char *arg, size_t i)
 {
-	t_env_utils		*env_utils;
+	t_vec	vec_val;
+    char *key = NULL;
+    char *val = NULL;
+    char *result = NULL;
+    char *new_key = NULL;
+    char *new_result = NULL;
 
-	env_utils = safe_malloc(sizeof(t_env_utils));
-	env_utils->key = get_env_key(arg, i);
-	ft_sleep(5000);
-	env_utils->value = get_value_for_key(env, env_utils->key);
-	return (env_utils);
-}
+	if (ft_vec_init(&vec_val, ft_strlen(arg)) == false)
+		return (NULL);
 
-static char	*expand_arg(char **env, char *arg, size_t i)
-{
-	t_env_utils		*env_utils;
-
+	// If arg is one char
 	if (ft_strlen(arg) == 1)
-		return (arg);
-	env_utils = NULL;
-	env_utils = init_env_utils(env, arg, i);
-	if (env_utils->key[0] == '?')
 	{
-		arg = expand_exit_code(arg, env_utils->key, env_utils->value, i, env_utils);
-		return (arg);
+		ft_vec_push(&vec_val, arg[0]);
+		return (ft_vec_to_str(&vec_val));
 	}
-	if (env_utils->key[0] != EXPAND_CHAR)
-		env_utils->key = ft_strjoin("$", env_utils->key);
 
-	if (arg && env_utils->value && is_arg_key(arg, env_utils->key))
+	// Get KEY + VAL
+	arg = skip_multiple_expand_chars(arg, i + 1);
+	key = get_env_key(arg, i);
+	ft_sleep(PROCESS_SLEEP_TIME);
+	val = get_value_for_key(env, key);
+
+	// If env key is expand char
+	if (key[0] == '?')
 	{
-		arg = env_utils->value;
-		free_env_values(env_utils->key, NULL, env_utils); // TODO: how to free value after?
-		return (arg);
+		result = expand_exit_code(arg, key, i);
+		ft_vec_push_str(&vec_val, result);		
+		free (result);
+		free (val);
+		return (ft_vec_to_str(&vec_val));
 	}
-	arg = ft_str_remove(arg, env_utils->key);
-	if (arg && env_utils->value)
-		arg = ft_str_insert(arg, env_utils->value, i);
-	free_env_values(env_utils->key, env_utils->value, env_utils);
-	return (arg);
+
+	// Append dollar sign to key
+	if (key[0] != EXPAND_CHAR)
+		new_key = ft_strjoin("$", key);
+	else
+		new_key = ft_strdup(key);
+	free(key);
+	
+	// Romove key from arg
+	result = ft_str_remove(arg, new_key);
+	free (new_key);
+	
+	// If no value exists for this key
+	if (val == NULL)
+	{
+		ft_vec_push_str(&vec_val, result);
+		free (result);
+		return (ft_vec_to_str(&vec_val));
+	}
+
+	// Insert the value
+	if (result && val)
+	{
+		new_result = ft_str_insert(result, val, i);
+		free (result);
+	}
+	free (val);
+
+	// Result
+	ft_vec_push_str(&vec_val, new_result);
+	free (new_result);
+	free (arg);
+	return (ft_vec_to_str(&vec_val));
 }
 
 char	*will_expand(char **env, char *arg)
