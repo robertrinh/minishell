@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/01 16:16:12 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/21 13:33:01 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 static t_cmd	*construct_command(t_cmd *cmd, t_parse *p)
 {
 	if (p->tokens_c->type == COMMAND)
-		cmd->value = p->tokens_c->value;
+		cmd->value = safe_strdup(p->tokens_c->value);
 	else if (p->tokens_c->type == S_QUOTE || p->tokens_c->type == D_QUOTE)
 	{
-		cmd->value = p->tokens_c->value;
+		cmd->value = safe_strdup(p->tokens_c->value);
 		if (p->tokens_c->next)
 			p->tokens_c = p->tokens_c->next;
 	}

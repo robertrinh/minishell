@@ -7,7 +7,7 @@ cat Makefile || wc
 === ONLY REDIRECTS ===
 <<EOF<<EOF2<<EOF3 << cat							
 cat README.md > grep "a"
-cat << EOF > output.txt								[!] Valgrind LEAK (readline leak)
+cat << EOF > output.txt								
 echo mate > hello									
 'EOF' / "..."										[!] Valgrind LEAK
 grep aa << EOF
@@ -32,37 +32,37 @@ cat README.md | wc
 cat README.md | wc -w | wc
 echo hello world | wc > outfile.txt >> outfile.txt
 echo hello | wc > outfile.txt						
-grep aa << EOF | wc									[!] Valgrind LEAK
+grep aa << EOF | wc									
 grep aa << EOF < README.md | wc
 cat README.md >> output.txt | grep "a"
-grep aa << EOF | wc > out							[!] Valgrind LEAK
+grep aa << EOF | wc > out							
 grep aa << EOF | wc | wc -w >> OUTPUT
 
 
 === EXPANDER ===
 echo "hello"
 cat "README.md" "Makefile" | wc -w
-echo $USER$PATH										[1] Valgrind LEAK
-e'ch'o hello										[1] Valgrind LEAK
+echo $USER$PATH
+e'ch'o hello
 echo "hello $TERM$NOARG more"						[1] Valgrind LEAK
 echo $$$$$???										[3] Valgrind LEAK
-echo $?
-echo 123$????										
-echo hello$?										
+echo $?												[1] Valgrind LEAK
+echo 123$????										[2] Valgrind LEAK			
+echo hello$?										[2] Valgrind LEAK		
 echo hel'll"o"'
 echo hello"more more"hello
 echo "hello $USER$TERM more"
 echo "hello $USER more"
 echo hello$USER
-echo "hello $NOT_A_KEY"
+echo "hello $NOT_A_KEY"								[1] Valgrind LEAK
 echo "my name is $USER and I use $TERM"
 echo "hello '$USER' more"
 echo ''"hello"
 echo ''"hello"''"there"
 export ch=ch
-echo e"$ch"o										[!] Valgrind LEAK
+echo e"$ch"o										
 echo "hello $USER"$TERM" more"
-echo "hello $USER'$TERM' more"
+echo "hello $USER'$TERM' more"						[1] Valgrind LEAK
 
 
 === BUILTINS ===
