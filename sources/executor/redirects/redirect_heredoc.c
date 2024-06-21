@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/25 11:15:17 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/01 14:14:14 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/21 18:30:02 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static bool	is_eof(char *line, char *eof)
 	return (false);
 }
 
-static int	perform_heredoc(int fd, t_redirect *heredoc)
+static int	perform_heredoc(int fd, t_redirect *heredoc, t_shell *shell)
 {
 	char	*line;
 
@@ -34,7 +34,7 @@ static int	perform_heredoc(int fd, t_redirect *heredoc)
 		if (line == NULL)
 		{
 			free(line);
-			exit_with_message(E_EOF_DESCRIPTOR, C_RED, g_exit_code);
+			exit_with_message(E_EOF_DESCRIPTOR, shell, shell->exit_code);
 		}
 		if (is_eof(line, heredoc->value) == true)
 		{
@@ -49,7 +49,7 @@ static int	perform_heredoc(int fd, t_redirect *heredoc)
 	return (0);
 }
 
-int	setup_heredoc(t_redirect *heredoc, int *stat_loc)
+int	setup_heredoc(t_redirect *heredoc, int *stat_loc, t_shell *shell)
 {
 	int		fd[2];
 	pid_t	pid;
@@ -57,21 +57,21 @@ int	setup_heredoc(t_redirect *heredoc, int *stat_loc)
 
 	stat_loc_local = 0;
 	if (pipe(fd) < 0)
-		exit_with_message(E_PIPE_FAIL, C_RED, X_FAILURE);
+		exit_with_message(E_PIPE_FAIL, shell, X_FAILURE);
 	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid < 0)
-		exit_with_message(E_FORK, C_RED, X_FAILURE);
+		exit_with_message(E_FORK, shell, X_FAILURE);
 	if (pid == 0)
 	{
 		handle_signals(HEREDOC);
-		if (perform_heredoc(fd[WRITE], heredoc))
+		if (perform_heredoc(fd[WRITE], heredoc, shell))
 			exit(0);
 	}
 	else if (pid > 0)
 	{
 		if (close_fds(fd[WRITE], -1, -1) == false)
-			exit_with_message(E_CLOSE, C_RED, X_FAILURE);
+			exit_with_message(E_CLOSE, shell, X_FAILURE);
 		waitpid(pid, &stat_loc_local, 0);
 		*stat_loc = stat_loc_local;
 	}

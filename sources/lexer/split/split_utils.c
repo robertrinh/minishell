@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/17 15:59:08 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/05/02 15:48:54 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/21 16:44:45 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_split	*init_split(t_shell *shell, t_split *split)
 {
-	split->input = safe_strdup(shell->input);
+	split->input = safe_strdup(shell->input, shell);
 	split->len = ft_strlen(shell->input);
 	split->i = 0;
 	split->i_check = 0;

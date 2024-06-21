@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/22 21:13:57 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/13 15:44:33 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/21 17:12:51 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ t_validation	execute_piped_command(t_shell *shell, t_cmd *cmd)
 	if (is_builtin(shell->builtin_child, cmd, B_NUM_CHILD))
 		exec_builtin(shell->builtin_child, cmd, shell, B_NUM_CHILD);
 	if (cmd_path == NULL)
-		exit(g_exit_code);
+		exit(shell->exit_code);
 	else if (execve(cmd_path, cmd_and_args, shell->envp) == -1)
 	{
-		show_error_message(E_EXECVE, C_RED, cmd_value, X_FAILURE);
-		exit(g_exit_code);
+		show_error_message(E_EXECVE, shell, cmd_value, X_FAILURE);
+		exit(shell->exit_code);
 	}
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/29 22:10:43 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/16 12:42:09 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/21 17:02:36 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static bool is_end_env_key(char c)
 	return (false);
 }
 
-char *skip_multiple_expand_chars(char *arg, size_t i)
+char *skip_multiple_expand_chars(char *arg, size_t i, t_shell *shell)
 {
 	int		j;
 	int		k;
@@ -31,7 +31,7 @@ char *skip_multiple_expand_chars(char *arg, size_t i)
 
 	j = i;
 	k = 0;
-	buffer = safe_malloc(sizeof(char *) * ft_strlen(arg));
+	buffer = safe_malloc(sizeof(char *) * ft_strlen(arg), shell);
 	if (arg[j] == EXPAND_CHAR)
 	{
 		while (arg[j])
@@ -52,7 +52,7 @@ char *skip_multiple_expand_chars(char *arg, size_t i)
 	return (arg);
 }
 
-char	*get_env_key(char *arg, size_t i)
+char	*get_env_key(char *arg, size_t i, t_shell *shell)
 {
 	int		j;
 	char	*key;
@@ -62,12 +62,12 @@ char	*get_env_key(char *arg, size_t i)
 		return ("?");
 	if (ft_strlen(arg) == i + 1)
 	{
-		key = safe_strdup_from(arg, i);
+		key = safe_strdup_from(arg, i, shell);
 		key = ft_str_remove_char(key, 0, EXPAND_CHAR);
 		return (key);
 	}
 	j = 0;
-	key = safe_malloc(sizeof(char *) * ft_strlen(arg) + 1);
+	key = safe_malloc(sizeof(char *) * ft_strlen(arg) + 1, shell);
 	while (arg[i])
 	{
 		if (is_end_env_key(arg[i]))

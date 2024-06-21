@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/03 09:41:20 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/17 14:09:01 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/21 17:10:05 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,16 @@ static bool	ft_isnumber(char *str)
 
 int	exit_shell(t_cmd *cmd, t_shell *shell)
 {
-	(void) shell;
 	if (shell->cmd_table->cmd_count == 1)
 		ft_putstr_fd("exit\n", STDOUT_FILENO);
 	if (cmd->arg_count > 1)
-		return (show_error_message(E_ARG_ERR, C_RED, "", X_FAILURE));
+		return (show_error_message(E_ARG_ERR, shell, "", X_FAILURE));
 	if (cmd->arg_count == 1)
 	{
 		if (ft_isnumber(cmd->args[0]) == false || ft_strlen(cmd->args[0]) > 19)
-			exit_with_message(E_NUMERIC_ERR, RESET_COLOR, X_NUMERIC_ERR);
+			exit_with_message(E_NUMERIC_ERR, shell, X_NUMERIC_ERR);
 		else
-			g_exit_code = ft_atoi(cmd->args[0]) % 256;
+			shell->exit_code = ft_atoi(cmd->args[0]) % 256;
 	}
-	exit(g_exit_code);
+	exit(shell->exit_code);
 }

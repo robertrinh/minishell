@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 10:14:19 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/21 13:31:56 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/21 18:33:25 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	count_args(t_parse *p)
 	return (count);
 }
 
-static char	**allocate_args(t_parse *p)
+static char	**allocate_args(t_parse *p, t_shell *shell)
 {
 	char	**args;
 	int		arg_count;
@@ -46,7 +46,7 @@ static char	**allocate_args(t_parse *p)
 
 	i = 0;
 	arg_count = count_args(p);
-	args = safe_malloc(sizeof(char *) * (arg_count + 1));
+	args = safe_malloc(sizeof(char *) * (arg_count + 1), shell);
 	while (i <= arg_count)
 	{
 		args[i] = NULL;
@@ -55,22 +55,21 @@ static char	**allocate_args(t_parse *p)
 	return (args);
 }
 
-t_cmd	*construct_args(t_cmd *cmd, t_parse *p)
+t_cmd	*construct_args(t_cmd *cmd, t_parse *p, t_shell *shell)
 {
 	int			i;
 	t_token		*current;
 
 	i = 0;
 	current = p->tokens_c;
-	cmd->args = allocate_args(p);
+	cmd->args = allocate_args(p, shell);
 	if (cmd->args == NULL)
 		return (NULL);
-
 	while (current)
 	{
 		if (is_type_arg(current->type))
 		{
-			cmd->args[i] = safe_strdup(current->value);
+			cmd->args[i] = safe_strdup(current->value, shell);
 			if (cmd->args[i] == NULL)
 			{
 				while (i >= 0)

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/22 21:17:34 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/14 16:25:41 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/21 16:01:14 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 	WIFSIGNALED:	check if child process terminated through a signal.
 	WIFEXITED:		check if child process terminated normally.
 */
-int	wait_for_last_cmd(int child_count, int last_pid)
+int	wait_for_last_cmd(int child_count, int last_pid, t_shell *shell)
 {
 	int	i;
 	int	status;
@@ -38,8 +38,8 @@ int	wait_for_last_cmd(int child_count, int last_pid)
 		return (WEXITSTATUS(last_status));
 	else if (WIFSIGNALED(last_status))
 	{
-		g_exit_code = WTERMSIG(last_status) + 128;
-		return (g_exit_code);
+		shell->exit_code = WTERMSIG(last_status) + 128;
+		return (shell->exit_code);
 	}
 	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/23 21:54:16 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/16 12:43:17 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/21 17:57:05 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,16 @@ bool is_arg_key(char *arg, char *key)
 	return (false);
 }
 
-char *expand_exit_code(char *arg, char *key, size_t i)
+char	*expand_exit_code(char *arg, char *key, size_t i, t_shell *shell)
 {
 	char	*exit_code_string;
 	char	*leading_substr;
 	char	*trailing_substr;
 	t_vec	vec_arg;
 
-	key = safe_strjoin("$", key);
+	key = safe_strjoin("$", key, shell);
 	arg = ft_str_remove(arg, key);
-	exit_code_string = ft_itoa(g_exit_code);
+	exit_code_string = ft_itoa(shell->exit_code);
 
 	leading_substr = ft_substr(arg, 0, i);
 	trailing_substr = ft_substr(arg, i, ft_strlen(arg));

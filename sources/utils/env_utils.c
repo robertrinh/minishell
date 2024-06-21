@@ -6,13 +6,13 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:19:19 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/13 16:39:06 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/21 17:03:54 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	*buffer_env_value(char *env_row, char *key, int i)
+static char	*buffer_env_value(char *env_row, char *key, int i, t_shell *shell)
 {
 	char	*value;
 	int		j;
@@ -21,7 +21,7 @@ static char	*buffer_env_value(char *env_row, char *key, int i)
 	i += 1;
 	j = 0;
 	len = ft_strlen(env_row) - ft_strlen(key) + 1;
-	value = safe_malloc(sizeof(char *) * len);
+	value = safe_malloc(sizeof(char *) * len, shell);
 	while (env_row[i])
 	{
 		if (ft_isspace(env_row[i]))
@@ -38,7 +38,7 @@ static char	*buffer_env_value(char *env_row, char *key, int i)
 	Given key e.g. 'KEY=value', get_value_for_key() returns the string value
 	for the corresponding env key.
 */
-char	*get_value_for_key(char **env, char *key)
+char	*get_value_for_key(char **env, char *key, t_shell *shell)
 {
 	int		row_index;
 	int		i;
@@ -50,7 +50,7 @@ char	*get_value_for_key(char **env, char *key)
 	while (env[row_index][i])
 	{
 		if (env[row_index][i] == '=')
-			return (buffer_env_value(env[row_index], key, i));
+			return (buffer_env_value(env[row_index], key, i, shell));
 		i++;
 	}
 	return (NULL);

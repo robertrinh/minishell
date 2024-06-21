@@ -6,14 +6,14 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/21 14:44:00 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/21 17:56:35 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/libft/lib_vector/vector.h"
 
-static char *expand_arg(char **env, char *arg, size_t i)
+static char *expand_arg(char **env, char *arg, size_t i, t_shell *shell)
 {
 	t_vec	vec_val;
     char *key = NULL;
@@ -33,15 +33,15 @@ static char *expand_arg(char **env, char *arg, size_t i)
 	}
 
 	// Get KEY + VAL
-	arg = skip_multiple_expand_chars(arg, i + 1);
-	key = get_env_key(arg, i);
+	arg = skip_multiple_expand_chars(arg, i + 1, shell);
+	key = get_env_key(arg, i, shell);
 	ft_sleep(PROCESS_SLEEP_TIME);
-	val = get_value_for_key(env, key);
+	val = get_value_for_key(env, key, shell);
 
 	// If env key is expand char
 	if (key[0] == '?')
 	{
-		result = expand_exit_code(arg, key, i);
+		result = expand_exit_code(arg, key, i, shell);
 		ft_vec_push_str(&vec_val, result);		
 		free (result);
 		free (val);
@@ -84,16 +84,14 @@ static char *expand_arg(char **env, char *arg, size_t i)
 	return (ft_vec_to_str(&vec_val));
 }
 
-char	*will_expand(char **env, char *arg)
+char	*will_expand(char **env, char *arg, t_shell *shell)
 {
 	size_t	i;
 	int		expand_count;
 	int		expanded_count;
-	// char	*new_arg;
 
 	expanded_count = 0;
 	expand_count = count_expand(arg);
-	// new_arg = NULL;
 	if (expand_count == 0)
 		return (arg);
 	i = 0;
@@ -103,7 +101,7 @@ char	*will_expand(char **env, char *arg)
 			break ;
 		if (arg[i] == EXPAND_CHAR)
 		{
-			arg = expand_arg(env, arg, i);
+			arg = expand_arg(env, arg, i, shell);
 			expanded_count++;
 			i = 0;
 			continue ;

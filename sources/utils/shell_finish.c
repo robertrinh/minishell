@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/23 16:15:55 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/16 11:14:53 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/21 17:52:06 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static void	free_shell_struct(t_shell *shell)
 		free(shell->builtin_child);
 		shell->builtin_child = NULL;
 	}
+	exit_with_message(E_EOF_DESCRIPTOR, shell, EXIT_SUCCESS);
 	free(shell);
 }
 
@@ -88,7 +89,7 @@ void	shell_finish(t_shell *shell)
 	free_shell(shell, false);
 	if (dup2(shell->original_stdin, STDIN_FILENO) < 0)
 	{
-		show_error_message(E_DUP, C_RED, "", X_FAILURE);
+		show_error_message(E_DUP, shell, "", X_FAILURE);
 		return ;
 	}
 	should_print("\n--------------------End--------------------\n\n", \

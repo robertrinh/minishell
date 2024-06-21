@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/22 21:09:40 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/13 15:44:19 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/21 17:29:18 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	pipe_commands(t_shell *sh, t_cmd *cmd, t_childs *ch, bool last_cmd)
 	if (last_cmd == false)
 	{
 		if (pipe(ch->pipe_fd[flip]) < 0)
-			exit_with_message(E_PIPE_FAIL, C_RED, X_FAILURE);
+			exit_with_message(E_PIPE_FAIL, sh, X_FAILURE);
 	}
 	if (ch->child_count == 0)
 		first_cmd(sh, cmd, ch->pipe_fd[flip]);
@@ -50,13 +50,13 @@ static int	execute_cmd_for(t_shell *shell, int i, t_childs *ch)
 	last_cmd = is_last_cmd(shell->cmd_table->cmd_count, i);
 	cmd = shell->cmd_table->cmds[i];
 	if (cmd->fd_in)
-		if (redirect_in_files(cmd, &stat_loc) == SUCCESS)
-			g_exit_code = 0;
+		if (redirect_in_files(cmd, &stat_loc, shell) == SUCCESS)
+			shell->exit_code = 0;
 	if (stat_loc >= 1)
 		stat_loc = 1;
 	if (WIFSIGNALED(stat_loc))
 	{
-		g_exit_code = X_SIG_HEREDOC;
+		shell->exit_code = X_SIG_HEREDOC;
 		return (-1);
 	}
 	prepare_command(shell, i);
@@ -77,10 +77,10 @@ int	execute_commands(t_shell *shell)
 	{
 		last_pid = execute_cmd_for(shell, i, &ch);
 		if (last_pid < 0)
-			return (g_exit_code);
+			return (shell->exit_code);
 		ch.child_count++;
 		i++;
 	}
-	return_value = wait_for_last_cmd(ch.child_count, last_pid);
+	return_value = wait_for_last_cmd(ch.child_count, last_pid, shell);
 	return (return_value);
 }
