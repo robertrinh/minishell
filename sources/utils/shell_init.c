@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/14 14:04:02 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/06/13 16:36:49 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/21 15:01:33 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_shell	*construct_shell(t_shell *shell, char **envp, char **argv)
 	shell->envp = alloc_envp(envp);
 	shell->original_stdin = dup(STDIN_FILENO);
 	shell->print_output = argv[1] && ft_strncmp(argv[1], PRINT_FLAG, 2) == 0;
+	shell->exit_code = 0;
 	shell = init_main_builtins(shell);
 	shell = init_child_builtins(shell);
 	return (shell);

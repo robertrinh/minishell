@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/16 12:37:22 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/21 15:01:22 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ typedef struct s_shell
 	int					double_quote;
 	bool				print_output;
 	int					original_stdin;
+	int					exit_code;
 	t_builtin			*builtin_main;
 	t_builtin			*builtin_child;
 }	t_shell;

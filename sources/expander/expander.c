@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/16 12:41:38 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/21 14:44:00 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static char *expand_arg(char **env, char *arg, size_t i)
 		ft_vec_push_str(&vec_val, result);		
 		free (result);
 		free (val);
+		free (arg);
 		return (ft_vec_to_str(&vec_val));
 	}
 
@@ -54,11 +55,11 @@ static char *expand_arg(char **env, char *arg, size_t i)
 	else
 		new_key = ft_strdup(key);
 	free(key);
-	
+
 	// Romove key from arg
 	result = ft_str_remove(arg, new_key);
 	free (new_key);
-	
+
 	// If no value exists for this key
 	if (val == NULL)
 	{
@@ -68,9 +69,10 @@ static char *expand_arg(char **env, char *arg, size_t i)
 	}
 
 	// Insert the value
-	if (result && val)
+	if (result)
 	{
-		new_result = ft_str_insert(result, val, i);
+		if (val)
+			new_result = ft_str_insert(result, val, i);
 		free (result);
 	}
 	free (val);
@@ -87,9 +89,11 @@ char	*will_expand(char **env, char *arg)
 	size_t	i;
 	int		expand_count;
 	int		expanded_count;
+	// char	*new_arg;
 
 	expanded_count = 0;
 	expand_count = count_expand(arg);
+	// new_arg = NULL;
 	if (expand_count == 0)
 		return (arg);
 	i = 0;
