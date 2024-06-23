@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/23 16:15:55 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/21 17:52:06 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/23 18:25:08 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	free_shell(t_shell *shell, bool close_shell)
 		free_shell_struct(shell);
 }
 
-// free (cmd_path);
 void	shell_finish(t_shell *shell)
 {
 	lexer_finish(shell);

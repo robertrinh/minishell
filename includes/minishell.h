@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/21 18:32:34 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/23 17:50:39 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@
 
 # define READ 0
 # define WRITE 1
-
 # define C_YELLOW "\033[1;33m"
 # define C_RED "\x1B[1;31m"
 # define RESET_COLOR "\033[0m"
@@ -53,7 +52,7 @@
 # define PRINT_FLAG "-p"
 
 //===============================================================: Global
-extern int	g_exit_code;
+extern int	g_signal;
 
 //===============================================================: Enum
 typedef enum e_validation

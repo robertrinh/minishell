@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/02 14:17:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/21 17:37:58 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/23 18:14:35 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	signal_reset_prompt(int sig)
 {
 	if (sig == SIGINT)
 	{
+		g_signal = SIGINT;
 		rl_replace_line("", 0);
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
-		g_exit_code = X_SIG_CTRL_C;
 	}
 }
 
@@ -34,10 +34,10 @@ void	signal_ctrl_c(int sig)
 {
 	if (sig == SIGINT)
 	{
+		g_signal = SIGINT;
 		rl_replace_line("", 0);
 		write(1, "\n", 1);
 		rl_on_new_line();
-		g_exit_code = X_SIG_CTRL_C;
 	}
 }
 
@@ -48,8 +48,8 @@ void	signal_backslash(int sig)
 {
 	if (sig == SIGQUIT)
 	{
+		g_signal = SIGQUIT;
 		write(STDERR_FILENO, "Quit\n", 5);
-		g_exit_code = X_SIG_BACKSLASH;
 	}
 }
 
@@ -61,8 +61,7 @@ void	signal_heredoc(int sig)
 	if (sig == SIGINT)
 	{
 		write(1, "\n", 1);
-		g_exit_code = X_SIG_HEREDOC;
-		exit(g_exit_code);
+		exit(X_SIG_HEREDOC);
 	}
 }
 

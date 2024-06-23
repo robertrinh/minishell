@@ -6,13 +6,22 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/21 17:55:06 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/23 18:20:39 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	g_exit_code = 0;
+int	g_signal = 0;
+
+static void	signal_check(t_shell *shell)
+{
+	if (g_signal == SIGINT)
+	{
+		shell->exit_code = 130;
+		g_signal = 0;
+	}
+}
 
 static t_validation	is_valid_input(t_shell *shell)
 {
@@ -42,6 +51,7 @@ static bool	shell_run(t_shell *shell)
 	{
 		handle_signals(PARENT);
 		shell_retrieve_command(shell);
+		signal_check(shell);
 		if (is_valid_input(shell))
 			if (shell_lexer(shell))
 				if (shell_parser(shell))

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/06/21 18:36:27 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/23 18:13:44 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	single_command(t_shell *shell)
 	else if (pid > 0)
 	{
 		waitpid(pid, &st_loc, 0);
+		if (g_signal == SIGQUIT)
+			shell->exit_code = X_SIG_BACKSLASH;
 		if (WIFEXITED(st_loc))
 			return (WEXITSTATUS(st_loc));
 	}
