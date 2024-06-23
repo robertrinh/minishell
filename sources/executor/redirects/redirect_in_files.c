@@ -6,18 +6,16 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/24 22:08:44 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/21 17:33:31 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/23 22:22:59 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static t_in_files	*init_infiles(t_shell *s)
+static t_in_files	*init_infiles(t_cmd *cmd, t_shell *s)
 {
 	t_in_files	*ins;
-	t_cmd		*cmd;
 
-	cmd = s->cmd_table->cmds[0];
 	ins = safe_malloc(sizeof(t_in_files), s);
 	ins->heredocs = safe_malloc(sizeof(int *) * count_files(cmd, IN_APPEND), s);
 	ins->infiles = safe_malloc(sizeof(int *) * count_files(cmd, IN), s);
@@ -88,18 +86,22 @@ static void	dup_infile(t_cmd *cmd, t_in_files *ins, t_redirect_type type, \
 t_validation	redirect_in_files(t_cmd *cmd, int *stat_loc, t_shell *shell)
 {
 	t_redirect_type		last_type;
-	t_in_files			*ins;
+	t_in_files			*in_files;
+	t_cmd_data			data;
 
-	ins = init_infiles(shell);
+	data.cmd = cmd;
+	data.shell = shell;
+	in_files = init_infiles(cmd, shell);
+	data.ins = in_files;
 	last_type = last_infile_type(cmd);
-	ins = open_in_files(shell, ins, IN_APPEND, stat_loc);
-	ins = open_in_files(shell, ins, IN, NULL);
+	in_files = open_in_files(&data, IN_APPEND, stat_loc);
+	in_files = open_in_files(&data, IN, NULL);
 	if (last_type == IN_APPEND)
-		dup_infile(cmd, ins, IN_APPEND, shell);
+		dup_infile(cmd, in_files, IN_APPEND, shell);
 	else if (last_type == IN)
-		dup_infile(cmd, ins, IN, shell);
-	close_in_files(cmd, ins, IN_APPEND, shell);
-	close_in_files(cmd, ins, IN, shell);
-	free_ins(ins);
+		dup_infile(cmd, in_files, IN, shell);
+	close_in_files(cmd, in_files, IN_APPEND, shell);
+	close_in_files(cmd, in_files, IN, shell);
+	free_ins(in_files);
 	return (SUCCESS);
 }

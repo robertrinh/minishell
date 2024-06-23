@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/23 17:50:39 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/06/23 22:22:51 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,13 @@ typedef struct s_in_files
 	int		*infiles;
 }	t_in_files;
 
+typedef struct s_cmd_data
+{
+    t_cmd 		*cmd;
+    t_shell 	*shell;
+    t_in_files 	*ins;
+}	t_cmd_data;
+
 //===============================================================: Main
 // shell_init.c
 t_shell			*shell_pre_init(t_shell *shell, char **envp, char **argv);
@@ -386,8 +393,8 @@ t_validation	redirect_in_files(t_cmd *cmd, int *stat_loc, t_shell *shell);
 // redirect_open.c
 int				safe_open(char *path, t_redirect_type oflag, int mode, \
 					t_shell *shell);
-t_in_files		*open_in_files(t_shell *shell, t_in_files *ins, \
-					t_redirect_type type, int *stat_loc);
+t_in_files		*open_in_files(t_cmd_data *d, t_redirect_type type, \
+					int *stat_loc);
 
 // redirect_out_files.c
 t_validation	redirect_out(t_cmd *cmd, t_shell *shell);

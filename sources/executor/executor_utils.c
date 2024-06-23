@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 19:43:07 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/21 16:34:14 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/23 21:26:25 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ int	prepare_command(t_shell *shell, int i)
 		return (FAILURE);
 	}
 	cmd->cmd_path = safe_strdup(cmd_path, shell);
-	free (cmd_path);
+	free(cmd_path);
 	return (SUCCESS);
 }
