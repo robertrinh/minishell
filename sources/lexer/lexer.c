@@ -6,24 +6,24 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/14 16:32:07 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/21 17:12:51 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_token	*token_constructor(char *split_input, int i)
+t_token	*token_constructor(char *split_input, int i, t_shell *shell)
 {
 	t_token	*token;
 
-	token = safe_malloc(sizeof(t_token));
+	token = safe_malloc(sizeof(t_token), shell);
 	if (token == NULL)
 		return (NULL);
 	token->len = ft_strlen(split_input);
-	token->value = safe_strdup(split_input);
+	token->value = safe_strdup(split_input, shell);
 	if (token->value == NULL)
 	{
-		show_error_message(E_MALLOC, C_RED, "safe_strdup token", X_FAILURE);
+		show_error_message(E_MALLOC, shell, "safe_strdup token", X_FAILURE);
 		return (NULL);
 	}
 	token->type = assign_type(token->value);
@@ -61,7 +61,7 @@ static t_token	*tokenize_command(t_token *tokens_head, t_shell *shell)
 	new = NULL;
 	while (split_struct->strings[i])
 	{
-		new = token_constructor(split_struct->strings[i], i);
+		new = token_constructor(split_struct->strings[i], i, shell);
 		if (new == NULL)
 			return (free_split(split_struct), NULL);
 		assign_token(&tokens_head, &current, new);
@@ -87,9 +87,9 @@ int	tokens_builder_manager(t_shell *shell)
 int	shell_lexer(t_shell *shell)
 {
 	if (validate_operators(shell->input) == FAILURE)
-		return (show_error_message(E_OPERATOR, C_RED, "", X_FAILURE));
+		return (show_error_message(E_OPERATOR, shell, "", X_FAILURE));
 	if (validate_quotes(shell) == FAILURE)
-		return (show_error_message(E_QUOTE, C_RED, "", X_FAILURE));
+		return (show_error_message(E_QUOTE, shell, "", X_FAILURE));
 	if (tokens_builder_manager(shell) == SUCCESS)
 		return (print_tokens(shell));
 	return (FAILURE);

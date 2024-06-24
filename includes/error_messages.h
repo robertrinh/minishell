@@ -6,12 +6,14 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/13 10:26:10 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/06/21 17:15:53 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERROR_MESSAGES_H
 # define ERROR_MESSAGES_H
+
+# include "minishell.h"
 
 // Show error message
 # define E_QUOTE				"unmatched quote."
@@ -44,10 +46,11 @@
 # define X_SIG_BACKSLASH		131
 # define X_CMD					127
 
+typedef struct s_shell	t_shell;
+
 // error_messages.c
-void	arg_error(void);
-void	numeric_error(char *str);
-int		show_error_message(char *error, char *color, char *arg, int exit_code);
-int		exit_with_message(char *error, char *color, int exit_code);
+int		show_error_message(char *error, t_shell *shell, char *arg, \
+							int exit_code);
+int		exit_with_message(char *error, t_shell *shell, int exit_code);
 
 #endif

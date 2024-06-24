@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/02 19:16:50 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/05/26 13:32:46 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/21 18:24:49 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ int	shell_execute(t_shell *shell)
 	{
 		cmd = shell->cmd_table->cmds[0];
 		if (is_builtin(shell->builtin_main, cmd, B_NUM_MAIN))
-			exec_builtin(shell->builtin_main, cmd, shell, B_NUM_MAIN);
+			shell->exit_code = \
+				exec_builtin(shell->builtin_main, cmd, shell, B_NUM_MAIN);
 		else
-			g_exit_code = single_command(shell);
+			shell->exit_code = single_command(shell);
 	}
 	else
-		g_exit_code = execute_commands(shell);
-	return (g_exit_code);
+		shell->exit_code = execute_commands(shell);
+	return (shell->exit_code);
 }
