@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:25:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/21 17:12:51 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/24 15:16:34 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,13 @@ int	export(t_cmd *cmd, t_shell *shell)
 
 	i = 0;
 	if (cmd->args[i] == NULL)
-		return (show_error_message(E_EXPORT, shell, "", X_FAILURE));
+		return (show_error_message(E_EXPORT, shell, "", X_FAILURE), 1);
 	while (i < cmd->arg_count)
 	{
 		if (is_valid_export_arg(cmd->args[i]))
 			add_arg_to_env(shell, cmd->args[i]);
 		else
-			return (show_error_message(E_EXPORT, shell, cmd->args[i], 1));
+			return (show_error_message(E_EXPORT, shell, cmd->args[i], 1), 1);
 		i++;
 	}
 	return (0);

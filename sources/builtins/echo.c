@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/07 14:45:13 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/04/24 18:10:51 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/24 15:52:20 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ int	echo(t_cmd *cmd, t_shell *shell)
 
 	(void) shell;
 	flag = is_echo_flag(cmd);
-	if (flag && cmd->arg_count <= 1)
-		return (SUCCESS);
 	if (cmd->arg_count == 0)
 	{
 		ft_putchar_fd('\n', STDOUT_FILENO);
-		return (SUCCESS);
+		exit(EXIT_SUCCESS);
 	}
+	if (flag && cmd->arg_count <= 1)
+		exit(EXIT_SUCCESS);
 	if (cmd->arg_count > 0)
 		print_echo(cmd, flag);
-	exit(0);
+	exit(EXIT_SUCCESS);
 }
