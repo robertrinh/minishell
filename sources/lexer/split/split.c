@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/05 14:17:27 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/06/22 02:01:52 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/26 23:08:02 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,17 +91,17 @@ t_split	*split(t_shell *shell)
 {
 	t_split	*split;
 
-	split = safe_malloc(sizeof(t_split));
+	split = safe_malloc(sizeof(t_split), shell);
 	split = init_split(shell, split);
 	split->count = count_substrings(split);
-	split->strings = safe_calloc(sizeof(char *), (split->count + 1));
+	split->strings = safe_calloc(sizeof(char *), (split->count + 1), shell);
 	if (split->strings == NULL)
 	{
 		free_split(split);
-		show_error_message(E_MALLOC, C_RED, "split", X_FAILURE);
+		show_error_message(E_MALLOC, shell, "split", X_FAILURE);
 		return (NULL);
 	}
-	split->strings = allocate_strings_split(split);
+	split->strings = allocate_strings_split(split, shell);
 	if (split->strings == NULL)
 		return (NULL);
 	return (split);

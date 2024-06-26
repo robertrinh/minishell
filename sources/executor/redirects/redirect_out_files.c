@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   redirect_out_files.c                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 12:35:51 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/06/14 14:35:11 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   redirect_out_files.c                               :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/03/28 12:35:51 by quentinbeuk   #+#    #+#                 */
+/*   Updated: 2024/06/21 17:34:08 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static t_validation	close_out_files(t_cmd *cmd)
+static t_validation	close_out_files(t_cmd *cmd, t_shell *shell)
 {
 	t_validation	validation;
 	t_redirect		*fd_curr;
@@ -24,7 +24,7 @@ static t_validation	close_out_files(t_cmd *cmd)
 		if (fd_curr->fd == -1)
 			validation = FAILURE;
 		if (close_fds(fd_curr->fd, -1, -1) == false)
-			show_error_message(E_CLOSE, C_RED, "fd_out", X_FAILURE);
+			show_error_message(E_CLOSE, shell, "fd_out", X_FAILURE);
 		fd_curr = fd_curr->next;
 	}
 	return (validation);
@@ -33,7 +33,7 @@ static t_validation	close_out_files(t_cmd *cmd)
 /*
 	Returnes fd of the last opened file
 */
-static int	open_out_files(t_cmd *cmd)
+static int	open_out_files(t_cmd *cmd, t_shell *s)
 {
 	t_redirect	*fd_lst_head;
 	t_redirect	*fd_lst_last;
@@ -43,7 +43,7 @@ static int	open_out_files(t_cmd *cmd)
 	curr = cmd->fd_out;
 	while (curr)
 	{
-		curr->fd = safe_open(curr->value, get_open_flag(curr->type), 0644);
+		curr->fd = safe_open(curr->value, get_open_flag(curr->type), 0644, s);
 		if (curr->fd == -1)
 			break ;
 		if (curr->next == NULL)
@@ -55,16 +55,16 @@ static int	open_out_files(t_cmd *cmd)
 	return (fd_lst_last->fd);
 }
 
-t_validation	redirect_out(t_cmd *cmd)
+t_validation	redirect_out(t_cmd *cmd, t_shell *shell)
 {
 	int		fd;
 	int		dev_null_fd;
 
-	fd = open_out_files(cmd);
+	fd = open_out_files(cmd, shell);
 	if (fd > 0)
 	{
 		if (dup2(fd, STDOUT_FILENO) < 0)
-			show_error_message(E_DUP, C_RED, "", X_FAILURE);
+			show_error_message(E_DUP, shell, "", X_FAILURE);
 	}
 	else
 	{
@@ -72,9 +72,9 @@ t_validation	redirect_out(t_cmd *cmd)
 		if (dev_null_fd >= 0)
 		{
 			if (dup2(dev_null_fd, STDOUT_FILENO) < 0)
-				show_error_message(E_DUP, C_RED, "", X_FAILURE);
+				show_error_message(E_DUP, shell, "", X_FAILURE);
 			cmd->fd_out->fd = dev_null_fd;
 		}
 	}
-	return (close_out_files(cmd));
+	return (close_out_files(cmd, shell));
 }

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/07 13:01:10 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/22 01:56:53 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/26 23:06:09 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,16 @@ static char	**allocate_substrings(t_split *sp)
 {
 	if (sp->i_buff > 0)
 	{
-		sp->strings[sp->i_str] = safe_strdup(sp->buffer);
+		sp->strings[sp->i_str] = ft_strdup(sp->buffer);
+		if (sp->strings[sp->i_str] == NULL)
+			return (free_split(sp), NULL);
 		sp->i_str++;
 	}
 	clear_buffer(sp);
 	return (sp->strings);
 }
 
-bool	check_operators_substring(t_split *sp)
+static bool	check_operators_substring(t_split *sp)
 {
 	if (check_operator(sp->input[sp->i], sp->input[sp->i + 1]) == 2)
 	{
@@ -59,7 +61,7 @@ bool	check_operators_substring(t_split *sp)
 	return (true);
 }
 
-t_split	*handle_substrings(t_split *sp)
+static t_split	*handle_substrings(t_split *sp, t_shell *shell)
 {
 	while (sp->i < sp->len)
 	{
@@ -76,21 +78,21 @@ t_split	*handle_substrings(t_split *sp)
 		sp->i_buff++;
 		if (sp->i >= BUFF_SIZE - 2 || sp->i_buff >= BUFF_SIZE - 2)
 		{
-			show_error_message(E_OVERFLOW, C_RED, "", X_FAILURE);
+			show_error_message(E_OVERFLOW, shell, "", X_FAILURE);
 			return (NULL);
 		}
 	}
 	return (sp);
 }
 
-char	**allocate_strings_split(t_split *sp)
+char	**allocate_strings_split(t_split *sp, t_shell *shell)
 {
 	sp->i = 0;
 	while (sp->i < sp->len)
 	{
 		sp->i = skip_whitespace(sp);
 		sp->i_buff = 0;
-		sp = handle_substrings(sp);
+		sp = handle_substrings(sp, shell);
 		if (sp == NULL)
 			return (NULL);
 		sp->buffer[sp->i_buff] = 0;

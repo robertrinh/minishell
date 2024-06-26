@@ -6,23 +6,23 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 19:45:47 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/13 15:20:38 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/21 17:23:40 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	**format_cmd(t_cmd *cmd)
+char	**format_cmd(t_cmd *cmd, t_shell *s)
 {
 	int			i;
 	char		**cmd_and_args;
 
 	i = 0;
-	cmd_and_args = safe_malloc(sizeof(char *) * (cmd->arg_count + 2));
-	cmd_and_args[0] = safe_strdup(cmd->value);
+	cmd_and_args = safe_malloc(sizeof(char *) * (cmd->arg_count + 2), s);
+	cmd_and_args[0] = safe_strdup(cmd->value, s);
 	while (i < cmd->arg_count)
 	{
-		cmd_and_args[i + 1] = safe_strdup(cmd->args[i]);
+		cmd_and_args[i + 1] = safe_strdup(cmd->args[i], s);
 		i++;
 	}
 	cmd_and_args[i + 1] = 0;
@@ -39,6 +39,8 @@ static char	*get_path_error_string(void)
 	char	*str;
 
 	str = malloc(2);
+	if (str == NULL)
+		return (NULL);
 	str[0] = '?';
 	str[1] = '\0';
 	return (str);
@@ -81,7 +83,7 @@ char	**get_paths(t_shell *shell)
 
 	env_paths = NULL;
 	env_path = NULL;
-	env_path = get_value_for_key(shell->envp, "PATH");
+	env_path = get_value_for_key(shell->envp, "PATH", shell);
 	if (env_path == NULL)
 		return (NULL);
 	env_paths = ft_split(env_path, ':');

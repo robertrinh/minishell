@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/21 15:01:22 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/24 17:45:35 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@
 
 # define READ 0
 # define WRITE 1
-
 # define C_YELLOW "\033[1;33m"
 # define C_RED "\x1B[1;31m"
 # define RESET_COLOR "\033[0m"
@@ -53,7 +52,7 @@
 # define PRINT_FLAG "-p"
 
 //===============================================================: Global
-extern int	g_exit_code;
+extern int	g_signal;
 
 //===============================================================: Enum
 typedef enum e_validation
@@ -171,6 +170,7 @@ typedef struct s_cmd_table
 
 typedef struct s_builtin \
 	t_builtin;
+
 typedef struct s_shell
 {
 	t_token				*tokens;
@@ -202,6 +202,13 @@ typedef struct s_in_files
 	int		*infiles;
 }	t_in_files;
 
+typedef struct s_cmd_data
+{
+    t_cmd 		*cmd;
+    t_shell 	*shell;
+    t_in_files 	*ins;
+}	t_cmd_data;
+
 //===============================================================: Main
 // shell_init.c
 t_shell			*shell_pre_init(t_shell *shell, char **envp, char **argv);
@@ -219,7 +226,7 @@ t_token			*assign_argfile_args(t_token *current);
 t_token			*assign_cmd_arg(t_token *current, int i);
 
 // lexer.c
-t_token			*token_constructor(char *split_input, int i);
+t_token			*token_constructor(char *split_input, int i, t_shell *shell);
 int				tokens_builder_manager(t_shell *shell);
 int				shell_lexer(t_shell *shell);
 
@@ -241,7 +248,7 @@ void			buffer_quote(t_split *sp, int quote_type);
 
 //===============================================================: Lexer / Split
 // allocate_strings.c
-char			**allocate_strings_split(t_split *sp);
+char			**allocate_strings_split(t_split *sp, t_shell *shell);
 
 // split_utils.c
 t_split			*init_split(t_shell *shell, t_split *split);
@@ -258,20 +265,20 @@ t_split			*split(t_shell *shell);
 bool			shell_parser(t_shell *shell);
 
 // parser_cmd_arguments.c
-t_cmd			*construct_args(t_cmd *cmd, t_parse *p);
+t_cmd			*construct_args(t_cmd *cmd, t_parse *p, t_shell *shell);
 
 // parser_post_process.c
 int				parser_post_process(t_shell *shell);
 
 // parser_checks.c
-bool			parser_checks(t_token *tokens);
+bool			parser_checks(t_shell *shell);
 
 // parser_redirects_utils.c
 t_redirect_type	assign_file_type(char *value);
 bool			should_add_files(t_token_type current_type, t_token_type type);
 
 // parser_redirects.c
-t_cmd			*construct_redirects(t_cmd *cmd, t_parse *p);
+t_cmd			*construct_redirects(t_cmd *cmd, t_parse *p, t_shell *shell);
 
 // parser_strip_quotes.c
 char			*new_strip_quotes(char *arg);
@@ -279,13 +286,13 @@ char			*strip_quote_for_type(char *arg);
 
 // parser_utils.c
 t_parse			*init_parse(t_shell *shell);
-t_cmd			*allocate_cmd(void);
+t_cmd			*allocate_cmd(t_shell *shell);
 t_token			*locate_current_token(t_parse *p);
 t_token			*locate_pipe_n(t_token *tokens_root, int pipe_count);
 
 //===============================================================: Executor
 // executor_enviroment.c
-char			**format_cmd(t_cmd *cmd);
+char			**format_cmd(t_cmd *cmd, t_shell *shell);
 char			*get_path_for_cmd(char **env_paths, char *command);
 char			*ft_getenv(t_shell *shell, char *input);
 char			**get_paths(t_shell *shell);
@@ -316,6 +323,7 @@ int				exec_builtin(t_builtin *table, t_cmd *cmd, \
 
 // cd_utils.c
 void			update_env(t_shell *shell);
+void			cd_error(char *path, t_cmd *cmd, t_shell *shell);
 
 // cd.c
 int				cd(t_cmd *cmd, t_shell *shell);
@@ -368,7 +376,8 @@ int				final_cmd(t_shell *shell, t_cmd *cmd, int pipe_in);
 t_validation	execute_piped_command(t_shell *shell, t_cmd *cmd);
 
 // execute_wait.c
-int				wait_for_last_cmd(int child_count, int last_pid);
+int				wait_for_last_cmd(int child_count, int last_pid, \
+					t_shell *shell);
 
 // ----------------------------------- executor/pipe
 // pipe_utils.c
@@ -376,18 +385,20 @@ int				count_pipes(t_shell *shell);
 
 // ----------------------------------- executor/redirects
 // redirect_heredoc
-int				setup_heredoc(t_redirect *heredoc, int *stat_loc);
+int				setup_heredoc(t_redirect *heredoc, int *stat_loc, \
+					t_shell *shell);
 
 // redirect_in_files.c
-t_validation	redirect_in_files(t_cmd *cmd, int *stat_loc);
+t_validation	redirect_in_files(t_cmd *cmd, int *stat_loc, t_shell *shell);
 
 // redirect_open.c
-int				safe_open(char *path, t_redirect_type oflag, int mode);
-t_in_files		*open_in_files(t_cmd *cmd, t_in_files *ins, \
-					t_redirect_type type, int *stat_loc);
+int				safe_open(char *path, t_redirect_type oflag, int mode, \
+					t_shell *shell);
+t_in_files		*open_in_files(t_cmd_data *d, t_redirect_type type, \
+					int *stat_loc);
 
 // redirect_out_files.c
-t_validation	redirect_out(t_cmd *cmd);
+t_validation	redirect_out(t_cmd *cmd, t_shell *shell);
 
 // redirect_types.c
 t_redirect		*file_type(t_cmd *cmd, t_redirect_type type);
@@ -407,31 +418,33 @@ void			rl_replace_line(const char *text, int clear_undo);
 // expander_utils.c
 int				count_expand(char *arg);
 bool			is_arg_key(char *arg, char *key);
-char			*expand_exit_code(char *arg, char *key, size_t i);
+char			*expand_exit_code(char *arg, char *key, size_t i, \
+					t_shell *shell);
 
 // expander.c
-char			*will_expand(char **env, char *arg);
+char			*will_expand(char **env, char *arg, t_shell *shell);
 
 // get_env_key.c
-char			*skip_multiple_expand_chars(char *arg, size_t i);
-char			*get_env_key(char *arg, size_t i);
+char			*skip_multiple_expand_chars(char *arg, size_t i, \
+					t_shell *shell);
+char			*get_env_key(char *arg, size_t i, t_shell *shell);
 
 //===============================================================: Utils
 // control_utils.c
 void			ft_sleep(size_t count);
 
 // env_utils.c
-char			*get_value_for_key(char **env, char *key);
+char			*get_value_for_key(char **env, char *key, t_shell *shell);
 int				count_lines_from(char **env, int index);
 size_t			env_size(char **env);
 int				index_for_env_key(char **input_env, char *key);
 
 // function_protection.c
-void			*safe_strjoin(const char *s1, const char *s2);
-void			*safe_malloc(size_t size);
-void			*safe_calloc(size_t count, size_t size);
-char			*safe_strdup(char *str);
-char			*safe_strdup_from(const char *str, int i);
+void			*safe_strjoin(const char *s1, const char *s2, t_shell *shell);
+void			*safe_malloc(size_t size, t_shell *shell);
+void			*safe_calloc(size_t count, size_t size, t_shell *shell);
+char			*safe_strdup(char *str, t_shell *shell);
+char			*safe_strdup_from(const char *str, int i, t_shell *shell);
 
 // print_cmds.c
 void			print_cmds(t_cmd_table *cmd_table);

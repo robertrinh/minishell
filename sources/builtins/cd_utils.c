@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/30 16:09:22 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/05/30 17:27:30 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/24 17:45:16 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	update_pwd(t_shell *shell, char *buff)
 	if (j != -1)
 	{
 		free(shell->envp[j]);
-		shell->envp[j] = safe_strjoin("PWD=", buff);
+		shell->envp[j] = safe_strjoin("PWD=", buff, shell);
 	}
 }
 
@@ -30,13 +30,13 @@ static void	update_oldpwd(t_shell *shell)
 	char	*pwd;
 
 	i = index_for_env_key(shell->envp, "OLDPWD");
-	pwd = get_value_for_key(shell->envp, "PWD");
+	pwd = get_value_for_key(shell->envp, "PWD", shell);
 	if (pwd == NULL)
 		return (free(pwd));
 	if (i != -1)
 	{
 		free(shell->envp[i]);
-		shell->envp[i] = safe_strjoin("OLDPWD=", pwd);
+		shell->envp[i] = safe_strjoin("OLDPWD=", pwd, shell);
 		free(pwd);
 	}
 	else
@@ -50,13 +50,23 @@ void	update_env(t_shell *shell)
 	char	*buff;
 
 	buff = getcwd(NULL, 0);
-	oldpwd = get_value_for_key(shell->envp, "OLDPWD");
+	oldpwd = get_value_for_key(shell->envp, "OLDPWD", shell);
 	if (oldpwd != NULL)
 		update_oldpwd(shell);
-	pwd = get_value_for_key(shell->envp, "PWD");
+	pwd = get_value_for_key(shell->envp, "PWD", shell);
 	if (pwd != NULL)
 		update_pwd(shell, buff);
 	free(oldpwd);
 	free(pwd);
 	free(buff);
+}
+
+void	cd_error(char *path, t_cmd *cmd, t_shell *shell)
+{
+	if (access(path, F_OK && X_OK) == -1)
+		show_error_message(E_NO_FILE_DIR, shell, cmd->args[0], X_FAILURE);
+	else if (access(path, R_OK) == -1)
+		show_error_message(E_DENY, shell, cmd->args[0], X_FAILURE);
+	else
+		show_error_message(E_NOT_A_DIR, shell, cmd->args[0], X_FAILURE);
 }

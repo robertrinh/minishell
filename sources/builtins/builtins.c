@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/01 14:47:56 by qtrinh            #+#    #+#             */
-/*   Updated: 2024/06/07 14:00:05 by qbeukelm         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   builtins.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/03/01 14:47:56 by qtrinh        #+#    #+#                 */
+/*   Updated: 2024/06/21 18:38:41 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_shell	*init_main_builtins(t_shell *shell)
 	builtin_table[B_EXPORT].function = export;
 	builtin_table[B_UNSET].name = "unset";
 	builtin_table[B_UNSET].function = unset;
-	shell->builtin_main = safe_malloc(B_NUM_MAIN * sizeof(t_builtin));
+	shell->builtin_main = safe_malloc(B_NUM_MAIN * sizeof(t_builtin), shell);
 	while (i < B_NUM_MAIN)
 	{
 		shell->builtin_main[i] = builtin_table[i];
@@ -47,7 +47,7 @@ t_shell	*init_child_builtins(t_shell *shell)
 	builtin_table[B_ENV].function = env;
 	builtin_table[B_PWD].name = "pwd";
 	builtin_table[B_PWD].function = pwd;
-	shell->builtin_child = safe_malloc(B_NUM_CHILD * sizeof(t_builtin));
+	shell->builtin_child = safe_malloc(B_NUM_CHILD * sizeof(t_builtin), shell);
 	while (i < B_NUM_CHILD)
 	{
 		shell->builtin_child[i] = builtin_table[i];
@@ -88,8 +88,8 @@ int	exec_builtin(t_builtin *table, t_cmd *cmd, t_shell *shell, int num)
 	{
 		if (ft_strncmp(cmd->value, table[i].name, ft_strlen(cmd->value)) == 0)
 		{
-			g_exit_code = table[i].function(cmd, shell);
-			return (g_exit_code);
+			shell->exit_code = table[i].function(cmd, shell);
+			return (shell->exit_code);
 		}
 		i++;
 	}

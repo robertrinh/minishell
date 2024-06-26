@@ -6,19 +6,19 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:25:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/05/31 17:06:34 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/24 15:16:34 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	*env_key_from_arg(const char *arg)
+static char	*env_key_from_arg(t_shell *shell, const char *arg)
 {
 	int		i;
 	char	*key;
 
 	i = 0;
-	key = safe_malloc(sizeof(char *) * ft_strlen(arg));
+	key = safe_malloc(sizeof(char *) * ft_strlen(arg), shell);
 	while (arg[i])
 	{
 		if (arg[i] == '=')
@@ -43,17 +43,17 @@ static void	add_new_arg(t_shell *shell, char *arg)
 	new_env = ft_realloc(shell->envp, (count + 2) * sizeof(char *));
 	if (new_env == NULL)
 	{
-		show_error_message(E_MALLOC, C_RED, "", X_FAILURE);
+		show_error_message(E_MALLOC, shell, "", X_FAILURE);
 		return ;
 	}
 	while (shell->envp[i])
 	{
-		new_env[i] = safe_strdup(shell->envp[i]);
+		new_env[i] = safe_strdup(shell->envp[i], shell);
 		free(shell->envp[i]);
 		i++;
 	}
 	free(shell->envp);
-	new_env[count] = safe_strdup(arg);
+	new_env[count] = safe_strdup(arg, shell);
 	new_env[count + 1] = NULL;
 	shell->envp = new_env;
 }
@@ -63,12 +63,12 @@ static void	add_arg_to_env(t_shell *shell, char *arg)
 	int		insert_index;
 	char	*key;
 
-	key = env_key_from_arg(arg);
+	key = env_key_from_arg(shell, arg);
 	insert_index = index_for_env_key(shell->envp, key);
 	if (insert_index != -1)
 	{
 		free(shell->envp[insert_index]);
-		shell->envp[insert_index] = safe_strdup(arg);
+		shell->envp[insert_index] = safe_strdup(arg, shell);
 	}
 	else
 		add_new_arg(shell, arg);
@@ -81,13 +81,13 @@ int	export(t_cmd *cmd, t_shell *shell)
 
 	i = 0;
 	if (cmd->args[i] == NULL)
-		return (show_error_message(E_EXPORT, C_RED, "", X_FAILURE));
+		return (show_error_message(E_EXPORT, shell, "", X_FAILURE), 1);
 	while (i < cmd->arg_count)
 	{
 		if (is_valid_export_arg(cmd->args[i]))
 			add_arg_to_env(shell, cmd->args[i]);
 		else
-			return (show_error_message(E_EXPORT, C_RED, cmd->args[i], 1));
+			return (show_error_message(E_EXPORT, shell, cmd->args[i], 1), 1);
 		i++;
 	}
 	return (0);
