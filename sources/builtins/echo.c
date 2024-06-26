@@ -6,36 +6,38 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/07 14:45:13 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/06/24 15:52:20 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/06/26 13:47:58 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static bool	is_echo_flag(t_cmd *cmd)
+static bool	is_echo_flag(char *arg, bool *flag)
 {
-	if (ft_strncmp(cmd->args[0], "-n", ft_strlen(cmd->args[0])) == 0)
+	size_t	i;
+
+	i = 0;
+	if (arg[i] != '-')
+		return (false);
+	else
+		i++;
+	while (arg[i] == 'n')
+		i++;
+	if (arg[i] == '\0')
+	{
+		*flag = true;
 		return (true);
+	}
 	return (false);
 }
 
-static int	echo_start_index(bool flag)
+static void	print_echo(t_cmd *cmd, int i, bool flag)
 {
-	if (flag)
-		return (1);
-	return (0);
-}
-
-static void	print_echo(t_cmd *cmd, bool flag)
-{
-	int	i;
-
-	i = echo_start_index(flag);
 	while (i < cmd->arg_count)
 	{
 		write(STDOUT_FILENO, cmd->args[i], ft_strlen(cmd->args[i]));
 		if (cmd->args[i + 1])
-			write(1, " ", 2);
+			write(STDOUT_FILENO, " ", 2);
 		i++;
 	}
 	if (flag == false)
@@ -44,18 +46,21 @@ static void	print_echo(t_cmd *cmd, bool flag)
 
 int	echo(t_cmd *cmd, t_shell *shell)
 {
+	int		i;
 	bool	flag;
 
 	(void) shell;
-	flag = is_echo_flag(cmd);
+	i = 0;
+	flag = false;
 	if (cmd->arg_count == 0)
 	{
-		ft_putchar_fd('\n', STDOUT_FILENO);
+		write(STDOUT_FILENO, "\n", 2);
 		exit(EXIT_SUCCESS);
 	}
-	if (flag && cmd->arg_count <= 1)
+	if (cmd->arg_count <= 1 && is_echo_flag(cmd->args[i], &flag))
 		exit(EXIT_SUCCESS);
-	if (cmd->arg_count > 0)
-		print_echo(cmd, flag);
+	while (cmd->args[i] && is_echo_flag(cmd->args[i], &flag))
+		i++;
+	print_echo(cmd, i, flag);
 	exit(EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/06/23 18:13:44 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/06/26 13:52:54 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ static t_validation	assign_out_redirects(t_cmd *cmd, t_shell *shell)
 
 static void	should_exit_no_command(t_cmd *cmd, t_shell *shell)
 {
-	if (ft_strncmp(cmd->cmd_path, CMD_NOT_FOUND_STR, 1) == 0)
-	{
-		show_error_message(E_CMD_NOT_FOUND, shell, cmd->value, X_CMD);
-		exit(shell->exit_code);
-	}
-	else if (cmd->cmd_path == NULL)
+	if (cmd->cmd_path == NULL)
 	{
 		shell->exit_code = 0;
+		exit(shell->exit_code);
+	}
+	else if (ft_strncmp(cmd->cmd_path, CMD_NOT_FOUND_STR, 1) == 0)
+	{
+		show_error_message(E_CMD_NOT_FOUND, shell, cmd->value, X_CMD);
 		exit(shell->exit_code);
 	}
 }

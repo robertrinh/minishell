@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 19:43:07 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/23 21:26:25 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/06/26 13:54:59 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	prepare_command(t_shell *shell, int i)
 	free_2d_array(env_paths);
 	if (cmd_path == NULL)
 	{
-		cmd->cmd_path = cmd_path;
+		cmd->cmd_path = NULL;
 		return (FAILURE);
 	}
 	cmd->cmd_path = safe_strdup(cmd_path, shell);
