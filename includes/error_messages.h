@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/21 17:15:53 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/24 17:34:57 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define E_CLOSE				"close failure"
 # define E_OPENING_FILE			"could not open file: "
 # define E_DENY					"Permission denied: "
+# define E_NOT_A_DIR			"Not a directory: "
 # define E_CMD_NOT_FOUND		"command not found: "
 # define E_NUMERIC_ERR			"exit: numeric argument required"
 # define E_ARG_ERR				"exit: too many arguments"

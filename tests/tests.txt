@@ -75,8 +75,11 @@ export A=1 NEW=you B=2
 echo "Hello $NEW, copy $A $B"
 cd -
 cd Deskto (invalid dir)
+cd Makefile (a file, no dir)
+cd test (dir with no access rights)
 unset PWD											
 unset HOME PATH SHELL USER PWD TERM ZSH
+echo -n -nnn -n -n -n -n hello
 
 
 === ERROR MESSAGES ===

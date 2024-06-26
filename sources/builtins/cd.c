@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/28 14:31:20 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/06/24 15:24:33 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/06/24 17:45:07 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,10 @@ int	cd(t_cmd *cmd, t_shell *shell)
 	path = determine_path(cmd, shell);
 	if (path == NULL)
 		return (X_FAILURE);
-	if (access(path, R_OK | X_OK) == -1)
-	{
-		free(path);
-		return (show_error_message(E_DENY, shell, cmd->args[0], 1), 1);
-	}
 	if (chdir(path) == -1)
 	{
-		free(path);
-		return (show_error_message(E_NO_FILE_DIR, shell, cmd->args[0], 1), 1);
+		cd_error(path, cmd, shell);
+		return (free(path), X_FAILURE);
 	}
 	else
 		update_env(shell);

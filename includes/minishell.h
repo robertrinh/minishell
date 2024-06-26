@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/23 22:22:51 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/06/24 17:45:35 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,6 +323,7 @@ int				exec_builtin(t_builtin *table, t_cmd *cmd, \
 
 // cd_utils.c
 void			update_env(t_shell *shell);
+void			cd_error(char *path, t_cmd *cmd, t_shell *shell);
 
 // cd.c
 int				cd(t_cmd *cmd, t_shell *shell);
