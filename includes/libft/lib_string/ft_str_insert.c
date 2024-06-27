@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/17 10:13:25 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/15 19:47:32 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/27 13:59:10 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,35 +44,26 @@ char	*ft_str_insert(char *base, char *insert, int i)
 {
 	char	*buffer;
 	t_vec	vec_base;
+	int		j;
 
-	// Nothing base to insert into
 	if (base == NULL || ft_strlen(base) == 0)
 		return (insert);
-
-	// Init vector
 	if (ft_vec_init(&vec_base, ft_strlen(base)) == false)
 		return (NULL);
-	int j = 0;
+	j = 0;
 	while (j < i)
 	{
 		ft_vec_push(&vec_base, base[j]);
 		j++;
 	}
-
-	// Buffer trailing string
 	buffer = buffer_trailing_string(base, i);
 	if (buffer == NULL)
 	{
 		free (base);
 		return (NULL);
 	}
-
-	// Insert substring
 	ft_vec_push_str(&vec_base, insert);
-
-	// Insert buffer
 	ft_vec_push_str(&vec_base, buffer);
-
 	free (buffer);
 	return (ft_vec_to_str(&vec_base));
 }

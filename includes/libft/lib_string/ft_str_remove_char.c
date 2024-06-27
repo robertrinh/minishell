@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/04 19:56:47 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/16 11:21:19 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/27 14:29:48 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,12 @@ static bool	buffer_trailing_string(char *base_input, t_vec *vec, \
 	return (true);
 }
 
-static bool insert_buffer(char *base_input, unsigned int i, t_vec *vec, \
+static bool	insert_buffer(char *base_input, unsigned int i, t_vec *vec, \
 	t_vec *vec_buffer)
 {
-	unsigned int j;
-	unsigned int k;
+	unsigned int	j;
+	unsigned int	k;
 
-	// Fill vec with base_input until the position before the character to remove
 	j = 0;
 	while (j < i)
 	{
@@ -44,8 +43,6 @@ static bool insert_buffer(char *base_input, unsigned int i, t_vec *vec, \
 			return (false);
 		j++;
 	}
-
-	// Add buffer after the character to remove
 	k = 0;
 	while (k < vec_buffer->len)
 	{
@@ -53,11 +50,8 @@ static bool insert_buffer(char *base_input, unsigned int i, t_vec *vec, \
 			return (false);
 		k++;
 	}
-
-	// Null-terminate the vector
 	if (ft_vec_push(vec, '\0') == false)
 		return (false);
-
 	return (true);
 }
 
@@ -75,30 +69,20 @@ static bool insert_buffer(char *base_input, unsigned int i, t_vec *vec, \
  */
 char	*ft_str_remove_char(char *str, int i, char c)
 {
-	t_vec 	vec;
-	t_vec 	vec_buffer;
+	t_vec	vec;
+	t_vec	vec_buffer;
 
-	// Check first char is quote
 	if (str[i] != c)
 		return (str);
-
-	// Init vec
 	if (!ft_vec_init(&vec, ft_strlen(str) + 1))
 		return (NULL);
 	if (!ft_vec_init(&vec_buffer, ft_strlen(str) + 1))
 		return (NULL);
-
-	// Buffer chars after quote
 	if (buffer_trailing_string(str, &vec_buffer, i) == false)
 		return (NULL);
-
-	// Insert buffer back into the vector
 	if (insert_buffer(str, i, &vec, &vec_buffer) == false)
 		return (NULL);
-	
 	if (vec_buffer.data)
 		ft_vec_free(&vec_buffer);
-
-	// Get the final string and free the main vector
 	return (ft_vec_to_str(&vec));
 }

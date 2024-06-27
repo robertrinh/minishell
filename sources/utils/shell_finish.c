@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/23 16:15:55 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/23 18:25:08 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/06/27 13:12:11 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ static void	free_shell_struct(t_shell *shell)
 
 void	free_shell(t_shell *shell, bool close_shell)
 {
+	if (shell->split)
+	{
+		free_split(shell->split);
+		shell->split = NULL;
+	}
 	if (shell->tokens)
 	{
 		free_tokens(shell->tokens);

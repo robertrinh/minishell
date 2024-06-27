@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/21 17:56:35 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/27 14:29:22 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char *expand_arg(char **env, char *arg, size_t i, t_shell *shell)
 	// Get KEY + VAL
 	arg = skip_multiple_expand_chars(arg, i + 1, shell);
 	key = get_env_key(arg, i, shell);
-	ft_sleep(PROCESS_SLEEP_TIME);
+	// ft_sleep(PROCESS_SLEEP_TIME);
 	val = get_value_for_key(env, key, shell);
 
 	// If env key is expand char
@@ -45,7 +45,6 @@ static char *expand_arg(char **env, char *arg, size_t i, t_shell *shell)
 		ft_vec_push_str(&vec_val, result);		
 		free (result);
 		free (val);
-		free (arg);
 		return (ft_vec_to_str(&vec_val));
 	}
 
@@ -80,7 +79,6 @@ static char *expand_arg(char **env, char *arg, size_t i, t_shell *shell)
 	// Result
 	ft_vec_push_str(&vec_val, new_result);
 	free (new_result);
-	free (arg);
 	return (ft_vec_to_str(&vec_val));
 }
 

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 10:13:21 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/21 18:01:53 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/27 14:29:36 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ static t_cmd	*process_args(char **env, t_cmd *cmd, t_shell *shell)
 	while (i < cmd->arg_count)
 	{
 		if (contains_quote(cmd->args[i]) == S_QUOTE_CHAR)
-		{
 			cmd->args[i] = new_strip_quotes(cmd->args[i]);
-		}
 		else if (contains_quote(cmd->args[i]) == D_QUOTE_CHAR)
 		{
 			cmd->args[i] = will_expand(env, cmd->args[i], shell);

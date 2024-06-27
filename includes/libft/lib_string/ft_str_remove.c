@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/17 11:11:34 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/16 12:41:18 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/27 14:00:20 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ char	*insert_buffer(char *base_input, char *buffer, int i)
 	return (base_input);
 }
 
-
 /**
  * Removes the first occurrence of the substring `remove` from `base_input` 
  * and returns the resulting string. ft_str_remove uses vectors.
@@ -79,39 +78,26 @@ char	*ft_str_remove(char *base_input, const char *remove)
 	char	*trailing_substr;
 	t_vec	vec;
 
-	// Locate remove in base input
 	needle = ft_strnstr(base_input, remove, ft_strlen(base_input));
 	if (needle == NULL)
 		return (NULL);
 	i = locate_substring(base_input, needle);
 	remove_len = ft_strlen(remove);
-
-	// If base is remove, return empty string
 	if (ft_strncmp(base_input, remove, ft_strlen(base_input)) == 0)
 		return ("");
-
-	// Init vector
 	if (ft_vec_init(&vec, ft_strlen(base_input)) == false)
 		return (NULL);
-	
-	// Buffer leading substring
 	leading_substr = ft_substr(base_input, 0, i);
 	if (leading_substr == NULL)
 		return (NULL);
-
 	ft_vec_push_str(&vec, leading_substr);
 	free (leading_substr);
-
-	// If no trailing characters, return modified base
 	if ((size_t)(i + remove_len) == ft_strlen(base_input))
 		return (ft_vec_to_str(&vec));
-
-	// Buffer leading substring
 	trailing_substr = buffer_trailing_string(base_input, remove_len, i);
 	if (trailing_substr == NULL)
 		return (NULL);
 	ft_vec_push_str(&vec, trailing_substr);
 	free (trailing_substr);
-	
 	return (ft_vec_to_str(&vec));
 }
