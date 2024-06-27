@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/17 11:11:34 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/27 14:00:20 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/27 14:51:39 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ char	*insert_buffer(char *base_input, char *buffer, int i)
  * Removes the first occurrence of the substring `remove` from `base_input` 
  * and returns the resulting string. ft_str_remove uses vectors.
  *
- * @param base_input The original string from which the substring will be removed.
+ * @param base_input The original string which the substring will be removed.
  * @param remove The substring to be removed from the original string.
- * @return The modified string with the substring removed, or NULL if an error occurs.
+ * @return Modified string with removed substring, or NULL if an error occurs.
  */
 char	*ft_str_remove(char *base_input, const char *remove)
 {
@@ -77,6 +77,7 @@ char	*ft_str_remove(char *base_input, const char *remove)
 	char	*leading_substr;
 	char	*trailing_substr;
 	t_vec	vec;
+	// ! Norm: Too many variables declarations in a function, 5 max
 
 	needle = ft_strnstr(base_input, remove, ft_strlen(base_input));
 	if (needle == NULL)

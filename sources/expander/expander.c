@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/27 14:29:22 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/27 14:49:30 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static char *expand_arg(char **env, char *arg, size_t i, t_shell *shell)
     char *result = NULL;
     char *new_key = NULL;
     char *new_result = NULL;
-
+	// ! Norm: Too many variables declarations in a function, 5 max
+	
 	if (ft_vec_init(&vec_val, ft_strlen(arg)) == false)
 		return (NULL);
 
