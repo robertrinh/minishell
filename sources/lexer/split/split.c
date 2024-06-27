@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/05 14:17:27 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/06/21 17:17:11 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/26 23:08:02 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	free_split(t_split *sp)
 {
-	int	i;
-
-	i = 0;
 	if (sp == NULL)
 		return ;
 	if (sp->input)
@@ -26,12 +23,6 @@ void	free_split(t_split *sp)
 	}
 	if (sp->strings)
 	{
-		while (i < sp->count)
-		{
-			free(sp->strings[i]);
-			sp->strings[i] = NULL;
-			i++;
-		}
 		free(sp->strings);
 		sp->strings = NULL;
 	}

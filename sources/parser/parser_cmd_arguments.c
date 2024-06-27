@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 10:14:19 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/21 18:33:25 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/26 23:07:17 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_cmd	*construct_args(t_cmd *cmd, t_parse *p, t_shell *shell)
 			cmd->args[i] = safe_strdup(current->value, shell);
 			if (cmd->args[i] == NULL)
 			{
-				while (i >= 0)
+				while (i > 0)
 					free(cmd->args[--i]);
 				return (free(cmd->args), NULL);
 			}

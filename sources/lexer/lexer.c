@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/21 17:12:51 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/26 23:07:43 by quentinbeuk   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_token	*token_constructor(char *split_input, int i, t_shell *shell)
 	if (token == NULL)
 		return (NULL);
 	token->len = ft_strlen(split_input);
-	token->value = safe_strdup(split_input, shell);
+	token->value = safe_strdup(split_input);
 	if (token->value == NULL)
 	{
 		show_error_message(E_MALLOC, shell, "safe_strdup token", X_FAILURE);
