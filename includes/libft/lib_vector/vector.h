@@ -6,19 +6,20 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/15 12:38:45 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/16 11:21:22 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/27 13:53:37 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
 # define VECTOR_H
 
-#include "../includes/libft.h"
+# include "../includes/libft.h"
 
-typedef struct s_vec {
-	char *data;
-	unsigned int len;
-	unsigned int capacity;
+typedef struct s_vec
+{
+	char			*data;
+	unsigned int	len;
+	unsigned int	capacity;
 }	t_vec;
 
 // ft_vector.c

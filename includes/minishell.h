@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/24 17:45:35 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/06/27 13:51:07 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ typedef struct s_split
 	int			i_buff;
 	int			i_str;
 	int			count;
-	char		buffer[BUFF_SIZE];
+	char		*buffer;
 	char		*input;
 	char		**strings;
 }	t_split;
@@ -169,10 +169,11 @@ typedef struct s_cmd_table
 }	t_cmd_table;
 
 typedef struct s_builtin \
-	t_builtin;
+		t_builtin;
 
 typedef struct s_shell
 {
+	t_split				*split;
 	t_token				*tokens;
 	t_cmd_table			*cmd_table;
 	char				**envp;
@@ -185,6 +186,12 @@ typedef struct s_shell
 	t_builtin			*builtin_main;
 	t_builtin			*builtin_child;
 }	t_shell;
+
+typedef struct s_builtin
+{
+	char	*name;
+	int		(*function)(t_cmd*, t_shell*);
+}	t_builtin;
 
 typedef struct s_parse
 {
@@ -204,9 +211,9 @@ typedef struct s_in_files
 
 typedef struct s_cmd_data
 {
-    t_cmd 		*cmd;
-    t_shell 	*shell;
-    t_in_files 	*ins;
+	t_cmd		*cmd;
+	t_shell		*shell;
+	t_in_files	*ins;
 }	t_cmd_data;
 
 //===============================================================: Main
@@ -257,7 +264,6 @@ int				skip_whitespace(t_split *sp);
 int				check_operator(char c1, char c2);
 
 // split.c
-void			free_split(t_split *sp);
 t_split			*split(t_shell *shell);
 
 //===============================================================: Parser
@@ -308,11 +314,6 @@ int				prepare_command(t_shell *shell, int i);
 int				shell_execute(t_shell *shell);
 
 // ----------------------------------- executor/builtins
-typedef struct s_builtin
-{
-	char	*name;
-	int		(*function)(t_cmd*, t_shell*);
-}	t_builtin;
 
 // builtins.c
 t_shell			*init_main_builtins(t_shell *shell);
@@ -461,6 +462,7 @@ void			free_cmd(t_cmd *cmd);
 void			free_2d_array(char **array);
 void			free_tokens(t_token *token);
 void			free_cmd(t_cmd *cmd);
+void			free_split(t_split *split);
 
 // shell_finish.c
 void			free_shell(t_shell *shell, bool will_exit);

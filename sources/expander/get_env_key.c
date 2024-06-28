@@ -6,16 +6,16 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/29 22:10:43 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/21 17:02:36 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/06/27 14:39:12 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static bool is_end_env_key(char c)
+static bool	is_end_env_key(char c)
 {
 	if (ft_isspace(c))
-		return (true); 
+		return (true);
 	else if (c == D_QUOTE_CHAR || c == S_QUOTE_CHAR)
 		return (true);
 	else if (c == EXPAND_CHAR)
@@ -23,7 +23,7 @@ static bool is_end_env_key(char c)
 	return (false);
 }
 
-char *skip_multiple_expand_chars(char *arg, size_t i, t_shell *shell)
+char	*skip_multiple_expand_chars(char *arg, size_t i, t_shell *shell)
 {
 	int		j;
 	int		k;

@@ -6,19 +6,19 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/11 19:53:12 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/26 23:07:03 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/27 13:15:38 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static t_cmd	*construct_command(t_cmd *cmd, t_parse *p, t_shell *shell)
+static t_cmd	*construct_command(t_cmd *cmd, t_parse *p)
 {
 	if (p->tokens_c->type == COMMAND)
-		cmd->value = safe_strdup(p->tokens_c->value, shell);
+		cmd->value = p->tokens_c->value;
 	else if (p->tokens_c->type == S_QUOTE || p->tokens_c->type == D_QUOTE)
 	{
-		cmd->value = safe_strdup(p->tokens_c->value, shell);
+		cmd->value = p->tokens_c->value;
 		if (p->tokens_c->next)
 			p->tokens_c = p->tokens_c->next;
 	}
@@ -33,7 +33,7 @@ t_cmd	*build_cmd(t_parse *p, t_shell *shell)
 	if (p->tokens_c)
 	{
 		cmd = allocate_cmd(shell);
-		cmd = construct_command(cmd, p, shell);
+		cmd = construct_command(cmd, p);
 		cmd = construct_args(cmd, p, shell);
 		cmd = construct_redirects(cmd, p, shell);
 		p->current_pipe++;

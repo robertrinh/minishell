@@ -6,7 +6,7 @@
 #    By: quentinbeukelman <quentinbeukelman@stud      +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/04/15 13:49:48 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/06/15 16:20:35 by quentinbeuk   ########   odam.nl          #
+#    Updated: 2024/06/27 13:58:07 by qtrinh        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,8 @@ LIB_STRING = ft_strlcpy.c \
 			ft_str_remove.c \
 			ft_str_remove_char.c \
 
-LIB_VECTOR = ft_vector.c
+LIB_VECTOR = ft_vector_push.c \
+			ft_vector.c \
 
 LIB_APPLY = ft_strmapi.c \
 			ft_striteri.c \

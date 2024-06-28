@@ -3,32 +3,14 @@
 /*                                                        ::::::::            */
 /*   split.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
+/*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/01/05 14:17:27 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/06/26 23:08:02 by quentinbeuk   ########   odam.nl         */
+/*   Created: 2024/06/27 12:23:45 by qtrinh        #+#    #+#                 */
+/*   Updated: 2024/06/27 14:34:29 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
-
-void	free_split(t_split *sp)
-{
-	if (sp == NULL)
-		return ;
-	if (sp->input)
-	{
-		free(sp->input);
-		sp->input = NULL;
-	}
-	if (sp->strings)
-	{
-		free(sp->strings);
-		sp->strings = NULL;
-	}
-	free(sp);
-	sp = NULL;
-}
 
 static int	index_next_quote(t_split *sp, int quote_type)
 {
@@ -94,6 +76,7 @@ t_split	*split(t_shell *shell)
 	split = safe_malloc(sizeof(t_split), shell);
 	split = init_split(shell, split);
 	split->count = count_substrings(split);
+	split->strings = NULL;
 	split->strings = safe_calloc(sizeof(char *), (split->count + 1), shell);
 	if (split->strings == NULL)
 	{

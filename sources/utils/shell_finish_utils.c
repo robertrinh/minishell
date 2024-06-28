@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/23 16:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/22 01:46:57 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/27 13:13:41 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,17 @@ void	free_tokens(t_token *token)
 		free_token(token);
 		token = next;
 	}
+}
+
+void	free_split(t_split *split)
+{
+	if (split)
+	{
+		free_2d_array(split->strings);
+		split->strings = NULL;
+	}
+	free(split);
+	split = NULL;
 }
 
 void	free_2d_array(char **array)

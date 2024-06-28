@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/01 16:00:19 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/06/22 01:29:05 by quentinbeuk   ########   odam.nl         */
+/*   Updated: 2024/06/27 14:40:07 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ static void	free_cmd_fd(t_redirect *head)
 	}
 }
 
-static void	free_args_format(t_cmd *cmd, int i)
+static void	free_args_format(t_cmd *cmd)
 {
+	int	i;
+
 	i = 0;
 	while (i <= cmd->arg_count)
 	{
@@ -42,25 +44,13 @@ static void	free_args_format(t_cmd *cmd, int i)
 
 static void	free_args_format_cmd(t_cmd *cmd)
 {
-	int	i;
-
 	if (cmd->args)
 	{
-		i = 0;
-		while (i <= cmd->arg_count)
-		{
-			if (cmd->args[i])
-			{
-				free(cmd->args[i]);
-				cmd->args[i] = NULL;
-			}
-			i++;
-		}
 		free(cmd->args);
 		cmd->args = NULL;
 	}
 	if (cmd->cmd_and_args)
-		free_args_format(cmd, i);
+		free_args_format(cmd);
 }
 
 void	free_cmd(t_cmd *cmd)
@@ -76,11 +66,6 @@ void	free_cmd(t_cmd *cmd)
 	{
 		free(cmd->cmd_path);
 		cmd->cmd_path = NULL;
-	}
-	if (cmd->value)
-	{
-		free(cmd->value);
-		cmd->value = NULL;
 	}
 	free(cmd);
 	cmd = NULL;
