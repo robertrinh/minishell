@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_vector_push.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/06/27 13:57:03 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/06/27 13:58:33 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_vector_push.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/27 13:57:03 by qtrinh            #+#    #+#             */
+/*   Updated: 2024/07/12 16:01:46 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,13 @@ char	*ft_vec_to_str(t_vec *v)
 
 	if (!ft_vec_push(v, '\0'))
 		return (NULL);
+	//return (v->data);
 	tmp = malloc(sizeof(char) * v->len);
 	if (!tmp)
 		return (NULL);
 	ft_memcpy(tmp, v->data, v->len);
-	free(v->data);
-	v->data = tmp;
+	//free(v->data);
+	ft_vec_free(v);
+	//v->data = tmp;
 	return (tmp);
 }

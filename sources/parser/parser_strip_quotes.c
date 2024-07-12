@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser_strip_quotes.c                              :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/03/24 09:51:56 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/21 15:12:30 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser_strip_quotes.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/24 09:51:56 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/07/12 16:14:03 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,21 +45,19 @@ char	*new_strip_quotes(char *arg)
 			new_arg = ft_str_remove_char(arg, i, quote_type);
 			if (new_arg == NULL)
 				return (NULL);
-			arg = new_arg;
 			i--;
 			i = next_quote_char(arg, i, quote_type);
 			if (is_quote(arg[i]) == quote_type)
 			{
-				new_arg = ft_str_remove_char(arg, i, quote_type);
+				new_arg = ft_str_remove_char(new_arg, i, quote_type);
 				if (new_arg == NULL)
 					return (NULL);
-				free(arg);
-				arg = new_arg;
 			}
 			i--;
 			len = ft_strlen(arg);
 		}
 		i++;
 	}
-	return (arg);
+	free(arg);
+	return (new_arg);
 }
