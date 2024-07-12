@@ -6,16 +6,16 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/27 14:49:30 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/07/12 13:25:49 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/libft/lib_vector/vector.h"
 
-static char *expand_arg(char **env, char *arg, size_t i, t_shell *shell)
+static bool expand_arg(char **env, char *arg, size_t i, t_shell *shell, t_vec *vec)
 {
-	t_vec	vec_val;
+	// t_vec	vec_val;
     char *key = NULL;
     char *val = NULL;
     char *result = NULL;
@@ -23,14 +23,14 @@ static char *expand_arg(char **env, char *arg, size_t i, t_shell *shell)
     char *new_result = NULL;
 	// ! Norm: Too many variables declarations in a function, 5 max
 	
-	if (ft_vec_init(&vec_val, ft_strlen(arg)) == false)
-		return (NULL);
+	// if (ft_vec_init(vec_val, ft_strlen(arg)) == false)
+	// 	return (NULL);
 
 	// If arg is one char
 	if (ft_strlen(arg) == 1)
 	{
-		ft_vec_push(&vec_val, arg[0]);
-		return (ft_vec_to_str(&vec_val));
+		ft_vec_push(vec, arg[0]);
+		return (SUCCESS);
 	}
 
 	// Get KEY + VAL
@@ -43,10 +43,10 @@ static char *expand_arg(char **env, char *arg, size_t i, t_shell *shell)
 	if (key[0] == '?')
 	{
 		result = expand_exit_code(arg, key, i, shell);
-		ft_vec_push_str(&vec_val, result);		
+		ft_vec_push_str(vec, result);		
 		free (result);
 		free (val);
-		return (ft_vec_to_str(&vec_val));
+		return (SUCCESS);
 	}
 
 	// Append dollar sign to key
@@ -63,9 +63,9 @@ static char *expand_arg(char **env, char *arg, size_t i, t_shell *shell)
 	// If no value exists for this key
 	if (val == NULL)
 	{
-		ft_vec_push_str(&vec_val, result);
+		ft_vec_push_str(vec, result);
 		free (result);
-		return (ft_vec_to_str(&vec_val));
+		return (SUCCESS);
 	}
 
 	// Insert the value
@@ -78,12 +78,12 @@ static char *expand_arg(char **env, char *arg, size_t i, t_shell *shell)
 	free (val);
 
 	// Result
-	ft_vec_push_str(&vec_val, new_result);
+	ft_vec_push_str(vec, new_result);
 	free (new_result);
-	return (ft_vec_to_str(&vec_val));
+	return (SUCCESS);
 }
 
-char	*will_expand(char **env, char *arg, t_shell *shell)
+bool	will_expand(char **env, char *arg, t_shell *shell, t_vec *vec)
 {
 	size_t	i;
 	int		expand_count;
@@ -100,12 +100,13 @@ char	*will_expand(char **env, char *arg, t_shell *shell)
 			break ;
 		if (arg[i] == EXPAND_CHAR)
 		{
-			arg = expand_arg(env, arg, i, shell);
+			if (expand_arg(env, arg, i, shell, vec) == false)
+				return (FAILURE);
 			expanded_count++;
 			i = 0;
 			continue ;
 		}
 		i++;
 	}
-	return (arg);
+	return (SUCCESS);
 }

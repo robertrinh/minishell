@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 10:14:19 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/27 14:40:17 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/07/12 14:35:41 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_cmd	*construct_args(t_cmd *cmd, t_parse *p, t_shell *shell)
 	{
 		if (is_type_arg(current->type))
 		{
-			cmd->args[i] = current->value;
+			cmd->args[i] = safe_strdup(current->value, shell);
 			if (cmd->args[i] == NULL)
 				return (free(cmd->args), NULL);
 			i++;
