@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 21:25:42 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/24 15:16:34 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/07/05 13:44:58 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	add_new_arg(t_shell *shell, char *arg)
 
 	i = 0;
 	count = count_lines_from(shell->envp, 0);
-	new_env = ft_realloc(shell->envp, (count + 2) * sizeof(char *));
+	new_env = safe_malloc((count + 2) * sizeof(char *), shell);
 	if (new_env == NULL)
 	{
 		show_error_message(E_MALLOC, shell, "", X_FAILURE);
