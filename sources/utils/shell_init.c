@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/14 14:04:02 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/06/21 16:57:21 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/07/19 19:20:01 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ t_shell	*construct_shell(t_shell *shell, char **envp, char **argv)
 	shell->exit_code = 0;
 	shell->input = NULL;
 	shell->tokens = NULL;
+	shell->split = NULL;
 	shell->cmd_table = init_cmd_table(shell);
 	shell->envp = alloc_envp(envp, shell);
 	shell->original_stdin = dup(STDIN_FILENO);
