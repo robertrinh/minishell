@@ -6,12 +6,11 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/23 21:54:16 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/27 14:39:51 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/07/19 18:10:17 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include "../../includes/libft/lib_vector/vector.h"
 
 int	count_expand(char *arg)
 {

@@ -9,7 +9,7 @@ cat Makefile || wc
 cat README.md > grep "a"
 cat << EOF > output.txt								
 echo mate > hello									
-'EOF' / "..."										[!] Valgrind LEAK
+'EOF' / "..."										
 grep aa << EOF
 echo hello to this >> input.txt 
 cat README.md > input.txt
@@ -46,9 +46,9 @@ echo $USER$PATH
 e'ch'o hello
 echo "hello $TERM$NOARG more"						[1] Valgrind LEAK
 echo $$$$$???										[3] Valgrind LEAK
-echo $?												[1] Valgrind LEAK
-echo 123$????										[2] Valgrind LEAK			
-echo hello$?										[2] Valgrind LEAK		
+echo $?												
+echo 123$????										[1] Valgrind LEAK		
+echo hello$?										[1] Valgrind LEAK		
 echo hel'll"o"'
 echo hello"more more"hello
 echo "hello $USER$TERM more"

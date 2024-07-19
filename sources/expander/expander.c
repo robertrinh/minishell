@@ -6,25 +6,22 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/07/12 13:25:49 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/07/19 18:28:19 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include "../../includes/libft/lib_vector/vector.h"
 
+
+// ! issue: vector returns arg twice per arg
 static bool expand_arg(char **env, char *arg, size_t i, t_shell *shell, t_vec *vec)
 {
-	// t_vec	vec_val;
     char *key = NULL;
     char *val = NULL;
     char *result = NULL;
     char *new_key = NULL;
     char *new_result = NULL;
 	// ! Norm: Too many variables declarations in a function, 5 max
-	
-	// if (ft_vec_init(vec_val, ft_strlen(arg)) == false)
-	// 	return (NULL);
 
 	// If arg is one char
 	if (ft_strlen(arg) == 1)
@@ -92,7 +89,7 @@ bool	will_expand(char **env, char *arg, t_shell *shell, t_vec *vec)
 	expanded_count = 0;
 	expand_count = count_expand(arg);
 	if (expand_count == 0)
-		return (arg);
+		return (SUCCESS);
 	i = 0;
 	while (arg[i])
 	{

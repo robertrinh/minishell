@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/07/12 13:39:46 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/07/19 15:30:07 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,7 +288,7 @@ bool			should_add_files(t_token_type current_type, t_token_type type);
 t_cmd			*construct_redirects(t_cmd *cmd, t_parse *p, t_shell *shell);
 
 // parser_strip_quotes.c
-bool			new_strip_quotes(char *arg, t_vec *vec);
+bool			new_strip_quotes(char *arg, t_vec *vec, t_shell *shell);
 char			*strip_quote_for_type(char *arg);
 
 // parser_utils.c
