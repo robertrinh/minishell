@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 10:13:21 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/07/19 18:30:30 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/07/24 18:48:42 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,21 @@ static char	*process_args(char **env, char *arg, t_shell *shell)
 	if (contains_quote(arg) == S_QUOTE_CHAR)
 	{
 		if (new_strip_quotes(arg, &vec, shell) == false)
-		return (arg);
+			return (ft_vec_free(&vec), arg);
 	}
 	else if (contains_quote(arg) == D_QUOTE_CHAR)
 	{
 		if (will_expand(env, arg, shell, &vec) == false)
 			return (ft_vec_free(&vec), arg);
-		if (new_strip_quotes(arg, &vec, shell) == false)
-			return (ft_vec_free(&vec), arg);
+		// if (new_strip_quotes(arg, &vec, shell) == false) // ! < echo "hello" incorrect strip (no expansion) if 
+		// 	return (ft_vec_free(&vec), arg);
 	}
 	else
 	{
 		if (will_expand(env, arg, shell, &vec) == false)
 			return (ft_vec_free(&vec), arg);
 	}
-	result = (ft_vec_to_str(&vec));
+	result = ft_vec_to_str(&vec);
 	if (ft_strlen(result) == 0)
 		return (ft_vec_free(&vec), arg);
 	return (result);
@@ -56,16 +56,16 @@ static char	*process_cmd(char **env, char *cmd, t_shell *shell)
 	if (contains_quote(cmd) == S_QUOTE_CHAR)
 	{
 		if (will_expand(env, cmd, shell, &vec) == false)
-			return (cmd);
+			return (ft_vec_free(&vec), cmd);
 		if (new_strip_quotes(cmd, &vec, shell) == false)
-			return (cmd);
+			return (ft_vec_free(&vec), cmd);
 	}
 	else if (contains_quote(cmd) == D_QUOTE_CHAR)
 	{
 		if (will_expand(env, cmd, shell, &vec) == false)
-			return (cmd);
-		if (new_strip_quotes(cmd, &vec, shell) == false)
-			return (cmd);
+			return (ft_vec_free(&vec), cmd);
+		// if (new_strip_quotes(cmd, &vec, shell) == false)
+		// 	return (ft_vec_free(&vec), cmd);
 	}
 	else
 		return (ft_vec_free(&vec), cmd);
@@ -77,10 +77,10 @@ static char	*process_cmd(char **env, char *cmd, t_shell *shell)
 
 int	parser_post_process(t_shell *shell)
 {
-	int		i;
-	t_cmd	*cmd;
-	char	*expanded_cmd;
-	char	*expanded_arg;
+	int			i;
+	t_cmd		*cmd;
+	char		*expanded_cmd;
+	char		*expanded_arg;
 
 	i = 0;
 	expanded_cmd = NULL;

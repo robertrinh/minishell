@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/07/19 15:30:07 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/07/24 18:45:16 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -420,8 +420,9 @@ void			rl_replace_line(const char *text, int clear_undo);
 // expander_utils.c
 int				count_expand(char *arg);
 bool			is_arg_key(char *arg, char *key);
-char			*expand_exit_code(char *arg, char *key, size_t i, \
-					t_shell *shell);
+// char			*expand_exit_code(char *arg, char *key, size_t i, \
+// 					t_shell *shell);
+bool			expand_exit_code(t_vec *vec, t_shell *shell);
 
 // expander.c
 bool			will_expand(char **env, char *arg, t_shell *shell, t_vec *vec);

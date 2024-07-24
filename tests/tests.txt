@@ -66,7 +66,7 @@ echo "hello $USER'$TERM' more"						[1] Valgrind LEAK
 
 
 === BUILTINS ===
-export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8 I=9 J=10		[!] Valgrind (only once when multiple is called. second time is none)
+export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8 I=9 J=10		
 export =
 export @
 export 1											
