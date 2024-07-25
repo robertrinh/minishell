@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/01 16:00:19 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/07/12 14:35:52 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/07/25 17:26:39 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,6 @@ static void	free_args_format(t_cmd *cmd)
 	free(cmd->cmd_and_args);
 	cmd->cmd_and_args = NULL;
 }
-
-// static void	free_args_format_cmd(t_cmd *cmd)
-// {
-// 	if (cmd->args)
-// 	{
-// 		free(cmd->args);
-// 		cmd->args = NULL;
-// 	}
-// 	if (cmd->cmd_and_args)
-// 		free_args_format(cmd);
-// }
 
 static void	free_args_format_cmd(t_cmd *cmd)
 {

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/07/24 18:45:16 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/07/25 17:00:19 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -418,18 +418,15 @@ void			rl_replace_line(const char *text, int clear_undo);
 
 //===============================================================: Expander
 // expander_utils.c
+void			skip_multiple_expand_chars(char *arg, size_t *i);
 int				count_expand(char *arg);
-bool			is_arg_key(char *arg, char *key);
-// char			*expand_exit_code(char *arg, char *key, size_t i, \
-// 					t_shell *shell);
+bool			should_not_expand(char *arg);
 bool			expand_exit_code(t_vec *vec, t_shell *shell);
 
 // expander.c
-bool			will_expand(char **env, char *arg, t_shell *shell, t_vec *vec);
+bool			will_expand(char *arg, t_shell *shell, t_vec *vec);
 
 // get_env_key.c
-char			*skip_multiple_expand_chars(char *arg, size_t i, \
-					t_shell *shell);
 char			*get_env_key(char *arg, size_t i, t_shell *shell);
 
 //===============================================================: Utils
