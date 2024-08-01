@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/23 21:54:16 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/07/25 17:00:11 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/08/01 14:55:16 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	count_expand(char *arg)
 	return (count);
 }
 
-bool	should_not_expand(char *arg)
+bool	check_expand_char(char *arg)
 {
 	int	i;
 
@@ -48,10 +48,10 @@ bool	should_not_expand(char *arg)
 	{
 		if ((arg[i] == S_QUOTE_CHAR) || (arg[i] == D_QUOTE_CHAR)
 			|| arg[i] == EXPAND_CHAR)
-			return (false);
+			return (true);
 		i++;
 	}
-	return (true);
+	return (false);
 }
 
 bool	expand_exit_code(t_vec *vec, t_shell *shell)
