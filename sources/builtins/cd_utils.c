@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/30 16:09:22 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/06/24 17:45:16 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ void	update_env(t_shell *shell)
 void	cd_error(char *path, t_cmd *cmd, t_shell *shell)
 {
 	if (access(path, F_OK && X_OK) == -1)
-		show_error_message(E_NO_FILE_DIR, shell, cmd->args[0], X_FAILURE);
+		show_error(E_NO_FILE_DIR, shell, cmd->args[0], X_FAILURE);
 	else if (access(path, R_OK) == -1)
-		show_error_message(E_DENY, shell, cmd->args[0], X_FAILURE);
+		show_error(E_DENY, shell, cmd->args[0], X_FAILURE);
 	else
-		show_error_message(E_NOT_A_DIR, shell, cmd->args[0], X_FAILURE);
+		show_error(E_NOT_A_DIR, shell, cmd->args[0], X_FAILURE);
 }

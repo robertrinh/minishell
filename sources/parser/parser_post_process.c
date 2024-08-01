@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 10:13:21 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/08/01 17:47:16 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static bool	process_expander(char **str, t_shell *shell)
 
 	expanded_str = NULL;
 	if (!ft_vec_init(&vec, 200))
-		return (show_error_message(E_MALLOC, shell, "", X_FAILURE), FAILURE);
+		return (show_error(E_MALLOC, shell, "", X_FAILURE), FAILURE);
 	if (handle_expansion(*str, &vec, shell) == FAILURE)
 		return (ft_vec_free(&vec), FAILURE);
 	expanded_str = ft_vec_to_str(&vec);
@@ -91,9 +91,9 @@ int	parser_post_process(t_shell *shell)
 	while (i < shell->cmd_table->cmd_count)
 	{
 		if (process_cmd(&cmd->value, shell) == FAILURE)
-			return (show_error_message(E_MALLOC, shell, "vec cmd", X_FAILURE));
+			return (show_error(E_MALLOC, shell, "vec cmd", X_FAILURE));
 		if (process_args(cmd, shell) == FAILURE)
-			return (show_error_message(E_MALLOC, shell, "vec args", X_FAILURE));
+			return (show_error(E_MALLOC, shell, "vec args", X_FAILURE));
 		i++;
 	}
 	return (0);

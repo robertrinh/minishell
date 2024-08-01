@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/24 09:51:56 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/07/19 17:57:24 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ bool new_strip_quotes(char *arg, t_vec *vec, t_shell *shell)
 			while (arg[i] != quote_type)
 			{
 				if (!ft_vec_push(vec, arg[i]))
-					return (show_error_message(E_MALLOC, shell, "", 1));
+					return (show_error(E_MALLOC, shell, "", 1));
 				i++;
 			}
 		}
 		else
 			if (!ft_vec_push(vec, arg[i]))
-				return (show_error_message(E_MALLOC, shell, "", 1));
+				return (show_error(E_MALLOC, shell, "", 1));
 		i++;
 	}
 	return (SUCCESS);

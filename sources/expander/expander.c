@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/08/01 17:47:45 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static bool	expand_arg(char *arg, t_shell *shell, t_vec *vec, size_t *i)
 	(*i) += ft_strlen(key) + 1;
 	free(key);
 	if (!ft_vec_push_str(vec, value))
-		return (show_error_message(E_MALLOC, shell, "", X_FAILURE), FAILURE);
+		return (show_error(E_MALLOC, shell, "", X_FAILURE), FAILURE);
 	free (value);
 	return (SUCCESS);
 }
@@ -58,7 +58,7 @@ bool	will_expand(char *arg, t_shell *shell, t_vec *vec)
 			continue ;
 		}
 		if (!ft_vec_push(vec, arg[i]))
-			return (show_error_message(E_MALLOC, shell, "", X_FAILURE), FAILURE);
+			return (show_error(E_MALLOC, shell, "", X_FAILURE), FAILURE);
 		i++;
 	}
 	return (SUCCESS);

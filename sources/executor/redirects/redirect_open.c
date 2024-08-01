@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/23 15:04:57 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/06/23 22:23:03 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int	safe_open(char *path, t_redirect_type oflag, int mode, t_shell *shell)
 	fd = open(path, oflag, mode);
 	if (access(path, R_OK) == -1)
 	{
-		show_error_message(E_DENY, shell, path, X_FAILURE);
+		show_error(E_DENY, shell, path, X_FAILURE);
 		exit(shell->exit_code);
 	}
 	else if (fd == -1)
-		show_error_message(E_OPENING_FILE, shell, path, X_FAILURE);
+		show_error(E_OPENING_FILE, shell, path, X_FAILURE);
 	return (fd);
 }
 

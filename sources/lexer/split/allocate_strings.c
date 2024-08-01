@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/07 13:01:10 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/07/19 19:25:04 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static t_split	*handle_substrings(t_split *sp, t_shell *shell)
 		sp->i_buff++;
 		if (sp->i >= BUFF_SIZE - 2 || sp->i_buff >= BUFF_SIZE - 2)
 		{
-			show_error_message(E_OVERFLOW, shell, "", X_FAILURE);
+			show_error(E_OVERFLOW, shell, "", X_FAILURE);
 			return (NULL);
 		}
 	}
@@ -82,7 +82,7 @@ char	**allocate_strings_split(t_split *sp, t_shell *shell)
 		if (sp->buffer == NULL)
 		{
 			free_split(sp);
-			show_error_message(E_MALLOC, shell, "split", X_FAILURE);
+			show_error(E_MALLOC, shell, "split", X_FAILURE);
 			return (NULL);
 		}
 		sp->i = skip_whitespace(sp);
