@@ -6,37 +6,21 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/23 21:54:16 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/08/01 14:55:16 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/01 17:48:55 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void skip_multiple_expand_chars(char *arg, size_t *i)
+void	skip_multiple_expand_chars(char *arg, size_t *i)
 {
-    size_t	start;
-	
+	size_t	start;
+
 	start = *i;
-    while (arg[*i] == EXPAND_CHAR)
-        (*i)++;
-    if (*i > start)
-        (*i)--;
-}
-
-int	count_expand(char *arg)
-{
-	int		i;
-	int		count;
-
-	i = 0;
-	count = 0;
-	while (arg[i])
-	{
-		if (arg[i] == EXPAND_CHAR)
-			count++;
-		i++;
-	}
-	return (count);
+	while (arg[*i] == EXPAND_CHAR)
+		(*i)++;
+	if (*i > start)
+		(*i)--;
 }
 
 bool	check_expand_char(char *arg)

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 10:13:21 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/08/01 16:17:22 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/01 17:47:16 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ static bool	handle_expansion(char *str, t_vec *vec, t_shell *shell)
 	{
 		if (will_expand(str, shell, vec) == false)
 			return (FAILURE);
-		// if (new_strip_quotes(str, vec, shell) == false) // ! < echo "hello" incorrect strip (no expansion) if commented out
-		// 	return (FAILURE);
 	}
 	else
 		if (will_expand(str, shell, vec) == false)
@@ -36,10 +34,10 @@ static bool	process_expander(char **str, t_shell *shell)
 {
 	t_vec	vec;
 	char	*expanded_str;
-	
+
 	expanded_str = NULL;
 	if (!ft_vec_init(&vec, 200))
-		return (show_error_message(E_MALLOC, shell, "v fail", X_FAILURE), FAILURE);
+		return (show_error_message(E_MALLOC, shell, "", X_FAILURE), FAILURE);
 	if (handle_expansion(*str, &vec, shell) == FAILURE)
 		return (ft_vec_free(&vec), FAILURE);
 	expanded_str = ft_vec_to_str(&vec);
@@ -53,7 +51,7 @@ static bool	process_expander(char **str, t_shell *shell)
 
 static bool	process_args(t_cmd *cmd, t_shell *shell)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (i < cmd->arg_count)
@@ -85,8 +83,8 @@ static bool	process_cmd(char **cmd, t_shell *shell)
 
 int	parser_post_process(t_shell *shell)
 {
-	int	i;
-	t_cmd		*cmd;
+	int		i;
+	t_cmd	*cmd;
 
 	i = 0;
 	cmd = shell->cmd_table->cmds[i];

@@ -51,20 +51,19 @@ echo $?
 echo 123$????											
 echo hello$?											
 echo hel'll"o"'
-echo hello"more more"hello							Incorrect output -> spacebar hello. Bash: hellomore more hello
+echo hello"more more"hello							
 echo "hello $USER$TERM more"						
 echo "hello $USER more"
 echo hello$USER
 echo "hello $NOT_A_KEY"								
 echo "my name is $USER and I use $TERM"
-echo "hello '$USER' more"							Incorrect output: Ours stripped single quotes (with no strip quotes enabled)
+echo "hello '$USER' more"							
 echo ''"hello"
 echo ''"hello"''"there"
 export ch=ch
 echo e"$ch"o										
-echo "hello $USER"$TERM" more"						Incorrect output: Ours does not print more at the end
-echo "hello $USER'$TERM' more"						Incorrect output: Ours does not print single quotes
-echo $USER | echo $TERM
+echo "hello $USER"$TERM" more"						
+echo "hello $USER'$TERM' more"						
 
 === BUILTINS ===
 export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8 I=9 J=10		
