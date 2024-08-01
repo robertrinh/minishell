@@ -6,13 +6,13 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/24 09:51:56 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/01 17:53:14 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool new_strip_quotes(char *arg, t_vec *vec, t_shell *shell)
+bool	new_strip_quotes(char *arg, t_vec *vec, t_shell *shell)
 {
 	int		i;
 	int		len;
