@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 10:13:21 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/02 21:15:37 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static bool	process_args(t_cmd *cmd, t_shell *shell)
 
 static bool	process_cmd(char **cmd, t_shell *shell)
 {
-	if (!cmd)
+	if (!*cmd)
 		return (SUCCESS);
 	if (check_expand_char(*cmd) == false)
 		return (SUCCESS);
