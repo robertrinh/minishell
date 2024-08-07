@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/15 20:04:35 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/24 17:34:57 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 typedef struct s_shell	t_shell;
 
 // error_messages.c
-int		show_error_message(char *error, t_shell *shell, char *arg, \
+int		show_error(char *error, t_shell *shell, char *arg, \
 							int exit_code);
 int		exit_with_message(char *error, t_shell *shell, int exit_code);
 

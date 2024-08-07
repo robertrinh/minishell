@@ -6,48 +6,79 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 10:13:21 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/27 14:29:36 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/02 21:15:37 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static t_cmd	*process_args(char **env, t_cmd *cmd, t_shell *shell)
+static bool	handle_expansion(char *str, t_vec *vec, t_shell *shell)
+{
+	if (contains_quote(str) == S_QUOTE_CHAR)
+	{
+		if (new_strip_quotes(str, vec, shell) == false)
+			return (FAILURE);
+	}
+	else if (contains_quote(str) == D_QUOTE_CHAR)
+	{
+		if (will_expand(str, shell, vec) == false)
+			return (FAILURE);
+	}
+	else
+		if (will_expand(str, shell, vec) == false)
+			return (FAILURE);
+	return (SUCCESS);
+}
+
+static bool	process_expander(char **str, t_shell *shell)
+{
+	t_vec	vec;
+	char	*expanded_str;
+
+	expanded_str = NULL;
+	if (!ft_vec_init(&vec, 200))
+		return (show_error(E_MALLOC, shell, "", X_FAILURE), FAILURE);
+	if (handle_expansion(*str, &vec, shell) == FAILURE)
+		return (ft_vec_free(&vec), FAILURE);
+	expanded_str = ft_vec_to_str(&vec);
+	if (expanded_str != *str)
+	{
+		free(*str);
+		*str = expanded_str;
+	}
+	return (SUCCESS);
+}
+
+static bool	process_args(t_cmd *cmd, t_shell *shell)
 {
 	int	i;
 
 	i = 0;
 	while (i < cmd->arg_count)
 	{
-		if (contains_quote(cmd->args[i]) == S_QUOTE_CHAR)
-			cmd->args[i] = new_strip_quotes(cmd->args[i]);
-		else if (contains_quote(cmd->args[i]) == D_QUOTE_CHAR)
+		if (!cmd->args[i])
+			return (SUCCESS);
+		if (check_expand_char(cmd->args[i]) == false)
 		{
-			cmd->args[i] = will_expand(env, cmd->args[i], shell);
-			cmd->args[i] = new_strip_quotes(cmd->args[i]);
+			i++;
+			continue ;
 		}
-		else
-			cmd->args[i] = will_expand(env, cmd->args[i], shell);
+		if (process_expander(&cmd->args[i], shell) == FAILURE)
+			return (FAILURE);
 		i++;
 	}
-	return (cmd);
+	return (SUCCESS);
 }
 
-static t_cmd	*process_cmd(char **env, t_cmd *cmd, t_shell *shell)
+static bool	process_cmd(char **cmd, t_shell *shell)
 {
-	if (cmd->value == NULL)
-		return (cmd);
-	if (contains_quote(cmd->value) == S_QUOTE_CHAR)
-	{
-		cmd->value = will_expand(env, cmd->value, shell);
-		cmd->value = new_strip_quotes(cmd->value);
-	}
-	else if (contains_quote(cmd->value) == D_QUOTE_CHAR)
-	{
-		cmd->value = will_expand(env, cmd->value, shell);
-		cmd->value = new_strip_quotes(cmd->value);
-	}
-	return (cmd);
+	if (!*cmd)
+		return (SUCCESS);
+	if (check_expand_char(*cmd) == false)
+		return (SUCCESS);
+	if (process_expander(cmd, shell) == FAILURE)
+		return (FAILURE);
+	return (SUCCESS);
 }
 
 int	parser_post_process(t_shell *shell)
@@ -59,8 +90,10 @@ int	parser_post_process(t_shell *shell)
 	cmd = shell->cmd_table->cmds[i];
 	while (i < shell->cmd_table->cmd_count)
 	{
-		cmd = process_cmd(shell->envp, cmd, shell);
-		cmd = process_args(shell->envp, cmd, shell);
+		if (process_cmd(&cmd->value, shell) == FAILURE)
+			return (show_error(E_MALLOC, shell, "vec cmd", X_FAILURE));
+		if (process_args(cmd, shell) == FAILURE)
+			return (show_error(E_MALLOC, shell, "vec args", X_FAILURE));
 		i++;
 	}
 	return (0);

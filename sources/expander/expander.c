@@ -6,106 +6,60 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/27 14:49:30 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include "../../includes/libft/lib_vector/vector.h"
 
-static char *expand_arg(char **env, char *arg, size_t i, t_shell *shell)
+static bool	expand_arg(char *arg, t_shell *shell, t_vec *vec, size_t *i)
 {
-	t_vec	vec_val;
-    char *key = NULL;
-    char *val = NULL;
-    char *result = NULL;
-    char *new_key = NULL;
-    char *new_result = NULL;
-	// ! Norm: Too many variables declarations in a function, 5 max
-	
-	if (ft_vec_init(&vec_val, ft_strlen(arg)) == false)
-		return (NULL);
+	char	*key;
+	char	*value;
 
-	// If arg is one char
 	if (ft_strlen(arg) == 1)
-	{
-		ft_vec_push(&vec_val, arg[0]);
-		return (ft_vec_to_str(&vec_val));
-	}
-
-	// Get KEY + VAL
-	arg = skip_multiple_expand_chars(arg, i + 1, shell);
-	key = get_env_key(arg, i, shell);
-	// ft_sleep(PROCESS_SLEEP_TIME);
-	val = get_value_for_key(env, key, shell);
-
-	// If env key is expand char
+		return (ft_vec_push(vec, arg[*i]), SUCCESS);
+	key = get_env_key(arg, *i, shell);
 	if (key[0] == '?')
 	{
-		result = expand_exit_code(arg, key, i, shell);
-		ft_vec_push_str(&vec_val, result);		
-		free (result);
-		free (val);
-		return (ft_vec_to_str(&vec_val));
+		(*i) += 2;
+		return (expand_exit_code(vec, shell), SUCCESS);
 	}
-
-	// Append dollar sign to key
-	if (key[0] != EXPAND_CHAR)
-		new_key = ft_strjoin("$", key);
-	else
-		new_key = ft_strdup(key);
+	value = get_value_for_key(shell->envp, key, shell);
+	if (value == NULL)
+	{
+		(*i) += ft_strlen(key) + 1;
+		return (free(key), SUCCESS);
+	}
+	(*i) += ft_strlen(key) + 1;
 	free(key);
-
-	// Romove key from arg
-	result = ft_str_remove(arg, new_key);
-	free (new_key);
-
-	// If no value exists for this key
-	if (val == NULL)
-	{
-		ft_vec_push_str(&vec_val, result);
-		free (result);
-		return (ft_vec_to_str(&vec_val));
-	}
-
-	// Insert the value
-	if (result)
-	{
-		if (val)
-			new_result = ft_str_insert(result, val, i);
-		free (result);
-	}
-	free (val);
-
-	// Result
-	ft_vec_push_str(&vec_val, new_result);
-	free (new_result);
-	return (ft_vec_to_str(&vec_val));
+	if (!ft_vec_push_str(vec, value))
+		return (show_error(E_MALLOC, shell, "", X_FAILURE), FAILURE);
+	free (value);
+	return (SUCCESS);
 }
 
-char	*will_expand(char **env, char *arg, t_shell *shell)
+bool	will_expand(char *arg, t_shell *shell, t_vec *vec)
 {
 	size_t	i;
-	int		expand_count;
-	int		expanded_count;
+	size_t	len;
 
-	expanded_count = 0;
-	expand_count = count_expand(arg);
-	if (expand_count == 0)
-		return (arg);
 	i = 0;
-	while (arg[i])
+	len = ft_strlen(arg);
+	while (i < len)
 	{
-		if (expanded_count == expand_count)
-			break ;
+		if (arg[i] == D_QUOTE_CHAR)
+			i++;
 		if (arg[i] == EXPAND_CHAR)
 		{
-			arg = expand_arg(env, arg, i, shell);
-			expanded_count++;
-			i = 0;
+			skip_multiple_expand_chars(arg, &i);
+			if (expand_arg(arg, shell, vec, &i) == false)
+				return (FAILURE);
 			continue ;
 		}
+		if (!ft_vec_push(vec, arg[i]))
+			return (show_error(E_MALLOC, shell, "", X_FAILURE), FAILURE);
 		i++;
 	}
-	return (arg);
+	return (SUCCESS);
 }

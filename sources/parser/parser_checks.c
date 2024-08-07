@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/18 21:07:32 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/21 17:19:55 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ bool	parser_checks(t_shell *shell)
 	if (shell->tokens == NULL)
 		return (FAILURE);
 	if (check_pipes(shell->tokens) == FAILURE)
-		return (show_error_message(E_PIPE, shell, "", X_FAILURE));
+		return (show_error(E_PIPE, shell, "", X_FAILURE));
 	if (check_redirects(shell->tokens) == FAILURE)
-		return (show_error_message(E_REDIRECT, shell, "", X_FAILURE));
+		return (show_error(E_REDIRECT, shell, "", X_FAILURE));
 	return (SUCCESS);
 }

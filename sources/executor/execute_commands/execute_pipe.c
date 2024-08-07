@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/22 21:17:02 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/21 18:29:57 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	first_cmd(t_shell *shell, t_cmd *cmd, int pipe_out[2])
 	{
 		if (dup2(pipe_out[WRITE], STDOUT_FILENO) < 0)
 		{
-			show_error_message(E_DUP, shell, cmd->value, X_FAILURE);
+			show_error(E_DUP, shell, cmd->value, X_FAILURE);
 			if (close_fds(pipe_out[WRITE], pipe_out[READ], -1) == false)
 				exit_with_message(E_CLOSE, shell, X_FAILURE);
 			exit(shell->exit_code);
@@ -45,7 +45,7 @@ void	first_cmd(t_shell *shell, t_cmd *cmd, int pipe_out[2])
 		manage_execution(shell, cmd);
 	}
 	if (close_fds(pipe_out[WRITE], -1, -1) == false)
-		show_error_message(E_CLOSE, shell, "parent first cmd", X_FAILURE);
+		show_error(E_CLOSE, shell, "parent first cmd", X_FAILURE);
 }
 
 void	mid_cmd(t_shell *shell, t_cmd *cmd, int pipe_in, int pipe_out[2])
@@ -62,7 +62,7 @@ void	mid_cmd(t_shell *shell, t_cmd *cmd, int pipe_in, int pipe_out[2])
 		if (dup2(pipe_out[WRITE], STDOUT_FILENO) < 0 || \
 			dup2(pipe_in, STDIN_FILENO) < 0)
 		{
-			show_error_message(E_DUP, shell, cmd->value, X_FAILURE);
+			show_error(E_DUP, shell, cmd->value, X_FAILURE);
 			if (close_fds(pipe_out[WRITE], pipe_in, -1) == false)
 				exit_with_message(E_CLOSE, shell, X_FAILURE);
 			exit(shell->exit_code);
@@ -72,7 +72,7 @@ void	mid_cmd(t_shell *shell, t_cmd *cmd, int pipe_in, int pipe_out[2])
 		manage_execution(shell, cmd);
 	}
 	if (close_fds(pipe_in, pipe_out[WRITE], -1) == false)
-		show_error_message(E_CLOSE, shell, "parent mid cmd", X_FAILURE);
+		show_error(E_CLOSE, shell, "parent mid cmd", X_FAILURE);
 }
 
 int	final_cmd(t_shell *shell, t_cmd *cmd, int pipe_in)
@@ -88,7 +88,7 @@ int	final_cmd(t_shell *shell, t_cmd *cmd, int pipe_in)
 	{
 		if (dup2(pipe_in, STDIN_FILENO) < 0)
 		{
-			show_error_message(E_DUP, shell, cmd->value, X_FAILURE);
+			show_error(E_DUP, shell, cmd->value, X_FAILURE);
 			if (close_fds(pipe_in, -1, -1) == false)
 				exit_with_message(E_CLOSE, shell, X_FAILURE);
 			exit(shell->exit_code);
@@ -98,6 +98,6 @@ int	final_cmd(t_shell *shell, t_cmd *cmd, int pipe_in)
 		manage_execution(shell, cmd);
 	}
 	if (close_fds(pipe_in, -1, -1) == false)
-		show_error_message(E_CLOSE, shell, "parent last cmd", X_FAILURE);
+		show_error(E_CLOSE, shell, "parent last cmd", X_FAILURE);
 	return (fork_id);
 }

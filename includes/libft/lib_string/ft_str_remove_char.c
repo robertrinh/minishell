@@ -6,7 +6,7 @@
 /*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/04 19:56:47 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/27 14:29:48 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/07/19 15:15:08 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ char	*ft_str_remove_char(char *str, int i, char c)
 {
 	t_vec	vec;
 	t_vec	vec_buffer;
+	char	*new_str;
 
 	if (str[i] != c)
 		return (str);
@@ -84,5 +85,7 @@ char	*ft_str_remove_char(char *str, int i, char c)
 		return (NULL);
 	if (vec_buffer.data)
 		ft_vec_free(&vec_buffer);
-	return (ft_vec_to_str(&vec));
+	new_str = ft_vec_to_str(&vec);
+	ft_vec_free(&vec);
+	return (new_str);
 }

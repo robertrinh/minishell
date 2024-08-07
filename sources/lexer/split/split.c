@@ -6,7 +6,7 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/06/27 12:23:45 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/06/27 14:34:29 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ t_split	*split(t_shell *shell)
 	if (split->strings == NULL)
 	{
 		free_split(split);
-		show_error_message(E_MALLOC, shell, "split", X_FAILURE);
+		show_error(E_MALLOC, shell, "split", X_FAILURE);
 		return (NULL);
 	}
 	split->strings = allocate_strings_split(split, shell);

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/29 22:10:43 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/27 14:39:12 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/07/25 17:00:07 by robertrinh    ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,35 +21,6 @@ static bool	is_end_env_key(char c)
 	else if (c == EXPAND_CHAR)
 		return (true);
 	return (false);
-}
-
-char	*skip_multiple_expand_chars(char *arg, size_t i, t_shell *shell)
-{
-	int		j;
-	int		k;
-	char	*buffer;
-
-	j = i;
-	k = 0;
-	buffer = safe_malloc(sizeof(char *) * ft_strlen(arg), shell);
-	if (arg[j] == EXPAND_CHAR)
-	{
-		while (arg[j])
-		{
-			if (arg[j] != EXPAND_CHAR)
-			{
-				buffer[k] = '\0';
-				arg = ft_str_remove(arg, buffer);
-				free (buffer);
-				return (arg);
-			}
-			buffer[k] = arg[j];
-			k++;
-			j++;
-		}
-	}
-	free(buffer);
-	return (arg);
 }
 
 char	*get_env_key(char *arg, size_t i, t_shell *shell)

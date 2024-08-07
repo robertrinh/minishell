@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/23 16:15:55 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/27 13:12:11 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	shell_finish(t_shell *shell)
 	free_shell(shell, false);
 	if (dup2(shell->original_stdin, STDIN_FILENO) < 0)
 	{
-		show_error_message(E_DUP, shell, "", X_FAILURE);
+		show_error(E_DUP, shell, "", X_FAILURE);
 		return ;
 	}
 	should_print("\n--------------------End--------------------\n\n", \

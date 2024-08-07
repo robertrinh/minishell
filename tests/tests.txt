@@ -9,7 +9,7 @@ cat Makefile || wc
 cat README.md > grep "a"
 cat << EOF > output.txt								
 echo mate > hello									
-'EOF' / "..."										[!] Valgrind LEAK
+'EOF' / "..."										
 grep aa << EOF
 echo hello to this >> input.txt 
 cat README.md > input.txt
@@ -44,26 +44,26 @@ echo "hello"
 cat "README.md" "Makefile" | wc -w
 echo $USER$PATH
 e'ch'o hello
-echo "hello $TERM$NOARG more"						[1] Valgrind LEAK
-echo $$$$$???										[3] Valgrind LEAK
-echo $?												[1] Valgrind LEAK
-echo 123$????										[2] Valgrind LEAK			
-echo hello$?										[2] Valgrind LEAK		
+'ech"o"' hello
+echo "hello $TERM$NOARG more"						
+echo $$$$$???										
+echo $?												
+echo 123$????											
+echo hello$?											
 echo hel'll"o"'
-echo hello"more more"hello
-echo "hello $USER$TERM more"
+echo hello"more more"hello							
+echo "hello $USER$TERM more"						
 echo "hello $USER more"
 echo hello$USER
-echo "hello $NOT_A_KEY"								[1] Valgrind LEAK
+echo "hello $NOT_A_KEY"								
 echo "my name is $USER and I use $TERM"
-echo "hello '$USER' more"
+echo "hello '$USER' more"							
 echo ''"hello"
 echo ''"hello"''"there"
 export ch=ch
 echo e"$ch"o										
-echo "hello $USER"$TERM" more"
-echo "hello $USER'$TERM' more"						[1] Valgrind LEAK
-
+echo "hello $USER"$TERM" more"						
+echo "hello $USER'$TERM' more"						
 
 === BUILTINS ===
 export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8 I=9 J=10		
@@ -72,7 +72,7 @@ export @
 export 1											
 echo "hello $A $A"
 export A=1 NEW=you B=2
-echo "Hello $NEW, copy $A $B"
+echo "Hello $NEW, copy $A $B"						Incorrect output: after export, $NEW, does not print out because , -> part of KEY
 cd -
 cd Deskto (invalid dir)
 cd Makefile (a file, no dir)

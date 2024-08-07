@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/27 13:51:07 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/01 14:55:38 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 // ===== [ includes ] =====
 # include "libft/includes/libft.h"
+# include "../includes/libft/lib_vector/vector.h"
 # include "error_messages.h"
 
 // ===== [ libraries ] =====
@@ -287,7 +288,7 @@ bool			should_add_files(t_token_type current_type, t_token_type type);
 t_cmd			*construct_redirects(t_cmd *cmd, t_parse *p, t_shell *shell);
 
 // parser_strip_quotes.c
-char			*new_strip_quotes(char *arg);
+bool			new_strip_quotes(char *arg, t_vec *vec, t_shell *shell);
 char			*strip_quote_for_type(char *arg);
 
 // parser_utils.c
@@ -417,17 +418,15 @@ void			rl_replace_line(const char *text, int clear_undo);
 
 //===============================================================: Expander
 // expander_utils.c
+void			skip_multiple_expand_chars(char *arg, size_t *i);
 int				count_expand(char *arg);
-bool			is_arg_key(char *arg, char *key);
-char			*expand_exit_code(char *arg, char *key, size_t i, \
-					t_shell *shell);
+bool			check_expand_char(char *arg);
+bool			expand_exit_code(t_vec *vec, t_shell *shell);
 
 // expander.c
-char			*will_expand(char **env, char *arg, t_shell *shell);
+bool			will_expand(char *arg, t_shell *shell, t_vec *vec);
 
 // get_env_key.c
-char			*skip_multiple_expand_chars(char *arg, size_t i, \
-					t_shell *shell);
 char			*get_env_key(char *arg, size_t i, t_shell *shell);
 
 //===============================================================: Utils

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/03 13:13:52 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/27 13:11:33 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_token	*token_constructor(char *split_input, int i, t_shell *shell)
 	token->value = split_input;
 	if (token->value == NULL)
 	{
-		show_error_message(E_MALLOC, shell, "safe_strdup token", X_FAILURE);
+		show_error(E_MALLOC, shell, "safe_strdup token", X_FAILURE);
 		return (NULL);
 	}
 	token->type = assign_type(token->value);
@@ -87,9 +87,9 @@ int	tokens_builder_manager(t_shell *shell)
 int	shell_lexer(t_shell *shell)
 {
 	if (validate_operators(shell->input) == FAILURE)
-		return (show_error_message(E_OPERATOR, shell, "", X_FAILURE));
+		return (show_error(E_OPERATOR, shell, "", X_FAILURE));
 	if (validate_quotes(shell) == FAILURE)
-		return (show_error_message(E_QUOTE, shell, "", X_FAILURE));
+		return (show_error(E_QUOTE, shell, "", X_FAILURE));
 	if (tokens_builder_manager(shell) == SUCCESS)
 		return (print_tokens(shell));
 	return (FAILURE);

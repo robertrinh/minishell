@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/28 12:35:51 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/21 17:34:08 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static t_validation	close_out_files(t_cmd *cmd, t_shell *shell)
 		if (fd_curr->fd == -1)
 			validation = FAILURE;
 		if (close_fds(fd_curr->fd, -1, -1) == false)
-			show_error_message(E_CLOSE, shell, "fd_out", X_FAILURE);
+			show_error(E_CLOSE, shell, "fd_out", X_FAILURE);
 		fd_curr = fd_curr->next;
 	}
 	return (validation);
@@ -64,7 +64,7 @@ t_validation	redirect_out(t_cmd *cmd, t_shell *shell)
 	if (fd > 0)
 	{
 		if (dup2(fd, STDOUT_FILENO) < 0)
-			show_error_message(E_DUP, shell, "", X_FAILURE);
+			show_error(E_DUP, shell, "", X_FAILURE);
 	}
 	else
 	{
@@ -72,7 +72,7 @@ t_validation	redirect_out(t_cmd *cmd, t_shell *shell)
 		if (dev_null_fd >= 0)
 		{
 			if (dup2(dev_null_fd, STDOUT_FILENO) < 0)
-				show_error_message(E_DUP, shell, "", X_FAILURE);
+				show_error(E_DUP, shell, "", X_FAILURE);
 			cmd->fd_out->fd = dev_null_fd;
 		}
 	}

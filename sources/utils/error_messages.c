@@ -6,13 +6,13 @@
 /*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/10 17:49:51 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/06/21 18:33:38 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	show_error_message(char *error, t_shell *shell, char *arg, int exit_code)
+int	show_error(char *error, t_shell *shell, char *arg, int exit_code)
 {
 	write(STDERR_FILENO, C_RED, ft_strlen(C_RED));
 	write(STDERR_FILENO, "[minishell]: ", 13);
