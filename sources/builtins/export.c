@@ -40,7 +40,7 @@ static void	add_new_arg(t_shell *shell, char *arg)
 
 	i = 0;
 	count = count_lines_from(shell->envp, 0);
-	new_env = ft_realloc(shell->envp, (count + 2) * sizeof(char *));
+	new_env = safe_malloc((count + 2) * sizeof(char *), shell);
 	if (new_env == NULL)
 	{
 		show_error(E_MALLOC, shell, "", X_FAILURE);
