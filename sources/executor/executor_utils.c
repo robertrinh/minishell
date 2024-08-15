@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/22 19:43:07 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/26 13:54:59 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/08/15 15:58:29 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ bool	close_fds(int fd1, int fd2, int fd3)
 
 static bool	absolute_check(t_cmd *cmd, t_shell *shell)
 {
+	if (cmd->value == NULL)
+		return (SUCCESS);
 	if (access(cmd->value, X_OK | F_OK) == 0)
 	{
 		cmd->cmd_path = safe_strdup(cmd->value, shell);
