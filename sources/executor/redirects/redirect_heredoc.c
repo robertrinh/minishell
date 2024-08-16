@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/25 11:15:17 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/08/15 15:41:39 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/16 15:39:22 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	perform_heredoc(int fd, t_redirect *heredoc, t_shell *shell)
 			return (1);
 		}
 		print = safe_strjoin(line, "\n", shell);
-		write(fd, print, ft_strlen(line));
+		write(fd, print, ft_strlen(print));
 		free(line);
 		free(print);
 	}

@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 10:13:21 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/08/02 21:15:37 by robertrinh    ########   odam.nl         */
+/*   Updated: 2024/08/16 16:30:28 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ int	parser_post_process(t_shell *shell)
 			return (show_error(E_MALLOC, shell, "vec args", X_FAILURE));
 		i++;
 	}
+	should_patch_command(shell);
 	return (0);
 }

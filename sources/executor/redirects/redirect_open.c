@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/23 15:04:57 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/08/15 15:22:50 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/16 16:27:32 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	safe_open(char *path, t_redirect_type oflag, int mode, t_shell *shell)
 		mode = 0644;
 	fd = STDIN_FILENO;
 	fd = open(path, oflag, mode);
-	// if (shell->cmd_table->cmds[0]->value == NULL)
-	// 	return (show_error(E_NO_FILE_DIR, shell, path, X_FAILURE)); // ! < track which command
 	if (access(path, R_OK) == -1)
 	{
 		show_error(E_DENY, shell, path, X_FAILURE);
