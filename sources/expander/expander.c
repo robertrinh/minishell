@@ -6,11 +6,17 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/16 11:15:41 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/16 16:50:04 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static bool should_push_one_char(char *arg, t_vec *vec, size_t *i)
+{
+	(*i) += 1;
+	return (ft_vec_push(vec, arg[*i]), SUCCESS);
+}
 
 static bool	expand_arg(char *arg, t_shell *shell, t_vec *vec, size_t *i)
 {
@@ -18,7 +24,7 @@ static bool	expand_arg(char *arg, t_shell *shell, t_vec *vec, size_t *i)
 	char	*value;
 
 	if (ft_strlen(arg) == 1)
-		return (ft_vec_push(vec, arg[*i]), SUCCESS);
+		return (should_push_one_char(arg, vec, i));
 	key = get_env_key(arg, *i, shell);
 	if (key[0] == '?')
 	{
