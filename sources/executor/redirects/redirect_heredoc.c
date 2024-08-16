@@ -6,7 +6,7 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/25 11:15:17 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/21 18:30:02 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/16 15:39:22 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static bool	is_eof(char *line, char *eof)
 static int	perform_heredoc(int fd, t_redirect *heredoc, t_shell *shell)
 {
 	char	*line;
+	char	*print;
 
 	while (1)
 	{
@@ -42,9 +43,10 @@ static int	perform_heredoc(int fd, t_redirect *heredoc, t_shell *shell)
 				free(line);
 			return (1);
 		}
-		line = ft_strjoin(line, "\n");
-		write(fd, line, ft_strlen(line));
+		print = safe_strjoin(line, "\n", shell);
+		write(fd, print, ft_strlen(print));
 		free(line);
+		free(print);
 	}
 	return (0);
 }
