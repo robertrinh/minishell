@@ -6,13 +6,11 @@
 /*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/23 21:54:16 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/08/15 15:08:17 by qtrinh        ########   odam.nl         */
+/*   Updated: 2024/08/16 16:51:22 by qtrinh        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// ! $ as cmd
 
 void	skip_multiple_expand_chars(char *arg, size_t *i)
 {
@@ -21,8 +19,6 @@ void	skip_multiple_expand_chars(char *arg, size_t *i)
 	start = *i;
 	while (arg[*i] == EXPAND_CHAR)
 		(*i)++;
-	// if (count_expand(arg) == 1)
-	// 	(*i)--;
 	if (*i > start)
 		(*i)--;
 }
