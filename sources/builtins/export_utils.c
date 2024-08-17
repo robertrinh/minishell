@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   export_utils.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/05/31 16:57:57 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/05/31 16:58:44 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   export_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/31 16:57:57 by qtrinh            #+#    #+#             */
+/*   Updated: 2024/08/17 20:54:59 by quentin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ static int	count_delimiters(const char *arg, char delimiter)
 	return (delimiter_count);
 }
 
+/*
+	Allows only alphabetical characters in export key
+*/
 static bool	is_valid_export_key(const char *arg)
 {
 	int	i;
@@ -47,6 +50,29 @@ static bool	is_valid_export_key(const char *arg)
 	return (false);
 }
 
+/*
+	Does not allow spaces in export value
+*/
+static bool is_valid_export_value(const char *arg)
+{
+	int	i;
+	
+	i = 0;
+	while (arg[i])
+	{
+		if (arg[i] == EXPORT_DELIMITER)
+			break ;
+		i++;
+	}
+	while (arg[i])
+	{
+		if (is_white_space(arg[i]))
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
 bool	is_valid_export_arg(const char *arg)
 {
 	if (arg == NULL)
@@ -56,6 +82,8 @@ bool	is_valid_export_arg(const char *arg)
 	if (count_delimiters(arg, EXPORT_DELIMITER) > 1)
 		return (false);
 	if (is_valid_export_key(arg) == false)
+		return (false);
+	if (is_valid_export_value(arg) == false)
 		return (false);
 	return (true);
 }

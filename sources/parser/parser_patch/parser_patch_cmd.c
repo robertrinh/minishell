@@ -6,7 +6,7 @@
 /*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 15:16:26 by quentin           #+#    #+#             */
-/*   Updated: 2024/08/17 15:16:29 by quentin          ###   ########.fr       */
+/*   Updated: 2024/08/17 22:05:28 by quentin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ static bool	patch_args(t_shell *shell, t_cmd *cmd)
 }
 
 /*
-	Returns a copy of the first arg
-	!! Uses dup
+	Returns a malloced copy of the first arg.
 */
 static char	*first_arg(t_shell *shell, t_cmd *cmd)
 {
@@ -68,8 +67,8 @@ static bool	patch_command(t_shell *shell, t_cmd *cmd)
 }
 
 /*
-	Used to patch a command in with the command value
-	was not correctly assigned while parsing.
+	If a command begins with an operator, command value is not set.
+	should_patch_command will set the first valit arg to the command value/
 */
 bool	should_patch_command(t_shell *shell)
 {

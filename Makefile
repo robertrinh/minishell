@@ -6,7 +6,7 @@
 #    By: quentin <quentin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk       #+#    #+#              #
-#    Updated: 2024/08/17 15:28:02 by quentin          ###   ########.fr        #
+#    Updated: 2024/08/17 21:23:05 by quentin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,10 @@ SOURCES_LEXER 			= assign_type.c \
 							post_lexer.c \
 							validate_operators.c
 
-SOURCES_LEXER_SPLIT	 	= split.c \
+SOURCES_LEXER_SPLIT	 	= allocate_strings.c \
+							split_handle_export_args.c \
 							split_utils.c \
-							allocate_strings.c
+							split.c
 
 SOURCES_LEXER_QUOTE		= quote.c \
 							buffer_quote.c
