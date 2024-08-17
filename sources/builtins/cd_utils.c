@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cd_utils.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/05/30 16:09:22 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cd_utils.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/30 16:09:22 by qtrinh            #+#    #+#             */
+/*   Updated: 2024/08/17 13:05:13 by quentin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	update_env(t_shell *shell)
 
 void	cd_error(char *path, t_cmd *cmd, t_shell *shell)
 {
-	if (access(path, F_OK && X_OK) == -1)
+	// ! Revert changes
+	if (1)
 		show_error(E_NO_FILE_DIR, shell, cmd->args[0], X_FAILURE);
 	else if (access(path, R_OK) == -1)
 		show_error(E_DENY, shell, cmd->args[0], X_FAILURE);

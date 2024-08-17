@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser_should_patch.c                              :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/08/16 15:13:25 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/08/16 16:29:55 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser_patch_cmd.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/17 15:16:26 by quentin           #+#    #+#             */
+/*   Updated: 2024/08/17 15:16:29 by quentin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 static bool	patch_args(t_shell *shell, t_cmd *cmd)
 {
@@ -67,6 +67,10 @@ static bool	patch_command(t_shell *shell, t_cmd *cmd)
 	return (SUCCESS);
 }
 
+/*
+	Used to patch a command in with the command value
+	was not correctly assigned while parsing.
+*/
 bool	should_patch_command(t_shell *shell)
 {
 	t_cmd	**cmds;

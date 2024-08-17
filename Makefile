@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: qbeukelm <qbeukelm@student.42.fr>            +#+                      #
-#                                                    +#+                       #
-#    Created: 2023/12/03 13:06:57 by quentinbeuk   #+#    #+#                  #
-#    Updated: 2024/08/16 15:13:16 by qtrinh        ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: quentin <quentin@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/12/03 13:06:57 by quentinbeuk       #+#    #+#              #
+#    Updated: 2024/08/17 15:28:02 by quentin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,10 +40,12 @@ SOURCES_PARSER			=  parser_checks.c \
 							parser_post_process.c \
 							parser_redirects_utils.c \
 							parser_redirects.c \
-							parser_should_patch.c \
 							parser_strip_quotes.c \
 							parser_utils.c \
 							parser.c
+
+SOURCES_PARSER_PATCH	= parser_patch_cmd.c \
+							parser_patch_export.c
 
 SOURCES_UTILS			= control_utils.c \
 							env_utils.c \
@@ -104,6 +106,7 @@ DIR_SOURCES_LEXER		= sources/lexer
 DIR_SOURCES_LEXER_SPLIT = sources/lexer/split
 DIR_SOURCES_LEXER_QUOTE = sources/lexer/quote
 DIR_SOURCES_PARSER		= sources/parser
+DIR_SOURCES_PARSER_PATCH	= sources/parser/parser_patch
 DIR_SOURCES_UTILS		= sources/utils
 DIR_SOURCES_EXECUTOR	= sources/executor
 DIR_SOURCES_BUILTINS	= sources/builtins
@@ -121,6 +124,7 @@ OBJ = $(addprefix $(DIR_OBJ)/, $(SOURCES:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_LEXER_SPLIT:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_LEXER_QUOTE:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_PARSER:.c=.o)) \
+	$(addprefix $(DIR_OBJ)/, $(SOURCES_PARSER_PATCH:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_UTILS:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_EXECUTOR:.c=.o)) \
 	$(addprefix $(DIR_OBJ)/, $(SOURCES_BUILTINS:.c=.o)) \
@@ -138,7 +142,7 @@ LIBFT				= includes/libft
 
 # ===== Compile =====
 CC 					= cc
-CFLAGS 				= -Wall -Werror -Wextra -g #-fsanitize=address
+CFLAGS 				= # -Wall -Werror -Wextra -g #-fsanitize=address
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
@@ -176,6 +180,9 @@ $(DIR_OBJ)/%.o: $(DIR_SOURCES_LEXER_QUOTE)/%.c | $(DIR_OBJ)
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES_PARSER)/%.c | $(DIR_OBJ)
+	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
+
+$(DIR_OBJ)/%.o: $(DIR_SOURCES_PARSER_PATCH)/%.c | $(DIR_OBJ)
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 $(DIR_OBJ)/%.o: $(DIR_SOURCES_UTILS)/%.c | $(DIR_OBJ)

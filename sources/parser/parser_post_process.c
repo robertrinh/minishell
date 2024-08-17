@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser_post_process.c                              :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/03/16 10:13:21 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/08/16 16:30:28 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser_post_process.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/16 10:13:21 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/08/17 15:19:51 by quentin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,6 @@ int	parser_post_process(t_shell *shell)
 		i++;
 	}
 	should_patch_command(shell);
+	should_patch_expot(shell);
 	return (0);
 }

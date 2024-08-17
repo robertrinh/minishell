@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/03 13:15:00 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/08/16 15:14:06 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/08/17 15:19:07 by quentin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,9 +287,6 @@ bool			should_add_files(t_token_type current_type, t_token_type type);
 // parser_redirects.c
 t_cmd			*construct_redirects(t_cmd *cmd, t_parse *p, t_shell *shell);
 
-// parser_should_patch.c
-bool			should_patch_command(t_shell *shell);
-
 // parser_strip_quotes.c
 bool			new_strip_quotes(char *arg, t_vec *vec, t_shell *shell);
 char			*strip_quote_for_type(char *arg);
@@ -299,6 +296,14 @@ t_parse			*init_parse(t_shell *shell);
 t_cmd			*allocate_cmd(t_shell *shell);
 t_token			*locate_current_token(t_parse *p);
 t_token			*locate_pipe_n(t_token *tokens_root, int pipe_count);
+
+// ----------------------------------- parser/parser/patch
+// parser_patch_cmd.c
+bool			should_patch_command(t_shell *shell);
+
+// parser_patch_export.c
+bool			should_patch_expot(t_shell *shell);
+
 
 //===============================================================: Executor
 // executor_enviroment.c
