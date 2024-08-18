@@ -6,7 +6,7 @@
 /*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 13:01:10 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/08/17 21:51:48 by quentin          ###   ########.fr       */
+/*   Updated: 2024/08/18 12:25:45 by quentin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	**allocate_strings_split(t_split *sp, t_shell *shell)
 	{
 		if (split_allocate_buffer(shell, sp) == false)
 			return (FAILURE);
-		if (interpret_whitespace(shell, sp) == FAILURE)
+		if (interpret_whitespace(sp) == FAILURE)
 			return (FAILURE);
 		sp = handle_substrings(sp, shell);
 		if (sp == NULL)

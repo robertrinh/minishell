@@ -6,14 +6,14 @@
 /*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 21:18:16 by quentin           #+#    #+#             */
-/*   Updated: 2024/08/17 21:51:19 by quentin          ###   ########.fr       */
+/*   Updated: 2024/08/18 12:25:32 by quentin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 # define EXPORT_STRING "export"
 
-bool	interpret_whitespace(t_shell *shell, t_split *sp)
+bool	interpret_whitespace(t_split *sp)
 {
 	sp->i_before = sp->i;
 	sp->i = skip_whitespace(sp);

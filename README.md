@@ -7,9 +7,8 @@
 sudo apt install libreadline-dev
 
 # run valgrind
-valgrind --leak-check=full --track-origins=yes  ./minishell
-clear && make re && valgrind --leak-check=full --track-origins=yes  ./minishell
+make valgrind
 
 # show reachable blocks
-clear && make re && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes  ./minishell
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes  ./minishell
 ```

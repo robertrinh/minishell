@@ -6,7 +6,7 @@
 #    By: quentin <quentin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk       #+#    #+#              #
-#    Updated: 2024/08/17 21:23:05 by quentin          ###   ########.fr        #
+#    Updated: 2024/08/18 12:24:48 by quentin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -143,7 +143,7 @@ LIBFT				= includes/libft
 
 # ===== Compile =====
 CC 					= cc
-CFLAGS 				= # -Wall -Werror -Wextra -g #-fsanitize=address
+CFLAGS 				= -Wall -Werror -Wextra -g #-fsanitize=address
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
@@ -215,6 +215,11 @@ $(DIR_OBJ)/%.o: $(DIR_SOURCES_EXPANDER)/%.c | $(DIR_OBJ)
 
 $(DIR_OBJ):
 	@mkdir -p $@
+
+
+# ===== Valgrind =====
+valgrind:
+	valgrind --leak-check=full --track-origins=yes  ./minishell
 
 
 # ===== Clean =====

@@ -6,7 +6,7 @@
 /*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 15:16:34 by quentin           #+#    #+#             */
-/*   Updated: 2024/08/17 22:03:02 by quentin          ###   ########.fr       */
+/*   Updated: 2024/08/18 12:28:51 by quentin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static bool join_export_args(t_shell *shell, t_cmd *cmd)
 {
     int     i;
     char    **buffer;
+    char    *joind_buffers;
 
     i = 0;
     buffer = safe_malloc((sizeof(char *) * 2), shell);
@@ -24,10 +25,11 @@ static bool join_export_args(t_shell *shell, t_cmd *cmd)
     i++;
     while (i < cmd->arg_count)
     {
-        buffer[0] = ft_strjoin(buffer[0], cmd->args[i]);
+        joind_buffers = ft_strjoin(buffer[0], cmd->args[i]);
+        free (buffer[0]);
+        buffer[0] = joind_buffers;
         i++;
     }
-
     free_2d_array(cmd->args);
     cmd->args = buffer;
     cmd->arg_count = 1;
@@ -36,7 +38,7 @@ static bool join_export_args(t_shell *shell, t_cmd *cmd)
 
 static bool will_joing_export_args(t_shell *shell, t_cmd *cmd)
 {
-    int     export_len;
+    size_t     export_len;
 
     export_len = ft_strlen(EXPORT_STRING);
     if (ft_strlen(cmd->value) != export_len)
