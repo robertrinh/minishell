@@ -6,7 +6,7 @@
 /*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/08/18 12:25:37 by quentin          ###   ########.fr       */
+/*   Updated: 2024/08/18 12:43:54 by quentin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,6 +266,7 @@ char			**allocate_strings_split(t_split *sp, t_shell *shell);
 bool			interpret_whitespace(t_split *sp);
 bool			is_export(char *buffer);
 bool			will_add_spaces(t_shell *shell, t_split *sp, size_t space_count);
+bool			has_multiple_export_delimiters(t_split *sp);
 bool			should_handle_export(t_shell *shell, t_split *sp);
 
 // split_utils.c

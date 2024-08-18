@@ -6,7 +6,7 @@
 /*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 15:16:34 by quentin           #+#    #+#             */
-/*   Updated: 2024/08/18 12:28:51 by quentin          ###   ########.fr       */
+/*   Updated: 2024/08/18 12:55:09 by quentin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,28 @@ static bool join_export_args(t_shell *shell, t_cmd *cmd)
     return (SUCCESS);
 }
 
+/*
+	Do not merge export args if there are meant to be
+	multiple args. i.e. "export a=1 b=2"
+*/
+static bool contains_multiple_export_dilimiters(t_cmd *cmd)
+{
+    int     i;
+    int     delimiter_count;
+
+    i = 0;
+    delimiter_count = 0;
+    while (i < cmd->arg_count)
+    {
+        if (ft_strrchr(cmd->args[i], EXPORT_DELIMITER))
+            delimiter_count++;
+        i++;
+    }
+    if (delimiter_count > 1)
+        return (true);
+    return (false);
+}
+
 static bool will_joing_export_args(t_shell *shell, t_cmd *cmd)
 {
     size_t     export_len;
@@ -45,6 +67,8 @@ static bool will_joing_export_args(t_shell *shell, t_cmd *cmd)
         return (FAILURE);
     if (ft_strncmp(cmd->value, EXPORT_STRING, ft_strlen(EXPORT_STRING)) == 0)
     {
+        if (contains_multiple_export_dilimiters(cmd))
+            return (SUCCESS);
         join_export_args(shell, cmd);
         return (SUCCESS);
     }

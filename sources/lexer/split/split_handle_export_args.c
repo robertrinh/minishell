@@ -6,7 +6,7 @@
 /*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 21:18:16 by quentin           #+#    #+#             */
-/*   Updated: 2024/08/18 12:25:32 by quentin          ###   ########.fr       */
+/*   Updated: 2024/08/18 12:55:15 by quentin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,30 @@ bool will_add_spaces(t_shell *shell, t_split *sp, size_t space_count)
 }
 
 /*
+	Do not add spaces to export args if there are meant to be
+	multiple args. i.e. "export a=1 b=2"
+*/
+bool has_multiple_export_delimiters(t_split *sp)
+{
+	int		i;
+	int		delimiter_count;
+
+	i = 0;
+	delimiter_count = 0;
+	while (i < sp->len)
+	{
+		if (sp->input[i] == EXPORT_DELIMITER)
+			delimiter_count++;
+		i++;
+	}
+	if (delimiter_count > 1)
+		return (true);
+	return (false);
+}
+
+/*
     Adds spaces back into args following export.
-    Split tries to skip these spaces.
+    Split tries to skip these spaces. i.e. "export a=   1"
 */
 bool should_handle_export(t_shell *shell, t_split *sp)
 {

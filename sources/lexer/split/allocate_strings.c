@@ -6,7 +6,7 @@
 /*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 13:01:10 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/08/18 12:25:45 by quentin          ###   ########.fr       */
+/*   Updated: 2024/08/18 12:44:44 by quentin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,9 @@ char	**allocate_strings_split(t_split *sp, t_shell *shell)
 		sp = handle_substrings(sp, shell);
 		if (sp == NULL)
 			return (NULL);
-		if (should_handle_export(shell, sp) == FAILURE)
-			return (FAILURE);
+		if (has_multiple_export_delimiters(sp) == false)
+			if (should_handle_export(shell, sp) == FAILURE)
+				return (FAILURE);
 		sp->strings = allocate_substrings(sp);
 	}
 	sp->strings[sp->i_str] = 0;
