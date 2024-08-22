@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   allocate_strings.c                                 :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/01/07 13:01:10 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   allocate_strings.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/07 13:01:10 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/08/18 12:44:44 by quentin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,24 +73,33 @@ static t_split	*handle_substrings(t_split *sp, t_shell *shell)
 	return (sp);
 }
 
+static bool split_allocate_buffer(t_shell *shell, t_split *sp)
+{
+	sp->buffer = safe_calloc(sizeof(char), BUFF_SIZE, shell);
+	if (sp->buffer == NULL)
+	{
+		free_split(sp);
+		show_error(E_MALLOC, shell, "split", X_FAILURE);
+		return (false);
+	}
+	return (true);
+}
+
 char	**allocate_strings_split(t_split *sp, t_shell *shell)
 {
 	sp->i = 0;
 	while (sp->i < sp->len)
 	{
-		sp->buffer = safe_calloc(sizeof(char), BUFF_SIZE, shell);
-		if (sp->buffer == NULL)
-		{
-			free_split(sp);
-			show_error(E_MALLOC, shell, "split", X_FAILURE);
-			return (NULL);
-		}
-		sp->i = skip_whitespace(sp);
-		sp->i_buff = 0;
+		if (split_allocate_buffer(shell, sp) == false)
+			return (FAILURE);
+		if (interpret_whitespace(sp) == FAILURE)
+			return (FAILURE);
 		sp = handle_substrings(sp, shell);
 		if (sp == NULL)
 			return (NULL);
-		sp->buffer[sp->i_buff] = 0;
+		if (has_multiple_export_delimiters(sp) == false)
+			if (should_handle_export(shell, sp) == FAILURE)
+				return (FAILURE);
 		sp->strings = allocate_substrings(sp);
 	}
 	sp->strings[sp->i_str] = 0;

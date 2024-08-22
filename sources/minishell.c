@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/03 13:13:49 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/06/23 18:20:39 by robertrinh    ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/03 13:13:49 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/08/21 13:39:48 by quentin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_signal = 0;
 
-static void	signal_check(t_shell *shell)
+static void	shell_signal_check(t_shell *shell)
 {
 	if (g_signal == SIGINT)
 	{
@@ -51,7 +51,7 @@ static bool	shell_run(t_shell *shell)
 	{
 		handle_signals(PARENT);
 		shell_retrieve_command(shell);
-		signal_check(shell);
+		shell_signal_check(shell);
 		if (is_valid_input(shell))
 			if (shell_lexer(shell))
 				if (shell_parser(shell))

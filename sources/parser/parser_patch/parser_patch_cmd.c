@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser_should_patch.c                              :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/08/16 15:13:25 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/08/16 16:29:55 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser_patch_cmd.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/17 15:16:26 by quentin           #+#    #+#             */
+/*   Updated: 2024/08/17 22:05:28 by quentin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 static bool	patch_args(t_shell *shell, t_cmd *cmd)
 {
@@ -38,8 +38,7 @@ static bool	patch_args(t_shell *shell, t_cmd *cmd)
 }
 
 /*
-	Returns a copy of the first arg
-	!! Uses dup
+	Returns a malloced copy of the first arg.
 */
 static char	*first_arg(t_shell *shell, t_cmd *cmd)
 {
@@ -67,6 +66,10 @@ static bool	patch_command(t_shell *shell, t_cmd *cmd)
 	return (SUCCESS);
 }
 
+/*
+	If a command begins with an operator, command value is not set.
+	should_patch_command will set the first valit arg to the command value/
+*/
 bool	should_patch_command(t_shell *shell)
 {
 	t_cmd	**cmds;

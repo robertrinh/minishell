@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   split_utils.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qtrinh <qtrinh@student.codam.nl>             +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/01/17 15:59:08 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/06/27 12:13:42 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   split_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/17 15:59:08 by qtrinh            #+#    #+#             */
+/*   Updated: 2024/08/17 21:10:30 by quentin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ t_split	*init_split(t_shell *shell, t_split *split)
 	split->count = 0;
 	split->i_buff = 0;
 	split->i_str = 0;
+	split->i_before = 0;
+	split->curr_export_arg = 0;
+	split->space_count = 0;
+	split->is_export = false;
 	split->strings = 0;
 	return (split);
 }
