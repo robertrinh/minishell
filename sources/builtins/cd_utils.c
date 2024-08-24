@@ -6,7 +6,7 @@
 /*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 16:09:22 by qtrinh            #+#    #+#             */
-/*   Updated: 2024/08/18 13:03:32 by quentin          ###   ########.fr       */
+/*   Updated: 2024/08/24 12:37:28 by quentin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ void	update_env(t_shell *shell)
 
 void	cd_error(char *path, t_cmd *cmd, t_shell *shell)
 {
-	if (access(path, F_OK && X_OK) == -1)
+	int		privileges;
+
+	privileges = access(path, F_OK) + access(path, X_OK);
+	if (privileges == -1)
 		show_error(E_NO_FILE_DIR, shell, cmd->args[0], X_FAILURE);
 	else if (access(path, R_OK) == -1)
 		show_error(E_DENY, shell, cmd->args[0], X_FAILURE);
