@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 16:09:22 by qtrinh            #+#    #+#             */
-/*   Updated: 2024/08/24 12:37:28 by quentin          ###   ########.fr       */
+/*   Updated: 2024/09/02 12:19:38 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	cd_error(char *path, t_cmd *cmd, t_shell *shell)
 	int		privileges;
 
 	privileges = access(path, F_OK) + access(path, X_OK);
-	if (privileges == -1)
+	if (privileges < 0)
 		show_error(E_NO_FILE_DIR, shell, cmd->args[0], X_FAILURE);
 	else if (access(path, R_OK) == -1)
 		show_error(E_DENY, shell, cmd->args[0], X_FAILURE);
