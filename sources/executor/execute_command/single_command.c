@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   single_command.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/02 14:28:14 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   single_command.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/02 14:28:14 by qbeukelm          #+#    #+#             */
+/*   Updated: 2024/09/02 13:28:01 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ t_validation	child_process(t_shell *shell)
 	cmd = shell->cmd_table->cmds[0];
 	if (assign_out_redirects(cmd, shell) == SUCCESS)
 	{
-		if (is_builtin(shell->builtin_child, cmd, B_NUM_CHILD))
-			exec_builtin(shell->builtin_child, cmd, shell, B_NUM_CHILD);
+		if (is_child_builtin(cmd->value))
+			exec_builtin(shell, cmd);
 		else
 		{
 			prepare_command(shell, 0);

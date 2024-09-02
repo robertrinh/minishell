@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:57:57 by qtrinh            #+#    #+#             */
-/*   Updated: 2024/08/17 20:54:59 by quentin          ###   ########.fr       */
+/*   Updated: 2024/09/02 14:02:08 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ static bool	is_valid_export_key(const char *arg)
 /*
 	Does not allow spaces in export value
 */
-static bool is_valid_export_value(const char *arg)
+static bool	is_valid_export_value(const char *arg)
 {
 	int	i;
-	
+
 	i = 0;
 	while (arg[i])
 	{

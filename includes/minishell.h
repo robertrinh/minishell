@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 13:15:00 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/08/18 12:43:54 by quentin          ###   ########.fr       */
+/*   Updated: 2024/09/02 14:00:39 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "libft/includes/libft.h"
 # include "../includes/libft/lib_vector/vector.h"
 # include "error_messages.h"
+# include "builtins.h"
 
 // ===== [ libraries ] =====
 # include <stdio.h>
@@ -173,9 +174,6 @@ typedef struct s_cmd_table
 	int			cmd_count;
 }	t_cmd_table;
 
-typedef struct s_builtin \
-		t_builtin;
-
 typedef struct s_shell
 {
 	t_split				*split;
@@ -188,15 +186,7 @@ typedef struct s_shell
 	bool				print_output;
 	int					original_stdin;
 	int					exit_code;
-	t_builtin			*builtin_main;
-	t_builtin			*builtin_child;
 }	t_shell;
-
-typedef struct s_builtin
-{
-	char	*name;
-	int		(*function)(t_cmd*, t_shell*);
-}	t_builtin;
 
 typedef struct s_parse
 {
@@ -262,10 +252,14 @@ void			buffer_quote(t_split *sp, int quote_type);
 // allocate_strings.c
 char			**allocate_strings_split(t_split *sp, t_shell *shell);
 
+// split_handle_export_args_utils.c
+void			did_add_spaces(size_t *i, size_t space_count, char *buffer);
+
 // split_handle_export_args.c
 bool			interpret_whitespace(t_split *sp);
 bool			is_export(char *buffer);
-bool			will_add_spaces(t_shell *shell, t_split *sp, size_t space_count);
+bool			will_add_spaces(t_shell *shell, t_split *sp, \
+	size_t space_count);
 bool			has_multiple_export_delimiters(t_split *sp);
 bool			should_handle_export(t_shell *shell, t_split *sp);
 
@@ -313,8 +307,7 @@ t_token			*locate_pipe_n(t_token *tokens_root, int pipe_count);
 bool			should_patch_command(t_shell *shell);
 
 // parser_patch_export.c
-bool			should_patch_expot(t_shell *shell);
-
+bool			should_patch_export(t_shell *shell);
 
 //===============================================================: Executor
 // executor_enviroment.c
@@ -336,11 +329,9 @@ int				shell_execute(t_shell *shell);
 // ----------------------------------- executor/builtins
 
 // builtins.c
-t_shell			*init_main_builtins(t_shell *shell);
-t_shell			*init_child_builtins(t_shell *shell);
-bool			is_builtin(t_builtin *table, t_cmd *cmd, int num);
-int				exec_builtin(t_builtin *table, t_cmd *cmd, \
-				t_shell *shell, int num);
+bool			is_main_builtin(char *cmd_value);
+bool			is_child_builtin(char *cmd_value);
+int				exec_builtin(t_shell *shell, t_cmd *cmd);
 
 // cd_utils.c
 void			update_env(t_shell *shell);

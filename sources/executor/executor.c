@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   executor.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/02/02 19:16:50 by qbeukelm      #+#    #+#                 */
-/*   Updated: 2024/06/21 18:24:49 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   executor.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/02 19:16:50 by qbeukelm          #+#    #+#             */
+/*   Updated: 2024/09/02 13:27:46 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	shell_execute(t_shell *shell)
 	if (shell->cmd_table->cmd_count == 1)
 	{
 		cmd = shell->cmd_table->cmds[0];
-		if (is_builtin(shell->builtin_main, cmd, B_NUM_MAIN))
+		if (is_main_builtin(cmd->value))
 			shell->exit_code = \
-				exec_builtin(shell->builtin_main, cmd, shell, B_NUM_MAIN);
+				exec_builtin(shell, cmd);
 		else
 			shell->exit_code = single_command(shell);
 	}

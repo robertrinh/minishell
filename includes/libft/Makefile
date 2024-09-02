@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: quentin <quentin@student.42.fr>            +#+  +:+       +#+         #
+#    By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/15 13:49:48 by quentinbeuk       #+#    #+#              #
-#    Updated: 2024/08/17 14:36:16 by quentin          ###   ########.fr        #
+#    Updated: 2024/09/02 14:18:13 by qbeukelm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,6 @@ LIB_STRING = ft_strlcpy.c \
 			ft_split.c \
 			ft_strtrim.c \
 			ft_str_insert.c \
-			ft_str_remove.c \
 			ft_str_remove_char.c \
 
 LIB_VECTOR = ft_vector_push.c \

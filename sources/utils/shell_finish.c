@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   shell_finish.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/05/23 16:15:55 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   shell_finish.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/23 16:15:55 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/09/02 13:30:43 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,6 @@ static void	free_shell_struct(t_shell *shell)
 	{
 		free_2d_array(shell->envp);
 		shell->envp = NULL;
-	}
-	if (shell->builtin_main)
-	{
-		free(shell->builtin_main);
-		shell->builtin_main = NULL;
-	}
-	if (shell->builtin_child)
-	{
-		free(shell->builtin_child);
-		shell->builtin_child = NULL;
 	}
 	exit_with_message(E_EOF_DESCRIPTOR, shell, EXIT_SUCCESS);
 	free(shell);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_post_process.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 10:13:21 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/08/17 15:19:51 by quentin          ###   ########.fr       */
+/*   Updated: 2024/09/02 13:56:29 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,6 @@ int	parser_post_process(t_shell *shell)
 		i++;
 	}
 	should_patch_command(shell);
-	should_patch_expot(shell);
+	should_patch_export(shell);
 	return (0);
 }

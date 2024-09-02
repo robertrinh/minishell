@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_patch_cmd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 15:16:26 by quentin           #+#    #+#             */
-/*   Updated: 2024/08/17 22:05:28 by quentin          ###   ########.fr       */
+/*   Updated: 2024/09/02 14:16:32 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static bool	patch_args(t_shell *shell, t_cmd *cmd)
 	i = 0;
 	j = 0;
 	if (cmd->arg_count < 1)
-		return (show_error(E_CMD_NOT_FOUND, shell, "PATH_ARG", X_FAILURE));
+		return (SUCCESS);
 	new_args = safe_malloc((cmd->arg_count) * sizeof(char *), shell);
 	while (i <= cmd->arg_count)
 	{
@@ -60,7 +60,7 @@ static bool	patch_command(t_shell *shell, t_cmd *cmd)
 	cmd_value = NULL;
 	cmd_value = first_arg(shell, cmd);
 	if (cmd_value == NULL)
-		return (show_error(E_CMD_NOT_FOUND, shell, "PATCH_CMD", EXIT_FAILURE));
+		return (SUCCESS);
 	else
 		cmd->value = cmd_value;
 	return (SUCCESS);
