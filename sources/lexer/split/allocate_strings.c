@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   allocate_strings.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: quentin <quentin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 13:01:10 by quentinbeuk       #+#    #+#             */
-/*   Updated: 2024/08/24 12:09:22 by quentin          ###   ########.fr       */
+/*   Updated: 2024/09/02 13:37:36 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static t_split	*handle_substrings(t_split *sp, t_shell *shell)
 	return (sp);
 }
 
-static bool split_allocate_buffer(t_shell *shell, t_split *sp)
+static bool	split_allocate_buffer(t_shell *shell, t_split *sp)
 {
 	sp->buffer = safe_calloc(sizeof(char), BUFF_SIZE, shell);
 	if (sp->buffer == NULL)

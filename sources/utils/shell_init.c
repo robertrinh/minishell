@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   shell_init.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qbeukelm <qbeukelm@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/12/14 14:04:02 by qtrinh        #+#    #+#                 */
-/*   Updated: 2024/07/19 19:20:01 by robertrinh    ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   shell_init.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/14 14:04:02 by qtrinh            #+#    #+#             */
+/*   Updated: 2024/09/02 13:30:30 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ t_shell	*construct_shell(t_shell *shell, char **envp, char **argv)
 	shell->envp = alloc_envp(envp, shell);
 	shell->original_stdin = dup(STDIN_FILENO);
 	shell->print_output = argv[1] && ft_strncmp(argv[1], PRINT_FLAG, 2) == 0;
-	shell = init_main_builtins(shell);
-	shell = init_child_builtins(shell);
 	return (shell);
 }
 

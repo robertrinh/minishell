@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   execute_pipe.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: quentinbeukelman <quentinbeukelman@stud      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/04/22 21:17:02 by quentinbeuk   #+#    #+#                 */
-/*   Updated: 2024/08/01 17:50:23 by qtrinh        ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   execute_pipe.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/22 21:17:02 by quentinbeuk       #+#    #+#             */
+/*   Updated: 2024/09/02 13:28:07 by qbeukelm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void	manage_execution(t_shell *shell, t_cmd *cmd)
 {
 	if (cmd->fd_out)
 		redirect_out(cmd, shell);
-	if (is_builtin(shell->builtin_main, cmd, B_NUM_MAIN))
-		exec_builtin(shell->builtin_main, cmd, shell, B_NUM_MAIN);
+	if (is_main_builtin(cmd->value))
+		exec_builtin(shell, cmd);
 	else
 		execute_piped_command(shell, cmd);
 }

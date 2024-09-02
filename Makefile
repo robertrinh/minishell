@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: quentin <quentin@student.42.fr>            +#+  +:+       +#+         #
+#    By: qbeukelm <qbeukelm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/03 13:06:57 by quentinbeuk       #+#    #+#              #
-#    Updated: 2024/08/18 12:24:48 by quentin          ###   ########.fr        #
+#    Updated: 2024/09/02 13:57:54 by qbeukelm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SOURCES_LEXER 			= assign_type.c \
 							validate_operators.c
 
 SOURCES_LEXER_SPLIT	 	= allocate_strings.c \
+							split_handle_export_args_utils.c \
 							split_handle_export_args.c \
 							split_utils.c \
 							split.c
@@ -143,7 +144,7 @@ LIBFT				= includes/libft
 
 # ===== Compile =====
 CC 					= cc
-CFLAGS 				= -Wall -Werror -Wextra -g #-fsanitize=address
+CFLAGS 				= #-Wall -Werror -Wextra -g #-fsanitize=address
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
