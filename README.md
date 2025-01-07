@@ -6,7 +6,7 @@
 
 # About
 
-As beautiful as a shell. Welcome to mininshell! This repository contains a GNU like operating system, inspired by bash.
+As beautiful as a shell. Welcome to minishell! This repository contains a GNU like operating system, inspired by bash.
 
 <br />
 
